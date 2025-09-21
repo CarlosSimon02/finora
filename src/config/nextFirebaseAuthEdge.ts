@@ -1,4 +1,4 @@
-import { normalizeNewLines } from "@/utils/normalizeNewLines";
+import { normalizeNewLines } from "@/utils";
 import { env } from "./env";
 
 export const serverConfig = {
