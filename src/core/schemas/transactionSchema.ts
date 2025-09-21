@@ -1,3 +1,7 @@
+import {
+  TRANSACTION_AMOUNT_DECIMALS_REGEX,
+  TRANSACTION_NAME_MAX_LENGTH,
+} from "@/core/constants";
 import { z } from "zod";
 import { isValidEmoji, validateOptionalHexColor } from "./helpers";
 import { createPaginationResponseSchema } from "./paginationSchema";
@@ -18,14 +22,17 @@ const baseTransactionSchema = z.object({
   name: z
     .string()
     .min(1, "Transaction name is required")
-    .max(100, "Transaction name must be less than 100 characters"),
+    .max(
+      TRANSACTION_NAME_MAX_LENGTH,
+      `Transaction name must be at most ${TRANSACTION_NAME_MAX_LENGTH} characters`
+    ),
   type: transactionTypeSchema,
   amount: z
     .number()
     .positive("Amount must be greater than 0")
     .finite("Amount must be a finite number")
     .refine(
-      (val) => /^\d+(\.\d{1,2})?$/.test(val.toString()),
+      (val) => TRANSACTION_AMOUNT_DECIMALS_REGEX.test(val.toString()),
       "Amount must have at most 2 decimal places"
     ),
   recipientOrPayer: z.string().nullable(),
