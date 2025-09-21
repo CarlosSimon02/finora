@@ -1,3 +1,8 @@
+import {
+  BUDGET_NAME_MAX_LENGTH,
+  BUDGET_SUMMARY_MAX_ITEMS,
+  BUDGET_TRANSACTION_PREVIEW_MAX_COUNT,
+} from "@/core/constants";
 import { z } from "zod";
 import { validateOptionalHexColor } from "./helpers";
 import { createPaginationResponseSchema } from "./paginationSchema";
@@ -7,7 +12,10 @@ export const createBudgetSchema = z.object({
   name: z
     .string()
     .min(1, "Budget name is required")
-    .max(50, "Budget name must be less than 50 characters"),
+    .max(
+      BUDGET_NAME_MAX_LENGTH,
+      `Budget name must be at most ${BUDGET_NAME_MAX_LENGTH} characters`
+    ),
   maximumSpending: z
     .number()
     .positive("Maximum spending must be greater than 0")
@@ -26,7 +34,7 @@ export const budgetSchema = createBudgetSchema.extend({
 });
 
 export const budgetSchemaWithTotalSpending = budgetSchema.extend({
-  totalSpending: z.number().max(0, "Spent cannot be positive"),
+  totalSpending: z.number().min(0, "Total spending must be non-negative"),
 });
 
 export const budgetWithTransactionsSchema =
@@ -46,6 +54,27 @@ export const budgetsSummarySchema = z.object({
   count: z.number().int().positive(),
   budgets: z.array(budgetSchemaWithTotalSpending),
 });
+
+export const budgetsSummaryParamsSchema = z.object({
+  maxBudgetsToShow: z
+    .number()
+    .int()
+    .min(1, "Max budgets to show must be greater than 0")
+    .max(
+      BUDGET_SUMMARY_MAX_ITEMS,
+      `Max budgets to show must be at most ${BUDGET_SUMMARY_MAX_ITEMS}`
+    )
+    .optional(),
+});
+
+export const budgetTransactionPreviewCountSchema = z
+  .number()
+  .int()
+  .min(1, "Transaction count must be greater than 0")
+  .max(
+    BUDGET_TRANSACTION_PREVIEW_MAX_COUNT,
+    `Transaction count must be at most ${BUDGET_TRANSACTION_PREVIEW_MAX_COUNT}`
+  );
 
 export type CreateBudgetDto = z.infer<typeof createBudgetSchema>;
 export type UpdateBudgetDto = z.infer<typeof updateBudgetSchema>;
