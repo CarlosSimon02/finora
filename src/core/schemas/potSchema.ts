@@ -1,3 +1,8 @@
+import {
+  POT_MONEY_OPERATION_MIN,
+  POT_NAME_MAX_LENGTH,
+  POT_TARGET_MIN,
+} from "@/core/constants";
 import { z } from "zod";
 import { validateOptionalHexColor } from "./helpers";
 import { createPaginationResponseSchema } from "./paginationSchema";
@@ -6,11 +11,16 @@ export const createPotSchema = z.object({
   name: z
     .string()
     .min(1, "Pot name is required")
-    .max(50, "Pot name must be less than 50 characters"),
+    .max(
+      POT_NAME_MAX_LENGTH,
+      `Pot name must be at most ${POT_NAME_MAX_LENGTH} characters`
+    ),
   colorTag: z.string().refine(validateOptionalHexColor, {
     message: "Color tag must be a valid hex color code (e.g., #FF5733)",
   }),
-  target: z.number().nonnegative("Target must be greater than 0"),
+  target: z
+    .number()
+    .min(POT_TARGET_MIN, `Target must be at least ${POT_TARGET_MIN}`),
 });
 
 export const updatePotSchema = createPotSchema.partial();
@@ -26,7 +36,12 @@ export const paginatedPotsResponseSchema =
   createPaginationResponseSchema(potSchema);
 
 export const moneyOperationSchema = z.object({
-  amount: z.number().positive("Amount must be greater than 0"),
+  amount: z
+    .number()
+    .min(
+      POT_MONEY_OPERATION_MIN,
+      `Amount must be at least ${POT_MONEY_OPERATION_MIN}`
+    ),
 });
 
 export type CreatePotDto = z.infer<typeof createPotSchema>;
