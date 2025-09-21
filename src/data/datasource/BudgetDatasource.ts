@@ -12,7 +12,7 @@ import {
   updateBudgetModelSchema,
 } from "@/data/models";
 import { validateOrThrow } from "@/data/utils/validation";
-import { hasKeys } from "@/utils";
+import { DatasourceError, hasKeys } from "@/utils";
 import { AggregateField } from "firebase-admin/firestore";
 
 export class BudgetDatasource {
@@ -21,80 +21,122 @@ export class BudgetDatasource {
   }
 
   async getById(userId: string, id: string): Promise<BudgetModel | null> {
-    const budgetCollection = this.getBudgetCollection(userId);
-    const budgetDoc = await budgetCollection.doc(id).get();
-    if (!budgetDoc.exists) {
-      return null;
+    try {
+      const budgetCollection = this.getBudgetCollection(userId);
+      const budgetDoc = await budgetCollection.doc(id).get();
+      if (!budgetDoc.exists) {
+        return null;
+      }
+
+      const budget = budgetDoc.data();
+      const validatedBudget = validateOrThrow(
+        budgetModelSchema,
+        budget,
+        "BudgetDatasource:read"
+      );
+
+      return validatedBudget;
+    } catch (e) {
+      if (e instanceof Error) {
+        throw new DatasourceError(`getById failed: ${e.message}`);
+      }
+      throw e;
     }
-
-    const budget = budgetDoc.data();
-    const validatedBudget = validateOrThrow(
-      budgetModelSchema,
-      budget,
-      "BudgetDatasource:read"
-    );
-
-    return validatedBudget;
   }
 
   async createOne(userId: string, data: CreateBudgetModel) {
-    const budgetCollection = this.getBudgetCollection(userId);
-    const validatedData = validateOrThrow(
-      createBudgetModelSchema,
-      data,
-      "BudgetDatasource:create"
-    );
-    const budgetDoc = budgetCollection.doc(validatedData.id);
-    await budgetDoc.set(validatedData);
+    try {
+      const budgetCollection = this.getBudgetCollection(userId);
+      const validatedData = validateOrThrow(
+        createBudgetModelSchema,
+        data,
+        "BudgetDatasource:create"
+      );
+      const budgetDoc = budgetCollection.doc(validatedData.id);
+      await budgetDoc.set(validatedData);
+    } catch (e) {
+      if (e instanceof Error) {
+        throw new DatasourceError(`createOne failed: ${e.message}`);
+      }
+      throw e;
+    }
   }
 
   async getByName(userId: string, name: string) {
-    const budgetCollection = this.getBudgetCollection(userId);
-    const budgetDoc = await budgetCollection.where("name", "==", name).get();
-    if (budgetDoc.empty) {
-      return null;
+    try {
+      const budgetCollection = this.getBudgetCollection(userId);
+      const budgetDoc = await budgetCollection.where("name", "==", name).get();
+      if (budgetDoc.empty) {
+        return null;
+      }
+      const budget = budgetDoc.docs[0].data();
+      const validatedBudget = validateOrThrow(
+        budgetModelSchema,
+        budget,
+        "BudgetDatasource:read"
+      );
+      return validatedBudget;
+    } catch (e) {
+      if (e instanceof Error) {
+        throw new DatasourceError(`getByName failed: ${e.message}`);
+      }
+      throw e;
     }
-    const budget = budgetDoc.docs[0].data();
-    const validatedBudget = validateOrThrow(
-      budgetModelSchema,
-      budget,
-      "BudgetDatasource:read"
-    );
-    return validatedBudget;
   }
 
   async getPaginated(
     userId: string,
     params: PaginationParams
   ): Promise<BudgetModelPaginationResponse> {
-    const budgetCollection = this.getBudgetCollection(userId);
-    const baseQuery = buildQueryFromParams(budgetCollection, params, {
-      searchField: "name",
-    });
-    const response = await paginateByCursor({
-      baseQuery,
-      perPage: params.pagination.perPage,
-      page: params.pagination.page,
-      dataSchema: budgetModelSchema,
-    });
-    return response;
+    try {
+      const budgetCollection = this.getBudgetCollection(userId);
+      const baseQuery = buildQueryFromParams(budgetCollection, params, {
+        searchField: "name",
+      });
+      const response = await paginateByCursor({
+        baseQuery,
+        perPage: params.pagination.perPage,
+        page: params.pagination.page,
+        dataSchema: budgetModelSchema,
+      });
+      return response;
+    } catch (e) {
+      if (e instanceof Error) {
+        throw new DatasourceError(`getPaginated failed: ${e.message}`);
+      }
+      throw e;
+    }
   }
 
   async updateOne(userId: string, id: string, data: UpdateBudgetModel) {
-    const budgetCollection = this.getBudgetCollection(userId);
-    const validatedData = validateOrThrow(
-      updateBudgetModelSchema,
-      data,
-      "BudgetDatasource:update"
-    );
-    if (hasKeys(validatedData)) {
-      await budgetCollection.doc(id).update(validatedData);
+    try {
+      const budgetCollection = this.getBudgetCollection(userId);
+      const validatedData = validateOrThrow(
+        updateBudgetModelSchema,
+        data,
+        "BudgetDatasource:update"
+      );
+      if (hasKeys(validatedData)) {
+        await budgetCollection.doc(id).update(validatedData);
+      }
+    } catch (e) {
+      if (e instanceof Error) {
+        throw new DatasourceError(`updateOne failed: ${e.message}`);
+      }
+      throw e;
     }
   }
 
   async deleteOne(userId: string, id: string) {
-    const budgetCollection = this.getBudgetCollection(userId);
-    await budgetCollection.doc(id).delete();
+    try {
+      const budgetCollection = this.getBudgetCollection(userId);
+      await budgetCollection.doc(id).delete();
+    } catch (e) {
+      if (e instanceof Error) {
+        throw new DatasourceError(`deleteOne failed: ${e.message}`);
+      }
+      throw e;
+    }
   }
 
   async setTotalSpending(
@@ -102,25 +144,46 @@ export class BudgetDatasource {
     budgetId: string,
     totalSpending: number
   ) {
-    const budgetCollection = this.getBudgetCollection(userId);
-    await budgetCollection.doc(budgetId).update({
-      totalSpending,
-    });
+    try {
+      const budgetCollection = this.getBudgetCollection(userId);
+      await budgetCollection.doc(budgetId).update({
+        totalSpending,
+      });
+    } catch (e) {
+      if (e instanceof Error) {
+        throw new DatasourceError(`setTotalSpending failed: ${e.message}`);
+      }
+      throw e;
+    }
   }
 
   async getTotalMaxSpending(userId: string) {
-    const budgetCollection = this.getBudgetCollection(userId);
-    const maxSpendingAggregation = budgetCollection.aggregate({
-      totalMaxSpending: AggregateField.sum("maximumSpending"),
-    });
-    const aggregationResult = await maxSpendingAggregation.get();
-    return aggregationResult.data().totalMaxSpending ?? 0;
+    try {
+      const budgetCollection = this.getBudgetCollection(userId);
+      const maxSpendingAggregation = budgetCollection.aggregate({
+        totalMaxSpending: AggregateField.sum("maximumSpending"),
+      });
+      const aggregationResult = await maxSpendingAggregation.get();
+      return aggregationResult.data().totalMaxSpending ?? 0;
+    } catch (e) {
+      if (e instanceof Error) {
+        throw new DatasourceError(`getTotalMaxSpending failed: ${e.message}`);
+      }
+      throw e;
+    }
   }
 
   async getCount(userId: string) {
-    const budgetCollection = this.getBudgetCollection(userId);
-    const countAggregation = budgetCollection.count();
-    const aggregationResult = await countAggregation.get();
-    return aggregationResult.data().count ?? 0;
+    try {
+      const budgetCollection = this.getBudgetCollection(userId);
+      const countAggregation = budgetCollection.count();
+      const aggregationResult = await countAggregation.get();
+      return aggregationResult.data().count ?? 0;
+    } catch (e) {
+      if (e instanceof Error) {
+        throw new DatasourceError(`getCount failed: ${e.message}`);
+      }
+      throw e;
+    }
   }
 }

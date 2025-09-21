@@ -33,6 +33,15 @@ export class AuthError extends Error {
   }
 }
 
+export class ModelValidationError extends Error {
+  details?: string;
+  constructor(message: string = "Model validation failed", details?: string) {
+    super(message);
+    this.name = "ModelValidationError";
+    this.details = details;
+  }
+}
+
 export class ValidationError extends Error {
   errors: Record<string, string | undefined>;
 
