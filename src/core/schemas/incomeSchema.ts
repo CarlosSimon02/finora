@@ -1,3 +1,8 @@
+import {
+  INCOME_NAME_MAX_LENGTH,
+  INCOME_SUMMARY_MAX_ITEMS,
+  TRANSACTION_PREVIEW_MAX_COUNT,
+} from "@/core/constants";
 import { z } from "zod";
 import { validateOptionalHexColor } from "./helpers";
 import { createPaginationResponseSchema } from "./paginationSchema";
@@ -7,7 +12,10 @@ export const createIncomeSchema = z.object({
   name: z
     .string()
     .min(1, "Income name is required")
-    .max(50, "Income name must be less than 50 characters"),
+    .max(
+      INCOME_NAME_MAX_LENGTH,
+      `Income name must be at most ${INCOME_NAME_MAX_LENGTH} characters`
+    ),
   colorTag: z.string().refine(validateOptionalHexColor, {
     message: "Color tag must be a valid hex color code (e.g., #FF5733)",
   }),
@@ -40,6 +48,27 @@ export const incomesSummarySchema = z.object({
   count: z.number().int().positive(),
   incomes: z.array(incomeSchemaWithTotalEarned),
 });
+
+export const incomesSummaryParamsSchema = z.object({
+  maxIncomesToShow: z
+    .number()
+    .int()
+    .min(1, "Max incomes to show must be greater than 0")
+    .max(
+      INCOME_SUMMARY_MAX_ITEMS,
+      `Max incomes to show must be at most ${INCOME_SUMMARY_MAX_ITEMS}`
+    )
+    .optional(),
+});
+
+export const transactionPreviewCountSchema = z
+  .number()
+  .int()
+  .min(1, "Transaction count must be greater than 0")
+  .max(
+    TRANSACTION_PREVIEW_MAX_COUNT,
+    `Transaction count must be at most ${TRANSACTION_PREVIEW_MAX_COUNT}`
+  );
 
 export type CreateIncomeDto = z.infer<typeof createIncomeSchema>;
 export type UpdateIncomeDto = z.infer<typeof updateIncomeSchema>;

@@ -1,5 +1,8 @@
 import { IIncomeRepository } from "@/core/interfaces/IIncomeRepository";
-import { PaginatedIncomesWithTransactionsResponseDto } from "@/core/schemas/incomeSchema";
+import {
+  PaginatedIncomesWithTransactionsResponseDto,
+  transactionPreviewCountSchema,
+} from "@/core/schemas/incomeSchema";
 import { PaginationParams } from "@/core/schemas/paginationSchema";
 import { AuthError, DomainValidationError } from "@/utils";
 
@@ -13,16 +16,15 @@ export const getPaginatedIncomesWithTransactions =
     if (!userId) throw new AuthError();
     if (!params)
       throw new DomainValidationError("Pagination params are required");
-    if (transactionCount && transactionCount <= 0)
-      throw new DomainValidationError(
-        "Transaction count must be greater than 0"
-      );
-    if (transactionCount && transactionCount > 50)
-      throw new DomainValidationError("Transaction count must be less than 50");
+
+    const parsedCount =
+      transactionCount !== undefined
+        ? transactionPreviewCountSchema.parse(transactionCount)
+        : undefined;
 
     return incomeRepository.getPaginatedWithTransactions(
       userId,
       params,
-      transactionCount
+      parsedCount
     );
   };

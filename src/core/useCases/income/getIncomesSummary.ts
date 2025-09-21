@@ -1,6 +1,9 @@
 import { IIncomeRepository } from "@/core/interfaces/IIncomeRepository";
-import { IncomesSummaryDto } from "@/core/schemas/incomeSchema";
-import { AuthError, DomainValidationError } from "@/utils";
+import {
+  IncomesSummaryDto,
+  incomesSummaryParamsSchema,
+} from "@/core/schemas/incomeSchema";
+import { AuthError } from "@/utils";
 
 export const getIncomesSummary =
   (incomeRepository: IIncomeRepository) =>
@@ -9,14 +12,10 @@ export const getIncomesSummary =
     maxIncomesToShow?: number
   ): Promise<IncomesSummaryDto> => {
     if (!userId) throw new AuthError();
-    if (maxIncomesToShow && maxIncomesToShow <= 0)
-      throw new DomainValidationError(
-        "Max incomes to show must be greater than 0"
-      );
-    if (maxIncomesToShow && maxIncomesToShow > 50)
-      throw new DomainValidationError(
-        "Max incomes to show must be less than 100"
-      );
 
-    return incomeRepository.getSummary(userId, maxIncomesToShow);
+    const { maxIncomesToShow: limit } = incomesSummaryParamsSchema.parse({
+      maxIncomesToShow,
+    });
+
+    return incomeRepository.getSummary(userId, limit);
   };
