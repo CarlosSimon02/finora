@@ -1,27 +1,37 @@
 import { categorySchema, createPaginationResponseSchema } from "@/core/schemas";
 import { z } from "zod";
-import {
-  buildCreateModelSchema,
-  buildModelSchema,
-  buildUpdateModelSchema,
-} from "./builders";
+import { zFieldValue, zTimestamp } from "./helpers";
 
-export const categoryModelSchema = buildModelSchema(categorySchema, [
-  "createdAt",
-  "updatedAt",
-]);
+export const categoryModelSchema = categorySchema
+  .omit({
+    createdAt: true,
+    updatedAt: true,
+  })
+  .extend({
+    createdAt: zTimestamp,
+    updatedAt: zTimestamp,
+  });
 
-export const createCategoryModelSchema = buildCreateModelSchema(
-  categoryModelSchema,
-  ["createdAt", "updatedAt"]
-);
+export const createCategoryModelSchema = categoryModelSchema
+  .omit({
+    createdAt: true,
+    updatedAt: true,
+  })
+  .extend({
+    createdAt: zFieldValue,
+    updatedAt: zFieldValue,
+  });
 
-export const updateCategoryModelSchema = buildUpdateModelSchema(
-  categoryModelSchema,
-  {
-    serverTimestampFields: ["createdAt", "updatedAt"],
-  }
-);
+export const updateCategoryModelSchema = categoryModelSchema
+  .omit({
+    createdAt: true,
+    updatedAt: true,
+  })
+  .extend({
+    updatedAt: zFieldValue,
+    createdAt: zFieldValue,
+  })
+  .partial();
 
 export const categoryModelPaginationResponseSchema =
   createPaginationResponseSchema(categoryModelSchema);

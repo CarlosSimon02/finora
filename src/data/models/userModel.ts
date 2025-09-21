@@ -1,24 +1,37 @@
 import { userSchema } from "@/core/schemas";
 import { z } from "zod";
-import {
-  buildCreateModelSchema,
-  buildModelSchema,
-  buildUpdateModelSchema,
-} from "./builders";
+import { zFieldValue, zTimestamp } from "./helpers";
 
-export const userModelSchema = buildModelSchema(userSchema, [
-  "createdAt",
-  "updatedAt",
-]);
+export const userModelSchema = userSchema
+  .omit({
+    createdAt: true,
+    updatedAt: true,
+  })
+  .extend({
+    createdAt: zTimestamp,
+    updatedAt: zTimestamp,
+  });
 
-export const createUserModelSchema = buildCreateModelSchema(userModelSchema, [
-  "createdAt",
-  "updatedAt",
-]);
+export const createUserModelSchema = userModelSchema
+  .omit({
+    createdAt: true,
+    updatedAt: true,
+  })
+  .extend({
+    createdAt: zFieldValue,
+    updatedAt: zFieldValue,
+  });
 
-export const updateUserModelSchema = buildUpdateModelSchema(userModelSchema, {
-  serverTimestampFields: ["createdAt", "updatedAt"],
-});
+export const updateUserModelSchema = userModelSchema
+  .omit({
+    createdAt: true,
+    updatedAt: true,
+  })
+  .extend({
+    updatedAt: zFieldValue,
+    createdAt: zFieldValue,
+  })
+  .partial();
 
 export type UserModel = z.infer<typeof userModelSchema>;
 export type CreateUserModel = z.infer<typeof createUserModelSchema>;

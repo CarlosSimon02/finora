@@ -4,32 +4,43 @@ import {
   transactionSchema,
 } from "@/core/schemas";
 import { z } from "zod";
-import {
-  buildCreateModelSchema,
-  buildModelSchema,
-  buildUpdateModelSchema,
-} from "./builders";
+import { zFieldValue, zTimestamp } from "./helpers";
 
-export const transactionModelSchema = buildModelSchema(
-  transactionSchema,
-  ["transactionDate", "createdAt", "updatedAt"],
-  {
+export const transactionModelSchema = transactionSchema
+  .omit({
+    transactionDate: true,
+    createdAt: true,
+    updatedAt: true,
+  })
+  .extend({
+    createdAt: zTimestamp,
+    updatedAt: zTimestamp,
+    transactionDate: zTimestamp,
     signedAmount: z.number(),
-  }
-);
+  });
 
-export const createTransactionModelSchema = buildCreateModelSchema(
-  transactionModelSchema,
-  ["createdAt", "updatedAt"],
-  ["transactionDate"]
-);
+export const createTransactionModelSchema = transactionModelSchema
+  .omit({
+    createdAt: true,
+    updatedAt: true,
+    transactionDate: true,
+  })
+  .extend({
+    createdAt: zFieldValue,
+    updatedAt: zFieldValue,
+    transactionDate: zTimestamp,
+  });
 
-export const updateTransactionModelSchema = buildUpdateModelSchema(
-  transactionModelSchema,
-  {
-    serverTimestampFields: ["createdAt", "updatedAt"],
-  }
-);
+export const updateTransactionModelSchema = transactionModelSchema
+  .omit({
+    createdAt: true,
+    updatedAt: true,
+  })
+  .extend({
+    updatedAt: zFieldValue,
+    createdAt: zFieldValue,
+  })
+  .partial();
 
 export const updateTransactionCategoryModelSchema = transactionCategorySchema
   .omit({ id: true })

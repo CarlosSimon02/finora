@@ -1,6 +1,5 @@
 import { TransactionCategoryDto, TransactionDto } from "@/core/schemas";
 import { TransactionModel } from "@/data/models";
-import { Timestamp } from "firebase-admin/firestore";
 
 export const mapTransactionModelToDto = (
   model: TransactionModel
@@ -18,10 +17,10 @@ export const mapTransactionModelToDto = (
     name: model.name,
     recipientOrPayer: model.recipientOrPayer,
     category,
-    transactionDate: (model.transactionDate as Timestamp).toDate(),
+    transactionDate: model.transactionDate.toDate(),
     description: model.description,
     emoji: model.emoji,
-    createdAt: (model.createdAt as Timestamp).toDate(),
-    updatedAt: (model.updatedAt as Timestamp).toDate(),
+    createdAt: model.createdAt.toDate(),
+    updatedAt: model.updatedAt.toDate(),
   };
 };

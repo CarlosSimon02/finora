@@ -6,9 +6,11 @@ export function validateOrThrow<T extends z.ZodTypeAny>(
   context: string
 ): z.infer<T> {
   const result = schema.safeParse(input);
-  if (result.success) return result.data as z.infer<T>;
-  const details = (result.error as z.ZodError).issues
-    .map((e: z.ZodIssue) => `${e.path.join(".")}: ${e.message}`)
+  if (result.success) return result.data;
+
+  const details = result.error.issues
+    .map((issue) => `${issue.path.join(".")}: ${issue.message}`)
     .join(", ");
+
   throw new Error(`${context} validation failed: ${details}`);
 }

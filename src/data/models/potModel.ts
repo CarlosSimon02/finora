@@ -4,26 +4,39 @@ import {
   potSchema,
 } from "@/core/schemas";
 import { z } from "zod";
-import {
-  buildCreateModelSchema,
-  buildModelSchema,
-  buildUpdateModelSchema,
-} from "./builders";
+import { zFieldValue, zTimestamp } from "./helpers";
 
-export const potModelSchema = buildModelSchema(potSchema, [
-  "createdAt",
-  "updatedAt",
-]);
+export const potModelSchema = potSchema
+  .omit({
+    createdAt: true,
+    updatedAt: true,
+  })
+  .extend({
+    createdAt: zTimestamp,
+    updatedAt: zTimestamp,
+  });
 
-export const createPotModelSchema = buildCreateModelSchema(potModelSchema, [
-  "createdAt",
-  "updatedAt",
-]);
+export const createPotModelSchema = potModelSchema
+  .omit({
+    createdAt: true,
+    updatedAt: true,
+  })
+  .extend({
+    createdAt: zFieldValue,
+    updatedAt: zFieldValue,
+  });
 
-export const updatePotModelSchema = buildUpdateModelSchema(potModelSchema, {
-  immutableFields: ["totalSaved"],
-  serverTimestampFields: ["createdAt", "updatedAt"],
-});
+export const updatePotModelSchema = potModelSchema
+  .omit({
+    totalSaved: true,
+    createdAt: true,
+    updatedAt: true,
+  })
+  .extend({
+    updatedAt: zFieldValue,
+    createdAt: zFieldValue,
+  })
+  .partial();
 
 export const potModelPaginationResponseSchema =
   createPaginationResponseSchema(potModelSchema);

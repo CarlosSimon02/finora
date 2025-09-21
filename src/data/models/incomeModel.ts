@@ -3,29 +3,39 @@ import {
   incomeSchemaWithTotalEarned,
 } from "@/core/schemas";
 import { z } from "zod";
-import {
-  buildCreateModelSchema,
-  buildModelSchema,
-  buildUpdateModelSchema,
-} from "./builders";
+import { zFieldValue, zTimestamp } from "./helpers";
 
-export const incomeModelSchema = buildModelSchema(incomeSchemaWithTotalEarned, [
-  "createdAt",
-  "updatedAt",
-]);
+export const incomeModelSchema = incomeSchemaWithTotalEarned
+  .omit({
+    createdAt: true,
+    updatedAt: true,
+  })
+  .extend({
+    createdAt: zTimestamp,
+    updatedAt: zTimestamp,
+  });
 
-export const createIncomeModelSchema = buildCreateModelSchema(
-  incomeModelSchema,
-  ["createdAt", "updatedAt"]
-);
+export const createIncomeModelSchema = incomeModelSchema
+  .omit({
+    createdAt: true,
+    updatedAt: true,
+  })
+  .extend({
+    createdAt: zFieldValue,
+    updatedAt: zFieldValue,
+  });
 
-export const updateIncomeModelSchema = buildUpdateModelSchema(
-  incomeModelSchema,
-  {
-    immutableFields: ["totalEarned"],
-    serverTimestampFields: ["createdAt", "updatedAt"],
-  }
-);
+export const updateIncomeModelSchema = incomeModelSchema
+  .omit({
+    totalEarned: true,
+    createdAt: true,
+    updatedAt: true,
+  })
+  .extend({
+    updatedAt: zFieldValue,
+    createdAt: zFieldValue,
+  })
+  .partial();
 
 export const incomeModelPaginationResponseSchema =
   createPaginationResponseSchema(incomeModelSchema);

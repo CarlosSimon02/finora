@@ -1,7 +1,6 @@
 import { UserDto } from "@/core/schemas";
 import { UserModel } from "@/data/models";
 import { UserRecord } from "firebase-admin/auth";
-import { Timestamp } from "firebase-admin/firestore";
 
 export const mapUserRecordToDto = (user: UserRecord): UserDto => ({
   id: user.uid,
@@ -20,7 +19,7 @@ export const mapUserModelToDto = (user: UserModel): UserDto => ({
   displayName: user.displayName,
   photoURL: user.photoURL,
   phoneNumber: user.phoneNumber,
-  createdAt: (user.createdAt as Timestamp).toDate(),
-  updatedAt: (user.updatedAt as Timestamp).toDate(),
+  createdAt: user.createdAt.toDate(),
+  updatedAt: user.updatedAt.toDate(),
   customClaims: user.customClaims,
 });

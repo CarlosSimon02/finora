@@ -3,29 +3,39 @@ import {
   createPaginationResponseSchema,
 } from "@/core/schemas";
 import { z } from "zod";
-import {
-  buildCreateModelSchema,
-  buildModelSchema,
-  buildUpdateModelSchema,
-} from "./builders";
+import { zFieldValue, zTimestamp } from "./helpers";
 
-export const budgetModelSchema = buildModelSchema(
-  budgetSchemaWithTotalSpending,
-  ["createdAt", "updatedAt"]
-);
+export const budgetModelSchema = budgetSchemaWithTotalSpending
+  .omit({
+    createdAt: true,
+    updatedAt: true,
+  })
+  .extend({
+    createdAt: zTimestamp,
+    updatedAt: zTimestamp,
+  });
 
-export const createBudgetModelSchema = buildCreateModelSchema(
-  budgetModelSchema,
-  ["createdAt", "updatedAt"]
-);
+export const createBudgetModelSchema = budgetModelSchema
+  .omit({
+    createdAt: true,
+    updatedAt: true,
+  })
+  .extend({
+    createdAt: zFieldValue,
+    updatedAt: zFieldValue,
+  });
 
-export const updateBudgetModelSchema = buildUpdateModelSchema(
-  budgetModelSchema,
-  {
-    immutableFields: ["totalSpending"],
-    serverTimestampFields: ["createdAt", "updatedAt"],
-  }
-);
+export const updateBudgetModelSchema = budgetModelSchema
+  .omit({
+    totalSpending: true,
+    createdAt: true,
+    updatedAt: true,
+  })
+  .extend({
+    updatedAt: zFieldValue,
+    createdAt: zFieldValue,
+  })
+  .partial();
 
 export const budgetModelPaginationResponseSchema =
   createPaginationResponseSchema(budgetModelSchema);
