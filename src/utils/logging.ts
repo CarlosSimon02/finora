@@ -1,4 +1,4 @@
-const debugLog = (context: string, message: string, data?: unknown) => {
+export const debugLog = (context: string, message: string, data?: unknown) => {
   if (process.env.NODE_ENV === "development") {
     const logMessage = `[${context}]: ${message}`;
     if (data) {
@@ -8,5 +8,3 @@ const debugLog = (context: string, message: string, data?: unknown) => {
     }
   }
 };
-
-export default debugLog;
