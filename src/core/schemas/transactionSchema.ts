@@ -30,7 +30,6 @@ const baseTransactionSchema = z.object({
   amount: z
     .number()
     .positive("Amount must be greater than 0")
-    .finite("Amount must be a finite number")
     .refine(
       (val) => TRANSACTION_AMOUNT_DECIMALS_REGEX.test(val.toString()),
       "Amount must have at most 2 decimal places"

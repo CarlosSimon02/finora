@@ -4,5 +4,6 @@ export * from "./categorySchema";
 export * from "./incomeSchema";
 export * from "./paginationSchema";
 export * from "./potSchema";
+export * from "./recurringBillSchema";
 export * from "./transactionSchema";
 export * from "./userSchema";
