@@ -15,7 +15,6 @@ export default defineConfig({
     include: ["src/__tests__/**/*.test.ts"],
     coverage: {
       provider: "v8",
-      reports: ["text", "html", "lcov"],
       exclude: ["src/__tests__/**", "**/*.d.ts"],
     },
   },
