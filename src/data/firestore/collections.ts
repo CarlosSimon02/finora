@@ -5,9 +5,18 @@ export type CollectionName =
   | "incomes"
   | "transactions"
   | "categories"
-  | "pots";
+  | "pots"
+  | "recurringBills";
 
 export const userCollection = () => adminFirestore.collection("users");
 
 export const userSubcollection = (userId: string, name: CollectionName) =>
   userCollection().doc(userId).collection(name);
+
+export const recurringBillPaymentsSubcollection = (
+  userId: string,
+  billId: string
+) =>
+  userSubcollection(userId, "recurringBills")
+    .doc(billId)
+    .collection("payments");
