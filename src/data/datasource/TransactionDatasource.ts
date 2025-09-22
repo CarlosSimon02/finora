@@ -4,9 +4,8 @@ import { userSubcollection } from "@/data/firestore/collections";
 import { paginateByCursor } from "@/data/firestore/paginate";
 import { buildQueryFromParams } from "@/data/firestore/query";
 import { validateOrThrow } from "@/data/utils/validation";
-import { adminFirestore } from "@/services/firebase/firebaseAdmin";
-import { DatasourceError } from "@/utils";
-import hasKeys from "@/utils/hasKeys";
+import { adminFirestore } from "@/infrastructure/firebase/firebaseAdmin";
+import { DatasourceError, hasKeys } from "@/utils";
 import { AggregateField } from "firebase-admin/firestore";
 import {
   CreateTransactionModel,
