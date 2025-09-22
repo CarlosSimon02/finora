@@ -4,19 +4,18 @@ import {
   TRANSACTION_PREVIEW_MAX_COUNT,
 } from "@/core/constants";
 import { z } from "zod";
-import { validateOptionalHexColor } from "./helpers";
+import { trimmedStringSchema, validateOptionalHexColor } from "./helpers";
 import { createPaginationResponseSchema } from "./paginationSchema";
 import { transactionSchema } from "./transactionSchema";
 
 export const createIncomeSchema = z.object({
-  name: z
-    .string()
+  name: trimmedStringSchema
     .min(1, "Income name is required")
     .max(
       INCOME_NAME_MAX_LENGTH,
       `Income name must be at most ${INCOME_NAME_MAX_LENGTH} characters`
     ),
-  colorTag: z.string().refine(validateOptionalHexColor, {
+  colorTag: trimmedStringSchema.refine(validateOptionalHexColor, {
     message: "Color tag must be a valid hex color code (e.g., #FF5733)",
   }),
 });
@@ -24,7 +23,7 @@ export const createIncomeSchema = z.object({
 export const updateIncomeSchema = createIncomeSchema.partial();
 
 export const incomeSchema = createIncomeSchema.extend({
-  id: z.string().min(1, "Income ID is required"),
+  id: trimmedStringSchema.min(1, "Income ID is required"),
   createdAt: z.date(),
   updatedAt: z.date(),
 });

@@ -4,13 +4,12 @@ import {
   BUDGET_TRANSACTION_PREVIEW_MAX_COUNT,
 } from "@/core/constants";
 import { z } from "zod";
-import { validateOptionalHexColor } from "./helpers";
+import { trimmedStringSchema, validateOptionalHexColor } from "./helpers";
 import { createPaginationResponseSchema } from "./paginationSchema";
 import { transactionSchema } from "./transactionSchema";
 
 export const createBudgetSchema = z.object({
-  name: z
-    .string()
+  name: trimmedStringSchema
     .min(1, "Budget name is required")
     .max(
       BUDGET_NAME_MAX_LENGTH,
@@ -20,7 +19,7 @@ export const createBudgetSchema = z.object({
     .number()
     .positive("Maximum spending must be greater than 0")
     .finite("Maximum spending must be a finite number"),
-  colorTag: z.string().refine(validateOptionalHexColor, {
+  colorTag: trimmedStringSchema.refine(validateOptionalHexColor, {
     message: "Color tag must be a valid hex color code (e.g., #FF5733)",
   }),
 });
@@ -28,7 +27,7 @@ export const createBudgetSchema = z.object({
 export const updateBudgetSchema = createBudgetSchema.partial();
 
 export const budgetSchema = createBudgetSchema.extend({
-  id: z.string().min(1, "Budget ID is required"),
+  id: trimmedStringSchema.min(1, "Budget ID is required"),
   createdAt: z.date(),
   updatedAt: z.date(),
 });

@@ -1,9 +1,10 @@
 import { z } from "zod";
+import { trimmedStringSchema } from "./helpers";
 import { createPaginationResponseSchema } from "./paginationSchema";
 import { transactionCategorySchema } from "./transactionSchema";
 
 export const categorySchema = transactionCategorySchema.extend({
-  id: z.string().min(1, "Category ID is required"),
+  id: trimmedStringSchema.min(1, "Category ID is required"),
   createdAt: z.instanceof(Date),
   updatedAt: z.instanceof(Date),
 });

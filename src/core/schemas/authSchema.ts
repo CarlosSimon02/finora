@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { trimmedStringSchema } from "./helpers";
 
 const emailSchema = z.email({ message: "Please enter a valid email address" });
 
@@ -8,10 +9,11 @@ export const loginWithEmailCredentialsSchema = z.object({
 });
 
 export const signUpCredentialsSchema = z.object({
-  name: z.string().min(2, { message: "Name must be at least 2 characters" }),
+  name: trimmedStringSchema.min(2, {
+    message: "Name must be at least 2 characters",
+  }),
   email: emailSchema,
-  password: z
-    .string()
+  password: trimmedStringSchema
     .min(8, { message: "Password must be at least 8 characters" })
     .regex(/[A-Z]/, {
       message: "Password must contain at least one uppercase letter",
@@ -23,10 +25,10 @@ export const signUpCredentialsSchema = z.object({
 });
 
 export const authResponseSchema = z.object({
-  id: z.string(),
+  id: trimmedStringSchema,
   email: emailSchema,
-  idToken: z.string(),
-  refreshToken: z.string(),
+  idToken: trimmedStringSchema,
+  refreshToken: trimmedStringSchema,
 });
 
 export const forgotPasswordSchema = z.object({

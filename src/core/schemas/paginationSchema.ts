@@ -1,18 +1,19 @@
 import { z, ZodTypeAny } from "zod";
+import { trimmedStringSchema } from "./helpers";
 
 export const MAX_PER_PAGE = 100;
 
 export const filterOperator = z.enum(["==", ">", ">=", "<", "<=", "!="]);
 
 export const filterValue = z.union([
-  z.string(),
+  trimmedStringSchema,
   z.number(),
   z.boolean(),
   z.null(),
 ]);
 
 export const filterSchema = z.object({
-  field: z.string(),
+  field: trimmedStringSchema,
   operator: filterOperator,
   value: filterValue,
 });
@@ -28,13 +29,13 @@ export const paginationParamsSchema = z.object({
     .default({ page: 1, perPage: 10 }),
   sort: z
     .object({
-      field: z.string(),
+      field: trimmedStringSchema,
       order: z.enum(["asc", "desc"]).default("asc"),
     })
     .optional(),
 
   filters: z.array(filterSchema).optional().default([]),
-  search: z.string().optional(),
+  search: trimmedStringSchema.optional(),
 });
 
 export type PaginationParams = z.infer<typeof paginationParamsSchema>;
@@ -56,19 +57,19 @@ export const paginationResponseBaseSchema = z.object({
     pagination: paginationMetaSchema,
     sort: z
       .object({
-        field: z.string().optional(),
+        field: trimmedStringSchema.optional(),
         order: z.enum(["asc", "desc"]).optional(),
       })
       .optional(),
     filters: z.array(filterSchema).optional(),
-    search: z.string().optional(),
+    search: trimmedStringSchema.optional(),
     links: z
       .object({
-        first: z.string().optional(),
-        prev: z.string().nullable().optional(),
-        self: z.string().optional(),
-        next: z.string().nullable().optional(),
-        last: z.string().optional(),
+        first: trimmedStringSchema.optional(),
+        prev: trimmedStringSchema.nullable().optional(),
+        self: trimmedStringSchema.optional(),
+        next: trimmedStringSchema.nullable().optional(),
+        last: trimmedStringSchema.optional(),
       })
       .optional(),
   }),

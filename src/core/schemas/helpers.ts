@@ -1,4 +1,5 @@
 import emojiRegex from "emoji-regex";
+import { z } from "zod";
 
 export const validateOptionalHexColor = (color: string | null) => {
   if (color === null) return true;
@@ -12,3 +13,5 @@ export const isValidEmoji = (value: string) => {
     [...trimmed.matchAll(emojiRegex())].join("") === trimmed
   );
 };
+
+export const trimmedStringSchema = z.string().trim();

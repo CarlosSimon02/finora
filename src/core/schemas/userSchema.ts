@@ -1,14 +1,15 @@
 import { z } from "zod";
+import { trimmedStringSchema } from "./helpers";
 
 export const userSchema = z.object({
-  id: z.string(),
-  email: z.string(),
-  displayName: z.string().optional().nullable(),
-  photoURL: z.string().optional().nullable(),
-  phoneNumber: z.string().optional().nullable(),
+  id: trimmedStringSchema,
+  email: trimmedStringSchema,
+  displayName: trimmedStringSchema.optional().nullable(),
+  photoURL: trimmedStringSchema.optional().nullable(),
+  phoneNumber: trimmedStringSchema.optional().nullable(),
   createdAt: z.date(),
   updatedAt: z.date(),
-  customClaims: z.record(z.string(), z.any()).optional().nullable(),
+  customClaims: z.record(trimmedStringSchema, z.any()).optional().nullable(),
 });
 
 export const createUserSchema = userSchema.omit({
