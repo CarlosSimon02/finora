@@ -6,7 +6,8 @@
     "plugin:@typescript-eslint/recommended",
     "plugin:react-hooks/recommended-legacy",
     "plugin:@tanstack/query/recommended",
-    "prettier"
+    "prettier",
+    "plugin:storybook/recommended"
   ],
   "plugins": [
     "@typescript-eslint",
