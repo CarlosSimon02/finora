@@ -7,7 +7,7 @@ import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 import { authConfig } from "./config/nextFirebaseAuthEdge";
 
-const AUTH_PATHS = ["/signup", "/login", "/forgot-password", "/verify-email"];
+const AUTH_PATHS = ["/signup", "/login", "/forgot-password"];
 const PUBLIC_PATHS = [...AUTH_PATHS];
 const PRIVATE_PATHS = ["/"];
 

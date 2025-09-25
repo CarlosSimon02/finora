@@ -12,6 +12,7 @@ import {
   GoogleAuthProvider,
   sendEmailVerification as sendEmailVerificationFn,
   sendPasswordResetEmail,
+  signInWithEmailAndPassword,
   signInWithPopup,
   signOut,
 } from "firebase/auth";
@@ -45,7 +46,7 @@ export class AuthClientRepository implements IAuthClientRepository {
     credentials: LoginWithEmailCredentialsDto
   ): Promise<AuthResponseDto> {
     try {
-      const userCredential = await createUserWithEmailAndPassword(
+      const userCredential = await signInWithEmailAndPassword(
         clientAuth,
         credentials.email,
         credentials.password
