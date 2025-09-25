@@ -7,8 +7,10 @@ import {
 import { clientAuth } from "@/infrastructure/firebase/firebaseClient";
 import { debugLog } from "@/utils";
 import {
+  applyActionCode as applyActionCodeFn,
   createUserWithEmailAndPassword,
   GoogleAuthProvider,
+  sendEmailVerification as sendEmailVerificationFn,
   sendPasswordResetEmail,
   signInWithPopup,
   signOut,
@@ -103,6 +105,34 @@ export class AuthClientRepository implements IAuthClientRepository {
       return await user.getIdToken();
     } catch (err) {
       debugLog("AuthClientRepository", "Failed to get ID token", err);
+      throw err;
+    }
+  }
+
+  async sendEmailVerification(): Promise<void> {
+    try {
+      const user = clientAuth.currentUser;
+      if (!user) throw new Error("No user is signed in.");
+      await sendEmailVerificationFn(user);
+    } catch (err) {
+      debugLog(
+        "AuthClientRepository",
+        "Failed to send email verification",
+        err
+      );
+      throw err;
+    }
+  }
+
+  async applyEmailVerification(oobCode: string): Promise<void> {
+    try {
+      await applyActionCodeFn(clientAuth, oobCode);
+    } catch (err) {
+      debugLog(
+        "AuthClientRepository",
+        "Failed to apply email verification",
+        err
+      );
       throw err;
     }
   }

@@ -36,4 +36,8 @@ export class AuthAdminRepository implements IAuthAdminRepository {
   async setCustomUserClaims(uid: string, claims: object): Promise<void> {
     await adminAuth.setCustomUserClaims(uid, claims);
   }
+
+  async markEmailAsVerified(uid: string): Promise<void> {
+    await adminAuth.updateUser(uid, { emailVerified: true });
+  }
 }
