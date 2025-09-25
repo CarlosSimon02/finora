@@ -35,9 +35,14 @@ export const forgotPasswordSchema = z.object({
   email: emailSchema,
 });
 
+export const verifyEmailSchema = z.object({
+  oobCode: trimmedStringSchema,
+});
+
 export type LoginWithEmailCredentialsDto = z.infer<
   typeof loginWithEmailCredentialsSchema
 >;
 export type ForgotPasswordDto = z.infer<typeof forgotPasswordSchema>;
 export type SignUpCredentialsDto = z.infer<typeof signUpCredentialsSchema>;
 export type AuthResponseDto = z.infer<typeof authResponseSchema>;
+export type VerifyEmailDto = z.infer<typeof verifyEmailSchema>;

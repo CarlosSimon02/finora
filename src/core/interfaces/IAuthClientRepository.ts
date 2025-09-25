@@ -13,4 +13,6 @@ export interface IAuthClientRepository {
   resetPassword(email: string): Promise<void>;
   signOut(): Promise<void>;
   getIdToken(): Promise<string>;
+  sendEmailVerification(): Promise<void>;
+  applyEmailVerification(oobCode: string): Promise<void>;
 }

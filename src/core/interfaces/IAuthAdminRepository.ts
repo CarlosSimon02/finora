@@ -8,4 +8,5 @@ export interface IAuthAdminRepository {
   updateUserDisplayName(uid: string, displayName?: string): Promise<void>;
   deleteUser(uid: string): Promise<void>;
   setCustomUserClaims(uid: string, claims: object): Promise<void>;
+  markEmailAsVerified(uid: string): Promise<void>;
 }
