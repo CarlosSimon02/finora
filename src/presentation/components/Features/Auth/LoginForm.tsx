@@ -36,6 +36,7 @@ export const LoginForm = () => {
 
   const isLoading = login.isPending;
   const isSuccess = login.isSuccess;
+  const isBusy = login.isPending || google.isPending;
 
   return (
     <Card className="w-full max-w-[35rem]">
@@ -48,12 +49,14 @@ export const LoginForm = () => {
               name="email"
               label="Email Address"
               type="email"
+              disabled={isBusy}
             />
             <InputField
               control={form.control}
               name="password"
               label="Password"
               type="password"
+              disabled={isBusy}
               helperText={
                 <Link
                   href="/forgot-password"
@@ -69,12 +72,12 @@ export const LoginForm = () => {
             className="w-full"
             isLoading={isLoading}
             loadingLabel="Logging in..."
-            disabled={isSuccess}
+            disabled={isBusy || isSuccess}
           >
             Login
           </LoadingButton>
           <AuthAltButtons
-            disabled={isLoading || isSuccess}
+            disabled={isBusy || isSuccess}
             googleLoading={google.isPending}
             onGoogleClick={() => google.mutate()}
           />

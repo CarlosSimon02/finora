@@ -33,6 +33,7 @@ export const SignupForm = () => {
 
   const isLoading = signUp.isPending;
   const isSuccess = signUp.isSuccess;
+  const isBusy = signUp.isPending || google.isPending;
 
   return (
     <Card className="w-full max-w-[35rem]">
@@ -45,12 +46,14 @@ export const SignupForm = () => {
               name="name"
               label="Name"
               type="text"
+              disabled={isBusy}
             />
             <InputField
               control={form.control}
               name="email"
               label="Email Address"
               type="email"
+              disabled={isBusy}
             />
             <InputField
               control={form.control}
@@ -58,6 +61,7 @@ export const SignupForm = () => {
               label="Create Password"
               helperText="Passwords must be at least 8 characters"
               type="password"
+              disabled={isBusy}
             />
           </div>
           <LoadingButton
@@ -65,12 +69,12 @@ export const SignupForm = () => {
             className="w-full"
             isLoading={isLoading}
             loadingLabel="Creating account..."
-            disabled={isSuccess}
+            disabled={isBusy || isSuccess}
           >
             Create Account
           </LoadingButton>
           <AuthAltButtons
-            disabled={isLoading || isSuccess}
+            disabled={isBusy || isSuccess}
             googleLoading={google.isPending}
             onGoogleClick={() => google.mutate()}
           />

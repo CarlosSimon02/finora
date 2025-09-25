@@ -29,6 +29,7 @@ export const VerifyEmailForm = () => {
           isLoading={resend.isPending}
           loadingLabel="Resending..."
           onClick={onResend}
+          disabled={resend.isPending}
         >
           Resend verification email
         </LoadingButton>

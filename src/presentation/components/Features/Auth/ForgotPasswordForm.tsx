@@ -62,6 +62,7 @@ export const ForgotPasswordForm = () => {
               name="email"
               label="Email Address"
               type="email"
+              disabled={isLoading}
             />
 
             <LoadingButton
