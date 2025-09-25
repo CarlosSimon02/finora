@@ -68,7 +68,7 @@ const baseRecurringBillSchema = baseRecurringBillShape.superRefine(
 export const createRecurringBillSchema = baseRecurringBillSchema;
 export const updateRecurringBillSchema = baseRecurringBillSchema.partial();
 
-export const recurringBillSchema = baseRecurringBillSchema.extend({
+export const recurringBillSchema = baseRecurringBillSchema.safeExtend({
   id: trimmedStringSchema.min(1, "Recurring bill ID is required"),
   createdAt: z.instanceof(Date),
   updatedAt: z.instanceof(Date),
@@ -83,7 +83,7 @@ export const recurringBillsOffsetSchema = z.object({
   end: z.instanceof(Date).optional(),
 });
 
-export const dueSoonParamsSchema = recurringBillsOffsetSchema.extend({
+export const dueSoonParamsSchema = recurringBillsOffsetSchema.safeExtend({
   daysBeforeDue: z.number().int().min(1).max(31).default(2),
 });
 

@@ -1,0 +1,32 @@
+@theme {
+  --spacing-50: 0.25rem /* 4px */;
+  --spacing-100: 0.5rem /* 8px */;
+  --spacing-150: 0.75rem /* 12px */;
+  --spacing-200: 1rem /* 16px */;
+  --spacing-250: 1.25rem /* 20px */;
+  --spacing-300: 1.5rem /* 24px */;
+  --spacing-400: 2rem /* 32px */;
+  --spacing-500: 2.5rem /* 40px */;
+}
+
+@utility m-* {
+  margin: --value(--spacing-*);
+}
+
+@utility p-* {
+  padding: --value(--spacing-*);
+}
+
+@utility py-* {
+  padding-top: --value(--spacing-*);
+  padding-bottom: --value(--spacing-*);
+}
+
+@utility px-* {
+  padding-left: --value(--spacing-*);
+  padding-right: --value(--spacing-*);
+}
+
+@utility gap-* {
+  gap: --value(--spacing-*);
+}

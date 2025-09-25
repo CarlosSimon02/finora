@@ -1,0 +1,29 @@
+@theme {
+  --color-beige-100: oklch(0.9691 0.0068 67.74);
+  --color-beige-200: oklch(0.9491 0.0068 67.74);
+  --color-beige-500: oklch(0.6588 0.012 54.4);
+
+  --color-grey-100: oklch(0.9612 0 0);
+  --color-grey-300: oklch(0.7668 0 0);
+  --color-grey-500: oklch(0.5182 0.0013 17.2);
+  --color-grey-900: oklch(0.2425 0.0095 294.85);
+
+  --color-secondary-green: oklch(0.5356 0.0794 190.54);
+  --color-secondary-yellow: oklch(0.8717 0.0606 63.63);
+  --color-secondary-cyan: oklch(0.794 0.0737 211.41);
+  --color-secondary-navy: oklch(0.4966 0.0253 291.18);
+  --color-secondary-red: oklch(0.5754 0.1685 30.38);
+  --color-secondary-purple: oklch(0.5802 0.1044 297.97);
+
+  --color-other-purple: oklch(0.668 0.0969 319.73);
+  --color-other-turquoise: oklch(0.5599 0.0396 196.08);
+  --color-other-brown: oklch(0.5536 0.0671 49.5);
+  --color-other-magenta: oklch(0.5187 0.099 351.49);
+  --color-other-blue: oklch(0.5841 0.1005 242.37);
+  --color-other-navy-grey: oklch(0.7024 0.0203 255.57);
+  --color-other-army-green: oklch(0.6298 0.0714 125.1);
+  --color-other-gold: oklch(0.7693 0.1058 94.07);
+  --color-other-orange: oklch(0.6161 0.1156 43.33);
+
+  --color-white: oklch(1 0 0);
+}

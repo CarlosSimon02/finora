@@ -1,0 +1,6 @@
+@import "tailwindcss";
+@import "./_fonts.css";
+@import "./_themes.css";
+@import "./_spacing.css";
+@import "./_base.css";
+@import "./_typography.css";

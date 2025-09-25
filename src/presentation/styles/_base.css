@@ -1,0 +1,13 @@
+@layer base {
+  body {
+    @apply font-public-sans bg-beige-100;
+  }
+
+  button,
+  a,
+  [role="button"] {
+    &:not(:disabled) {
+      @apply cursor-pointer;
+    }
+  }
+}
