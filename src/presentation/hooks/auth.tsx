@@ -16,27 +16,20 @@ import {
 } from "@/core/useCases/auth/client";
 import { AuthClientRepository } from "@/data/repositories/AuthClientRepository";
 import { postSignInAction } from "@/presentation/actions";
+import {
+  isIgnorableAuthError,
+  normalizeAuthError,
+  sanitizeRedirect,
+} from "@/presentation/utils/authErrors";
 import { useMutation } from "@tanstack/react-query";
 import { useRouter, useSearchParams } from "next/navigation";
 import { toast } from "sonner";
 
 const authClientRepository = new AuthClientRepository();
 
-const getErrorMessage = (error: unknown) => {
-  if (typeof error === "string") return error;
-  if (error && typeof error === "object" && "message" in error) {
-    return String((error as any).message || "An error occurred");
-  }
-  try {
-    return JSON.stringify(error);
-  } catch {
-    return "An unexpected error occurred";
-  }
-};
-
 const useRedirectParam = () => {
   const params = useSearchParams();
-  return params.get("redirect");
+  return sanitizeRedirect(params.get("redirect"));
 };
 
 export const useGoogleSignIn = () => {
@@ -44,6 +37,8 @@ export const useGoogleSignIn = () => {
   const router = useRouter();
 
   return useMutation({
+    mutationKey: ["auth", "google"],
+    retry: 1,
     mutationFn: async () => {
       const authEntity = await signInWithGoogle(authClientRepository)();
       const response = await postSignInAction(authEntity.idToken);
@@ -52,12 +47,14 @@ export const useGoogleSignIn = () => {
     },
     onSuccess: () => {
       toast.success("Signed in with Google successfully!");
-      router.push(redirect ?? "/");
+      router.push(redirect);
     },
     onError: (error: unknown) => {
+      if (isIgnorableAuthError(error)) return;
       console.error("Google sign-in error:", error);
-      toast.error(getErrorMessage(error));
+      toast.error(normalizeAuthError(error));
     },
+    onSettled: () => {},
   });
 };
 
@@ -66,6 +63,8 @@ export const useLogin = () => {
   const router = useRouter();
 
   return useMutation({
+    mutationKey: ["auth", "login"],
+    retry: 1,
     mutationFn: async (credentials: LoginWithEmailCredentialsDto) => {
       const authEntity =
         await logInWithEmail(authClientRepository)(credentials);
@@ -75,12 +74,13 @@ export const useLogin = () => {
     },
     onSuccess: () => {
       toast.success("Logged in successfully!");
-      router.push(redirect ?? "/");
+      router.push(redirect);
     },
     onError: (error: unknown) => {
       console.error("Login error:", error);
-      toast.error(getErrorMessage(error));
+      toast.error(normalizeAuthError(error));
     },
+    onSettled: () => {},
   });
 };
 
@@ -89,6 +89,8 @@ export const useSignUp = () => {
   const router = useRouter();
 
   return useMutation({
+    mutationKey: ["auth", "signup"],
+    retry: 1,
     mutationFn: async (data: SignUpCredentialsDto) => {
       const authEntity = await signUpWithEmail(authClientRepository)(data);
       const response = await postSignInAction(authEntity.idToken, {
@@ -99,17 +101,20 @@ export const useSignUp = () => {
     },
     onSuccess: () => {
       toast.success("Account created successfully!");
-      router.push(redirect ?? "/");
+      router.push(redirect);
     },
     onError: (error: unknown) => {
       console.error("Sign up error:", error);
-      toast.error(getErrorMessage(error));
+      toast.error(normalizeAuthError(error));
     },
+    onSettled: () => {},
   });
 };
 
 export const useResetPassword = () => {
   return useMutation({
+    mutationKey: ["auth", "resetPassword"],
+    retry: 1,
     mutationFn: async (email: string) => {
       await resetPassword(authClientRepository)(email);
     },
@@ -118,13 +123,16 @@ export const useResetPassword = () => {
     },
     onError: (error: unknown) => {
       console.error("Password reset error:", error);
-      toast.error(getErrorMessage(error));
+      toast.error(normalizeAuthError(error));
     },
+    onSettled: () => {},
   });
 };
 
 export const useSendEmailVerification = () => {
   return useMutation({
+    mutationKey: ["auth", "sendEmailVerification"],
+    retry: 1,
     mutationFn: async () => {
       await sendEmailVerification(authClientRepository)();
     },
@@ -133,13 +141,16 @@ export const useSendEmailVerification = () => {
     },
     onError: (error: unknown) => {
       console.error("Send email verification error:", error);
-      toast.error(getErrorMessage(error));
+      toast.error(normalizeAuthError(error));
     },
+    onSettled: () => {},
   });
 };
 
 export const useVerifyEmailWithCode = () => {
   return useMutation({
+    mutationKey: ["auth", "verifyEmailWithCode"],
+    retry: 1,
     mutationFn: async (payload: VerifyEmailDto) => {
       const { oobCode } = verifyEmailSchema.parse(payload);
       await verifyEmail(authClientRepository)(oobCode);
@@ -149,7 +160,8 @@ export const useVerifyEmailWithCode = () => {
     },
     onError: (error: unknown) => {
       console.error("Verify email error:", error);
-      toast.error(getErrorMessage(error));
+      toast.error(normalizeAuthError(error));
     },
+    onSettled: () => {},
   });
 };

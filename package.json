@@ -54,6 +54,7 @@
     "@storybook/nextjs-vite": "^9.1.7",
     "@tailwindcss/postcss": "^4",
     "@tanstack/eslint-plugin-query": "^5.89.0",
+    "@tanstack/react-query-devtools": "^5.90.2",
     "@types/chai": "^5.2.2",
     "@types/node": "^20",
     "@types/react": "^19",
