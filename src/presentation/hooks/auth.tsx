@@ -85,7 +85,6 @@ export const useLogin = () => {
 };
 
 export const useSignUp = () => {
-  const redirect = useRedirectParam();
   const router = useRouter();
 
   return useMutation({
@@ -97,11 +96,12 @@ export const useSignUp = () => {
         name: data.name,
       });
       if (response.error) throw new Error(response.error);
+      await sendEmailVerification(authClientRepository)();
       return authEntity;
     },
     onSuccess: () => {
       toast.success("Account created successfully!");
-      router.push(redirect);
+      router.push("/verify-email?sent=true");
     },
     onError: (error: unknown) => {
       console.error("Sign up error:", error);
@@ -135,9 +135,6 @@ export const useSendEmailVerification = () => {
     retry: 1,
     mutationFn: async () => {
       await sendEmailVerification(authClientRepository)();
-    },
-    onSuccess: () => {
-      toast.success("Verification email sent.");
     },
     onError: (error: unknown) => {
       console.error("Send email verification error:", error);
