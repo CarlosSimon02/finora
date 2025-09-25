@@ -1,7 +1,7 @@
 "use client";
 
 import { SignUpCredentialsDto, signUpCredentialsSchema } from "@/core/schemas";
-import { GoogleIcon, InlineLink } from "@/presentation/components/Primitives";
+import { InlineLink } from "@/presentation/components/Primitives";
 import {
   Card,
   Form,
@@ -9,9 +9,8 @@ import {
   LoadingButton,
 } from "@/presentation/components/UI";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { DatabaseIcon, DetectiveIcon } from "@phosphor-icons/react";
 import { useForm } from "react-hook-form";
-import { OrContinueWith } from "./components/OrContinueWith";
+import { AuthAltButtons } from ".";
 
 export const SignupForm = () => {
   const form = useForm<SignUpCredentialsDto>({
@@ -33,8 +32,7 @@ export const SignupForm = () => {
 
   return (
     <Card className="w-full max-w-[35rem]">
-      <h1 className="txt-preset-1">Sign up</h1>
-      <p className="sr-only">Create an account to get started</p>
+      <h2 className="txt-preset-1">Sign up</h2>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="mt-8 space-y-6">
           <div className="space-y-4">
@@ -67,51 +65,7 @@ export const SignupForm = () => {
           >
             Create Account
           </LoadingButton>
-          <OrContinueWith />
-          <div className="space-y-2">
-            <LoadingButton
-              type="button"
-              variant="secondary"
-              className="w-full"
-              isLoading={false}
-              icon={<GoogleIcon />}
-              loadingLabel="Signing up with Google..."
-            >
-              Sign up with Google
-            </LoadingButton>
-            <LoadingButton
-              type="button"
-              variant="secondary"
-              className="w-full"
-              isLoading={false}
-              icon={
-                <DatabaseIcon
-                  size={24}
-                  weight="fill"
-                  className="text-other-blue size-5"
-                />
-              }
-              loadingLabel="Using local storage..."
-            >
-              Use local storage
-            </LoadingButton>
-            <LoadingButton
-              type="button"
-              variant="secondary"
-              className="w-full"
-              isLoading={false}
-              icon={
-                <DetectiveIcon
-                  size={24}
-                  weight="fill"
-                  className="text-other-magenta size-5"
-                />
-              }
-              loadingLabel="Continuing as guest..."
-            >
-              Continue as guest
-            </LoadingButton>
-          </div>
+          <AuthAltButtons />
           <div className="txt-preset-4 text-grey-500 text-center">
             Already have an account?{" "}
             <InlineLink href="/login">Login</InlineLink>

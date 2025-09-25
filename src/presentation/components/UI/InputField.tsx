@@ -15,7 +15,7 @@ type InputFieldProps<
   type: "text" | "email" | "password";
   placeholder?: string;
   label: string;
-  helperText?: string;
+  helperText?: string | React.ReactNode;
 };
 
 export const InputField = <

@@ -1,5 +1,7 @@
+import { VerifyEmailForm } from "@/presentation/components/Features/Auth";
+
 const VerifyEmailPage = () => {
-  return <div>VerifyEmailPage</div>;
+  return <VerifyEmailForm />;
 };
 
 export default VerifyEmailPage;
