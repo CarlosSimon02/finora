@@ -9,13 +9,7 @@ export const InlineLink = ({
   ...props
 }: React.ComponentProps<typeof Link>) => {
   return (
-    <Link
-      className={cn(
-        "txt-preset-4-bold text-grey-900 hover:text-grey-500 underline transition-colors",
-        className
-      )}
-      {...props}
-    >
+    <Link className={cn("inline-link", className)} {...props}>
       {children}
     </Link>
   );

@@ -1,6 +1,7 @@
 "use client";
 
-import { Button, InlineLink } from "@/presentation/components/Primitives";
+import { logoutAction } from "@/presentation/actions";
+import { Button } from "@/presentation/components/Primitives";
 import { Card, LoadingButton } from "@/presentation/components/UI";
 import { useSendEmailVerification } from "@/presentation/hooks";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
@@ -59,7 +60,15 @@ export const VerifyEmailForm = () => {
         </Button>
         <p className="txt-preset-4 text-grey-500 text-center">
           Wrong email?{" "}
-          <InlineLink href="/signup">Create a new account</InlineLink>
+          <button
+            className="inline-link"
+            onClick={async () => {
+              await logoutAction();
+              router.push("/signup");
+            }}
+          >
+            Create a new account
+          </button>
         </p>
       </div>
     </Card>
