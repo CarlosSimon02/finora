@@ -8,6 +8,7 @@ import {
   InputField,
   LoadingButton,
 } from "@/presentation/components/UI";
+import { useResetPassword } from "@/presentation/hooks";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as React from "react";
 import { useForm } from "react-hook-form";
@@ -21,14 +22,15 @@ export const ForgotPasswordForm = () => {
     defaultValues: { email: "" },
   });
 
+  const reset = useResetPassword();
+
   const onSubmit = async (data: ForgotPasswordDto) => {
-    // integrate with reset password mutation here
-    await new Promise((r) => setTimeout(r, 600));
+    await reset.mutateAsync(data.email);
     setSubmittedEmail(data.email);
     setIsSubmitted(true);
   };
 
-  const isLoading = form.formState.isSubmitting;
+  const isLoading = reset.isPending;
 
   return (
     <Card className="w-full max-w-[35rem]">

@@ -2,16 +2,15 @@
 
 import { InlineLink } from "@/presentation/components/Primitives";
 import { Card, LoadingButton } from "@/presentation/components/UI";
+import { useSendEmailVerification } from "@/presentation/hooks";
 import * as React from "react";
 
 export const VerifyEmailForm = () => {
-  const [isResending, setIsResending] = React.useState(false);
   const [resent, setResent] = React.useState(false);
+  const resend = useSendEmailVerification();
 
   const onResend = async () => {
-    setIsResending(true);
-    await new Promise((r) => setTimeout(r, 800));
-    setIsResending(false);
+    await resend.mutateAsync();
     setResent(true);
   };
 
@@ -27,7 +26,7 @@ export const VerifyEmailForm = () => {
         <LoadingButton
           type="button"
           className="w-full"
-          isLoading={isResending}
+          isLoading={resend.isPending}
           loadingLabel="Resending..."
           onClick={onResend}
         >

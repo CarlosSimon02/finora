@@ -8,6 +8,7 @@ import {
   InputField,
   LoadingButton,
 } from "@/presentation/components/UI";
+import { useGoogleSignIn, useSignUp } from "@/presentation/hooks";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { AuthAltButtons } from ".";
@@ -23,12 +24,15 @@ export const SignupForm = () => {
     mode: "onChange",
   });
 
+  const signUp = useSignUp();
+  const google = useGoogleSignIn();
+
   const onSubmit = async (data: SignUpCredentialsDto) => {
-    console.log(data);
+    await signUp.mutateAsync(data);
   };
 
-  const isLoading = form.formState.isSubmitting;
-  const isSuccess = false;
+  const isLoading = signUp.isPending;
+  const isSuccess = signUp.isSuccess;
 
   return (
     <Card className="w-full max-w-[35rem]">
@@ -59,13 +63,17 @@ export const SignupForm = () => {
           <LoadingButton
             type="submit"
             className="w-full"
-            isLoading={false}
+            isLoading={isLoading}
             loadingLabel="Creating account..."
             disabled={isSuccess}
           >
             Create Account
           </LoadingButton>
-          <AuthAltButtons />
+          <AuthAltButtons
+            disabled={isLoading || isSuccess}
+            googleLoading={google.isPending}
+            onGoogleClick={() => google.mutate()}
+          />
           <div className="txt-preset-4 text-grey-500 text-center">
             Already have an account?{" "}
             <InlineLink href="/login">Login</InlineLink>

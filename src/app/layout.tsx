@@ -1,5 +1,6 @@
 import { PUBLIC_SANS } from "@/constants/fonts";
 import { TailwindScreenIndicator } from "@/presentation/components/UI";
+import { Providers } from "@/presentation/Providers";
 import "@/presentation/styles/main.css";
 
 const fontClasses = PUBLIC_SANS.variable;
@@ -17,7 +18,7 @@ const RootLayout = ({ children }: RootLayoutProps) => {
     >
       <body>
         <TailwindScreenIndicator />
-        {children}
+        <Providers>{children}</Providers>
       </body>
     </html>
   );

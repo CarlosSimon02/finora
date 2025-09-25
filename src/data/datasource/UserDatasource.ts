@@ -1,7 +1,6 @@
 import { userCollection } from "@/data/firestore/collections";
 import { validateOrThrow } from "@/data/utils/validation";
-import { DatasourceError } from "@/utils";
-import hasKeys from "@/utils/hasKeys";
+import { DatasourceError, hasKeys } from "@/utils";
 import {
   CreateUserModel,
   createUserModelSchema,
