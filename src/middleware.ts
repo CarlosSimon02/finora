@@ -7,7 +7,7 @@ import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 import { authConfig } from "./config/nextFirebaseAuthEdge";
 
-const AUTH_PATHS = ["/signup", "/login", "/forgot-password"];
+const AUTH_PATHS = ["/signup", "/login", "/forgot-password", "/verify-email"];
 const PUBLIC_PATHS = [...AUTH_PATHS];
 const PRIVATE_PATHS = ["/"];
 
@@ -35,6 +35,24 @@ export async function middleware(request: NextRequest) {
     enableTokenRefreshOnExpiredKidHeader:
       authConfig.experimental_enableTokenRefreshOnExpiredKidHeader,
     handleValidToken: async ({ decodedToken }, headers) => {
+      // Enforce email verification: if authenticated but email not verified, force to /verify-email
+      if (
+        decodedToken &&
+        !decodedToken.email_verified &&
+        pathname !== "/verify-email"
+      ) {
+        return NextResponse.redirect(new URL("/verify-email", request.nextUrl));
+      }
+
+      // If email is verified and user visits /verify-email, send them home
+      if (
+        decodedToken &&
+        decodedToken.email_verified &&
+        pathname === "/verify-email"
+      ) {
+        return redirectToHome(request);
+      }
+
       if (isAuthPath && decodedToken) {
         return redirectToHome(request);
       }
@@ -83,6 +101,7 @@ export const config = {
     "/signup",
     "/login",
     "/forgot-password",
+    "/verify-email",
     "/((?!_next|favicon.ico|__/auth|__/firebase|api|.*\.).*)",
     "/api/login",
     "/api/logout",
