@@ -3,7 +3,6 @@
 import { GoogleIcon } from "@/presentation/components/Primitives";
 import { LoadingButton } from "@/presentation/components/UI";
 import { DatabaseIcon, DetectiveIcon } from "@phosphor-icons/react";
-import { OrContinueWith } from "./OrContinueWith";
 
 type AuthAltButtonsProps = {
   disabled?: boolean;
@@ -38,7 +37,9 @@ export const AuthAltButtons = ({
 }: AuthAltButtonsProps) => {
   return (
     <>
-      <OrContinueWith />
+      <div className="txt-preset-4 text-grey-500 shrink-0 text-center">
+        or continue with
+      </div>
       <div className="space-y-2">
         <LoadingButton
           type="button"
