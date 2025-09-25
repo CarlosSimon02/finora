@@ -1,12 +1,13 @@
 "use client";
 
 import { SignUpCredentialsDto, signUpCredentialsSchema } from "@/core/schemas";
+import { GoogleIcon, InlineLink } from "@/presentation/components/Primitives";
 import {
-  Button,
-  GoogleIcon,
-  InlineLink,
-} from "@/presentation/components/Primitives";
-import { Card, Form, InputField } from "@/presentation/components/UI";
+  Card,
+  Form,
+  InputField,
+  LoadingButton,
+} from "@/presentation/components/UI";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { DatabaseIcon, DetectiveIcon } from "@phosphor-icons/react";
 import { useForm } from "react-hook-form";
@@ -27,7 +28,7 @@ export const SignupForm = () => {
     console.log(data);
   };
 
-  const isLoading = false;
+  const isLoading = form.formState.isSubmitting;
   const isSuccess = false;
 
   return (
@@ -57,50 +58,59 @@ export const SignupForm = () => {
               type="password"
             />
           </div>
-          <Button
+          <LoadingButton
             type="submit"
             className="w-full"
-            disabled={isLoading || isSuccess}
+            isLoading={false}
+            loadingLabel="Creating account..."
+            disabled={isSuccess}
           >
             Create Account
-          </Button>
+          </LoadingButton>
           <OrContinueWith />
           <div className="space-y-2">
-            <Button
+            <LoadingButton
               type="button"
               variant="secondary"
               className="w-full"
-              disabled={isLoading || isSuccess}
+              isLoading={false}
+              icon={<GoogleIcon />}
+              loadingLabel="Signing up with Google..."
             >
-              <GoogleIcon />
               Sign up with Google
-            </Button>
-            <Button
+            </LoadingButton>
+            <LoadingButton
               type="button"
               variant="secondary"
               className="w-full"
-              disabled={isLoading || isSuccess}
+              isLoading={false}
+              icon={
+                <DatabaseIcon
+                  size={24}
+                  weight="fill"
+                  className="text-other-blue size-5"
+                />
+              }
+              loadingLabel="Using local storage..."
             >
-              <DatabaseIcon
-                size={24}
-                weight="fill"
-                className="text-other-blue size-5"
-              />
               Use local storage
-            </Button>
-            <Button
+            </LoadingButton>
+            <LoadingButton
               type="button"
               variant="secondary"
               className="w-full"
-              disabled={isLoading || isSuccess}
+              isLoading={false}
+              icon={
+                <DetectiveIcon
+                  size={24}
+                  weight="fill"
+                  className="text-other-magenta size-5"
+                />
+              }
+              loadingLabel="Continuing as guest..."
             >
-              <DetectiveIcon
-                size={24}
-                weight="fill"
-                className="text-other-magenta size-5"
-              />
               Continue as guest
-            </Button>
+            </LoadingButton>
           </div>
           <div className="txt-preset-4 text-grey-500 text-center">
             Already have an account?{" "}
