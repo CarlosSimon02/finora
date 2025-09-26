@@ -17,12 +17,17 @@ import {
   SidebarMenuItem,
 } from "./Sidebar";
 
-const navMain = [
+type NavItem = {
+  title: string;
+  url: string;
+  icon: React.ComponentType<{ weight?: any; className?: string }>;
+};
+
+const navMain: ReadonlyArray<NavItem> = [
   {
     title: "Overview",
     url: "/overview",
     icon: HouseIcon,
-    isActive: true,
   },
   {
     title: "Transactions",

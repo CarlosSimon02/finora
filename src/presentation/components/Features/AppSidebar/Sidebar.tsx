@@ -26,6 +26,10 @@ const SIDEBAR_WIDTH_MOBILE = "18.75rem";
 const SIDEBAR_WIDTH_ICON = "5.5rem";
 const SIDEBAR_PADDING = "1.5rem";
 
+// Shared section styles used by multiple components
+const SECTION_BASE_CLASSES =
+  "relative flex w-full min-w-0 flex-col p-(--sidebar-padding) pr-(--sidebar-padding) pl-0 transition-[padding-right] group-data-[collapsible=icon]:pr-100";
+
 type SidebarContextProps = {
   state: "expanded" | "collapsed";
   open: boolean;
@@ -80,6 +84,17 @@ function SidebarProvider({
     },
     [setOpenProp, open]
   );
+
+  // hydrate "open" state from cookie once on mount (only when uncontrolled)
+  React.useEffect(() => {
+    if (openProp !== undefined) return;
+    const match = document.cookie.match(
+      new RegExp(`(?:^|; )${SIDEBAR_COOKIE_NAME}=(true|false)`)
+    );
+    if (match) {
+      _setOpen(match[1] === "true");
+    }
+  }, [openProp]);
 
   const toggleSidebar = React.useCallback(() => {
     return isMobile ? setOpenMobile((open) => !open) : setOpen((open) => !open);
@@ -257,11 +272,11 @@ function SidebarTrigger({
   onClick,
   ...props
 }: React.ComponentProps<typeof Button>) {
-  const { toggleSidebar, isMobile, state } = useSidebar();
+  const { toggleSidebar } = useSidebar();
 
   return (
     <SidebarMenuButton
-      tooltip="Maximize Menu"
+      tooltip="Toggle Menu"
       onClick={(event) => {
         onClick?.(event);
         toggleSidebar();
@@ -272,7 +287,7 @@ function SidebarTrigger({
         weight="fill"
         className="size-6 shrink-0 rotate-0 group-data-[collapsible=icon]:rotate-180"
       />
-      <span className="shrink-0">Minimize Menu</span>
+      <span className="shrink-0">Toggle Menu</span>
     </SidebarMenuButton>
   );
 }
@@ -282,14 +297,7 @@ function SidebarGroup({ className, ...props }: React.ComponentProps<"div">) {
     <div
       data-slot="sidebar-group"
       data-sidebar="group"
-      className={cn(
-        // group layout
-        "relative flex w-full min-w-0 flex-col p-(--sidebar-padding) pr-(--sidebar-padding) pl-0 transition-[padding-right]",
-
-        // group-based modifiers used by parent siblings
-        "group-data-[collapsible=icon]:pr-100",
-        className
-      )}
+      className={cn(SECTION_BASE_CLASSES, className)}
       {...props}
     />
   );
@@ -351,14 +359,7 @@ function SidebarFooter({ className, ...props }: React.ComponentProps<"div">) {
     <div
       data-slot="sidebar-group"
       data-sidebar="group"
-      className={cn(
-        // group layout
-        "relative flex w-full min-w-0 flex-col gap-2 p-(--sidebar-padding) pr-(--sidebar-padding) pl-0 transition-[padding-right]",
-
-        // group-based modifiers used by parent siblings
-        "group-data-[collapsible=icon]:pr-100",
-        className
-      )}
+      className={cn(SECTION_BASE_CLASSES, "gap-2", className)}
       {...props}
     />
   );
