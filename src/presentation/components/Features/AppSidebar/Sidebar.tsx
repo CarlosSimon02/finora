@@ -1,10 +1,10 @@
 "use client";
 
-import { SidebarIcon } from "@phosphor-icons/react";
+import { ArrowFatLinesLeftIcon } from "@phosphor-icons/react";
 import { Slot } from "@radix-ui/react-slot";
 import * as React from "react";
 
-import { Button } from "@/presentation/components/Primitives";
+import { Button, Logo } from "@/presentation/components/Primitives";
 import {
   Sheet,
   SheetContent,
@@ -149,7 +149,7 @@ function Sidebar({
         data-slot="sidebar"
         className={cn(
           // structure & colors
-          "bg-grey-900 text-grey-300 flex h-full w-(--sidebar-width) flex-col rounded-r-2xl",
+          "bg-grey-900 text-grey-300 flex h-full w-(--sidebar-width) flex-col overflow-x-hidden overflow-y-auto rounded-r-2xl",
           className
         )}
         {...props}
@@ -182,7 +182,9 @@ function Sidebar({
             <SheetTitle>Sidebar</SheetTitle>
             <SheetDescription>Displays the mobile sidebar.</SheetDescription>
           </SheetHeader>
-          <div className="flex h-full w-full flex-col">{children}</div>
+          <div className="flex h-full w-full flex-col overflow-x-hidden overflow-y-auto">
+            {children}
+          </div>
         </SheetContent>
       </Sheet>
     );
@@ -238,7 +240,7 @@ function Sidebar({
           data-slot="sidebar-inner"
           className={cn(
             // inner panel styling
-            "bg-grey-900 flex h-full w-full flex-col rounded-r-2xl group-data-[variant=floating]:border-transparent",
+            "bg-grey-900 flex h-full w-full flex-col overflow-x-hidden overflow-y-auto rounded-r-2xl group-data-[variant=floating]:border-transparent",
             // floating variant modifications
             "group-data-[variant=floating]:rounded-lg group-data-[variant=floating]:border group-data-[variant=floating]:shadow-sm"
           )}
@@ -255,27 +257,49 @@ function SidebarTrigger({
   onClick,
   ...props
 }: React.ComponentProps<typeof Button>) {
-  const { toggleSidebar } = useSidebar();
+  const { toggleSidebar, isMobile, state } = useSidebar();
 
   return (
-    <Button
-      data-sidebar="trigger"
-      data-slot="sidebar-trigger"
-      variant="secondary"
-      className={cn(
-        // base sizing + allow overrides
-        "size-7",
-        className
-      )}
-      onClick={(event) => {
-        onClick?.(event);
-        toggleSidebar();
-      }}
-      {...props}
-    >
-      <SidebarIcon />
-      <span className="sr-only">Toggle Sidebar</span>
-    </Button>
+    <Tooltip>
+      <TooltipTrigger asChild>
+        <button
+          data-sidebar="trigger"
+          data-slot="sidebar-trigger"
+          variant="secondary"
+          className={cn(
+            // base layout & spacing
+            "txt-preset-3 relative flex w-full items-center gap-4 overflow-hidden rounded-r-2xl py-200 text-left outline-hidden transition-[width,height,padding,color,background-color] [&>svg]:ml-0 [&>svg]:rotate-0 [&>svg]:transition-[margin-left,rotate]",
+
+            // interaction & ring
+            "hover:text-grey-100",
+
+            // group-based modifiers used by parent siblings
+            "group-data-[collapsible=icon]:[&>svg]:ml-[0.5rem]! group-data-[collapsible=icon]:[&>svg]:rotate-180!",
+
+            // accessibility and disabled states
+            "focus-visible:ring-2 disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50",
+
+            className
+          )}
+          onClick={(event) => {
+            onClick?.(event);
+            toggleSidebar();
+          }}
+          {...props}
+        >
+          <ArrowFatLinesLeftIcon weight="fill" className="size-6 shrink-0" />
+          <span className="shrink-0">Minimize Menu</span>
+        </button>
+      </TooltipTrigger>
+      <TooltipContent
+        side="right"
+        align="center"
+        sideOffset={20}
+        hidden={state !== "collapsed" || isMobile}
+      >
+        Toggle sidebar
+      </TooltipContent>
+    </Tooltip>
   );
 }
 
@@ -336,11 +360,15 @@ function SidebarHeader({ className, ...props }: React.ComponentProps<"div">) {
       data-sidebar="header"
       className={cn(
         // header spacing
-        "flex flex-col gap-2 p-2",
+        "flex flex-col gap-2 overflow-clip px-(--sidebar-padding) py-500",
         className
       )}
       {...props}
-    />
+    >
+      <div className="ml-0 max-w-[7rem] overflow-clip transition-[max-width,margin-left] group-data-[collapsible=icon]:ml-[0.75rem] group-data-[collapsible=icon]:max-w-[1rem]">
+        <Logo className="h-[1.6rem] w-fit" />
+      </div>
+    </div>
   );
 }
 
@@ -351,7 +379,7 @@ function SidebarFooter({ className, ...props }: React.ComponentProps<"div">) {
       data-sidebar="footer"
       className={cn(
         // footer spacing
-        "flex flex-col gap-2 p-2",
+        "flex flex-col gap-2 p-(--sidebar-padding)",
         className
       )}
       {...props}
@@ -366,7 +394,7 @@ function SidebarContent({ className, ...props }: React.ComponentProps<"div">) {
       data-sidebar="content"
       className={cn(
         // main content area and overflow behavior
-        "flex min-h-0 flex-1 flex-col gap-2 overflow-auto group-data-[collapsible=icon]:overflow-hidden",
+        "flex min-h-0 flex-1 flex-col gap-2 overflow-x-hidden overflow-y-auto group-data-[collapsible=icon]:overflow-hidden",
         className
       )}
       {...props}
@@ -466,6 +494,7 @@ function SidebarMenuButton({
       <TooltipContent
         side="right"
         align="center"
+        sideOffset={5}
         hidden={state !== "collapsed" || isMobile}
         {...tooltip}
       />
