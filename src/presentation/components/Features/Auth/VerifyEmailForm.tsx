@@ -1,6 +1,6 @@
 "use client";
 
-import { logoutAction } from "@/presentation/actions";
+import { logoutAction, refreshCredentialsAction } from "@/presentation/actions";
 import { Button } from "@/presentation/components/Primitives";
 import { Card, LoadingButton } from "@/presentation/components/UI";
 import { useSendEmailVerification } from "@/presentation/hooks";
@@ -24,19 +24,24 @@ export const VerifyEmailForm = () => {
     router.replace(`${pathname}?${newParams.toString()}`, { scroll: false });
   };
 
+  const reloadPage = () => {
+    // Full reload (triggers middleware)
+    window.location.href = window.location.href;
+  };
+
   return (
     <Card className="w-full max-w-[35rem]">
       <h2 className="txt-preset-1">Verify your email</h2>
       <p className="txt-preset-4 text-grey-500 mt-2">
         {sent
-          ? "We have sent a verification link to your email address. Please check"
+          ? "We have sent a verification link to your email address. Please check your inbox."
           : 'Click "Send verification email" to send a verification link to your email address.'}{" "}
-        After verifying your email, please reload this page to continue.
+        After verifying your email, please refresh your credentials to continue.
       </p>
 
       <div className="mt-8 space-y-4">
         {resent && (
-          <p className="txt-preset-4 text-center text-green-600">
+          <p className="txt-preset-4 text-secondary-green text-center">
             Verification email sent. Check your inbox.
           </p>
         )}
@@ -54,9 +59,12 @@ export const VerifyEmailForm = () => {
           type="button"
           className="w-full"
           variant="secondary"
-          onClick={() => router.refresh()}
+          onClick={async () => {
+            await refreshCredentialsAction();
+            reloadPage();
+          }}
         >
-          Reload page
+          Refresh Credentials
         </Button>
         <p className="txt-preset-4 text-grey-500 text-center">
           Wrong email?{" "}

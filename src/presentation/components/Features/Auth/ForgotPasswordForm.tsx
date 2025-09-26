@@ -10,6 +10,7 @@ import {
 } from "@/presentation/components/UI";
 import { useResetPassword } from "@/presentation/hooks";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { CheckIcon } from "@phosphor-icons/react";
 import * as React from "react";
 import { useForm } from "react-hook-form";
 
@@ -38,17 +39,17 @@ export const ForgotPasswordForm = () => {
       {isSubmitted ? (
         <div className="mt-8 text-center">
           <div
-            className="mb-4 inline-block rounded-full bg-green-100 p-3 text-green-500"
+            className="bg-secondary-green/10 text-secondary-green mb-4 inline-block rounded-full p-3"
             aria-hidden
           >
-            ✓
+            <CheckIcon size={30} />
           </div>
           <h3 className="txt-preset-3">Check your email</h3>
           <p className="txt-preset-4 text-grey-500 mt-2">
-            We\'ve sent a password reset link to {submittedEmail}
+            We have sent a password reset link to {submittedEmail}
           </p>
           <div className="mt-6">
-            <InlineLink href="/login">Back to sign in</InlineLink>
+            <InlineLink href="/login">Back to login</InlineLink>
           </div>
         </div>
       ) : (
@@ -77,7 +78,7 @@ export const ForgotPasswordForm = () => {
 
             <div className="txt-preset-4 text-grey-500 text-center">
               Remember your password?{" "}
-              <InlineLink href="/login">Back to sign in</InlineLink>
+              <InlineLink href="/login">Back to login</InlineLink>
             </div>
           </form>
         </Form>

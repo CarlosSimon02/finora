@@ -1,5 +1,6 @@
 import { ServerActionResponse } from "@/types";
 import {
+  AuthError,
   ConflictError,
   DatasourceError,
   DomainValidationError,
@@ -17,48 +18,39 @@ const getErrorMessage = (error: unknown): string => {
 const getValidationErrors = (
   error: unknown
 ): Record<string, string | undefined> | undefined => {
-  if (error instanceof ValidationError) {
-    return error.errors;
+  if (error instanceof ValidationError) return error.errors;
+  if (error instanceof z.ZodError) {
+    return error.flatten().fieldErrors as unknown as Record<
+      string,
+      string | undefined
+    >;
   }
   return undefined;
 };
 
+type ErrorMeta = { code?: string; status: number };
+
+/**
+ * Return code/status for known custom errors.
+ * Keep mapping centralized so it's easy to update.
+ */
+const getErrorMeta = (error: unknown): ErrorMeta => {
+  if (error instanceof ConflictError) return { code: "CONFLICT", status: 409 };
+  if (error instanceof NotFoundError) return { code: "NOT_FOUND", status: 404 };
+  if (error instanceof DomainValidationError)
+    return { code: "DOMAIN_VALIDATION", status: 400 };
+  if (error instanceof ValidationError || error instanceof z.ZodError)
+    return { code: "VALIDATION", status: 400 };
+  if (error instanceof AuthError) return { code: "AUTH", status: 401 };
+  if (error instanceof DatasourceError) return { status: 500 };
+  // fallback
+  return { status: 500 };
+};
+
 export const getServerActionError = (error: unknown) => {
-  let message = getErrorMessage(error);
-  let validationErrors = getValidationErrors(error);
-
-  if (error instanceof z.ZodError) {
-    validationErrors = error.flatten().fieldErrors as Record<
-      string,
-      string | undefined
-    >;
-    message = "Validation failed";
-  }
-
-  // Optionally, attach a code and status for client-side mapping if needed
-  const code =
-    error instanceof ConflictError
-      ? "CONFLICT"
-      : error instanceof NotFoundError
-        ? "NOT_FOUND"
-        : error instanceof DomainValidationError
-          ? "DOMAIN_VALIDATION"
-          : error instanceof ValidationError
-            ? "VALIDATION"
-            : undefined;
-
-  const status =
-    error instanceof ConflictError
-      ? 409
-      : error instanceof NotFoundError
-        ? 404
-        : error instanceof DomainValidationError ||
-            error instanceof z.ZodError ||
-            error instanceof ValidationError
-          ? 400
-          : error instanceof DatasourceError
-            ? 500
-            : 500;
+  const message = getErrorMessage(error);
+  const validationErrors = getValidationErrors(error);
+  const { code, status } = getErrorMeta(error);
 
   return {
     data: null,

@@ -10,8 +10,13 @@ import { UserRepository } from "@/data/repositories/UserRespository";
 import { tokensToUser } from "@/lib/authTokens";
 import { getServerActionError } from "@/lib/serverActionError";
 import { ServerActionResponse } from "@/types";
-import { refreshCookiesWithIdToken } from "next-firebase-auth-edge/lib/next/cookies";
+import { AuthError } from "@/utils";
+import {
+  refreshCookiesWithIdToken,
+  refreshServerCookies,
+} from "next-firebase-auth-edge/lib/next/cookies";
 import { removeServerCookies } from "next-firebase-auth-edge/next/cookies";
+import { getTokens } from "next-firebase-auth-edge/next/tokens";
 import { cookies, headers } from "next/headers";
 
 const authAdminRepository = new AuthAdminRepository();
@@ -52,4 +57,22 @@ export const logoutAction = async () => {
   await signOut(authClientRepository)();
 
   removeServerCookies(await cookies(), { cookieName: authConfig.cookieName });
+};
+
+export const refreshCredentialsAction = async () => {
+  try {
+    const tokens = await getTokens(await cookies(), authConfig);
+
+    if (!tokens) {
+      throw new AuthError("Unauthenticated");
+    }
+
+    await refreshServerCookies(
+      await cookies(),
+      new Headers(await headers()),
+      authConfig
+    );
+  } catch (error) {
+    return getServerActionError(error);
+  }
 };

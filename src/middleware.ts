@@ -36,6 +36,7 @@ export async function middleware(request: NextRequest) {
       authConfig.experimental_enableTokenRefreshOnExpiredKidHeader,
     handleValidToken: async ({ decodedToken }, headers) => {
       // Enforce email verification: if authenticated but email not verified, force to /verify-email
+
       if (
         decodedToken &&
         !decodedToken.email_verified &&
