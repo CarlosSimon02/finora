@@ -260,46 +260,20 @@ function SidebarTrigger({
   const { toggleSidebar, isMobile, state } = useSidebar();
 
   return (
-    <Tooltip>
-      <TooltipTrigger asChild>
-        <button
-          data-sidebar="trigger"
-          data-slot="sidebar-trigger"
-          variant="secondary"
-          className={cn(
-            // base layout & spacing
-            "txt-preset-3 relative flex w-full items-center gap-4 overflow-hidden rounded-r-2xl py-200 text-left outline-hidden transition-[width,height,padding,color,background-color] [&>svg]:ml-0 [&>svg]:rotate-0 [&>svg]:transition-[margin-left,rotate]",
-
-            // interaction & ring
-            "hover:text-grey-100",
-
-            // group-based modifiers used by parent siblings
-            "group-data-[collapsible=icon]:[&>svg]:ml-[0.5rem]! group-data-[collapsible=icon]:[&>svg]:rotate-180!",
-
-            // accessibility and disabled states
-            "focus-visible:ring-2 disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50",
-
-            className
-          )}
-          onClick={(event) => {
-            onClick?.(event);
-            toggleSidebar();
-          }}
-          {...props}
-        >
-          <ArrowFatLinesLeftIcon weight="fill" className="size-6 shrink-0" />
-          <span className="shrink-0">Minimize Menu</span>
-        </button>
-      </TooltipTrigger>
-      <TooltipContent
-        side="right"
-        align="center"
-        sideOffset={20}
-        hidden={state !== "collapsed" || isMobile}
-      >
-        Toggle sidebar
-      </TooltipContent>
-    </Tooltip>
+    <SidebarMenuButton
+      tooltip="Maximize Menu"
+      onClick={(event) => {
+        onClick?.(event);
+        toggleSidebar();
+      }}
+      {...props}
+    >
+      <ArrowFatLinesLeftIcon
+        weight="fill"
+        className="size-6 shrink-0 rotate-0 group-data-[collapsible=icon]:rotate-180"
+      />
+      <span className="shrink-0">Minimize Menu</span>
+    </SidebarMenuButton>
   );
 }
 
@@ -375,11 +349,14 @@ function SidebarHeader({ className, ...props }: React.ComponentProps<"div">) {
 function SidebarFooter({ className, ...props }: React.ComponentProps<"div">) {
   return (
     <div
-      data-slot="sidebar-footer"
-      data-sidebar="footer"
+      data-slot="sidebar-group"
+      data-sidebar="group"
       className={cn(
-        // footer spacing
-        "flex flex-col gap-2 p-(--sidebar-padding)",
+        // group layout
+        "relative flex w-full min-w-0 flex-col gap-2 p-(--sidebar-padding) pr-(--sidebar-padding) pl-0 transition-[padding-right]",
+
+        // group-based modifiers used by parent siblings
+        "group-data-[collapsible=icon]:pr-100",
         className
       )}
       {...props}
@@ -453,7 +430,7 @@ function SidebarMenuButton({
       data-active={isActive}
       className={cn(
         // base layout & spacing
-        "txt-preset-3 relative flex w-full items-center gap-4 overflow-hidden rounded-r-2xl p-200 pl-(--sidebar-padding) text-left outline-hidden transition-[width,height,padding,color,background-color] [&>svg]:ml-0 [&>svg]:transition-[margin-left]",
+        "txt-preset-3 relative flex w-full items-center gap-4 overflow-hidden rounded-r-2xl p-200 pl-(--sidebar-padding) text-left outline-hidden transition-[width,height,padding,color,background-color,gap] [&>svg]:ml-0 [&>svg]:transition-[margin-left,rotate]",
 
         // vertical left line
         "before:absolute before:top-0 before:bottom-0 before:left-0 before:w-1 before:bg-transparent before:transition-[background-color]",
@@ -465,7 +442,7 @@ function SidebarMenuButton({
         "data-[active=true]:bg-beige-100 data-[active=true]:text-grey-900 data-[active=true]:before:bg-secondary-green data-[active=true]:[&>svg]:text-secondary-green",
 
         // group-based modifiers used by parent siblings
-        "group-has-data-[sidebar=menu-action]/menu-item:pr-8 group-data-[collapsible=icon]:p-200! group-data-[collapsible=icon]:pl-(--sidebar-padding)! group-data-[collapsible=icon]:[&>svg]:ml-[0.46875rem]!",
+        "group-has-data-[sidebar=menu-action]/menu-item:pr-8 group-data-[collapsible=icon]:gap-6! group-data-[collapsible=icon]:p-200! group-data-[collapsible=icon]:pl-(--sidebar-padding)! group-data-[collapsible=icon]:[&>svg]:ml-[0.46875rem]!",
 
         // accessibility and disabled states
         "focus-visible:ring-2 disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50",
