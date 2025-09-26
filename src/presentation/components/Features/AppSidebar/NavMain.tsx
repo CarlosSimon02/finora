@@ -8,7 +8,6 @@ import {
   TipJarIcon,
 } from "@phosphor-icons/react";
 
-import { cn } from "@/utils";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
@@ -56,7 +55,7 @@ export function NavMain() {
           <SidebarMenuItem key={item.title}>
             <SidebarMenuButton
               tooltip={item.title}
-              className={cn(pathname.startsWith(item.url) && "bg-secondary")}
+              data-active={pathname.startsWith(item.url)}
               asChild
             >
               <Link href={item.url}>

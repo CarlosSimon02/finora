@@ -1,7 +1,6 @@
 import {
   AppSidebar,
   SidebarProvider,
-  SidebarTrigger,
 } from "@/presentation/components/Features/AppSidebar";
 
 type FrontLayoutProps = {
@@ -13,7 +12,6 @@ const FrontLayout = ({ children }: FrontLayoutProps) => {
     <SidebarProvider>
       <AppSidebar />
       <main className="w-full">
-        <SidebarTrigger />
         <div className="p-4 [&>*]:container [&>*]:mx-auto">{children}</div>
       </main>
     </SidebarProvider>
