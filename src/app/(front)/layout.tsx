@@ -1,9 +1,23 @@
+import {
+  AppSidebar,
+  SidebarProvider,
+  SidebarTrigger,
+} from "@/presentation/components/Features/AppSidebar";
+
 type FrontLayoutProps = {
   children: React.ReactNode;
 };
 
 const FrontLayout = ({ children }: FrontLayoutProps) => {
-  return <div>{children}</div>;
+  return (
+    <SidebarProvider>
+      <AppSidebar />
+      <main className="w-full">
+        <SidebarTrigger />
+        <div className="p-4 [&>*]:container [&>*]:mx-auto">{children}</div>
+      </main>
+    </SidebarProvider>
+  );
 };
 
 export default FrontLayout;
