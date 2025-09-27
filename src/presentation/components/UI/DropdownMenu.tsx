@@ -34,7 +34,7 @@ const DropdownMenuContent = ({
         sideOffset={sideOffset}
         className={cn(
           // Base layout & appearance
-          "text-grey-900 z-50 max-h-(--radix-dropdown-menu-content-available-height) min-w-[8rem] origin-(--radix-dropdown-menu-content-transform-origin) overflow-x-hidden overflow-y-auto rounded-md bg-white p-1 shadow-md",
+          "text-grey-900 z-50 max-h-(--radix-dropdown-menu-content-available-height) min-w-[8rem] origin-(--radix-dropdown-menu-content-transform-origin) overflow-x-hidden overflow-y-auto rounded-lg bg-white p-1 shadow-md",
 
           // Animation (open/close transitions)
           "data-[state=open]:animate-in data-[state=closed]:animate-out",
