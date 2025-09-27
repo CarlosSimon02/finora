@@ -12,10 +12,14 @@ const FrontLayout = ({ children }: FrontLayoutProps) => {
   return (
     <SidebarProvider>
       <AppSidebar />
-      <main className="w-full pb-16 md:pb-0">
-        <div className="p-4 [&>*]:container [&>*]:mx-auto">{children}</div>
-      </main>
-      <MobileBottomNav />
+      <div className="flex h-[100dvh] w-full flex-col">
+        <main className="w-full flex-1">
+          <div className="relative p-200 [&>*]:container [&>*]:mx-auto">
+            {children}
+          </div>
+        </main>
+        <MobileBottomNav />
+      </div>
     </SidebarProvider>
   );
 };
