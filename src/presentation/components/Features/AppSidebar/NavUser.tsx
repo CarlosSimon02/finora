@@ -70,8 +70,8 @@ export function NavUser({ user }: NavUserProps) {
         align="end"
         sideOffset={4}
       >
-        <DropdownMenuItem onClick={logoutAction}>
-          <SignOutIcon weight="fill" />
+        <DropdownMenuItem onClick={logoutAction} variant="destructive">
+          <SignOutIcon weight="fill" className="size-4" />
           Log out
         </DropdownMenuItem>
       </DropdownMenuContent>
