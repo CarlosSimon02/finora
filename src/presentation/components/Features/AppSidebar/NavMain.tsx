@@ -1,13 +1,6 @@
 "use client";
 
-import {
-  ArrowsDownUpIcon,
-  ChartDonutIcon,
-  HouseIcon,
-  ReceiptIcon,
-  TipJarIcon,
-} from "@phosphor-icons/react";
-
+import { NAV_MAIN } from "@/constants/nav";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
@@ -17,46 +10,12 @@ import {
   SidebarMenuItem,
 } from "./Sidebar";
 
-type NavItem = {
-  title: string;
-  url: string;
-  icon: React.ComponentType<{ weight?: any; className?: string }>;
-};
-
-const navMain: ReadonlyArray<NavItem> = [
-  {
-    title: "Overview",
-    url: "/overview",
-    icon: HouseIcon,
-  },
-  {
-    title: "Transactions",
-    url: "/transactions",
-    icon: ArrowsDownUpIcon,
-  },
-  {
-    title: "Budgets",
-    url: "/budgets",
-    icon: ChartDonutIcon,
-  },
-  {
-    title: "Pots",
-    url: "/pots",
-    icon: TipJarIcon,
-  },
-  {
-    title: "Recurring Bills",
-    url: "/recurring-bills",
-    icon: ReceiptIcon,
-  },
-];
-
 export function NavMain() {
   const pathname = usePathname();
   return (
     <SidebarGroup>
       <SidebarMenu>
-        {navMain.map((item) => (
+        {NAV_MAIN.map((item) => (
           <SidebarMenuItem key={item.title}>
             <SidebarMenuButton
               tooltip={item.title}

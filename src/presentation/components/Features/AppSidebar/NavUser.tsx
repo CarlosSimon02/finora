@@ -31,6 +31,7 @@ export function NavUser({ user }: NavUserProps) {
           <DropdownMenuTrigger asChild>
             <button
               className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground bg-grey-800 hover:bg-grey-700 flex items-center gap-3 rounded-r-2xl px-300 py-200"
+              suppressHydrationWarning
               aria-label="User menu"
             >
               <Avatar className="bg-grey-900 size-9 rounded-full">

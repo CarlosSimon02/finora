@@ -27,6 +27,22 @@
   padding-right: --value(--spacing-*);
 }
 
+@utility pt-* {
+  padding-top: --value(--spacing-*);
+}
+
+@utility pb-* {
+  padding-bottom: --value(--spacing-*);
+}
+
+@utility pl-* {
+  padding-left: --value(--spacing-*);
+}
+
+@utility pr-* {
+  padding-right: --value(--spacing-*);
+}
+
 @utility gap-* {
   gap: --value(--spacing-*);
 }
