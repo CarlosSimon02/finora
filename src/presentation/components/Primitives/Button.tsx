@@ -14,10 +14,10 @@ const buttonVariants = cva(
         primary: "bg-grey-900 text-white hover:bg-grey-500",
         secondary:
           "bg-beige-100 text-grey-900 border border-transparent hover:border-beige-500 hover:bg-transparent",
-        tertiary:
-          "border border-input bg-background shadow-xs hover:bg-accent hover:text-accent-foreground",
-        destructive:
-          "bg-secondary text-secondary-foreground shadow-xs hover:bg-secondary/80",
+        // tertiary:
+        //   "border border-input bg-background shadow-xs hover:bg-accent hover:text-accent-foreground",
+        // destructive:
+        //   "bg-secondary text-secondary-foreground shadow-xs hover:bg-secondary/80",
       },
     },
     defaultVariants: {

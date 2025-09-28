@@ -14,7 +14,7 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/presentation/components/UI";
-import { DotsThreeIcon, SignOutIcon } from "@phosphor-icons/react";
+import { SignOutIcon } from "@phosphor-icons/react";
 import { useSidebar } from "./Sidebar";
 
 type NavUserProps = {
@@ -46,12 +46,11 @@ export function NavUser({ user }: NavUserProps) {
                 </AvatarFallback>
               </Avatar>
               <div className="grid flex-1 text-left text-sm leading-tight">
-                <span className="txt-preset-3 text-grey-100 truncate">
-                  {user.displayName || user.email}
+                <span className="txt-preset-4-bold text-grey-100 truncate">
+                  {user.displayName}
                 </span>
                 <span className="txt-preset-5 truncate">{user.email}</span>
               </div>
-              <DotsThreeIcon className="ml-auto size-6" />
             </button>
           </DropdownMenuTrigger>
         </TooltipTrigger>
