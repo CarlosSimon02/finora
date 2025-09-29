@@ -159,8 +159,6 @@ type InputFieldProps<
   helperText?: string | React.ReactNode;
   inputComponent: (args: {
     field: ControllerRenderProps<TFieldValues, TName>;
-    placeholder?: string;
-    disabled?: boolean;
   }) => React.ReactNode;
 };
 
@@ -169,10 +167,8 @@ const InputField = <
   TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
 >({
   label,
-  placeholder,
   helperText,
   inputComponent,
-  disabled,
   ...props
 }: InputFieldProps<TFieldValues, TName>) => {
   return (
@@ -183,8 +179,6 @@ const InputField = <
           <FormControl>
             {inputComponent({
               field,
-              placeholder,
-              disabled,
             })}
           </FormControl>
 
