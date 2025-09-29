@@ -5,10 +5,12 @@ import * as React from "react";
 
 import { cn } from "@/utils";
 
-const TooltipProvider = ({
-  delayDuration = 1000,
-  ...props
-}: React.ComponentProps<typeof TooltipPrimitive.Provider>) => {
+type ProviderProps = React.ComponentProps<typeof TooltipPrimitive.Provider>;
+type RootProps = React.ComponentProps<typeof TooltipPrimitive.Root>;
+type TriggerProps = React.ComponentProps<typeof TooltipPrimitive.Trigger>;
+type ContentProps = React.ComponentProps<typeof TooltipPrimitive.Content>;
+
+const TooltipProvider = ({ delayDuration = 1000, ...props }: ProviderProps) => {
   return (
     <TooltipPrimitive.Provider
       data-slot="tooltip-provider"
@@ -18,9 +20,7 @@ const TooltipProvider = ({
   );
 };
 
-const Tooltip = ({
-  ...props
-}: React.ComponentProps<typeof TooltipPrimitive.Root>) => {
+const TooltipRoot = ({ ...props }: RootProps) => {
   return (
     <TooltipProvider>
       <TooltipPrimitive.Root data-slot="tooltip" {...props} />
@@ -28,9 +28,7 @@ const Tooltip = ({
   );
 };
 
-const TooltipTrigger = ({
-  ...props
-}: React.ComponentProps<typeof TooltipPrimitive.Trigger>) => {
+const TooltipTrigger = ({ ...props }: TriggerProps) => {
   return <TooltipPrimitive.Trigger data-slot="tooltip-trigger" {...props} />;
 };
 
@@ -39,7 +37,7 @@ const TooltipContent = ({
   sideOffset = 0,
   children,
   ...props
-}: React.ComponentProps<typeof TooltipPrimitive.Content>) => {
+}: ContentProps) => {
   return (
     <TooltipPrimitive.Portal>
       <TooltipPrimitive.Content
@@ -58,4 +56,15 @@ const TooltipContent = ({
   );
 };
 
-export { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger };
+type TooltipType = typeof TooltipRoot & {
+  Provider: typeof TooltipProvider;
+  Trigger: typeof TooltipTrigger;
+  Content: typeof TooltipContent;
+};
+
+const Tooltip = TooltipRoot as TooltipType;
+Tooltip.Provider = TooltipProvider;
+Tooltip.Trigger = TooltipTrigger;
+Tooltip.Content = TooltipContent;
+
+export { Tooltip };

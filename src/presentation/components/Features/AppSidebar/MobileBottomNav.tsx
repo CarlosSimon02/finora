@@ -4,11 +4,7 @@ import { NAV_MAIN } from "@/constants/nav";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "@/presentation/components/UI";
+import { Tooltip } from "@/presentation/components/UI";
 import { cn } from "@/utils";
 
 type MobileBottomNavProps = {
@@ -31,7 +27,7 @@ export function MobileBottomNav({ className }: MobileBottomNavProps) {
           const isActive = pathname.startsWith(item.url);
           return (
             <Tooltip key={item.title}>
-              <TooltipTrigger asChild>
+              <Tooltip.Trigger asChild>
                 <Link
                   href={item.url}
                   className={cn(
@@ -69,15 +65,15 @@ export function MobileBottomNav({ className }: MobileBottomNavProps) {
                     )}
                   />
                 </Link>
-              </TooltipTrigger>
-              <TooltipContent
+              </Tooltip.Trigger>
+              <Tooltip.Content
                 side="top"
                 align="center"
                 sideOffset={6}
                 className="sm:hidden"
               >
                 {item.title}
-              </TooltipContent>
+              </Tooltip.Content>
             </Tooltip>
           );
         })}

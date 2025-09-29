@@ -33,7 +33,7 @@ export const AppSidebar = async ({ ...props }: AppSidebarProps) => {
       </SidebarContent>
       <SidebarFooter>
         <NavUser user={user} />
-        <SidebarTrigger />
+        <SidebarTrigger label="Toggle sidebar" />
       </SidebarFooter>
       <SidebarRail />
     </Sidebar>

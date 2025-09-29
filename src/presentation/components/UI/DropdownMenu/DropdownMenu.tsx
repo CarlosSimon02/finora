@@ -5,15 +5,19 @@ import * as React from "react";
 
 import { cn } from "@/utils";
 
-const DropdownMenu = ({
-  ...props
-}: React.ComponentProps<typeof DropdownMenuPrimitive.Root>) => {
-  return <DropdownMenuPrimitive.Root data-slot="dropdown-menu" {...props} />;
+type RootProps = React.ComponentProps<typeof DropdownMenuPrimitive.Root>;
+type TriggerProps = React.ComponentProps<typeof DropdownMenuPrimitive.Trigger>;
+type ContentProps = React.ComponentProps<typeof DropdownMenuPrimitive.Content>;
+type ItemProps = React.ComponentProps<typeof DropdownMenuPrimitive.Item> & {
+  inset?: boolean;
+  variant?: "default" | "destructive";
 };
 
-const DropdownMenuTrigger = ({
-  ...props
-}: React.ComponentProps<typeof DropdownMenuPrimitive.Trigger>) => {
+const DropdownMenuRoot = (props: RootProps) => (
+  <DropdownMenuPrimitive.Root data-slot="dropdown-menu" {...props} />
+);
+
+const DropdownMenuTrigger = (props: TriggerProps) => {
   return (
     <DropdownMenuPrimitive.Trigger
       data-slot="dropdown-menu-trigger"
@@ -26,7 +30,7 @@ const DropdownMenuContent = ({
   className,
   sideOffset = 4,
   ...props
-}: React.ComponentProps<typeof DropdownMenuPrimitive.Content>) => {
+}: ContentProps) => {
   return (
     <DropdownMenuPrimitive.Portal>
       <DropdownMenuPrimitive.Content
@@ -63,10 +67,7 @@ const DropdownMenuItem = ({
   inset,
   variant = "default",
   ...props
-}: React.ComponentProps<typeof DropdownMenuPrimitive.Item> & {
-  inset?: boolean;
-  variant?: "default" | "destructive";
-}) => {
+}: ItemProps) => {
   return (
     <DropdownMenuPrimitive.Item
       data-slot="dropdown-menu-item"
@@ -105,9 +106,15 @@ const DropdownMenuItem = ({
   );
 };
 
-export {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
+type DropdownMenuType = typeof DropdownMenuRoot & {
+  Trigger: typeof DropdownMenuTrigger;
+  Content: typeof DropdownMenuContent;
+  Item: typeof DropdownMenuItem;
 };
+
+const DropdownMenu = DropdownMenuRoot as DropdownMenuType;
+DropdownMenu.Trigger = DropdownMenuTrigger;
+DropdownMenu.Content = DropdownMenuContent;
+DropdownMenu.Item = DropdownMenuItem;
+
+export { DropdownMenu };

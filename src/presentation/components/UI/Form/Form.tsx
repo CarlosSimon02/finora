@@ -9,14 +9,21 @@ import {
   useFormContext,
   useFormState,
   type ControllerProps,
+  type ControllerRenderProps,
   type FieldPath,
   type FieldValues,
+  type FormProviderProps,
+  type UseControllerProps,
 } from "react-hook-form";
 
 import { Label } from "@/presentation/components/Primitives";
 import { cn } from "@/utils";
 
-const Form = FormProvider;
+const FormRoot = <TFieldValues extends FieldValues = FieldValues>(
+  props: FormProviderProps<TFieldValues>
+) => {
+  return <FormProvider {...props} />;
+};
 
 type FormFieldContextValue<
   TFieldValues extends FieldValues = FieldValues,
@@ -123,22 +130,6 @@ const FormControl = ({ ...props }: React.ComponentProps<typeof Slot>) => {
   );
 };
 
-const FormDescription = ({
-  className,
-  ...props
-}: React.ComponentProps<"p">) => {
-  const { formDescriptionId } = useFormField();
-
-  return (
-    <p
-      data-slot="form-description"
-      id={formDescriptionId}
-      className={cn("txt-preset-5 text-grey-500", className)}
-      {...props}
-    />
-  );
-};
-
 const FormMessage = ({ className, ...props }: React.ComponentProps<"p">) => {
   const { error, formMessageId } = useFormField();
   const body = error ? String(error?.message ?? "") : props.children;
@@ -159,13 +150,67 @@ const FormMessage = ({ className, ...props }: React.ComponentProps<"p">) => {
   );
 };
 
-export {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-  useFormField,
+type InputFieldProps<
+  TFieldValues extends FieldValues = FieldValues,
+  TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
+> = UseControllerProps<TFieldValues, TName> & {
+  placeholder?: string;
+  label: string;
+  helperText?: string | React.ReactNode;
+  inputComponent: (args: {
+    field: ControllerRenderProps<TFieldValues, TName>;
+    placeholder?: string;
+    disabled?: boolean;
+  }) => React.ReactNode;
 };
+
+const InputField = <
+  TFieldValues extends FieldValues = FieldValues,
+  TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
+>({
+  label,
+  placeholder,
+  helperText,
+  inputComponent,
+  disabled,
+  ...props
+}: InputFieldProps<TFieldValues, TName>) => {
+  return (
+    <FormField
+      render={({ field, fieldState }) => (
+        <FormItem>
+          <FormLabel>{label}</FormLabel>
+          <FormControl>
+            {inputComponent({
+              field,
+              placeholder,
+              disabled,
+            })}
+          </FormControl>
+
+          {fieldState.error ? (
+            <FormMessage />
+          ) : helperText ? (
+            <p className="txt-preset-5 text-grey-500 w-full text-right">
+              {helperText}
+            </p>
+          ) : null}
+        </FormItem>
+      )}
+      {...props}
+    />
+  );
+};
+
+type FormType = typeof FormRoot & {
+  Field: typeof FormField;
+  InputField: typeof InputField;
+  useFormField: typeof useFormField;
+};
+
+const Form = FormRoot as FormType;
+Form.Field = FormField;
+Form.InputField = InputField;
+Form.useFormField = useFormField;
+
+export { Form };

@@ -1,12 +1,7 @@
 "use client";
 
 import { Input } from "@/presentation/components/Primitives";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/presentation/components/UI";
+import { Tooltip } from "@/presentation/components/UI";
 import { cn } from "@/utils";
 import { EyeIcon, EyeSlashIcon } from "@phosphor-icons/react";
 import { useState } from "react";
@@ -27,9 +22,9 @@ export const PasswordInput = ({ className, ...props }: PasswordInputProps) => {
         className="pr-[3.125rem]"
         {...props}
       />
-      <TooltipProvider>
+      <Tooltip.Provider>
         <Tooltip>
-          <TooltipTrigger asChild>
+          <Tooltip.Trigger asChild>
             <button
               className="text-grey-900 hover:text-grey-500 absolute top-0 right-0 h-full px-4 transition-colors"
               type="button"
@@ -45,12 +40,12 @@ export const PasswordInput = ({ className, ...props }: PasswordInputProps) => {
                 {showPassword ? "Hide password" : "Show password"}
               </span>
             </button>
-          </TooltipTrigger>
-          <TooltipContent>
+          </Tooltip.Trigger>
+          <Tooltip.Content>
             <p>{showPassword ? "Hide password" : "Show password"}</p>
-          </TooltipContent>
+          </Tooltip.Content>
         </Tooltip>
-      </TooltipProvider>
+      </Tooltip.Provider>
     </div>
   );
 };

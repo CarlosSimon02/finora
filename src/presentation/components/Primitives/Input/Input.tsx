@@ -1,11 +1,11 @@
 import { cn } from "@/utils";
 import * as React from "react";
 
-export const Input = ({
-  className,
-  type,
-  ...props
-}: React.ComponentProps<"input">) => {
+type InputProps = React.ComponentProps<"input"> & {
+  type?: "text" | "email" | "password";
+};
+
+export const Input = ({ className, type, ...props }: InputProps) => {
   return (
     <input
       type={type}

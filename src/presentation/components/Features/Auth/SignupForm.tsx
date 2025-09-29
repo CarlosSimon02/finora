@@ -1,13 +1,12 @@
 "use client";
 
 import { SignUpCredentialsDto, signUpCredentialsSchema } from "@/core/schemas";
-import { InlineLink } from "@/presentation/components/Primitives";
 import {
-  Card,
-  Form,
-  InputField,
-  LoadingButton,
-} from "@/presentation/components/UI";
+  Button,
+  Input,
+  PasswordInput,
+} from "@/presentation/components/Primitives";
+import { Card, Form, LoadingButton } from "@/presentation/components/UI";
 import { useGoogleSignIn, useSignUp } from "@/presentation/hooks";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -41,26 +40,26 @@ export const SignupForm = () => {
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="mt-8 space-y-6">
           <div className="space-y-4">
-            <InputField
+            <Form.InputField
               control={form.control}
               name="name"
               label="Name"
-              type="text"
+              inputComponent={({ field }) => <Input {...field} type="text" />}
               disabled={isBusy}
             />
-            <InputField
+            <Form.InputField
               control={form.control}
               name="email"
               label="Email Address"
-              type="email"
+              inputComponent={({ field }) => <Input {...field} type="email" />}
               disabled={isBusy}
             />
-            <InputField
+            <Form.InputField
               control={form.control}
               name="password"
               label="Create Password"
               helperText="Passwords must be at least 8 characters"
-              type="password"
+              inputComponent={({ field }) => <PasswordInput {...field} />}
               disabled={isBusy}
             />
           </div>
@@ -70,9 +69,8 @@ export const SignupForm = () => {
             isLoading={isLoading}
             loadingLabel="Creating account..."
             disabled={isBusy || isSuccess}
-          >
-            Create Account
-          </LoadingButton>
+            label="Create Account"
+          />
           <AuthAltButtons
             disabled={isBusy || isSuccess}
             googleLoading={google.isPending}
@@ -80,7 +78,7 @@ export const SignupForm = () => {
           />
           <div className="txt-preset-4 text-grey-500 text-center">
             Already have an account?{" "}
-            <InlineLink href="/login">Login</InlineLink>
+            <Button href="/login" label="Login" variant="link" />
           </div>
         </form>
       </Form>

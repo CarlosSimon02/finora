@@ -2,18 +2,7 @@
 
 import { User } from "@/core/schemas/userSchema";
 import { logoutAction } from "@/presentation/actions";
-import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "@/presentation/components/UI";
+import { Avatar, DropdownMenu, Tooltip } from "@/presentation/components/UI";
 import { SignOutIcon } from "@phosphor-icons/react";
 import { useSidebar } from "./Sidebar";
 
@@ -27,23 +16,23 @@ export function NavUser({ user }: NavUserProps) {
   return (
     <DropdownMenu>
       <Tooltip>
-        <TooltipTrigger asChild>
-          <DropdownMenuTrigger asChild>
+        <Tooltip.Trigger asChild>
+          <DropdownMenu.Trigger asChild>
             <button
               className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground bg-grey-800 hover:bg-grey-700 flex items-center gap-3 rounded-r-2xl px-300 py-200"
               suppressHydrationWarning
               aria-label="User menu"
             >
               <Avatar className="bg-grey-900 size-9 rounded-full">
-                <AvatarImage
+                <Avatar.Image
                   src={user.photoURL ?? ""}
                   alt={user.displayName ?? user.email ?? "User avatar"}
                 />
-                <AvatarFallback className="rounded-lg">
+                <Avatar.Fallback className="rounded-lg">
                   {(user.displayName || user.email || "U")
                     .slice(0, 1)
                     .toUpperCase()}
-                </AvatarFallback>
+                </Avatar.Fallback>
               </Avatar>
               <div className="grid flex-1 text-left text-sm leading-tight">
                 <span className="txt-preset-4-bold text-grey-100 truncate">
@@ -52,28 +41,28 @@ export function NavUser({ user }: NavUserProps) {
                 <span className="txt-preset-5 truncate">{user.email}</span>
               </div>
             </button>
-          </DropdownMenuTrigger>
-        </TooltipTrigger>
-        <TooltipContent
+          </DropdownMenu.Trigger>
+        </Tooltip.Trigger>
+        <Tooltip.Content
           side="right"
           align="center"
           sideOffset={5}
           hidden={state !== "collapsed" || isMobile}
         >
           {user.displayName || user.email || "User"}
-        </TooltipContent>
+        </Tooltip.Content>
       </Tooltip>
-      <DropdownMenuContent
+      <DropdownMenu.Content
         className="w-[--radix-dropdown-menu-trigger-width] min-w-56 rounded-lg"
         side={isMobile ? "bottom" : "right"}
         align="end"
         sideOffset={4}
       >
-        <DropdownMenuItem onClick={logoutAction} variant="destructive">
+        <DropdownMenu.Item onClick={logoutAction} variant="destructive">
           <SignOutIcon weight="fill" className="size-4" />
           Log out
-        </DropdownMenuItem>
-      </DropdownMenuContent>
+        </DropdownMenu.Item>
+      </DropdownMenu.Content>
     </DropdownMenu>
   );
 }

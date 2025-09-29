@@ -5,10 +5,10 @@ import * as React from "react";
 
 import { cn } from "@/utils";
 
-function Avatar({
+const Avatar = ({
   className,
   ...props
-}: React.ComponentProps<typeof AvatarPrimitive.Root>) {
+}: React.ComponentProps<typeof AvatarPrimitive.Root>) => {
   return (
     <AvatarPrimitive.Root
       data-slot="avatar"
@@ -19,12 +19,12 @@ function Avatar({
       {...props}
     />
   );
-}
+};
 
-function AvatarImage({
+Avatar.Image = ({
   className,
   ...props
-}: React.ComponentProps<typeof AvatarPrimitive.Image>) {
+}: React.ComponentProps<typeof AvatarPrimitive.Image>) => {
   return (
     <AvatarPrimitive.Image
       data-slot="avatar-image"
@@ -32,12 +32,12 @@ function AvatarImage({
       {...props}
     />
   );
-}
+};
 
-function AvatarFallback({
+Avatar.Fallback = ({
   className,
   ...props
-}: React.ComponentProps<typeof AvatarPrimitive.Fallback>) {
+}: React.ComponentProps<typeof AvatarPrimitive.Fallback>) => {
   return (
     <AvatarPrimitive.Fallback
       data-slot="avatar-fallback"
@@ -48,6 +48,6 @@ function AvatarFallback({
       {...props}
     />
   );
-}
+};
 
-export { Avatar, AvatarFallback, AvatarImage };
+export { Avatar };

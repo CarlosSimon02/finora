@@ -52,9 +52,8 @@ export const VerifyEmailForm = () => {
           loadingLabel={sent ? "Resending..." : "Sending..."}
           onClick={onResend}
           disabled={resend.isPending}
-        >
-          {sent ? "Resend verification email" : "Send verification email"}
-        </LoadingButton>
+          label={sent ? "Resend verification email" : "Send verification email"}
+        />
         <Button
           type="button"
           className="w-full"
@@ -63,20 +62,18 @@ export const VerifyEmailForm = () => {
             await refreshCredentialsAction();
             reloadPage();
           }}
-        >
-          Refresh Credentials
-        </Button>
+          label="Refresh Credentials"
+        />
         <p className="txt-preset-4 text-grey-500 text-center">
           Wrong email?{" "}
-          <button
-            className="inline-link"
+          <Button
+            variant="link"
             onClick={async () => {
               await logoutAction();
               router.push("/signup");
             }}
-          >
-            Create a new account
-          </button>
+            label="Create a new account"
+          />
         </p>
       </div>
     </Card>

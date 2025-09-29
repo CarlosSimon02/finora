@@ -1,6 +1,6 @@
 "use client";
 
-import { GoogleIcon } from "@/presentation/components/Primitives";
+import { GoogleIcon } from "@/presentation/components/SVGs";
 import { LoadingButton } from "@/presentation/components/UI";
 import { DatabaseIcon, DetectiveIcon } from "@phosphor-icons/react";
 
@@ -47,48 +47,41 @@ export const AuthAltButtons = ({
           className="w-full"
           disabled={disabled}
           isLoading={Boolean(googleLoading)}
-          icon={<GoogleIcon />}
+          icon={{ component: GoogleIcon }}
           loadingLabel={googleLoadingLabel}
           onClick={onGoogleClick}
-        >
-          {googleLabel}
-        </LoadingButton>
+          label={googleLabel}
+        />
         <LoadingButton
           type="button"
           variant="secondary"
           className="w-full"
           disabled={disabled}
           isLoading={Boolean(localLoading)}
-          icon={
-            <DatabaseIcon
-              size={24}
-              weight="fill"
-              className="text-other-blue size-5"
-            />
-          }
+          icon={{
+            component: DatabaseIcon,
+            weight: "fill",
+            className: "text-other-blue size-5",
+          }}
           loadingLabel={localLoadingLabel}
           onClick={onLocalClick}
-        >
-          {localLabel}
-        </LoadingButton>
+          label={localLabel}
+        />
         <LoadingButton
           type="button"
           variant="secondary"
           className="w-full"
           disabled={disabled}
           isLoading={Boolean(guestLoading)}
-          icon={
-            <DetectiveIcon
-              size={24}
-              weight="fill"
-              className="text-other-magenta size-5"
-            />
-          }
+          icon={{
+            component: DetectiveIcon,
+            weight: "fill",
+            className: "text-other-magenta size-5",
+          }}
           loadingLabel={guestLoadingLabel}
           onClick={onGuestClick}
-        >
-          {guestLabel}
-        </LoadingButton>
+          label={guestLabel}
+        />
       </div>
     </>
   );

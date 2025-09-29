@@ -4,13 +4,12 @@ import {
   LoginWithEmailCredentialsDto,
   loginWithEmailCredentialsSchema,
 } from "@/core/schemas";
-import { InlineLink } from "@/presentation/components/Primitives";
 import {
-  Card,
-  Form,
-  InputField,
-  LoadingButton,
-} from "@/presentation/components/UI";
+  Button,
+  Input,
+  PasswordInput,
+} from "@/presentation/components/Primitives";
+import { Card, Form, LoadingButton } from "@/presentation/components/UI";
 import { useGoogleSignIn, useLogin } from "@/presentation/hooks";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
@@ -44,18 +43,18 @@ export const LoginForm = () => {
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="mt-8 space-y-6">
           <div className="space-y-4">
-            <InputField
+            <Form.InputField
               control={form.control}
               name="email"
               label="Email Address"
-              type="email"
+              inputComponent={({ field }) => <Input {...field} type="email" />}
               disabled={isBusy}
             />
-            <InputField
+            <Form.InputField
               control={form.control}
               name="password"
               label="Password"
-              type="password"
+              inputComponent={({ field }) => <PasswordInput {...field} />}
               disabled={isBusy}
               helperText={
                 <Link
@@ -73,9 +72,8 @@ export const LoginForm = () => {
             isLoading={isLoading}
             loadingLabel="Logging in..."
             disabled={isBusy || isSuccess}
-          >
-            Login
-          </LoadingButton>
+            label="Login"
+          />
           <AuthAltButtons
             disabled={isBusy || isSuccess}
             googleLoading={google.isPending}
@@ -83,7 +81,7 @@ export const LoginForm = () => {
           />
           <div className="txt-preset-4 text-grey-500 text-center">
             Need to create an account?{" "}
-            <InlineLink href="/signup">Sign up</InlineLink>
+            <Button href="/signup" label="Sign up" variant="link" />
           </div>
         </form>
       </Form>

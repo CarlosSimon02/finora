@@ -1,13 +1,8 @@
 "use client";
 
 import { ForgotPasswordDto, forgotPasswordSchema } from "@/core/schemas";
-import { InlineLink } from "@/presentation/components/Primitives";
-import {
-  Card,
-  Form,
-  InputField,
-  LoadingButton,
-} from "@/presentation/components/UI";
+import { Button, Input } from "@/presentation/components/Primitives";
+import { Card, Form, LoadingButton } from "@/presentation/components/UI";
 import { useResetPassword } from "@/presentation/hooks";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CheckIcon } from "@phosphor-icons/react";
@@ -49,7 +44,7 @@ export const ForgotPasswordForm = () => {
             We have sent a password reset link to {submittedEmail}
           </p>
           <div className="mt-6">
-            <InlineLink href="/login">Back to login</InlineLink>
+            <Button href="/login" label="Back to login" variant="link" />
           </div>
         </div>
       ) : (
@@ -58,11 +53,11 @@ export const ForgotPasswordForm = () => {
             onSubmit={form.handleSubmit(onSubmit)}
             className="mt-8 space-y-6"
           >
-            <InputField
+            <Form.InputField
               control={form.control}
               name="email"
               label="Email Address"
-              type="email"
+              inputComponent={({ field }) => <Input {...field} type="email" />}
               disabled={isLoading}
             />
 
@@ -72,13 +67,12 @@ export const ForgotPasswordForm = () => {
               disabled={isLoading}
               isLoading={isLoading}
               loadingLabel="Sending..."
-            >
-              Reset Password
-            </LoadingButton>
+              label="Reset Password"
+            />
 
             <div className="txt-preset-4 text-grey-500 text-center">
               Remember your password?{" "}
-              <InlineLink href="/login">Back to login</InlineLink>
+              <Button href="/login" label="Back to login" variant="link" />
             </div>
           </form>
         </Form>

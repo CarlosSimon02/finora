@@ -5,17 +5,7 @@ import { Slot } from "@radix-ui/react-slot";
 import * as React from "react";
 
 import { Button, Logo } from "@/presentation/components/Primitives";
-import {
-  Sheet,
-  SheetContent,
-  SheetDescription,
-  SheetHeader,
-  SheetTitle,
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/presentation/components/UI";
+import { Tooltip } from "@/presentation/components/UI";
 import { useIsMobile } from "@/presentation/hooks";
 import { cn } from "@/utils";
 
@@ -117,7 +107,7 @@ const SidebarProvider = ({
 
   return (
     <SidebarContext.Provider value={contextValue}>
-      <TooltipProvider delayDuration={0}>
+      <Tooltip.Provider delayDuration={0}>
         <div
           data-slot="sidebar-wrapper"
           style={
@@ -138,7 +128,7 @@ const SidebarProvider = ({
         >
           {children}
         </div>
-      </TooltipProvider>
+      </Tooltip.Provider>
     </SidebarContext.Provider>
   );
 };
@@ -155,57 +145,8 @@ const Sidebar = ({
   variant?: "sidebar" | "floating" | "inset";
   collapsible?: "offcanvas" | "icon" | "none";
 }) => {
-  const { isMobile, state, openMobile, setOpenMobile } = useSidebar();
+  const { state } = useSidebar();
 
-  // Non-collapsible (simple) sidebar
-  if (collapsible === "none") {
-    return (
-      <div
-        data-slot="sidebar"
-        className={cn(
-          // structure & colors
-          "bg-grey-900 text-grey-300 flex h-full w-(--sidebar-width) flex-col overflow-x-hidden overflow-y-auto rounded-r-2xl",
-          className
-        )}
-        {...props}
-      >
-        {children}
-      </div>
-    );
-  }
-
-  // Mobile (Sheet) variant
-  if (isMobile) {
-    return (
-      <Sheet open={openMobile} onOpenChange={setOpenMobile} {...props}>
-        <SheetContent
-          data-sidebar="sidebar"
-          data-slot="sidebar"
-          data-mobile="true"
-          className={cn(
-            // mobile sheet layout
-            "bg-grey-900 text-grey-300 w-(--sidebar-width) rounded-r-2xl p-0 [&>button]:hidden"
-          )}
-          style={
-            {
-              "--sidebar-width": SIDEBAR_WIDTH_MOBILE,
-            } as React.CSSProperties
-          }
-          side={side}
-        >
-          <SheetHeader className="sr-only">
-            <SheetTitle>Sidebar</SheetTitle>
-            <SheetDescription>Displays the mobile sidebar.</SheetDescription>
-          </SheetHeader>
-          <div className="flex h-full w-full flex-col overflow-x-hidden overflow-y-auto">
-            {children}
-          </div>
-        </SheetContent>
-      </Sheet>
-    );
-  }
-
-  // Desktop sidebar (collapsible / icon / offcanvas)
   return (
     <div
       className="group peer text-grey-300 hidden md:block"
@@ -434,7 +375,7 @@ const SidebarMenuButton = ({
 }: React.ComponentProps<"button"> & {
   asChild?: boolean;
   isActive?: boolean;
-  tooltip?: string | React.ComponentProps<typeof TooltipContent>;
+  tooltip?: string | React.ComponentProps<typeof Tooltip.Content>;
 }) => {
   const Comp = asChild ? Slot : "button";
   const { isMobile, state } = useSidebar();
@@ -483,8 +424,8 @@ const SidebarMenuButton = ({
 
   return (
     <Tooltip>
-      <TooltipTrigger asChild>{button}</TooltipTrigger>
-      <TooltipContent
+      <Tooltip.Trigger asChild>{button}</Tooltip.Trigger>
+      <Tooltip.Content
         side="right"
         align="center"
         sideOffset={5}
