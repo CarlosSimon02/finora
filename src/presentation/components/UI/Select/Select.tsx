@@ -108,7 +108,7 @@ const SelectItem = ({ className, children, ...props }: ItemProps) => (
   <SelectPrimitive.Item
     data-slot="select-item"
     className={cn(
-      "focus:bg-accent txt-preset-4 focus:text-grey-500 [&_svg:not([class*='text-'])]:text-grey-900 border-grey-100 relative flex w-full cursor-pointer items-center gap-2 rounded-sm border-b py-1.5 pr-8 pl-0 outline-hidden select-none last:border-b-0 data-[disabled]:pointer-events-none data-[disabled]:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 *:[span]:last:flex *:[span]:last:items-center *:[span]:last:gap-2",
+      "focus:bg-accent txt-preset-4 focus:text-grey-500 [&_svg:not([class*='text-'])]:text-grey-900 border-grey-100 relative flex w-full cursor-pointer items-center gap-2 rounded-sm border-b py-3 pr-8 pl-0 outline-hidden select-none last:border-b-0 data-[disabled]:pointer-events-none data-[disabled]:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 *:[span]:last:flex *:[span]:last:items-center *:[span]:last:gap-2",
       className
     )}
     {...props}
