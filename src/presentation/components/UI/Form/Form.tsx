@@ -203,7 +203,6 @@ type FormType = typeof FormRoot & {
 };
 
 const Form = FormRoot as FormType;
-Form.Field = FormField;
 Form.InputField = InputField;
 Form.useFormField = useFormField;
 

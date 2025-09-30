@@ -11,7 +11,7 @@ export const FrontViewLayout = ({
 }: FrontViewLayoutProps) => {
   return (
     <div className="flex flex-col gap-8">
-      <div className="flex items-center justify-between">
+      <div className="flex flex-wrap items-center justify-between gap-4">
         <h1 className="txt-preset-1 text-grey-900">{title}</h1>
         {actions}
       </div>

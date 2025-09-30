@@ -44,7 +44,7 @@ type IconConfig = {
   loc?: "left" | "right";
 };
 
-type IconProp = IconComponent | IconConfig | undefined;
+type IconProp = IconConfig | undefined;
 
 type ButtonOwnProps = {
   icon?: IconProp;
@@ -68,10 +68,10 @@ type ButtonVariant = ButtonOwnProps &
 
 type Props = LinkVariant | ButtonVariant;
 
-export function Button(props: LinkVariant): JSX.Element;
-export function Button(props: ButtonVariant): JSX.Element;
-
-export function Button({
+export const Button: {
+  (props: LinkVariant): JSX.Element;
+  (props: ButtonVariant): JSX.Element;
+} = ({
   href,
   icon,
   label,
@@ -82,7 +82,7 @@ export function Button({
   target,
   rel,
   ...rest
-}: Props): JSX.Element {
+}: Props): JSX.Element => {
   if (iconOnly && !icon) {
     // eslint-disable-next-line no-console
     console.warn(
@@ -173,11 +173,11 @@ export function Button({
       disabled={disabled}
       {...typeProp}
       {...buttonRest}
+      suppressHydrationWarning
     >
       {renderContent()}
     </button>
   );
-}
+};
 
-Button.displayName = "Button";
 export default Button;

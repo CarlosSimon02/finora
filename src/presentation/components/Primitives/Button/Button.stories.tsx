@@ -109,7 +109,7 @@ export const LinkSmall: Story = {
 export const IconLeft: Story = {
   args: {
     label: "Sign in with Google",
-    icon: iconMapping.google,
+    icon: { component: iconMapping.google },
   },
 };
 
@@ -137,7 +137,7 @@ export const IconClassOverride: Story = {
 export const IconOnly: Story = {
   args: {
     label: "Close",
-    icon: iconMapping.google,
+    icon: { component: iconMapping.google },
     iconOnly: true,
   },
 };
