@@ -1,12 +1,7 @@
-import { AppPageHeader } from "@/presentation/components/Features/PageHeader";
+import { Overview } from "@/presentation/components/Features/Overview";
 
-export default async function OverviewPage() {
-  return (
-    <div className="flex flex-col gap-300">
-      <AppPageHeader title="Overview" />
-      <div className="border-grey-800 rounded-lg border p-300">
-        Overview content
-      </div>
-    </div>
-  );
-}
+const OverviewPage = () => {
+  return <Overview />;
+};
+
+export default OverviewPage;

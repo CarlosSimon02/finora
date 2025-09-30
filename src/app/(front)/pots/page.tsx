@@ -1,12 +1,7 @@
-import { AppPageHeader } from "@/presentation/components/Features/PageHeader";
+import { Pots } from "@/presentation/components/Features/Pots";
 
-export default async function PotsPage() {
-  return (
-    <div className="flex flex-col gap-300">
-      <AppPageHeader title="Pots" />
-      <div className="border-grey-800 rounded-lg border p-300">
-        Pots content
-      </div>
-    </div>
-  );
-}
+const PotsPage = () => {
+  return <Pots />;
+};
+
+export default PotsPage;

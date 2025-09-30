@@ -1,12 +1,7 @@
-import { AppPageHeader } from "@/presentation/components/Features/PageHeader";
+import { RecurringBills } from "@/presentation/components/Features/RecurringBills";
 
-export default async function RecurringBillsPage() {
-  return (
-    <div className="flex flex-col gap-300">
-      <AppPageHeader title="Recurring Bills" />
-      <div className="border-grey-800 rounded-lg border p-300">
-        Recurring Bills content
-      </div>
-    </div>
-  );
-}
+const RecurringBillsPage = () => {
+  return <RecurringBills />;
+};
+
+export default RecurringBillsPage;
