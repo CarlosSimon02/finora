@@ -2,7 +2,7 @@ import { cn } from "@/utils";
 import * as React from "react";
 
 type InputProps = React.ComponentProps<"input"> & {
-  type?: "text" | "email" | "password" | "number";
+  type?: "text" | "email" | "password";
 };
 
 export const Input = ({ className, type, ...props }: InputProps) => {

@@ -11,9 +11,7 @@ type TriggerProps = React.ComponentProps<typeof DialogPrimitive.Trigger>;
 type PortalProps = React.ComponentProps<typeof DialogPrimitive.Portal>;
 type CloseProps = React.ComponentProps<typeof DialogPrimitive.Close>;
 type OverlayProps = React.ComponentProps<typeof DialogPrimitive.Overlay>;
-type ContentProps = React.ComponentProps<typeof DialogPrimitive.Content> & {
-  showCloseButton?: boolean;
-};
+type ContentProps = React.ComponentProps<typeof DialogPrimitive.Content>;
 type TitleProps = React.ComponentProps<typeof DialogPrimitive.Title>;
 type DescriptionProps = React.ComponentProps<
   typeof DialogPrimitive.Description
@@ -46,12 +44,7 @@ const DialogOverlay = ({ className, ...props }: OverlayProps) => (
   />
 );
 
-const DialogContent = ({
-  className,
-  children,
-  showCloseButton = true,
-  ...props
-}: ContentProps) => (
+const DialogContent = ({ className, children, ...props }: ContentProps) => (
   <DialogPortal data-slot="dialog-portal">
     <DialogOverlay />
     <div className="absolute inset-0 flex content-start items-center justify-center p-5">
@@ -64,15 +57,6 @@ const DialogContent = ({
         {...props}
       >
         {children}
-        {showCloseButton && (
-          <DialogPrimitive.Close
-            data-slot="dialog-close"
-            className="text-grey-500 absolute top-4 right-4 opacity-100 transition-opacity hover:opacity-50 disabled:pointer-events-none"
-          >
-            <XCircleIcon size={32} className="pointer-events-none shrink-0" />
-            <span className="sr-only">Close</span>
-          </DialogPrimitive.Close>
-        )}
       </DialogPrimitive.Content>
     </div>
   </DialogPortal>
@@ -81,7 +65,7 @@ const DialogContent = ({
 const DialogHeader = ({ className, ...props }: React.ComponentProps<"div">) => (
   <div
     data-slot="dialog-header"
-    className={cn("flex flex-col gap-2", className)}
+    className={cn("flex flex-col gap-5", className)}
     {...props}
   />
 );
@@ -95,11 +79,20 @@ const DialogFooter = ({ className, ...props }: React.ComponentProps<"div">) => (
 );
 
 const DialogTitle = ({ className, ...props }: TitleProps) => (
-  <DialogPrimitive.Title
-    data-slot="dialog-title"
-    className={cn("txt-preset-1", className)}
-    {...props}
-  />
+  <div className="flex items-center justify-between">
+    <DialogPrimitive.Title
+      data-slot="dialog-title"
+      className={cn("sm:txt-preset-1 txt-preset-2 flex-1", className)}
+      {...props}
+    />
+    <DialogPrimitive.Close
+      data-slot="dialog-close"
+      className="text-grey-500 shrink-0 opacity-100 transition-opacity hover:opacity-50 disabled:pointer-events-none"
+    >
+      <XCircleIcon size={32} className="pointer-events-none shrink-0" />
+      <span className="sr-only">Close</span>
+    </DialogPrimitive.Close>
+  </div>
 );
 
 const DialogDescription = ({ className, ...props }: DescriptionProps) => (

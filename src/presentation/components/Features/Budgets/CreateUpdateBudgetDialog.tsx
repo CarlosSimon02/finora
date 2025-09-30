@@ -81,6 +81,7 @@ export const CreateUpdateBudgetDialog = ({
   //   });
 
   const handleSubmit = async (data: CreateBudgetDto) => {
+    console.log(data);
     // if (operation === "create") {
     //   await createBudget(data);
     // } else if (operation === "update" && initialData) {
@@ -122,6 +123,10 @@ export const CreateUpdateBudgetDialog = ({
           {description && (
             <Dialog.Description>{description}</Dialog.Description>
           )}
+          <Dialog.Description>
+            Choose a category to set a spending budget. These categories can
+            help you monitor spending.
+          </Dialog.Description>
         </Dialog.Header>
         <CreateUpdateBudgetForm
           onSubmit={handleSubmit}

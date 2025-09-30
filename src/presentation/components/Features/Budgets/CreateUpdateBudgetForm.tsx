@@ -4,7 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 
-import { Input } from "@/presentation/components/Primitives";
+import { CurrencyInput, Input } from "@/presentation/components/Primitives";
 import {
   ColorPicker,
   Dialog,
@@ -64,7 +64,16 @@ export const CreateUpdateBudgetForm = ({
           name="maximumSpending"
           label="Maximum Spending"
           inputComponent={({ field }) => (
-            <Input {...field} type="number" step="0.01" placeholder="0.00" />
+            <CurrencyInput
+              value={field.value ?? ""}
+              onValueChange={(values) =>
+                field.onChange(values.floatValue ?? null)
+              }
+              onBlur={field.onBlur}
+              thousandSeparator
+              allowNegative={false}
+              placeholder="0"
+            />
           )}
         />
         <Form.InputField
