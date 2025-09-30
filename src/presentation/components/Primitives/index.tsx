@@ -4,4 +4,5 @@ export * from "./Input";
 export * from "./Label";
 export * from "./Logo";
 export * from "./PasswordInput";
+export * from "./ReactSelect";
 export * from "./Skeleton";
