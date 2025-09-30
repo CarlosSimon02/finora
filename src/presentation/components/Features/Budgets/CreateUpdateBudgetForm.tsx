@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form";
 
 import { CurrencyInput, Input } from "@/presentation/components/Primitives";
 import {
-  ColorPicker,
+  ColorPickerReactSelect,
   Dialog,
   Form,
   LoadingButton,
@@ -81,7 +81,7 @@ export const CreateUpdateBudgetForm = ({
           name="colorTag"
           label="Color"
           inputComponent={({ field }) => (
-            <ColorPicker
+            <ColorPickerReactSelect
               value={field.value}
               onValueChange={field.onChange}
               placeholder="Select color"

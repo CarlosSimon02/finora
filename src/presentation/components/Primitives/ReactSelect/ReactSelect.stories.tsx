@@ -31,7 +31,6 @@ const meta = {
     isDisabled: { control: "boolean" },
     isClearable: { control: "boolean" },
     isSearchable: { control: "boolean" },
-    size: { control: { type: "select" }, options: ["sm", "default"] },
     placeholder: { control: "text" },
   },
   args: {
@@ -53,7 +52,7 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {};
 
 export const Small: Story = {
-  args: { size: "sm" },
+  args: { isSearchable: false },
 };
 
 export const Clearable: Story = {

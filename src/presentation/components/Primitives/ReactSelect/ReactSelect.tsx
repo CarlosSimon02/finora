@@ -1,8 +1,11 @@
 "use client";
 
 import { CaretDownIcon, CheckIcon } from "@phosphor-icons/react";
-import React from "react";
-import ReactSelectPrimitive, { components as RSComponents } from "react-select";
+import ReactSelectPrimitive, {
+  components as RSComponents,
+  type GroupBase,
+  type Props as SelectProps,
+} from "react-select";
 
 /**
  * Small helper to join class strings (you probably already have `cn` in your project;
@@ -11,10 +14,11 @@ import ReactSelectPrimitive, { components as RSComponents } from "react-select";
 const cx = (...classes: Array<string | false | null | undefined>) =>
   classes.filter(Boolean).join(" ");
 
-type ReactSelectProps = React.ComponentProps<typeof ReactSelectPrimitive> & {
-  // expose same `size` prop you had on Radix Trigger (optional)
-  size?: "sm" | "default";
-};
+type ReactSelectProps<
+  Option,
+  IsMulti extends boolean = false,
+  Group extends GroupBase<Option> = GroupBase<Option>,
+> = SelectProps<Option, IsMulti, Group>;
 
 /**
  * Tailwind classes mapped from your Radix `SelectTrigger`
@@ -23,7 +27,7 @@ type ReactSelectProps = React.ComponentProps<typeof ReactSelectPrimitive> & {
 const triggerBase = () =>
   cx(
     "text-preset-4 text-grey-900 border-beige-500 placeholder:text-beige-500",
-    "data-[isFocused=true]:border-grey-900 aria-invalid:border-secondary-red",
+    "data-[is-focused=true]:border-grey-900 aria-invalid:border-secondary-red",
     "flex min-w-0 items-center justify-between gap-2 rounded-lg border bg-transparent",
     "whitespace-nowrap transition-[color] outline-none",
     "disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50",
@@ -51,7 +55,7 @@ const optionBase = (isDisabled?: boolean, isSelected?: boolean) =>
  * Menu wrapper classes copied from SelectContent
  */
 const menuBase = cx(
-  "text-grey-900 relative z-50 max-h-[var(--radix-select-content-available-height)] max-h-[18.75rem]",
+  "text-grey-900 relative z-99 max-h-[var(--radix-select-content-available-height)] max-h-[18.75rem]",
   "origin-[var(--radix-select-content-transform-origin)] overflow-x-hidden overflow-y-auto",
   "rounded-lg bg-white shadow-lg",
   "data-[state=open]:animate-in data-[state=closed]:animate-out",
@@ -65,25 +69,30 @@ const menuBase = cx(
    Final exported component
    ------------------------- */
 
-export const ReactSelect = ({
-  size = "default",
+export const ReactSelect = <
+  Option,
+  IsMulti extends boolean = false,
+  Group extends GroupBase<Option> = GroupBase<Option>,
+>({
   isSearchable = false,
+  components,
   ...props
-}: ReactSelectProps) => {
+}: ReactSelectProps<Option, IsMulti, Group>) => {
   // safe menuPortalTarget for SSR (if needed); in client-only components you can directly use document.body
   const portalTarget =
-    typeof document !== "undefined" ? document.body : undefined;
+    typeof document !== "undefined"
+      ? document.getElementById("root")
+      : undefined;
 
   return (
-    <ReactSelectPrimitive
+    <ReactSelectPrimitive<Option, IsMulti, Group>
       // unstyled gives us full control with classNames/components
       unstyled
       // keep behavior similar to Radix popper placement
       menuPlacement="auto"
-      menuPosition="absolute"
+      menuPosition="fixed"
       menuPortalTarget={portalTarget}
       isSearchable={isSearchable}
-      // pass down size so custom components can read it from selectProps
       // react-select merges selectProps with the rest, so we put it on `selectProps`
       // NOTE: users of this component can also pass selectProps in props to override this.
       // component overrides: small focused set so it's easy to maintain
@@ -100,7 +109,7 @@ export const ReactSelect = ({
               className={triggerBase()}
               // copy data attributes you'd like to rely on — react-select exposes menuIsOpen via selectProps
               data-state={selectProps.menuIsOpen ? "open" : "closed"}
-              data-isFocused={isFocused ? "true" : "false"}
+              data-is-focused={isFocused ? "true" : "false"}
             >
               {children}
             </div>
@@ -201,7 +210,7 @@ export const ReactSelect = ({
           );
         },
         // keep original RS components available for composability
-        ...(props.components || {}),
+        ...components,
       }}
       // use classNames only for parts we want to map class-based overrides on top of our custom components
       // (we keep this minimal since custom components already set classes; included here for extensibility)
@@ -232,5 +241,3 @@ export const ReactSelect = ({
     />
   );
 };
-
-export default ReactSelect;
