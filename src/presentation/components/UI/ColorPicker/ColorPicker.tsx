@@ -1,6 +1,7 @@
 "use client";
 
-import { Select } from "../Select";
+import { Select } from "@/presentation/components/UI";
+import { cn } from "@/utils";
 
 type ColorOption = { label: string; value: string };
 
@@ -30,6 +31,7 @@ type ColorPickerProps = {
   disabled?: boolean;
   className?: string;
   id?: string;
+  "aria-invalid"?: boolean;
 };
 
 export const ColorPicker = ({
@@ -40,6 +42,7 @@ export const ColorPicker = ({
   disabled,
   className,
   id,
+  "aria-invalid": ariaInvalid,
 }: ColorPickerProps) => {
   return (
     <Select
@@ -48,18 +51,24 @@ export const ColorPicker = ({
       onValueChange={onValueChange}
       disabled={disabled}
     >
-      <Select.Trigger className={className} id={id}>
+      <Select.Trigger
+        className={cn(className)}
+        id={id}
+        aria-invalid={ariaInvalid ?? false}
+      >
         <Select.Value placeholder={placeholder} />
       </Select.Trigger>
       <Select.Content>
         <Select.Group>
           {COLOR_OPTIONS.map((option) => (
             <Select.Item key={option.value} value={option.value}>
-              <span
-                className="mr-2 inline-block size-4 rounded-full border border-black/10"
-                style={{ backgroundColor: option.value }}
-              />
-              <span>{option.label}</span>
+              <div className="flex items-center gap-3">
+                <span
+                  className="inline-block size-4 rounded-full border border-black/10"
+                  style={{ backgroundColor: option.value }}
+                />
+                <span>{option.label}</span>
+              </div>
             </Select.Item>
           ))}
         </Select.Group>

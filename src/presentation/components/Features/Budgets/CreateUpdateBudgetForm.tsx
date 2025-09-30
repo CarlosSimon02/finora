@@ -85,6 +85,7 @@ export const CreateUpdateBudgetForm = ({
               value={field.value}
               onValueChange={field.onChange}
               placeholder="Select color"
+              aria-invalid={!!form.formState.errors.colorTag}
             />
           )}
         />

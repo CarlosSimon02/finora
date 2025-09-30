@@ -21,7 +21,7 @@ export const CurrencyInput = ({ className, ...props }: CurrencyInputProps) => {
 
   return (
     <div className={cn("relative", className)}>
-      <div className="text-beige-500 pointer-events-none absolute top-0 left-0 flex h-full w-10 items-center justify-center text-center">
+      <div className="text-beige-500 pointer-events-none absolute top-0 left-0 flex h-full w-10 items-center pl-5 text-left">
         ₱
       </div>
       <NumericFormat

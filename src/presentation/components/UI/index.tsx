@@ -5,4 +5,5 @@ export * from "./Dialog";
 export * from "./DropdownMenu";
 export * from "./Form";
 export * from "./LoadingButton";
+export * from "./Select";
 export * from "./ToolTip";
