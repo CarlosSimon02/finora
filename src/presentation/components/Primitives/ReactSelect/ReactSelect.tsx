@@ -76,6 +76,7 @@ export const ReactSelect = <
 >({
   isSearchable = false,
   components,
+  "aria-invalid": ariaInvalid,
   ...props
 }: ReactSelectProps<Option, IsMulti, Group>) => {
   // safe menuPortalTarget for SSR (if needed); in client-only components you can directly use document.body
@@ -86,6 +87,7 @@ export const ReactSelect = <
 
   return (
     <ReactSelectPrimitive<Option, IsMulti, Group>
+      aria-invalid={ariaInvalid ?? false}
       // unstyled gives us full control with classNames/components
       unstyled
       // keep behavior similar to Radix popper placement
@@ -105,6 +107,7 @@ export const ReactSelect = <
             <div
               ref={innerRef}
               {...innerProps}
+              aria-invalid={ariaInvalid ?? false}
               // react-select gives a calculated className we ignore to apply our Tailwind exactly
               className={triggerBase()}
               // copy data attributes you'd like to rely on — react-select exposes menuIsOpen via selectProps

@@ -39,8 +39,9 @@ export const ColorPickerReactSelect = ({
       : undefined;
 
   return (
-    <div className={cn(className)} id={id} aria-invalid={ariaInvalid ?? false}>
+    <div className={cn(className)} id={id}>
       <ReactSelect<ColorOption>
+        aria-invalid={ariaInvalid ?? false}
         options={options}
         value={selected}
         defaultValue={defaultSelected}
