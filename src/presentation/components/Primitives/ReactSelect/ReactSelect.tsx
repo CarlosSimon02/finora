@@ -26,7 +26,7 @@ type ReactSelectProps<
  */
 const triggerBase = () =>
   cx(
-    "text-preset-4 text-grey-900 border-beige-500 placeholder:text-beige-500",
+    "text-preset-4 text-grey-900 border-beige-500 placeholder:text-beige-500 cursor-pointer",
     "data-[is-focused=true]:border-grey-900 aria-invalid:border-secondary-red",
     "flex min-w-0 items-center justify-between gap-2 rounded-lg border bg-transparent",
     "whitespace-nowrap transition-[color] outline-none",
@@ -40,15 +40,13 @@ const triggerBase = () =>
 /**
  * Option classes come from your SelectItem
  */
-const optionBase = (isDisabled?: boolean, isSelected?: boolean) =>
+export const optionBase = (isDisabled?: boolean, isSelected?: boolean) =>
   cx(
     "txt-preset-4 [&_svg:not([class*='text-'])]:text-grey-900",
     "relative flex w-full cursor-pointer items-center gap-2",
     "border-b py-3 pr-8 pl-0 outline-hidden select-none last:border-b-0 border-b-grey-100",
     " [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
-    isDisabled
-      ? "pointer-events-none opacity-50"
-      : "hover:bg-accent hover:text-grey-500"
+    isDisabled ? "pointer-events-none opacity-50" : "hover:text-grey-500"
   );
 
 /**

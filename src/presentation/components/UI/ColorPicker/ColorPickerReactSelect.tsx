@@ -2,8 +2,9 @@
 
 import { cn } from "@/utils";
 
+import { optionBase, ReactSelect } from "@/presentation/components/Primitives";
+import { CheckIcon } from "@phosphor-icons/react";
 import { components as RSComponents } from "react-select";
-import { ReactSelect } from "../../Primitives";
 import { COLOR_OPTIONS } from "./ColorPicker";
 
 type ColorOption = { label: string; value: string };
@@ -66,15 +67,22 @@ export const ColorPickerReactSelect = ({
               role="option"
               aria-disabled={isDisabled}
               aria-selected={isSelected}
-              className={
-                "txt-preset-4 border-b-grey-100 relative flex w-full cursor-pointer items-center gap-3 border-b py-3 pr-8 pl-0 last:border-b-0"
-              }
+              className={optionBase(isDisabled, isSelected)}
             >
-              <span
-                className="inline-block size-4 rounded-full border border-black/10"
-                style={{ backgroundColor: (data as ColorOption).value }}
-              />
-              <span>{children}</span>
+              <div className="flex flex-1 items-center gap-3">
+                <span
+                  className="inline-block size-4 rounded-full"
+                  style={{ backgroundColor: (data as ColorOption).value }}
+                />
+                <span>{children}</span>
+              </div>
+              <span className="absolute right-2 flex size-4 items-center justify-center">
+                {isSelected ? (
+                  <span className="bg-secondary-green flex size-4 items-center justify-center rounded-full">
+                    <CheckIcon className="size-2 text-white" weight="bold" />
+                  </span>
+                ) : null}
+              </span>
             </div>
           ),
           SingleValue: ({ children, ...rest }) => (
