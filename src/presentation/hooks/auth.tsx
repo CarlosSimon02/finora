@@ -15,7 +15,7 @@ import {
   verifyEmail,
 } from "@/core/useCases/auth/client";
 import { AuthClientRepository } from "@/data/repositories/AuthClientRepository";
-import { postSignInAction } from "@/presentation/actions";
+import { trpc } from "@/lib/trpc/client";
 import {
   isIgnorableAuthError,
   normalizeAuthError,
@@ -35,14 +35,14 @@ const useRedirectParam = () => {
 export const useGoogleSignIn = () => {
   const redirect = useRedirectParam();
   const router = useRouter();
+  const postSignIn = trpc.postSignIn.useMutation();
 
   return useMutation({
     mutationKey: ["auth", "google"],
     retry: 1,
     mutationFn: async () => {
       const authEntity = await signInWithGoogle(authClientRepository)();
-      const response = await postSignInAction(authEntity.idToken);
-      if (response.error) throw new Error(response.error);
+      await postSignIn.mutateAsync({ idToken: authEntity.idToken });
       return authEntity;
     },
     onSuccess: () => {
@@ -61,6 +61,7 @@ export const useGoogleSignIn = () => {
 export const useLogin = () => {
   const redirect = useRedirectParam();
   const router = useRouter();
+  const postSignIn = trpc.postSignIn.useMutation();
 
   return useMutation({
     mutationKey: ["auth", "login"],
@@ -68,8 +69,7 @@ export const useLogin = () => {
     mutationFn: async (credentials: LoginWithEmailCredentialsDto) => {
       const authEntity =
         await logInWithEmail(authClientRepository)(credentials);
-      const response = await postSignInAction(authEntity.idToken);
-      if (response.error) throw new Error(response.error);
+      await postSignIn.mutateAsync({ idToken: authEntity.idToken });
       return authEntity;
     },
     onSuccess: () => {
@@ -86,16 +86,17 @@ export const useLogin = () => {
 
 export const useSignUp = () => {
   const router = useRouter();
+  const postSignIn = trpc.postSignIn.useMutation();
 
   return useMutation({
     mutationKey: ["auth", "signup"],
     retry: 1,
     mutationFn: async (data: SignUpCredentialsDto) => {
       const authEntity = await signUpWithEmail(authClientRepository)(data);
-      const response = await postSignInAction(authEntity.idToken, {
-        name: data.name,
+      await postSignIn.mutateAsync({
+        idToken: authEntity.idToken,
+        additionalInfo: { name: data.name },
       });
-      if (response.error) throw new Error(response.error);
       await sendEmailVerification(authClientRepository)();
       return authEntity;
     },
