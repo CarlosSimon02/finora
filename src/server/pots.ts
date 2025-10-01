@@ -10,13 +10,12 @@ import {
 } from "@/core/useCases/pot";
 import { PotRepository } from "@/data/repositories/PotRepository";
 import { cacheTags } from "@/utils/cache";
-import { unstable_cacheTag as cacheTag } from "next/cache";
+import { unstable_cacheTag as cacheTag, revalidateTag } from "next/cache";
 import { protectedProcedure, router } from "./trpc";
 
 const potRepository = new PotRepository();
 
 export const potsRouter = router({
-  // Reads - cacheable
   getPaginatedPots: protectedProcedure
     .input(paginationParamsSchema)
     .query(async ({ ctx, input }) => {
@@ -35,7 +34,6 @@ export const potsRouter = router({
       return await fn(user.id, input.potId);
     }),
 
-  // Writes - not cached here
   createPot: protectedProcedure
     .input(
       (val: unknown) =>
@@ -44,7 +42,10 @@ export const potsRouter = router({
     .mutation(async ({ ctx, input }) => {
       const { user } = ctx;
       const fn = createPot(potRepository);
-      return await fn(user.id, input.data as any);
+      const result = await fn(user.id, input.data as any);
+      revalidateTag(cacheTags.PAGINATED_POTS);
+      revalidateTag(cacheTags.POTS_SUMMARY);
+      return result;
     }),
   updatePot: protectedProcedure
     .input(
@@ -57,7 +58,10 @@ export const potsRouter = router({
     .mutation(async ({ ctx, input }) => {
       const { user } = ctx;
       const fn = updatePot(potRepository);
-      return await fn(user.id, input.potId, input.data as any);
+      const result = await fn(user.id, input.potId, input.data as any);
+      revalidateTag(cacheTags.PAGINATED_POTS);
+      revalidateTag(cacheTags.POTS_SUMMARY);
+      return result;
     }),
   deletePot: protectedProcedure
     .input((val: unknown) => val as { potId: string })
@@ -65,6 +69,8 @@ export const potsRouter = router({
       const { user } = ctx;
       const fn = deletePot(potRepository);
       await fn(user.id, input.potId);
+      revalidateTag(cacheTags.PAGINATED_POTS);
+      revalidateTag(cacheTags.POTS_SUMMARY);
       return undefined;
     }),
   addMoneyToPot: protectedProcedure
@@ -72,13 +78,19 @@ export const potsRouter = router({
     .mutation(async ({ ctx, input }) => {
       const { user } = ctx;
       const fn = addMoneyToPot(potRepository);
-      return await fn(user.id, input.potId, { amount: input.amount });
+      const result = await fn(user.id, input.potId, { amount: input.amount });
+      revalidateTag(cacheTags.PAGINATED_POTS);
+      revalidateTag(cacheTags.POTS_SUMMARY);
+      return result;
     }),
   withdrawMoneyFromPot: protectedProcedure
     .input((val: unknown) => val as { potId: string; amount: number })
     .mutation(async ({ ctx, input }) => {
       const { user } = ctx;
       const fn = withdrawMoneyFromPot(potRepository);
-      return await fn(user.id, input.potId, { amount: input.amount });
+      const result = await fn(user.id, input.potId, { amount: input.amount });
+      revalidateTag(cacheTags.PAGINATED_POTS);
+      revalidateTag(cacheTags.POTS_SUMMARY);
+      return result;
     }),
 });

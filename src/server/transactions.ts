@@ -9,13 +9,12 @@ import {
 } from "@/core/useCases/transaction";
 import { TransactionRepository } from "@/data/repositories/TransactionRepository";
 import { cacheTags } from "@/utils/cache";
-import { unstable_cacheTag as cacheTag } from "next/cache";
+import { unstable_cacheTag as cacheTag, revalidateTag } from "next/cache";
 import { protectedProcedure, router } from "./trpc";
 
 const transactionRepository = new TransactionRepository();
 
 export const transactionsRouter = router({
-  // Reads - cacheable
   getPaginatedTransactions: protectedProcedure
     .input(paginationParamsSchema)
     .query(async ({ ctx, input }) => {
@@ -44,7 +43,6 @@ export const transactionsRouter = router({
       return await fn(user.id, input.transactionId);
     }),
 
-  // Writes - don't cache here, revalidate via server actions after mutations
   createTransaction: protectedProcedure
     .input(
       (val: unknown) =>
@@ -53,7 +51,14 @@ export const transactionsRouter = router({
     .mutation(async ({ ctx, input }) => {
       const { user } = ctx;
       const fn = createTransaction(transactionRepository);
-      return await fn(user.id, input.data as any);
+      const result = await fn(user.id, input.data as any);
+      revalidateTag(cacheTags.PAGINATED_TRANSACTIONS);
+      revalidateTag(cacheTags.PAGINATED_CATEGORIES);
+      revalidateTag(cacheTags.BUDGETS_SUMMARY);
+      revalidateTag(cacheTags.PAGINATED_BUDGETS_WITH_TRANSACTIONS);
+      revalidateTag(cacheTags.INCOMES_SUMMARY);
+      revalidateTag(cacheTags.PAGINATED_INCOMES_WITH_TRANSACTIONS);
+      return result;
     }),
   updateTransaction: protectedProcedure
     .input(
@@ -66,7 +71,14 @@ export const transactionsRouter = router({
     .mutation(async ({ ctx, input }) => {
       const { user } = ctx;
       const fn = updateTransaction(transactionRepository);
-      return await fn(user.id, input.transactionId, input.data as any);
+      const result = await fn(user.id, input.transactionId, input.data as any);
+      revalidateTag(cacheTags.PAGINATED_TRANSACTIONS);
+      revalidateTag(cacheTags.PAGINATED_CATEGORIES);
+      revalidateTag(cacheTags.BUDGETS_SUMMARY);
+      revalidateTag(cacheTags.PAGINATED_BUDGETS_WITH_TRANSACTIONS);
+      revalidateTag(cacheTags.INCOMES_SUMMARY);
+      revalidateTag(cacheTags.PAGINATED_INCOMES_WITH_TRANSACTIONS);
+      return result;
     }),
   deleteTransaction: protectedProcedure
     .input((val: unknown) => val as { transactionId: string })
@@ -74,6 +86,12 @@ export const transactionsRouter = router({
       const { user } = ctx;
       const fn = deleteTransaction(transactionRepository);
       await fn(user.id, input.transactionId);
+      revalidateTag(cacheTags.PAGINATED_TRANSACTIONS);
+      revalidateTag(cacheTags.PAGINATED_CATEGORIES);
+      revalidateTag(cacheTags.BUDGETS_SUMMARY);
+      revalidateTag(cacheTags.PAGINATED_BUDGETS_WITH_TRANSACTIONS);
+      revalidateTag(cacheTags.INCOMES_SUMMARY);
+      revalidateTag(cacheTags.PAGINATED_INCOMES_WITH_TRANSACTIONS);
       return undefined;
     }),
 });

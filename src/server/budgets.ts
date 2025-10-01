@@ -10,13 +10,12 @@ import {
 } from "@/core/useCases/budget";
 import { BudgetRepository } from "@/data/repositories/BudgetRepository";
 import { cacheTags } from "@/utils/cache";
-import { unstable_cacheTag as cacheTag } from "next/cache";
+import { unstable_cacheTag as cacheTag, revalidateTag } from "next/cache";
 import { protectedProcedure, router } from "./trpc";
 
 const budgetRepository = new BudgetRepository();
 
 export const budgetsRouter = router({
-  // Reads - cacheable
   getBudgetsSummary: protectedProcedure.query(async ({ ctx }) => {
     "use cache";
     cacheTag(cacheTags.BUDGETS_SUMMARY);
@@ -53,7 +52,6 @@ export const budgetsRouter = router({
       return await fn(user.id, input.budgetId);
     }),
 
-  // Writes - no caching; revalidate in server actions
   createBudget: protectedProcedure
     .input(
       (val: unknown) =>
@@ -62,7 +60,12 @@ export const budgetsRouter = router({
     .mutation(async ({ ctx, input }) => {
       const { user } = ctx;
       const fn = createBudget(budgetRepository);
-      return await fn(user.id, input.data as any);
+      const result = await fn(user.id, input.data as any);
+      revalidateTag(cacheTags.PAGINATED_BUDGETS);
+      revalidateTag(cacheTags.PAGINATED_BUDGETS_WITH_TRANSACTIONS);
+      revalidateTag(cacheTags.BUDGETS_SUMMARY);
+      revalidateTag(cacheTags.PAGINATED_CATEGORIES);
+      return result;
     }),
   updateBudget: protectedProcedure
     .input(
@@ -75,7 +78,12 @@ export const budgetsRouter = router({
     .mutation(async ({ ctx, input }) => {
       const { user } = ctx;
       const fn = updateBudget(budgetRepository);
-      return await fn(user.id, input.budgetId, input.data as any);
+      const result = await fn(user.id, input.budgetId, input.data as any);
+      revalidateTag(cacheTags.PAGINATED_BUDGETS);
+      revalidateTag(cacheTags.PAGINATED_BUDGETS_WITH_TRANSACTIONS);
+      revalidateTag(cacheTags.BUDGETS_SUMMARY);
+      revalidateTag(cacheTags.PAGINATED_CATEGORIES);
+      return result;
     }),
   deleteBudget: protectedProcedure
     .input((val: unknown) => val as { budgetId: string })
@@ -83,6 +91,10 @@ export const budgetsRouter = router({
       const { user } = ctx;
       const fn = deleteBudget(budgetRepository);
       await fn(user.id, input.budgetId);
+      revalidateTag(cacheTags.PAGINATED_BUDGETS);
+      revalidateTag(cacheTags.PAGINATED_BUDGETS_WITH_TRANSACTIONS);
+      revalidateTag(cacheTags.BUDGETS_SUMMARY);
+      revalidateTag(cacheTags.PAGINATED_CATEGORIES);
       return undefined;
     }),
 });

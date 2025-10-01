@@ -10,13 +10,12 @@ import { getPaginatedIncomes } from "@/core/useCases/income/getPaginatedIncomes"
 import { getPaginatedIncomesWithTransactions } from "@/core/useCases/income/getPaginatedIncomesWithTransactions";
 import { IncomeRepository } from "@/data/repositories/IncomeRepository";
 import { cacheTags } from "@/utils/cache";
-import { unstable_cacheTag as cacheTag } from "next/cache";
+import { unstable_cacheTag as cacheTag, revalidateTag } from "next/cache";
 import { protectedProcedure, router } from "./trpc";
 
 const incomeRepository = new IncomeRepository();
 
 export const incomesRouter = router({
-  // Reads - cacheable
   getIncomesSummary: protectedProcedure.query(async ({ ctx }) => {
     "use cache";
     cacheTag(cacheTags.INCOMES_SUMMARY);
@@ -53,7 +52,6 @@ export const incomesRouter = router({
       return await fn(user.id, input.incomeId);
     }),
 
-  // Writes - no caching here
   createIncome: protectedProcedure
     .input(
       (val: unknown) =>
@@ -62,7 +60,11 @@ export const incomesRouter = router({
     .mutation(async ({ ctx, input }) => {
       const { user } = ctx;
       const fn = createIncome(incomeRepository);
-      return await fn(user.id, input.data as any);
+      const result = await fn(user.id, input.data as any);
+      revalidateTag(cacheTags.PAGINATED_INCOMES);
+      revalidateTag(cacheTags.PAGINATED_INCOMES_WITH_TRANSACTIONS);
+      revalidateTag(cacheTags.INCOMES_SUMMARY);
+      return result;
     }),
   updateIncome: protectedProcedure
     .input(
@@ -75,7 +77,11 @@ export const incomesRouter = router({
     .mutation(async ({ ctx, input }) => {
       const { user } = ctx;
       const fn = updateIncome(incomeRepository);
-      return await fn(user.id, input.incomeId, input.data as any);
+      const result = await fn(user.id, input.incomeId, input.data as any);
+      revalidateTag(cacheTags.PAGINATED_INCOMES);
+      revalidateTag(cacheTags.PAGINATED_INCOMES_WITH_TRANSACTIONS);
+      revalidateTag(cacheTags.INCOMES_SUMMARY);
+      return result;
     }),
   deleteIncome: protectedProcedure
     .input((val: unknown) => val as { incomeId: string })
@@ -83,6 +89,9 @@ export const incomesRouter = router({
       const { user } = ctx;
       const fn = deleteIncome(incomeRepository);
       await fn(user.id, input.incomeId);
+      revalidateTag(cacheTags.PAGINATED_INCOMES);
+      revalidateTag(cacheTags.PAGINATED_INCOMES_WITH_TRANSACTIONS);
+      revalidateTag(cacheTags.INCOMES_SUMMARY);
       return undefined;
     }),
 });

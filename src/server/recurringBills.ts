@@ -14,13 +14,12 @@ import {
 } from "@/core/useCases/recurringBill";
 import { RecurringBillRepository } from "@/data/repositories/RecurringBillRepository";
 import { cacheTags } from "@/utils/cache";
-import { unstable_cacheTag as cacheTag } from "next/cache";
+import { unstable_cacheTag as cacheTag, revalidateTag } from "next/cache";
 import { protectedProcedure, router } from "./trpc";
 
 const recurringBillRepository = new RecurringBillRepository();
 
 export const recurringBillsRouter = router({
-  // Reads - cache where beneficial
   getPaginatedRecurringBills: protectedProcedure
     .input(paginationParamsSchema)
     .query(async ({ ctx, input }) => {
@@ -90,7 +89,6 @@ export const recurringBillsRouter = router({
       return await fn(user.id, input, { daysBeforeDue: 2 });
     }),
 
-  // Writes - mutations (no caching here)
   createRecurringBill: protectedProcedure
     .input(
       (val: unknown) =>
@@ -99,7 +97,14 @@ export const recurringBillsRouter = router({
     .mutation(async ({ ctx, input }) => {
       const { user } = ctx;
       const fn = createRecurringBill(recurringBillRepository);
-      return await fn(user.id, input.data as any);
+      const result = await fn(user.id, input.data as any);
+      revalidateTag(cacheTags.PAGINATED_RECURRING_BILLS);
+      revalidateTag(cacheTags.RECURRING_BILLS_SUMMARY);
+      revalidateTag(cacheTags.RECURRING_BILLS_TOTALS);
+      revalidateTag(cacheTags.RECURRING_BILLS_UPCOMING);
+      revalidateTag(cacheTags.RECURRING_BILLS_DUE_SOON);
+      revalidateTag(cacheTags.RECURRING_BILLS_PAID);
+      return result;
     }),
   updateRecurringBill: protectedProcedure
     .input(
@@ -112,7 +117,14 @@ export const recurringBillsRouter = router({
     .mutation(async ({ ctx, input }) => {
       const { user } = ctx;
       const fn = updateRecurringBill(recurringBillRepository);
-      return await fn(user.id, input.billId, input.data as any);
+      const result = await fn(user.id, input.billId, input.data as any);
+      revalidateTag(cacheTags.PAGINATED_RECURRING_BILLS);
+      revalidateTag(cacheTags.RECURRING_BILLS_SUMMARY);
+      revalidateTag(cacheTags.RECURRING_BILLS_TOTALS);
+      revalidateTag(cacheTags.RECURRING_BILLS_UPCOMING);
+      revalidateTag(cacheTags.RECURRING_BILLS_DUE_SOON);
+      revalidateTag(cacheTags.RECURRING_BILLS_PAID);
+      return result;
     }),
   deleteRecurringBill: protectedProcedure
     .input((val: unknown) => val as { billId: string })
@@ -120,6 +132,12 @@ export const recurringBillsRouter = router({
       const { user } = ctx;
       const fn = deleteRecurringBill(recurringBillRepository);
       await fn(user.id, input.billId);
+      revalidateTag(cacheTags.PAGINATED_RECURRING_BILLS);
+      revalidateTag(cacheTags.RECURRING_BILLS_SUMMARY);
+      revalidateTag(cacheTags.RECURRING_BILLS_TOTALS);
+      revalidateTag(cacheTags.RECURRING_BILLS_UPCOMING);
+      revalidateTag(cacheTags.RECURRING_BILLS_DUE_SOON);
+      revalidateTag(cacheTags.RECURRING_BILLS_PAID);
       return undefined;
     }),
   payRecurringBill: protectedProcedure
@@ -133,6 +151,17 @@ export const recurringBillsRouter = router({
     .mutation(async ({ ctx, input }) => {
       const { user } = ctx;
       const fn = payRecurringBill(recurringBillRepository);
-      return await fn(user.id, input.billId, input.data as any);
+      const result = await fn(user.id, input.billId, input.data as any);
+      revalidateTag(cacheTags.PAGINATED_TRANSACTIONS);
+      revalidateTag(cacheTags.PAGINATED_CATEGORIES);
+      revalidateTag(cacheTags.BUDGETS_SUMMARY);
+      revalidateTag(cacheTags.PAGINATED_BUDGETS_WITH_TRANSACTIONS);
+      revalidateTag(cacheTags.PAGINATED_RECURRING_BILLS);
+      revalidateTag(cacheTags.RECURRING_BILLS_SUMMARY);
+      revalidateTag(cacheTags.RECURRING_BILLS_TOTALS);
+      revalidateTag(cacheTags.RECURRING_BILLS_UPCOMING);
+      revalidateTag(cacheTags.RECURRING_BILLS_DUE_SOON);
+      revalidateTag(cacheTags.RECURRING_BILLS_PAID);
+      return result;
     }),
 });
