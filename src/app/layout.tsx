@@ -1,4 +1,5 @@
 import { PUBLIC_SANS } from "@/constants/fonts";
+import { getAuthTokens, tokensToUser } from "@/lib/auth/authTokens";
 import { TailwindScreenIndicator } from "@/presentation/components/Dev";
 import { Providers } from "@/presentation/Providers";
 import "@/presentation/styles/main.css";
@@ -9,7 +10,10 @@ type RootLayoutProps = {
   children: React.ReactNode;
 };
 
-const RootLayout = ({ children }: RootLayoutProps) => {
+const RootLayout = async ({ children }: RootLayoutProps) => {
+  const tokens = await getAuthTokens();
+  const user = tokens ? tokensToUser(tokens.decodedToken) : null;
+
   return (
     <html
       className={fontClasses}
@@ -18,7 +22,7 @@ const RootLayout = ({ children }: RootLayoutProps) => {
     >
       <body className="bg-beige-100">
         <TailwindScreenIndicator />
-        <Providers>{children}</Providers>
+        <Providers user={user}>{children}</Providers>
       </body>
     </html>
   );

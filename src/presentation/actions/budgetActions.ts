@@ -1,5 +1,6 @@
 "use server";
 
+import { PaginationParams } from "@/core/schemas";
 import {
   BudgetDto,
   BudgetsSummaryDto,
@@ -8,7 +9,6 @@ import {
   PaginatedBudgetsWithTransactionsResponseDto,
   UpdateBudgetDto,
 } from "@/core/schemas/budgetSchema";
-import { PaginationParams } from "@/core/schemas/paginationSchema";
 import {
   createBudgetUseCase,
   deleteBudgetUseCase,

@@ -7,8 +7,8 @@ import { signOut } from "@/core/useCases/auth/client";
 import { AuthAdminRepository } from "@/data/repositories/AuthAdminRepository";
 import { AuthClientRepository } from "@/data/repositories/AuthClientRepository";
 import { UserRepository } from "@/data/repositories/UserRespository";
-import { tokensToUser } from "@/lib/authTokens";
-import { getServerActionError } from "@/lib/serverActionError";
+import { tokensToUser } from "@/lib/auth/authTokens";
+import { getServerActionError } from "@/lib/errors/serverActionError";
 import { ServerActionResponse } from "@/types";
 import { AuthError } from "@/utils";
 import {

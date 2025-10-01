@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import { getAuthTokens, tokensToUser } from "@/lib/authTokens";
+import { getAuthTokens, tokensToUser } from "@/lib/auth/authTokens";
 import { redirect } from "next/navigation";
 import { NavMain } from "./NavMain";
 import { NavUser } from "./NavUser";
