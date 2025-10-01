@@ -63,6 +63,7 @@ const t = initTRPC.context<Context>().create({
   },
 });
 export const createCallerFactory = t.createCallerFactory;
+export const mergeRouters = t.mergeRouters;
 
 // Map domain errors to tRPC errors with appropriate codes
 function mapToTrpcError(err: unknown): TRPCError {
