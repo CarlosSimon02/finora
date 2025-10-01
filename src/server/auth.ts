@@ -1,20 +1,13 @@
 import { authConfig } from "@/config/nextFirebaseAuthEdge";
 import { User } from "@/core/schemas/userSchema";
 import { onboardUser, verifyIdToken } from "@/core/useCases/auth/admin";
-import { signOut } from "@/core/useCases/auth/client";
 import { AuthAdminRepository } from "@/data/repositories/AuthAdminRepository";
 import { AuthClientRepository } from "@/data/repositories/AuthClientRepository";
 import { UserRepository } from "@/data/repositories/UserRespository";
 import { tokensToUser } from "@/lib/auth/authTokens";
-import { AuthError } from "@/utils";
-import {
-  refreshCookiesWithIdToken,
-  refreshServerCookies,
-} from "next-firebase-auth-edge/lib/next/cookies";
-import { removeServerCookies } from "next-firebase-auth-edge/next/cookies";
-import { getTokens } from "next-firebase-auth-edge/next/tokens";
+import { refreshCookiesWithIdToken } from "next-firebase-auth-edge/lib/next/cookies";
 import { cookies, headers } from "next/headers";
-import { protectedProcedure, publicProcedure, router } from "./trpc";
+import { publicProcedure, router } from "./trpc";
 
 const authAdminRepository = new AuthAdminRepository();
 const authClientRepository = new AuthClientRepository();
@@ -49,22 +42,22 @@ export const authRouter = router({
       return { user: databaseUser };
     }),
 
-  logout: protectedProcedure.mutation(async () => {
-    await signOut(authClientRepository)();
-    removeServerCookies(await cookies(), { cookieName: authConfig.cookieName });
-    return undefined;
-  }),
+  // logout: protectedProcedure.mutation(async () => {
+  //   await signOut(authClientRepository)();
+  //   removeServerCookies(await cookies(), { cookieName: authConfig.cookieName });
+  //   return undefined;
+  // }),
 
-  refreshCredentials: protectedProcedure.mutation(async () => {
-    const tokens = await getTokens(await cookies(), authConfig);
-    if (!tokens) {
-      throw new AuthError("Unauthenticated");
-    }
-    await refreshServerCookies(
-      await cookies(),
-      new Headers(await headers()),
-      authConfig
-    );
-    return undefined;
-  }),
+  // refreshCredentials: protectedProcedure.mutation(async () => {
+  //   const tokens = await getTokens(await cookies(), authConfig);
+  //   if (!tokens) {
+  //     throw new AuthError("Unauthenticated");
+  //   }
+  //   await refreshServerCookies(
+  //     await cookies(),
+  //     new Headers(await headers()),
+  //     authConfig
+  //   );
+  //   return undefined;
+  // }),
 });
