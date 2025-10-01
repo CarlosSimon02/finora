@@ -21,7 +21,10 @@ export const signUpCredentialsSchema = z.object({
     .regex(/[a-z]/, {
       message: "Password must contain at least one lowercase letter",
     })
-    .regex(/[0-9]/, { message: "Password must contain at least one number" }),
+    .regex(/[0-9]/, { message: "Password must contain at least one number" })
+    .regex(/[^a-zA-Z0-9]/, {
+      message: "Password must contain at least one special character",
+    }),
 });
 
 export const authResponseSchema = z.object({
