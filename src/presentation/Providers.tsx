@@ -3,7 +3,6 @@
 import { User } from "@/core/schemas";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import * as React from "react";
-import { Toaster } from "sonner";
 import { AuthProvider, TrpcProvider } from "./contexts";
 
 type ProvidersProps = {
@@ -16,7 +15,6 @@ export const Providers = ({ children, user }: ProvidersProps) => {
     <AuthProvider user={user}>
       <TrpcProvider>
         {children}
-        <Toaster richColors />
         {process.env.NODE_ENV !== "production" ? <ReactQueryDevtools /> : null}
       </TrpcProvider>
     </AuthProvider>

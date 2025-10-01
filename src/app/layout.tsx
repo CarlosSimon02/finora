@@ -1,6 +1,7 @@
 import { PUBLIC_SANS } from "@/constants/fonts";
 import { getAuthTokens, tokensToUser } from "@/lib/auth/authTokens";
 import { TailwindScreenIndicator } from "@/presentation/components/Dev";
+import { Toaster } from "@/presentation/components/Primitives";
 import { Providers } from "@/presentation/Providers";
 import "@/presentation/styles/main.css";
 
@@ -23,6 +24,7 @@ const RootLayout = async ({ children }: RootLayoutProps) => {
       <body className="bg-beige-100">
         <TailwindScreenIndicator />
         <Providers user={user}>{children}</Providers>
+        <Toaster />
       </body>
     </html>
   );
