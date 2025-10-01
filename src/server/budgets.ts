@@ -1,8 +1,12 @@
 import { paginationParamsSchema } from "@/core/schemas/paginationSchema";
 import {
+  createBudget,
+  deleteBudget,
+  getBudget,
   getBudgetsSummary,
   getPaginatedBudgets,
   getPaginatedBudgetsWithTransactions,
+  updateBudget,
 } from "@/core/useCases/budget";
 import { BudgetRepository } from "@/data/repositories/BudgetRepository";
 import { cacheTags } from "@/utils/cache";
@@ -12,6 +16,7 @@ import { protectedProcedure, router } from "./trpc";
 const budgetRepository = new BudgetRepository();
 
 export const budgetsRouter = router({
+  // Reads - cacheable
   getBudgetsSummary: protectedProcedure.query(async ({ ctx }) => {
     "use cache";
     cacheTag(cacheTags.BUDGETS_SUMMARY);
@@ -39,5 +44,45 @@ export const budgetsRouter = router({
       const { user } = ctx;
       const fn = getPaginatedBudgets(budgetRepository);
       return await fn(user.id, input);
+    }),
+  getBudget: protectedProcedure
+    .input((val: unknown) => val as { budgetId: string })
+    .query(async ({ ctx, input }) => {
+      const { user } = ctx;
+      const fn = getBudget(budgetRepository);
+      return await fn(user.id, input.budgetId);
+    }),
+
+  // Writes - no caching; revalidate in server actions
+  createBudget: protectedProcedure
+    .input(
+      (val: unknown) =>
+        val as { data: Parameters<ReturnType<typeof createBudget>>[1] }
+    )
+    .mutation(async ({ ctx, input }) => {
+      const { user } = ctx;
+      const fn = createBudget(budgetRepository);
+      return await fn(user.id, input.data as any);
+    }),
+  updateBudget: protectedProcedure
+    .input(
+      (val: unknown) =>
+        val as {
+          budgetId: string;
+          data: Parameters<ReturnType<typeof updateBudget>>[2];
+        }
+    )
+    .mutation(async ({ ctx, input }) => {
+      const { user } = ctx;
+      const fn = updateBudget(budgetRepository);
+      return await fn(user.id, input.budgetId, input.data as any);
+    }),
+  deleteBudget: protectedProcedure
+    .input((val: unknown) => val as { budgetId: string })
+    .mutation(async ({ ctx, input }) => {
+      const { user } = ctx;
+      const fn = deleteBudget(budgetRepository);
+      await fn(user.id, input.budgetId);
+      return undefined;
     }),
 });
