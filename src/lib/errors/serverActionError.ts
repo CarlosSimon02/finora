@@ -20,10 +20,31 @@ const getValidationErrors = (
 ): Record<string, string | undefined> | undefined => {
   if (error instanceof ValidationError) return error.errors;
   if (error instanceof z.ZodError) {
-    return error.flatten().fieldErrors as unknown as Record<
-      string,
-      string | undefined
-    >;
+    const tree = z.treeifyError(error);
+    const toFlat = (
+      node: any,
+      path: string = "",
+      acc: Record<string, string | undefined> = {}
+    ): Record<string, string | undefined> => {
+      const firstError: string | undefined = Array.isArray(node?.errors)
+        ? node.errors[0]
+        : undefined;
+      if (path && firstError) acc[path] = firstError;
+      if (node?.properties && typeof node.properties === "object") {
+        for (const key of Object.keys(node.properties)) {
+          toFlat(node.properties[key], path ? `${path}.${key}` : key, acc);
+        }
+      }
+      if (Array.isArray(node?.items)) {
+        node.items.forEach((item: any, index: number) => {
+          if (!item) return;
+          const nextPath = path ? `${path}[${index}]` : `[${index}]`;
+          toFlat(item, nextPath, acc);
+        });
+      }
+      return acc;
+    };
+    return toFlat(tree);
   }
   return undefined;
 };
