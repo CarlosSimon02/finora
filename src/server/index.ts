@@ -1,3 +1,4 @@
+import { authRouter } from "./auth";
 import { budgetsRouter } from "./budgets";
 import { incomesRouter } from "./incomes";
 import { potsRouter } from "./pots";
@@ -11,7 +12,8 @@ export const appRouter = mergeRouters(
   budgetsRouter,
   incomesRouter,
   potsRouter,
-  recurringBillsRouter
+  recurringBillsRouter,
+  authRouter
 );
 
 export type AppRouter = typeof appRouter;
