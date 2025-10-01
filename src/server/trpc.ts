@@ -38,6 +38,15 @@ const isAuthenticated = t.middleware(async ({ ctx, next }) => {
       message: "Unauthorized",
     });
   }
+
+  if (!tokens.decodedToken.email_verified) {
+    throw new TRPCError({
+      code: "UNAUTHORIZED",
+      message: "Unauthorized",
+      cause: "Email not verified",
+    });
+  }
+
   return next({ ctx: { user: tokensToUser(tokens.decodedToken) } });
 });
 
