@@ -3,10 +3,11 @@
 import { SignUpCredentialsDto, signUpCredentialsSchema } from "@/core/schemas";
 import {
   Button,
+  Card,
   Input,
   PasswordInput,
 } from "@/presentation/components/Primitives";
-import { Card, Form, LoadingButton } from "@/presentation/components/UI";
+import { Form, LoadingButton } from "@/presentation/components/UI";
 import { useGoogleSignIn, useSignUp } from "@/presentation/hooks";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";

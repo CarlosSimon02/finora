@@ -1,7 +1,6 @@
 "use client";
 
-import { Button } from "@/presentation/components/Primitives";
-import { Card } from "@/presentation/components/UI";
+import { Button, Card } from "@/presentation/components/Primitives";
 import { cn } from "@/utils";
 import { CaretRightIcon } from "@phosphor-icons/react";
 

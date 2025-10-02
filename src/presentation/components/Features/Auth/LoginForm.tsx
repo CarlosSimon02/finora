@@ -6,10 +6,11 @@ import {
 } from "@/core/schemas";
 import {
   Button,
+  Card,
   Input,
   PasswordInput,
 } from "@/presentation/components/Primitives";
-import { Card, Form, LoadingButton } from "@/presentation/components/UI";
+import { Form, LoadingButton } from "@/presentation/components/UI";
 import { useGoogleSignIn, useLogin } from "@/presentation/hooks";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";

@@ -11,7 +11,7 @@ import { TransactionsSection } from "./TransactionsSection";
 
 export const Overview = () => {
   const error = false;
-  const isLoading = true;
+  const isLoading = false;
   const errorMessage = "Error loading overview";
 
   const body = (() => {

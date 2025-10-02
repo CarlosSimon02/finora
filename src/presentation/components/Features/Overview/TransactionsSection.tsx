@@ -3,7 +3,7 @@
 import { TransactionDto } from "@/core/schemas";
 import { TransactionEmoji } from "@/presentation/components/Features/Transactions";
 import { EmptyState } from "@/presentation/components/Primitives";
-import { cn, formatCurrency, formatDate } from "@/utils";
+import { cn, formatCurrency } from "@/utils";
 import { TitledCard } from "./TitledCard";
 
 type TransactionsSectionProps = {

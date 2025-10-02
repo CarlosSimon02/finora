@@ -9,6 +9,14 @@ export const normalizeNewLines = (key: string) => {
   return key.replace(/\\n/g, "\n");
 };
 
+export const formatDate = (dateInput: Date): string => {
+  return new Intl.DateTimeFormat("en-GB", {
+    day: "2-digit",
+    month: "short",
+    year: "numeric",
+  }).format(dateInput);
+};
+
 export const formatCurrency = (
   amount: number,
   showPlus = false,
