@@ -1,8 +1,8 @@
 "use client";
 
 import { logoutAction, refreshCredentialsAction } from "@/presentation/actions";
-import { Button } from "@/presentation/components/Primitives";
-import { Card, LoadingButton } from "@/presentation/components/UI";
+import { Button, Card } from "@/presentation/components/Primitives";
+import { LoadingButton } from "@/presentation/components/UI";
 import { useSendEmailVerification } from "@/presentation/hooks";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import * as React from "react";

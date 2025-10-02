@@ -1,5 +1,4 @@
 export * from "./Avatar";
-export * from "./Card";
 export * from "./Chart";
 export * from "./ColorPicker";
 export * from "./Dialog";

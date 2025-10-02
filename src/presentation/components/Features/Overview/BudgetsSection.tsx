@@ -2,8 +2,11 @@
 
 import { BudgetDto } from "@/core/schemas";
 import { BudgetChart } from "@/presentation/components/Features/Budgets";
+import {
+  ColoredAmountItem,
+  EmptyState,
+} from "@/presentation/components/Primitives";
 import { cn } from "@/utils";
-import { ColoredAmountItem, EmptyState } from "../../Primitives";
 import { TitledCard } from "./TitledCard";
 
 type BudgetsSectionProps = {

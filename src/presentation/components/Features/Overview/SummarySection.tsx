@@ -1,6 +1,6 @@
 "use client";
 
-import { Card } from "@/presentation/components/UI";
+import { Card } from "@/presentation/components/Primitives";
 import { cn, formatCurrency } from "@/utils";
 
 type SummarySectionProps = {
