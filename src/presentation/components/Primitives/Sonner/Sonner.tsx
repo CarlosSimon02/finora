@@ -7,7 +7,7 @@ const Toaster = ({ ...props }: ToasterProps) => {
     <Sonner
       // duration={Infinity}
       closeButton={true}
-      // richColors
+      richColors
       className="toaster group bg-bg-secondary text-fg-primary"
       toastOptions={{
         classNames: {

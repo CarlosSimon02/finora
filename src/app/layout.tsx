@@ -21,7 +21,7 @@ const RootLayout = async ({ children }: RootLayoutProps) => {
       suppressHydrationWarning
       data-scroll-behavior="smooth"
     >
-      <body className="bg-beige-100">
+      <body className="bg-beige-100" suppressHydrationWarning>
         <TailwindScreenIndicator />
         <Providers user={user}>{children}</Providers>
         <Toaster />
