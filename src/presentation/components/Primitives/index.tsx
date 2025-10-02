@@ -1,6 +1,7 @@
 export * from "./Button";
 export * from "./ColoredAmountItem";
 export * from "./CurrencyInput";
+export * from "./EmptyState";
 export * from "./Input";
 export * from "./Label";
 export * from "./Logo";

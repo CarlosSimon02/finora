@@ -1,3 +1,5 @@
+import { formatCurrency } from "@/utils";
+
 type ColoredAmountItemProps = {
   name: string;
   color: string;
@@ -17,8 +19,8 @@ export const ColoredAmountItem = ({
       />
       <div className="flex-1">
         <p className="txt-preset-5 text-grey-500">{name}</p>
-        <p className="txt-preset-4-bold text-grey-900">
-          ₱{amount.toLocaleString()}
+        <p className="txt-preset-4-bold text-grey-900 break-all">
+          {formatCurrency(amount)}
         </p>
       </div>
     </div>

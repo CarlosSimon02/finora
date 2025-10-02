@@ -2,12 +2,10 @@
 
 import { cn } from "@/utils";
 
+import { COLOR_OPTIONS, ColorOption } from "@/constants/colors";
 import { optionBase, ReactSelect } from "@/presentation/components/Primitives";
 import { CheckIcon } from "@phosphor-icons/react";
 import { components as RSComponents } from "react-select";
-import { COLOR_OPTIONS } from "./ColorPicker";
-
-type ColorOption = { label: string; value: string };
 
 type ColorPickerReactSelectProps = {
   value?: string;
@@ -30,7 +28,10 @@ export const ColorPickerReactSelect = ({
   id,
   "aria-invalid": ariaInvalid,
 }: ColorPickerReactSelectProps) => {
-  const options: ColorOption[] = COLOR_OPTIONS;
+  const options: ColorOption[] = COLOR_OPTIONS.map((o) => ({
+    label: o.label,
+    value: o.value,
+  }));
 
   const selected =
     value != null ? options.find((o) => o.value === value) : undefined;
