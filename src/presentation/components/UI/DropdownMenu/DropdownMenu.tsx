@@ -38,7 +38,7 @@ const DropdownMenuContent = ({
         sideOffset={sideOffset}
         className={cn(
           // Base layout & appearance
-          "text-grey-900 z-50 max-h-(--radix-dropdown-menu-content-available-height) min-w-[8rem] origin-(--radix-dropdown-menu-content-transform-origin) overflow-x-hidden overflow-y-auto rounded-lg bg-white p-1 shadow-md",
+          "text-grey-900 z-50 max-h-(--radix-dropdown-menu-content-available-height) min-w-[8rem] origin-(--radix-dropdown-menu-content-transform-origin) overflow-x-hidden overflow-y-auto rounded-lg bg-white px-5 shadow-xl",
 
           // Animation (open/close transitions)
           "data-[state=open]:animate-in data-[state=closed]:animate-out",
@@ -74,31 +74,24 @@ const DropdownMenuItem = ({
       data-inset={inset}
       data-variant={variant}
       className={cn(
-        // Base layout
-        "txt-preset-4-bold relative flex cursor-pointer items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-hidden select-none",
-
-        // Focus & hover states
-        "focus:bg-accent focus:text-accent-foreground",
+        // Base (aligned with optionBase)
+        "txt-preset-4 [&_svg:not([class*='text-'])]:text-grey-900",
+        "relative flex w-full cursor-pointer items-center gap-2",
+        "border-b-grey-100 border-b py-3 pl-0 outline-hidden select-none last:border-b-0",
+        "hover:text-grey-500 transition-colors",
 
         // Disabled state
         "data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
 
-        // Inset modifier
-        "data-[inset]:pl-8",
-
-        // Variant: destructive
+        // Variant: destructive (preserved)
         "data-[variant=destructive]:text-secondary-red",
-        "data-[variant=destructive]:focus:text-secondary-red",
-        "data-[variant=destructive]:focus:bg-secondary-red/10",
-        "dark:data-[variant=destructive]:focus:bg-secondary-red/10",
         "data-[variant=destructive]:*:[svg]:!text-secondary-red",
+        "data-[variant=destructive]:focus:text-secondary-red/70",
 
         // SVG child selectors
         "[&_svg]:pointer-events-none",
         "[&_svg]:shrink-0",
         "[&_svg:not([class*='size-'])]:size-4",
-        "[&_svg:not([class*='text-'])]:text-muted-foreground",
-
         className
       )}
       {...props}

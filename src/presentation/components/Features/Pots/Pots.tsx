@@ -8,20 +8,27 @@ import {
   ErrorState,
 } from "@/presentation/components/Primitives";
 import { Pagination } from "@/presentation/components/UI";
-import { useState } from "react";
+import { usePagination } from "@/presentation/hooks";
 import { CreatePotDialog } from "./CreatePotDialog";
 import { PotCard } from "./PotCard";
 import { PotsSkeleton } from "./PotsSkeleton";
 
 export const Pots = () => {
-  const [page, setPage] = useState(1);
   const pageSize = 6;
+  const { page, setPage, validatedParams } = usePagination({
+    defaultPage: 1,
+    defaultPerPage: pageSize,
+    includeParams: ["pagination"],
+  });
 
   const { data, isLoading, error } = trpc.getPaginatedPots.useQuery({
-    search: "",
-    filters: [],
-    sort: { field: "createdAt", order: "desc" },
-    pagination: { page, perPage: pageSize },
+    search: validatedParams.search,
+    filters: validatedParams.filters,
+    sort: validatedParams.sort || { field: "createdAt", order: "desc" },
+    pagination: {
+      page,
+      perPage: pageSize,
+    },
   });
 
   const body = (() => {
