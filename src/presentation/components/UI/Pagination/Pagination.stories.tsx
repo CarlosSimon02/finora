@@ -45,7 +45,11 @@ const StatefulRender = (args: PaginationProps) => {
 };
 
 export const Playground: Story = {
-  render: (args) => <StatefulRender {...args} />,
+  render: (args) => (
+    <div className="w-full max-w-xl">
+      <StatefulRender className="w-full" {...args} />
+    </div>
+  ),
 };
 
 export const OnePage: Story = {

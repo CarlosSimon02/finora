@@ -2,8 +2,9 @@
 "use client";
 
 import { useIsMobile } from "@/presentation/hooks";
-import Link from "next/link";
-import React from "react";
+import { cn } from "@/utils";
+import { CaretLeftIcon, CaretRightIcon } from "@phosphor-icons/react";
+import { PaginationButton } from "./PaginationButton";
 import { getPageNumbersResponsive } from "./utils";
 
 export type PaginationProps = {
@@ -12,75 +13,6 @@ export type PaginationProps = {
   onPageChange?: (page: number) => void;
   getPageHref?: (page: number) => string;
   className?: string;
-};
-
-const isPlainLeftClick = (e: React.MouseEvent) => {
-  return e.button === 0 && !e.altKey && !e.ctrlKey && !e.metaKey && !e.shiftKey;
-};
-
-const NavNode = ({
-  page,
-  isActive,
-  href,
-  onNavigate,
-  children,
-  ariaLabel,
-}: {
-  page: number | string;
-  isActive?: boolean;
-  href?: string;
-  onNavigate?: (p: number) => void;
-  children?: React.ReactNode;
-  ariaLabel?: string;
-}) => {
-  const commonClass =
-    "inline-flex h-8 w-8 items-center justify-center rounded-md px-2 text-sm";
-  const activeClass = isActive ? "bg-slate-900 text-white" : "border";
-
-  // ellipsis or other non-numeric nodes
-  if (typeof page === "string" || page === -1) {
-    return (
-      <span className="px-2" aria-hidden="true">
-        …
-      </span>
-    );
-  }
-
-  const numericPage = page as number;
-
-  if (href) {
-    return (
-      <Link
-        key={numericPage}
-        href={href}
-        onClick={(e: React.MouseEvent<HTMLAnchorElement>) => {
-          // allow middle click / modifiers to behave normally
-          if (!onNavigate) return;
-          if (!isPlainLeftClick(e)) return;
-          e.preventDefault();
-          onNavigate(numericPage);
-        }}
-        className={`${commonClass} ${isActive ? activeClass : "border"}`}
-        aria-current={isActive ? "page" : undefined}
-        aria-label={ariaLabel}
-      >
-        {children ?? numericPage}
-      </Link>
-    );
-  }
-
-  return (
-    <button
-      key={numericPage}
-      type="button"
-      onClick={() => onNavigate?.(numericPage)}
-      className={`${commonClass} ${isActive ? activeClass : "border"}`}
-      aria-current={isActive ? "page" : undefined}
-      aria-label={ariaLabel}
-    >
-      {children ?? numericPage}
-    </button>
-  );
 };
 
 export const Pagination = ({
@@ -116,83 +48,77 @@ export const Pagination = ({
   };
 
   const renderPrev = () => {
-    if (safeCurrentPage === 1) {
-      return (
-        <button
-          type="button"
-          disabled
-          className="inline-flex h-8 w-8 items-center justify-center rounded-md border px-2 text-sm disabled:opacity-50"
-          aria-label="Previous page"
-        >
-          ‹
-        </button>
-      );
-    }
+    const disabled = safeCurrentPage === 1;
+    const targetPage = Math.max(1, safeCurrentPage - 1);
+    const href = disabled ? undefined : getPageHref?.(targetPage);
+    const onClick = () => go(targetPage);
 
-    const href = getPageHref?.(safeCurrentPage - 1);
     return (
-      <NavNode
-        page={safeCurrentPage - 1}
+      <PaginationButton
+        disabled={disabled}
         href={href}
-        onNavigate={go}
+        onActivate={onClick}
         ariaLabel="Previous page"
+        className="gap-3"
       >
-        ‹
-      </NavNode>
+        <CaretLeftIcon
+          className="text-grey-500 size-4 transition-colors group-hover:text-white"
+          weight="fill"
+        />
+        <span className="@max-3xs/pagination:hidden">Prev</span>
+      </PaginationButton>
     );
   };
 
   const renderNext = () => {
-    if (safeCurrentPage === safeTotalPages) {
-      return (
-        <button
-          type="button"
-          disabled
-          className="inline-flex h-8 w-8 items-center justify-center rounded-md border px-2 text-sm disabled:opacity-50"
-          aria-label="Next page"
-        >
-          ›
-        </button>
-      );
-    }
+    const disabled = safeCurrentPage === safeTotalPages;
+    const targetPage = Math.min(safeTotalPages, safeCurrentPage + 1);
+    const href = disabled ? undefined : getPageHref?.(targetPage);
+    const onClick = () => go(targetPage);
 
-    const href = getPageHref?.(safeCurrentPage + 1);
     return (
-      <NavNode
-        page={safeCurrentPage + 1}
+      <PaginationButton
+        disabled={disabled}
         href={href}
-        onNavigate={go}
+        onActivate={onClick}
         ariaLabel="Next page"
+        className="gap-3"
       >
-        ›
-      </NavNode>
+        <span className="max-md:hidden">Next</span>
+        <CaretRightIcon
+          className="text-grey-500 size-4 transition-colors group-hover:text-white"
+          weight="fill"
+        />
+      </PaginationButton>
     );
   };
 
   return (
     <nav
-      className={`flex items-center justify-center space-x-2 py-4 ${className ?? ""}`}
+      className={cn(
+        `flex flex-wrap items-center justify-center gap-2 py-4`,
+        className
+      )}
       aria-label="Pagination"
     >
       {renderPrev()}
 
-      <div className="flex items-center space-x-2">
-        {pageNumbers.map((p, i) =>
-          p === -1 ? (
-            <span key={`ellipsis-${i}`} className="px-2" aria-hidden="true">
-              …
-            </span>
-          ) : (
-            <NavNode
-              key={p}
-              page={p}
-              isActive={p === safeCurrentPage}
-              href={getPageHref?.(p)}
-              onNavigate={go}
-            />
-          )
-        )}
-      </div>
+      {pageNumbers.map((p, i) =>
+        p === -1 ? (
+          <span key={`ellipsis-${i}`} className="px-2" aria-hidden="true">
+            …
+          </span>
+        ) : (
+          <PaginationButton
+            key={p}
+            isActive={p === safeCurrentPage}
+            href={getPageHref?.(p)}
+            onActivate={() => go(p)}
+          >
+            {p}
+          </PaginationButton>
+        )
+      )}
 
       {renderNext()}
     </nav>
