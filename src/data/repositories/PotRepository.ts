@@ -7,7 +7,6 @@ import {
   UpdatePotDto,
 } from "@/core/schemas/potSchema";
 import { PotDatasource } from "@/data/datasource/PotDatasource";
-import { TransactionDatasource } from "@/data/datasource/TransactionDatasource";
 import { mapPotModelToDto } from "@/data/mappers";
 import { CreatePotModel, UpdatePotModel } from "@/data/models";
 import { generateId } from "@/utils";
@@ -15,11 +14,9 @@ import { FieldValue } from "firebase-admin/firestore";
 
 export class PotRepository implements IPotRepository {
   private readonly potDatasource: PotDatasource;
-  private readonly transactionDatasource: TransactionDatasource;
 
   constructor() {
     this.potDatasource = new PotDatasource();
-    this.transactionDatasource = new TransactionDatasource();
   }
 
   // #########################################################

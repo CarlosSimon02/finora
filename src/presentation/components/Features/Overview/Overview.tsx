@@ -21,7 +21,7 @@ export const Overview = () => {
 
     if (error) {
       return (
-        <Card>
+        <Card className="mx-auto flex max-w-xl flex-col items-center justify-center gap-6">
           <ErrorState
             title="Error loading overview contents"
             errorMessage={errorMessage}

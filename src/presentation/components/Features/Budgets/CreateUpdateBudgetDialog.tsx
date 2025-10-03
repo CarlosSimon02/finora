@@ -15,7 +15,7 @@ import {
   LoadingButton,
 } from "@/presentation/components/UI";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
@@ -62,13 +62,18 @@ export const CreateUpdateBudgetDialog = ({
     }
   };
 
-  const form = useForm<CreateBudgetDto>({
-    resolver: zodResolver(createBudgetSchema),
-    defaultValues: {
+  const getDefaultValues = useCallback(
+    () => ({
       name: initialData?.name ?? "",
       colorTag: initialData?.colorTag ?? "",
       maximumSpending: initialData?.maximumSpending ?? 0,
-    },
+    }),
+    [initialData]
+  );
+
+  const form = useForm<CreateBudgetDto>({
+    resolver: zodResolver(createBudgetSchema),
+    defaultValues: getDefaultValues(),
   });
 
   const utils = trpc.useUtils();
@@ -87,6 +92,7 @@ export const CreateUpdateBudgetDialog = ({
   const createBudgetMutation = trpc.createBudget.useMutation({
     onSuccess: (data) => {
       toast.success("Budget created successfully!");
+      form.reset(getDefaultValues());
       handleOpenChange(false);
       onSuccess?.(data as BudgetDto);
       utils.getPaginatedBudgets.invalidate();
@@ -100,6 +106,7 @@ export const CreateUpdateBudgetDialog = ({
   const updateBudgetMutation = trpc.updateBudget.useMutation({
     onSuccess: (data) => {
       toast.success("Budget updated successfully!");
+      form.reset(getDefaultValues());
       handleOpenChange(false);
       onSuccess?.(data as BudgetDto);
       utils.getPaginatedBudgets.invalidate();

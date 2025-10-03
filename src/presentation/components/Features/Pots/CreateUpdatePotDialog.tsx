@@ -15,7 +15,7 @@ import {
   LoadingButton,
 } from "@/presentation/components/UI";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { ReactNode, useState } from "react";
+import { ReactNode, useCallback, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
@@ -35,13 +35,18 @@ export const CreateUpdatePotDialog = ({
   onError,
 }: CreateUpdatePotDialogProps) => {
   const [isOpen, setIsOpen] = useState(false);
+  const getDefaultValues = useCallback(
+    () => ({
+      name: initialData?.name ?? "",
+      colorTag: initialData?.colorTag ?? "",
+      target: initialData?.target ?? 0,
+    }),
+    [initialData]
+  );
+
   const form = useForm<CreatePotDto>({
     resolver: zodResolver(createPotSchema),
-    defaultValues: {
-      name: initialData?.name,
-      colorTag: initialData?.colorTag,
-      target: initialData?.target,
-    },
+    defaultValues: getDefaultValues(),
   });
 
   const utils = trpc.useUtils();
@@ -62,6 +67,7 @@ export const CreateUpdatePotDialog = ({
   const createPotMutation = trpc.createPot.useMutation({
     onSuccess: () => {
       toast.success("Pot created successfully!");
+      form.reset(getDefaultValues());
       setIsOpen(false);
       utils.getPaginatedPots.invalidate();
     },
@@ -71,6 +77,7 @@ export const CreateUpdatePotDialog = ({
   const updatePotMutation = trpc.updatePot.useMutation({
     onSuccess: () => {
       toast.success("Pot updated successfully!");
+      form.reset(getDefaultValues());
       setIsOpen(false);
       utils.getPaginatedPots.invalidate();
       if (initialData) {
@@ -100,7 +107,13 @@ export const CreateUpdatePotDialog = ({
   };
 
   return (
-    <Dialog open={isOpen} onOpenChange={setIsOpen}>
+    <Dialog
+      open={isOpen}
+      onOpenChange={(open) => {
+        setIsOpen(open);
+        form.reset(getDefaultValues());
+      }}
+    >
       <Dialog.Trigger asChild>{children}</Dialog.Trigger>
       <Dialog.Content>
         <Dialog.Header>
