@@ -149,6 +149,7 @@ export const CreateUpdatePotDialog = ({
               disabled={isSubmitting}
               inputComponent={({ field }) => (
                 <ColorPickerReactSelect
+                  defaultValue={field.value}
                   value={field.value}
                   onValueChange={field.onChange}
                   placeholder="Select color"
