@@ -19,6 +19,7 @@ const buttonVariants = cva(
         secondary:
           "bg-beige-100 text-grey-900 border border-transparent hover:border-beige-500 hover:bg-transparent p-4 txt-preset-4-bold",
         tertiary: "txt-preset-4 text-grey-500 hover:text-grey-900",
+        quaternary: "txt-preset-4 text-grey-300 hover:text-grey-500",
         destructive:
           "bg-secondary-red border border-transparent text-white hover:bg-secondary-red/80 p-4 txt-preset-4-bold",
         link: "txt-preset-4-bold text-grey-900 hover:text-grey-500 underline [&_svg]:hidden",
@@ -38,7 +39,7 @@ type IconComponent = React.ComponentType<
 
 type IconConfig = {
   component: IconComponent;
-  size?: "default" | "sm";
+  size?: "default" | "sm" | "md";
   weight?: IconProps["weight"];
   className?: string;
   loc?: "left" | "right";
@@ -102,7 +103,12 @@ export const Button: {
         : icon;
 
   const Icon = normalizedIcon?.component;
-  const sizeClass = normalizedIcon?.size === "sm" ? "size-3" : "size-5";
+  const sizeClass =
+    normalizedIcon?.size === "sm"
+      ? "size-3"
+      : normalizedIcon?.size === "md"
+        ? "size-4"
+        : "size-5";
   const composedIconClass = cn(
     sizeClass,
     normalizedIcon?.className,

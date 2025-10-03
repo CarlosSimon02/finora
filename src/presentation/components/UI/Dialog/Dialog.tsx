@@ -54,6 +54,12 @@ const DialogContent = ({ className, children, ...props }: ContentProps) => (
           "data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 relative z-50 grid max-h-full min-h-0 w-full max-w-[35rem] gap-5 overflow-y-auto rounded-2xl bg-white p-5 shadow-lg duration-200 sm:p-8",
           className
         )}
+        onCloseAutoFocus={(e) => {
+          e.preventDefault();
+        }}
+        onOpenAutoFocus={(e) => {
+          e.preventDefault();
+        }}
         {...props}
       >
         {children}

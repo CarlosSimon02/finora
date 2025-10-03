@@ -42,7 +42,7 @@ const triggerBase = () =>
  */
 export const optionBase = (isDisabled?: boolean, isSelected?: boolean) =>
   cx(
-    "txt-preset-4 [&_svg:not([class*='text-'])]:text-grey-900",
+    "txt-preset-4 [&_svg:not([class*='text-'])]:text-grey-900 transition-colors",
     "relative flex w-full cursor-pointer items-center gap-2",
     "border-b py-3 pr-8 pl-0 outline-hidden select-none last:border-b-0 border-b-grey-100",
     " [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
