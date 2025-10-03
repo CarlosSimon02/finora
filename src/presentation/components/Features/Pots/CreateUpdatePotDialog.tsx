@@ -1,11 +1,11 @@
 "use client";
 
 import {
-  BudgetDto,
-  CreateBudgetDto,
-  createBudgetSchema,
-  UpdateBudgetDto,
-} from "@/core/schemas/budgetSchema";
+  CreatePotDto,
+  createPotSchema,
+  PotDto,
+  UpdatePotDto,
+} from "@/core/schemas/potSchema";
 import { trpc } from "@/lib/trpc/client";
 import { CurrencyInput, Input } from "@/presentation/components/Primitives";
 import {
@@ -15,59 +15,32 @@ import {
   LoadingButton,
 } from "@/presentation/components/UI";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useState } from "react";
+import { ReactNode, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
-type CreateUpdateBudgetDialogProps = {
+type CreateUpdatePotDialogProps = {
+  children: ReactNode;
   title: string;
-  description?: string;
   operation: "create" | "update";
-  initialData?: BudgetDto;
-  onSuccess?: (data: BudgetDto) => void;
+  initialData?: PotDto;
   onError?: (error: Error) => void;
-  onSettled?: () => void;
-  onClose?: () => void;
-  open?: boolean;
-  onOpenChange?: (open: boolean) => void;
-  children: React.ReactNode;
 };
 
-export const CreateUpdateBudgetDialog = ({
+export const CreateUpdatePotDialog = ({
+  children,
   title,
-  description,
   operation,
   initialData,
-  onSuccess,
   onError,
-  onSettled,
-  onClose,
-  open: propsOpen,
-  onOpenChange: propsOnOpenChange,
-  children,
-}: CreateUpdateBudgetDialogProps) => {
-  const [internalOpen, setInternalOpen] = useState(false);
-
-  const isControlled = propsOpen !== undefined;
-  const open = isControlled ? propsOpen : internalOpen;
-
-  const handleOpenChange = (newOpen: boolean) => {
-    if (!isControlled) {
-      setInternalOpen(newOpen);
-    }
-    propsOnOpenChange?.(newOpen);
-
-    if (!newOpen) {
-      onClose?.();
-    }
-  };
-
-  const form = useForm<CreateBudgetDto>({
-    resolver: zodResolver(createBudgetSchema),
+}: CreateUpdatePotDialogProps) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const form = useForm<CreatePotDto>({
+    resolver: zodResolver(createPotSchema),
     defaultValues: {
-      name: initialData?.name ?? "",
-      colorTag: initialData?.colorTag ?? "",
-      maximumSpending: initialData?.maximumSpending ?? 0,
+      name: initialData?.name,
+      colorTag: initialData?.colorTag,
+      target: initialData?.target,
     },
   });
 
@@ -81,84 +54,79 @@ export const CreateUpdateBudgetDialog = ({
           ? error
           : "Something went wrong";
     toast.error(message);
-    onError?.(error as Error);
+    if (onError) {
+      onError(error as Error);
+    }
   };
 
-  const createBudgetMutation = trpc.createBudget.useMutation({
-    onSuccess: (data) => {
-      toast.success("Budget created successfully!");
-      handleOpenChange(false);
-      onSuccess?.(data as BudgetDto);
-      utils.getPaginatedBudgets.invalidate();
-      utils.getPaginatedBudgetsWithTransactions.invalidate();
-      utils.getBudgetsSummary.invalidate();
+  const createPotMutation = trpc.createPot.useMutation({
+    onSuccess: () => {
+      toast.success("Pot created successfully!");
+      setIsOpen(false);
+      utils.getPaginatedPots.invalidate();
     },
     onError: (err) => handleError(err),
-    onSettled: () => onSettled?.(),
   });
 
-  const updateBudgetMutation = trpc.updateBudget.useMutation({
-    onSuccess: (data) => {
-      toast.success("Budget updated successfully!");
-      handleOpenChange(false);
-      onSuccess?.(data as BudgetDto);
-      utils.getPaginatedBudgets.invalidate();
-      utils.getPaginatedBudgetsWithTransactions.invalidate();
-      utils.getBudgetsSummary.invalidate();
+  const updatePotMutation = trpc.updatePot.useMutation({
+    onSuccess: () => {
+      toast.success("Pot updated successfully!");
+      setIsOpen(false);
+      utils.getPaginatedPots.invalidate();
       if (initialData) {
-        utils.getBudget.invalidate({ budgetId: initialData.id });
+        utils.getPot.invalidate({ potId: initialData.id });
       }
     },
     onError: (err) => handleError(err),
-    onSettled: () => onSettled?.(),
   });
 
   const isSubmitting =
-    createBudgetMutation.isPending || updateBudgetMutation.isPending;
+    createPotMutation.isPending || updatePotMutation.isPending;
 
-  const handleSubmit = async (data: CreateBudgetDto) => {
+  const handleSubmit = async (data: CreatePotDto | UpdatePotDto) => {
     if (operation === "create") {
-      await createBudgetMutation.mutateAsync({ data } as any);
+      await createPotMutation.mutateAsync({
+        data: data as CreatePotDto,
+      } as any);
       return;
     }
     if (operation === "update" && initialData) {
-      await updateBudgetMutation.mutateAsync({
-        budgetId: initialData.id,
-        data: data as UpdateBudgetDto,
+      await updatePotMutation.mutateAsync({
+        potId: initialData.id,
+        data: data as UpdatePotDto,
       } as any);
+      return;
     }
   };
 
   return (
-    <Dialog open={open} onOpenChange={handleOpenChange}>
+    <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <Dialog.Trigger asChild>{children}</Dialog.Trigger>
       <Dialog.Content>
         <Dialog.Header>
           <Dialog.Title>{title}</Dialog.Title>
-          {description && (
-            <Dialog.Description>{description}</Dialog.Description>
-          )}
           <Dialog.Description>
-            Choose a category to set a spending budget. These categories can
-            help you monitor spending.
+            {operation === "create"
+              ? "Create a pot to set savings targets. These can help keep you on track as you save for special purchases."
+              : "Update your pot details to better organize your savings goals. Pots are great for keeping your savings organized and for tracking your progress towards your goals."}
           </Dialog.Description>
         </Dialog.Header>
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(handleSubmit)}
-            className="space-y-5"
+            className="space-y-4"
           >
             <Form.InputField
               control={form.control}
               name="name"
-              label="Budget Name"
+              label="Pot Name"
               disabled={isSubmitting}
               inputComponent={({ field }) => <Input {...field} />}
             />
             <Form.InputField
               control={form.control}
-              name="maximumSpending"
-              label="Maximum Spending"
+              name="target"
+              label="Target Amount"
               disabled={isSubmitting}
               inputComponent={({ field }) => (
                 <CurrencyInput
@@ -169,7 +137,7 @@ export const CreateUpdateBudgetDialog = ({
                   onBlur={field.onBlur}
                   thousandSeparator
                   allowNegative={false}
-                  placeholder="0"
+                  placeholder="0.00"
                   disabled={field.disabled}
                 />
               )}
@@ -177,7 +145,7 @@ export const CreateUpdateBudgetDialog = ({
             <Form.InputField
               control={form.control}
               name="colorTag"
-              label="Color"
+              label="Color Theme"
               disabled={isSubmitting}
               inputComponent={({ field }) => (
                 <ColorPickerReactSelect
@@ -197,7 +165,7 @@ export const CreateUpdateBudgetDialog = ({
                   operation === "create" ? "Creating..." : "Updating..."
                 }
                 disabled={isSubmitting}
-                label={operation === "create" ? "Add Budget" : "Update Budget"}
+                label={operation === "create" ? "Add Pot" : "Update Pot"}
               />
             </Dialog.Footer>
           </form>
