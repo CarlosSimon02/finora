@@ -9,7 +9,7 @@ import { getIncomesSummary } from "@/core/useCases/income/getIncomesSummary";
 import { getPaginatedIncomes } from "@/core/useCases/income/getPaginatedIncomes";
 import { getPaginatedIncomesWithTransactions } from "@/core/useCases/income/getPaginatedIncomesWithTransactions";
 import { IncomeRepository } from "@/data/repositories/IncomeRepository";
-import { cacheTags } from "@/utils/cache";
+import { cacheTags } from "@/utils";
 import { unstable_cacheTag as cacheTag, revalidateTag } from "next/cache";
 import { protectedProcedure, router } from "./trpc";
 

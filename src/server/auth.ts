@@ -2,16 +2,25 @@ import { authConfig } from "@/config/nextFirebaseAuthEdge";
 import { User } from "@/core/schemas/userSchema";
 import { onboardUser, verifyIdToken } from "@/core/useCases/auth/admin";
 import { AuthAdminRepository } from "@/data/repositories/AuthAdminRepository";
-import { AuthClientRepository } from "@/data/repositories/AuthClientRepository";
 import { UserRepository } from "@/data/repositories/UserRespository";
 import { tokensToUser } from "@/lib/auth/authTokens";
-import { refreshCookiesWithIdToken } from "next-firebase-auth-edge/lib/next/cookies";
+import { AuthError } from "@/utils";
+import { getFirebaseAuth, getTokens } from "next-firebase-auth-edge";
+import {
+  refreshCookiesWithIdToken,
+  refreshNextResponseCookies,
+} from "next-firebase-auth-edge/lib/next/cookies";
 import { cookies, headers } from "next/headers";
+import { NextResponse } from "next/server";
 import { publicProcedure, router } from "./trpc";
 
 const authAdminRepository = new AuthAdminRepository();
-const authClientRepository = new AuthClientRepository();
 const userRepository = new UserRepository();
+
+const { setCustomUserClaims, getUser } = getFirebaseAuth({
+  serviceAccount: authConfig.serviceAccount,
+  apiKey: authConfig.apiKey,
+});
 
 export const authRouter = router({
   postSignIn: publicProcedure
@@ -41,23 +50,28 @@ export const authRouter = router({
       );
       return { user: databaseUser };
     }),
+  refreshCredentials: publicProcedure.mutation(async ({ ctx }) => {
+    const tokens = await getTokens(ctx.req.cookies, authConfig);
+    if (!tokens) {
+      throw new AuthError("Unauthenticated");
+    }
 
-  // logout: protectedProcedure.mutation(async () => {
-  //   await signOut(authClientRepository)();
-  //   removeServerCookies(await cookies(), { cookieName: authConfig.cookieName });
-  //   return undefined;
-  // }),
+    await setCustomUserClaims(tokens.decodedToken.uid, {
+      someCustomClaim: {
+        updatedAt: Date.now(),
+      },
+    });
+    const user = await getUser(tokens.decodedToken.uid);
+    const response = new NextResponse(
+      JSON.stringify({
+        customClaims: user?.customClaims,
+      }),
+      {
+        status: 200,
+        headers: { "content-type": "application/json" },
+      }
+    );
 
-  // refreshCredentials: protectedProcedure.mutation(async () => {
-  //   const tokens = await getTokens(await cookies(), authConfig);
-  //   if (!tokens) {
-  //     throw new AuthError("Unauthenticated");
-  //   }
-  //   await refreshServerCookies(
-  //     await cookies(),
-  //     new Headers(await headers()),
-  //     authConfig
-  //   );
-  //   return undefined;
-  // }),
+    return refreshNextResponseCookies(ctx.req, response, authConfig);
+  }),
 });

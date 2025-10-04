@@ -16,7 +16,6 @@ export const EmptyState = ({
   color = "Cyan",
 }: EmptyStateProps) => {
   const hex = color ? COLOR_MAP[color] : undefined;
-  console.log(hex);
   return (
     <div
       className={cn(

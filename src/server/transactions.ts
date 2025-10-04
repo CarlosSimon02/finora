@@ -8,7 +8,7 @@ import {
   updateTransaction,
 } from "@/core/useCases/transaction";
 import { TransactionRepository } from "@/data/repositories/TransactionRepository";
-import { cacheTags } from "@/utils/cache";
+import { cacheTags } from "@/utils";
 import { unstable_cacheTag as cacheTag, revalidateTag } from "next/cache";
 import { protectedProcedure, router } from "./trpc";
 

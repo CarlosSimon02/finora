@@ -9,7 +9,7 @@ import {
   withdrawMoneyFromPot,
 } from "@/core/useCases/pot";
 import { PotRepository } from "@/data/repositories/PotRepository";
-import { cacheTags } from "@/utils/cache";
+import { cacheTags } from "@/utils";
 import { unstable_cacheTag as cacheTag, revalidateTag } from "next/cache";
 import { protectedProcedure, router } from "./trpc";
 

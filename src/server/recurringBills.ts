@@ -13,7 +13,7 @@ import {
   updateRecurringBill,
 } from "@/core/useCases/recurringBill";
 import { RecurringBillRepository } from "@/data/repositories/RecurringBillRepository";
-import { cacheTags } from "@/utils/cache";
+import { cacheTags } from "@/utils";
 import { unstable_cacheTag as cacheTag, revalidateTag } from "next/cache";
 import { protectedProcedure, router } from "./trpc";
 
