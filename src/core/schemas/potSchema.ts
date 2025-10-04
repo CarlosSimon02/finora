@@ -15,9 +15,12 @@ import { createPaginationResponseSchema } from "./paginationSchema";
 
 export const createPotSchema = z.object({
   name: nameSchema,
-  colorTag: z.enum(COLOR_OPTIONS.map((o) => o.value)),
+  colorTag: z.enum(
+    COLOR_OPTIONS.map((o) => o.value),
+    "Invalid color tag"
+  ),
   target: z
-    .number()
+    .number("Target must be a number")
     .min(POT_TARGET_MIN, `Target must be at least ${POT_TARGET_MIN}`)
     .max(COMMON_MAX_NUMBER, `Target must be at most ${COMMON_MAX_NUMBER}`)
     .refine(

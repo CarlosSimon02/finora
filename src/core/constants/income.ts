@@ -1,2 +1,0 @@
-export const INCOME_SUMMARY_MAX_ITEMS = 50;
-export const TRANSACTION_PREVIEW_MAX_COUNT = 50;

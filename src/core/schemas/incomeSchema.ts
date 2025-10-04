@@ -1,7 +1,7 @@
 import { COLOR_OPTIONS } from "@/constants/colors";
 import {
   INCOME_SUMMARY_MAX_ITEMS,
-  TRANSACTION_PREVIEW_MAX_COUNT,
+  INCOME_TRANSACTION_PREVIEW_MAX_COUNT,
 } from "@/core/constants";
 import { z } from "zod";
 import { idSchema, nameSchema, nonNegativeMoneyAmountSchema } from "./helpers";
@@ -58,8 +58,8 @@ export const transactionPreviewCountSchema = z
   .int()
   .min(1, "Transaction count must be greater than 0")
   .max(
-    TRANSACTION_PREVIEW_MAX_COUNT,
-    `Transaction count must be at most ${TRANSACTION_PREVIEW_MAX_COUNT}`
+    INCOME_TRANSACTION_PREVIEW_MAX_COUNT,
+    `Transaction count must be at most ${INCOME_TRANSACTION_PREVIEW_MAX_COUNT}`
   );
 
 export type CreateIncomeDto = z.infer<typeof createIncomeSchema>;

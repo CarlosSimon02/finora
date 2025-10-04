@@ -19,7 +19,7 @@ export const isValidEmoji = (value: string) => {
   );
 };
 
-export const trimmedStringSchema = z.string().trim();
+export const trimmedStringSchema = z.string("Must be a string").trim();
 
 // Common schema helpers using shared constants
 
@@ -38,12 +38,12 @@ export const optionalDescriptionSchema = trimmedStringSchema
   .nullable();
 
 export const positiveNumberSchema = z
-  .number()
+  .number("Must be a number")
   .positive("Must be greater than 0")
   .max(COMMON_MAX_NUMBER, `Must be at most ${COMMON_MAX_NUMBER}`);
 
 export const nonNegativeNumberSchema = z
-  .number()
+  .number("Must be a number")
   .nonnegative("Must be non-negative")
   .max(COMMON_MAX_NUMBER, `Must be at most ${COMMON_MAX_NUMBER}`);
 
@@ -58,7 +58,7 @@ export const validateTwoDecimalPlaces = (val: number) => {
 
 // Money/amount schemas with 2 decimal place restriction
 export const moneyAmountSchema = z
-  .number()
+  .number("Amount must be a number")
   .positive("Amount must be greater than 0")
   .max(COMMON_MAX_NUMBER, `Amount must be at most ${COMMON_MAX_NUMBER}`)
   .refine(
@@ -67,7 +67,7 @@ export const moneyAmountSchema = z
   );
 
 export const nonNegativeMoneyAmountSchema = z
-  .number()
+  .number("Amount must be a number")
   .nonnegative("Amount must be non-negative")
   .max(COMMON_MAX_NUMBER, `Amount must be at most ${COMMON_MAX_NUMBER}`)
   .refine(
