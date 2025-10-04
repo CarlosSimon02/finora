@@ -60,6 +60,9 @@ const DialogContent = ({ className, children, ...props }: ContentProps) => (
         onOpenAutoFocus={(e) => {
           e.preventDefault();
         }}
+        onInteractOutside={(e) => {
+          e.preventDefault();
+        }}
         {...props}
       >
         {children}

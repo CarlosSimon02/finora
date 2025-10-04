@@ -26,6 +26,8 @@ export const CurrencyInput = ({ className, ...props }: CurrencyInputProps) => {
       </div>
       <NumericFormat
         thousandSeparator
+        decimalScale={2}
+        fixedDecimalScale
         customInput={Input}
         displayType="input"
         className="pl-10"
