@@ -5,6 +5,7 @@ export * from "./ConfirmDeleteDialog";
 export * from "./Dialog";
 export * from "./DropdownMenu";
 export * from "./Form";
+export * from "./LimitHasReachedDialog";
 export * from "./LoadingButton";
 export * from "./Pagination";
 export * from "./Select";

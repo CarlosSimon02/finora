@@ -65,8 +65,8 @@ export const CreateUpdatePotDialog = ({
       form.reset(getDefaultValues());
       handleOpenChange(false);
       utils.getPaginatedPots.invalidate();
-      utils.invalidate();
       utils.listUsedPotColors.invalidate();
+      utils.getPotsCount.invalidate();
     },
     onError: handleError,
   });

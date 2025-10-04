@@ -27,7 +27,8 @@ const PotsPage = async ({ searchParams }: PotsPageProps) => {
   };
 
   trpc.getPaginatedPots.prefetch(params);
-  // trpc.listUsedPotColors.prefetch();
+  trpc.listUsedPotColors.prefetch();
+  trpc.getPotsCount.prefetch();
 
   return (
     <HydrateClient>
