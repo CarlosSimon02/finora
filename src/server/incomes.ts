@@ -3,6 +3,7 @@ import {
   createIncome,
   deleteIncome,
   getIncome,
+  listUsedIncomeColors,
   updateIncome,
 } from "@/core/useCases/income";
 import { getIncomesSummary } from "@/core/useCases/income/getIncomesSummary";
@@ -16,6 +17,13 @@ import { protectedProcedure, router } from "./trpc";
 const incomeRepository = new IncomeRepository();
 
 export const incomesRouter = router({
+  listUsedIncomeColors: protectedProcedure.query(async ({ ctx }) => {
+    "use cache";
+    cacheTag(cacheTags.INCOMES_USED_COLORS);
+    const { user } = ctx;
+    const fn = listUsedIncomeColors(incomeRepository);
+    return await fn(user.id);
+  }),
   getIncomesSummary: protectedProcedure.query(async ({ ctx }) => {
     "use cache";
     cacheTag(cacheTags.INCOMES_SUMMARY);

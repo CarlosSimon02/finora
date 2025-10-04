@@ -1,7 +1,6 @@
 import { IIncomeRepository } from "@/core/interfaces/IIncomeRepository";
 import { CreateIncomeDto, IncomeDto, createIncomeSchema } from "@/core/schemas";
-import { AuthError } from "@/utils";
-import { ConflictError } from "@/utils/errors";
+import { AuthError, ConflictError, DomainValidationError } from "@/utils";
 
 export const createIncome =
   (incomeRepository: IIncomeRepository) =>
@@ -15,6 +14,14 @@ export const createIncome =
     );
 
     if (incomeExists) throw new ConflictError("Income name already exists");
+
+    const existingColor = await incomeRepository.getOneByColor(
+      userId,
+      validatedData.colorTag
+    );
+    if (existingColor) {
+      throw new DomainValidationError("Income color already in use");
+    }
 
     return incomeRepository.createOne(userId, validatedData);
   };

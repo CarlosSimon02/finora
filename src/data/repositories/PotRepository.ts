@@ -65,6 +65,14 @@ export class PotRepository implements IPotRepository {
     return pot ? mapPotModelToDto(pot) : null;
   }
 
+  async getOneByColor(
+    userId: string,
+    colorTag: string
+  ): Promise<PotDto | null> {
+    const pot = await this.potDatasource.getByColor(userId, colorTag);
+    return pot ? mapPotModelToDto(pot) : null;
+  }
+
   // #########################################################
   // # 📗 Get Paginated
   // #########################################################
@@ -75,6 +83,10 @@ export class PotRepository implements IPotRepository {
   ): Promise<PaginatedPotsResponseDto> {
     const response = await this.potDatasource.getPaginated(userId, params);
     return { data: response.data.map(mapPotModelToDto), meta: response.meta };
+  }
+
+  async getUsedColors(userId: string): Promise<string[]> {
+    return this.potDatasource.getDistinctColors(userId);
   }
 
   // #########################################################

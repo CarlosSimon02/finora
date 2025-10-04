@@ -6,6 +6,7 @@ import {
   getBudgetsSummary,
   getPaginatedBudgets,
   getPaginatedBudgetsWithTransactions,
+  listUsedBudgetColors,
   updateBudget,
 } from "@/core/useCases/budget";
 import { BudgetRepository } from "@/data/repositories/BudgetRepository";
@@ -16,6 +17,13 @@ import { protectedProcedure, router } from "./trpc";
 const budgetRepository = new BudgetRepository();
 
 export const budgetsRouter = router({
+  listUsedBudgetColors: protectedProcedure.query(async ({ ctx }) => {
+    "use cache";
+    cacheTag(cacheTags.BUDGETS_USED_COLORS);
+    const { user } = ctx;
+    const fn = listUsedBudgetColors(budgetRepository);
+    return await fn(user.id);
+  }),
   getBudgetsSummary: protectedProcedure.query(async ({ ctx }) => {
     "use cache";
     cacheTag(cacheTags.BUDGETS_SUMMARY);

@@ -83,6 +83,48 @@ export class IncomeDatasource {
     }
   }
 
+  async getByColor(userId: string, colorTag: string) {
+    try {
+      const incomeCollection = this.getIncomeCollection(userId);
+      const snapshot = await incomeCollection
+        .where("colorTag", "==", colorTag)
+        .get();
+      if (snapshot.empty) return null;
+      const income = snapshot.docs[0].data();
+      const validatedIncome = validateOrThrow(
+        incomeModelSchema,
+        income,
+        "IncomeDatasource:read"
+      );
+      return validatedIncome;
+    } catch (e) {
+      if (e instanceof Error) {
+        throw new DatasourceError(`getByColor failed: ${e.message}`);
+      }
+      throw e;
+    }
+  }
+
+  async getDistinctColors(userId: string): Promise<string[]> {
+    try {
+      const incomeCollection = this.getIncomeCollection(userId);
+      const snapshot = await incomeCollection.select("colorTag").get();
+      const colors = new Set<string>();
+      snapshot.forEach((doc) => {
+        const data = doc.data() as { colorTag?: string };
+        if (typeof data?.colorTag === "string" && data.colorTag.trim()) {
+          colors.add(data.colorTag);
+        }
+      });
+      return Array.from(colors);
+    } catch (e) {
+      if (e instanceof Error) {
+        throw new DatasourceError(`getDistinctColors failed: ${e.message}`);
+      }
+      throw e;
+    }
+  }
+
   async getPaginated(
     userId: string,
     params: PaginationParams

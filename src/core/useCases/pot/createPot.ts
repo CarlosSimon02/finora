@@ -4,7 +4,7 @@ import {
   PotDto,
   createPotSchema,
 } from "@/core/schemas/potSchema";
-import { AuthError, ConflictError } from "@/utils";
+import { AuthError, ConflictError, DomainValidationError } from "@/utils";
 
 export const createPot =
   (potRepository: IPotRepository) =>
@@ -19,6 +19,14 @@ export const createPot =
     );
     if (existingPot) {
       throw new ConflictError("Pot name already exists");
+    }
+
+    const existingColorPot = await potRepository.getOneByColor(
+      userId,
+      validatedData.colorTag
+    );
+    if (existingColorPot) {
+      throw new DomainValidationError("Pot color already in use");
     }
 
     return potRepository.createOne(userId, validatedData);

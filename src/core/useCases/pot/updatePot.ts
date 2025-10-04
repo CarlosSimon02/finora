@@ -28,5 +28,15 @@ export const updatePot =
       }
     }
 
+    if (validatedData.colorTag) {
+      const existingColorPot = await potRepository.getOneByColor(
+        userId,
+        validatedData.colorTag
+      );
+      if (existingColorPot && existingColorPot.id !== potId) {
+        throw new DomainValidationError("Pot color already in use");
+      }
+    }
+
     return potRepository.updateOne(userId, potId, validatedData);
   };

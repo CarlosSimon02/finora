@@ -81,6 +81,14 @@ export class BudgetRepository implements IBudgetRepository {
     return budget ? mapBudgetModelToDto(budget) : null;
   }
 
+  async getOneByColor(
+    userId: string,
+    colorTag: string
+  ): Promise<BudgetDto | null> {
+    const budget = await this.budgetDatasource.getByColor(userId, colorTag);
+    return budget ? mapBudgetModelToDto(budget) : null;
+  }
+
   // #########################################################
   // # 📗 Get Paginated
   // #########################################################
@@ -94,6 +102,10 @@ export class BudgetRepository implements IBudgetRepository {
       data: response.data.map(mapBudgetModelToDto),
       meta: response.meta,
     };
+  }
+
+  async getUsedColors(userId: string): Promise<string[]> {
+    return this.budgetDatasource.getDistinctColors(userId);
   }
 
   // #########################################################

@@ -12,10 +12,12 @@ export interface IIncomeRepository {
   createOne(userId: string, input: CreateIncomeDto): Promise<IncomeDto>;
   getOneById(userId: string, incomeId: string): Promise<IncomeDto | null>;
   getOneByName(userId: string, name: string): Promise<IncomeDto | null>;
+  getOneByColor(userId: string, colorTag: string): Promise<IncomeDto | null>;
   getPaginated(
     userId: string,
     params: PaginationParams
   ): Promise<PaginatedIncomesResponseDto>;
+  getUsedColors(userId: string): Promise<string[]>;
   updateOne(
     userId: string,
     incomeId: string,

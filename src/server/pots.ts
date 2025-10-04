@@ -5,6 +5,7 @@ import {
   deletePot,
   getPaginatedPots,
   getPot,
+  listUsedPotColors,
   updatePot,
   withdrawMoneyFromPot,
 } from "@/core/useCases/pot";
@@ -16,6 +17,13 @@ import { protectedProcedure, router } from "./trpc";
 const potRepository = new PotRepository();
 
 export const potsRouter = router({
+  listUsedPotColors: protectedProcedure.query(async ({ ctx }) => {
+    "use cache";
+    cacheTag(cacheTags.POTS_USED_COLORS);
+    const { user } = ctx;
+    const fn = listUsedPotColors(potRepository);
+    return await fn(user.id);
+  }),
   getPaginatedPots: protectedProcedure
     .input(paginationParamsSchema)
     .query(async ({ ctx, input }) => {
@@ -45,6 +53,7 @@ export const potsRouter = router({
       const result = await fn(user.id, input.data as any);
       revalidateTag(cacheTags.PAGINATED_POTS);
       revalidateTag(cacheTags.POTS_SUMMARY);
+      revalidateTag(cacheTags.POTS_USED_COLORS);
       return result;
     }),
   updatePot: protectedProcedure
@@ -61,6 +70,7 @@ export const potsRouter = router({
       const result = await fn(user.id, input.potId, input.data as any);
       revalidateTag(cacheTags.PAGINATED_POTS);
       revalidateTag(cacheTags.POTS_SUMMARY);
+      revalidateTag(cacheTags.POTS_USED_COLORS);
       return result;
     }),
   deletePot: protectedProcedure

@@ -4,4 +4,5 @@ export { getIncome } from "./getIncome";
 export { getIncomesSummary } from "./getIncomesSummary";
 export { getPaginatedIncomes } from "./getPaginatedIncomes";
 export { getPaginatedIncomesWithTransactions } from "./getPaginatedIncomesWithTransactions";
+export { getUsedColors as listUsedIncomeColors } from "./listUsedIncomeColors";
 export { updateIncome } from "./updateIncome";

@@ -4,7 +4,7 @@ import {
   CreateBudgetDto,
   createBudgetSchema,
 } from "@/core/schemas/budgetSchema";
-import { AuthError, ConflictError } from "@/utils";
+import { AuthError, ConflictError, DomainValidationError } from "@/utils";
 
 export const createBudget =
   (budgetRepository: IBudgetRepository) =>
@@ -18,6 +18,14 @@ export const createBudget =
       validatedData.name
     );
     if (existing) throw new ConflictError("Budget name already exists");
+
+    const existingColor = await budgetRepository.getOneByColor(
+      userId,
+      validatedData.colorTag
+    );
+    if (existingColor) {
+      throw new DomainValidationError("Budget color already in use");
+    }
 
     return budgetRepository.createOne(userId, validatedData);
   };

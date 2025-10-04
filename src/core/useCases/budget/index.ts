@@ -4,4 +4,5 @@ export { getBudget } from "./getBudget";
 export { getBudgetsSummary } from "./getBudgetsSummary";
 export { getPaginatedBudgets } from "./getPaginatedBudgets";
 export { getPaginatedBudgetsWithTransactions } from "./getPaginatedBudgetsWithTransactions";
+export { getUsedColors as listUsedBudgetColors } from "./listUsedBudgetColors";
 export { updateBudget } from "./updateBudget";

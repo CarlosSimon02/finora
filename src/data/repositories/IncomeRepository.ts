@@ -94,6 +94,14 @@ export class IncomeRepository implements IIncomeRepository {
     return income ? mapIncomeModelToDto(income) : null;
   }
 
+  async getOneByColor(
+    userId: string,
+    colorTag: string
+  ): Promise<IncomeDto | null> {
+    const income = await this.incomeDatasource.getByColor(userId, colorTag);
+    return income ? mapIncomeModelToDto(income) : null;
+  }
+
   // #########################################################
   // # 📗 Get Paginated
   // #########################################################
@@ -110,6 +118,10 @@ export class IncomeRepository implements IIncomeRepository {
       data: response.data.map(mapIncomeModelToDto),
       meta: response.meta,
     };
+  }
+
+  async getUsedColors(userId: string): Promise<string[]> {
+    return this.incomeDatasource.getDistinctColors(userId);
   }
 
   // #########################################################

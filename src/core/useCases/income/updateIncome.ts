@@ -17,5 +17,14 @@ export const updateIncome =
     if (!incomeId) throw new DomainValidationError("Income ID is required");
 
     const validatedData = updateIncomeSchema.parse(input);
+    if (validatedData.colorTag) {
+      const existingColor = await incomeRepository.getOneByColor(
+        userId,
+        validatedData.colorTag
+      );
+      if (existingColor && existingColor.id !== incomeId) {
+        throw new DomainValidationError("Income color already in use");
+      }
+    }
     return incomeRepository.updateOne(userId, incomeId, validatedData);
   };

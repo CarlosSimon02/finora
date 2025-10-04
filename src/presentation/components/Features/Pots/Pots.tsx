@@ -1,5 +1,6 @@
 "use client";
 
+import { POT_DEFAULT_PER_PAGE } from "@/core/constants";
 import { trpc } from "@/lib/trpc/client";
 import { FrontViewLayout } from "@/presentation/components/Layouts";
 import {
@@ -14,7 +15,7 @@ import { PotCard } from "./PotCard";
 import { PotsSkeleton } from "./PotsSkeleton";
 
 export const Pots = () => {
-  const pageSize = 6;
+  const pageSize = POT_DEFAULT_PER_PAGE;
   const { page, setPage, validatedParams } = usePagination({
     defaultPage: 1,
     defaultPerPage: pageSize,
