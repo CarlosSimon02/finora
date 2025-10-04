@@ -123,7 +123,24 @@ export const CreateUpdateBudgetDialog = ({
   const isSubmitting =
     createBudgetMutation.isPending || updateBudgetMutation.isPending;
 
+  const hasBudgetChanges = (values: CreateBudgetDto | UpdateBudgetDto) => {
+    if (operation !== "update" || !initialData) return true;
+    const nameChanged =
+      (values.name ?? "").trim() !== (initialData.name ?? "").trim();
+    const colorChanged = (values as any).colorTag !== initialData.colorTag;
+    const maximumChanged =
+      Number((values as any).maximumSpending ?? 0) !==
+      Number(initialData.maximumSpending ?? 0);
+    return nameChanged || colorChanged || maximumChanged;
+  };
+
   const handleSubmit = async (data: CreateBudgetDto) => {
+    if (operation === "update" && initialData) {
+      if (!form.formState.isDirty || !hasBudgetChanges(data)) {
+        toast.info("No changes to update");
+        return;
+      }
+    }
     if (operation === "create") {
       await createBudgetMutation.mutateAsync({ data } as any);
       return;
@@ -226,7 +243,10 @@ export const CreateUpdateBudgetDialog = ({
                 loadingLabel={
                   operation === "create" ? "Creating..." : "Updating..."
                 }
-                disabled={isSubmitting}
+                disabled={
+                  isSubmitting ||
+                  (operation === "update" && !form.formState.isDirty)
+                }
                 label={operation === "create" ? "Add Budget" : "Update Budget"}
               />
             </Dialog.Footer>

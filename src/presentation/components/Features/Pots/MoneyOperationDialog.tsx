@@ -89,6 +89,14 @@ export const MoneyOperationDialog = ({
       });
       return;
     }
+    // no-op guard: do not call API if resulting value equals current
+    if (
+      (operation === "add" && amt === 0) ||
+      (operation === "withdraw" && amt === 0)
+    ) {
+      toast.info("No changes to apply");
+      return;
+    }
 
     const data: MoneyOperationInput = { amount: amt };
 

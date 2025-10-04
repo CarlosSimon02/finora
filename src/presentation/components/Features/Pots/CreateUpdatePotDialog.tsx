@@ -90,6 +90,16 @@ export const CreateUpdatePotDialog = ({
   const isSubmitting =
     createPotMutation.isPending || updatePotMutation.isPending;
 
+  const hasPotChanges = (values: CreatePotDto | UpdatePotDto) => {
+    if (operation !== "update" || !initialData) return true;
+    const nameChanged =
+      (values.name ?? "").trim() !== (initialData.name ?? "").trim();
+    const colorChanged = (values as any).colorTag !== initialData.colorTag;
+    const targetChanged =
+      Number((values as any).target ?? 0) !== Number(initialData.target ?? 0);
+    return nameChanged || colorChanged || targetChanged;
+  };
+
   useEffect(() => {
     const handler = (e: BeforeUnloadEvent) => {
       if (!form.formState.isDirty || isSubmitting) return;
@@ -114,6 +124,12 @@ export const CreateUpdatePotDialog = ({
   };
 
   const handleSubmit = async (data: CreatePotDto | UpdatePotDto) => {
+    if (operation === "update" && initialData) {
+      if (!form.formState.isDirty || !hasPotChanges(data)) {
+        toast.info("No changes to update");
+        return;
+      }
+    }
     if (operation === "create") {
       await createPotMutation.mutateAsync({
         data: data as CreatePotDto,
@@ -195,7 +211,10 @@ export const CreateUpdatePotDialog = ({
                 loadingLabel={
                   operation === "create" ? "Creating..." : "Updating..."
                 }
-                disabled={isSubmitting}
+                disabled={
+                  isSubmitting ||
+                  (operation === "update" && !form.formState.isDirty)
+                }
                 label={operation === "create" ? "Add Pot" : "Update Pot"}
               />
             </Dialog.Footer>
