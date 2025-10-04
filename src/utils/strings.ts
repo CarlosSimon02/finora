@@ -37,3 +37,11 @@ export const formatCurrency = (
   if (showPlus && isPositive) return `+${formatted}`;
   return formatted;
 };
+
+export const normalizeString = (value: unknown): string => {
+  return String(value ?? "").trim();
+};
+
+export const normalizeNumber = (value: unknown): number => {
+  return Number(value ?? 0);
+};

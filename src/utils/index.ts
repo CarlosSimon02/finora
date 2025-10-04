@@ -1,6 +1,6 @@
 export * from "./cache";
+export * from "./errorMapping";
 export * from "./errors";
-export * from "./http";
 export * from "./ids";
 export * from "./logging";
 export * from "./object";
