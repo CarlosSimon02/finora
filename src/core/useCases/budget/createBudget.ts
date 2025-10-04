@@ -1,3 +1,4 @@
+import { COLOR_OPTIONS } from "@/constants/colors";
 import { IBudgetRepository } from "@/core/interfaces/IBudgetRepository";
 import {
   BudgetDto,
@@ -12,6 +13,12 @@ export const createBudget =
     if (!userId) throw new AuthError();
 
     const validatedData = createBudgetSchema.parse(input);
+
+    const currentCount = await budgetRepository.getCount(userId);
+    const maxItems = COLOR_OPTIONS.length;
+    if (currentCount >= maxItems) {
+      throw new DomainValidationError("Maximum number of budgets reached");
+    }
 
     const existing = await budgetRepository.getOneByName(
       userId,

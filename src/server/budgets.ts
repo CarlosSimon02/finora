@@ -3,6 +3,7 @@ import {
   createBudget,
   deleteBudget,
   getBudget,
+  getBudgetsCount,
   getBudgetsSummary,
   getPaginatedBudgets,
   getPaginatedBudgetsWithTransactions,
@@ -17,6 +18,13 @@ import { protectedProcedure, router } from "./trpc";
 const budgetRepository = new BudgetRepository();
 
 export const budgetsRouter = router({
+  getBudgetsCount: protectedProcedure.query(async ({ ctx }) => {
+    "use cache";
+    cacheTag(cacheTags.BUDGETS_COUNT);
+    const { user } = ctx;
+    const fn = getBudgetsCount(budgetRepository);
+    return await fn(user.id);
+  }),
   listUsedBudgetColors: protectedProcedure.query(async ({ ctx }) => {
     "use cache";
     cacheTag(cacheTags.BUDGETS_USED_COLORS);
@@ -72,6 +80,7 @@ export const budgetsRouter = router({
       revalidateTag(cacheTags.PAGINATED_BUDGETS);
       revalidateTag(cacheTags.PAGINATED_BUDGETS_WITH_TRANSACTIONS);
       revalidateTag(cacheTags.BUDGETS_SUMMARY);
+      revalidateTag(cacheTags.BUDGETS_COUNT);
       revalidateTag(cacheTags.PAGINATED_CATEGORIES);
       revalidateTag(cacheTags.BUDGETS_USED_COLORS);
       return result;
@@ -91,6 +100,7 @@ export const budgetsRouter = router({
       revalidateTag(cacheTags.PAGINATED_BUDGETS);
       revalidateTag(cacheTags.PAGINATED_BUDGETS_WITH_TRANSACTIONS);
       revalidateTag(cacheTags.BUDGETS_SUMMARY);
+      revalidateTag(cacheTags.BUDGETS_COUNT);
       revalidateTag(cacheTags.PAGINATED_CATEGORIES);
       revalidateTag(cacheTags.BUDGETS_USED_COLORS);
       return result;
@@ -104,6 +114,7 @@ export const budgetsRouter = router({
       revalidateTag(cacheTags.PAGINATED_BUDGETS);
       revalidateTag(cacheTags.PAGINATED_BUDGETS_WITH_TRANSACTIONS);
       revalidateTag(cacheTags.BUDGETS_SUMMARY);
+      revalidateTag(cacheTags.BUDGETS_COUNT);
       revalidateTag(cacheTags.PAGINATED_CATEGORIES);
       revalidateTag(cacheTags.BUDGETS_USED_COLORS);
       return undefined;

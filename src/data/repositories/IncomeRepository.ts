@@ -124,6 +124,10 @@ export class IncomeRepository implements IIncomeRepository {
     return this.incomeDatasource.getDistinctColors(userId);
   }
 
+  async getCount(userId: string): Promise<number> {
+    return this.incomeDatasource.getCount(userId);
+  }
+
   // #########################################################
   // # 📗 Get Paginated With Transactions
   // #########################################################

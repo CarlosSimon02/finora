@@ -210,4 +210,18 @@ export class PotDatasource {
       throw e;
     }
   }
+
+  async getCount(userId: string) {
+    try {
+      const potCollection = this.getPotCollection(userId);
+      const countAggregation = potCollection.count();
+      const aggregationResult = await countAggregation.get();
+      return aggregationResult.data().count ?? 0;
+    } catch (e) {
+      if (e instanceof Error) {
+        throw new DatasourceError(`getCount failed: ${e.message}`);
+      }
+      throw e;
+    }
+  }
 }

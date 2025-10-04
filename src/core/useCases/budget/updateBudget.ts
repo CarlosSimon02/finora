@@ -17,6 +17,16 @@ export const updateBudget =
     if (!budgetId) throw new DomainValidationError("Budget ID is required");
 
     const validatedData = updateBudgetSchema.parse(input);
+
+    if (validatedData.name) {
+      const existingByName = await budgetRepository.getOneByName(
+        userId,
+        validatedData.name
+      );
+      if (existingByName && existingByName.id !== budgetId) {
+        throw new DomainValidationError("Budget name already exists");
+      }
+    }
     if (validatedData.colorTag) {
       const existingColor = await budgetRepository.getOneByColor(
         userId,

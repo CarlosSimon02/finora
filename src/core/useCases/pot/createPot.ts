@@ -1,3 +1,4 @@
+import { COLOR_OPTIONS } from "@/constants/colors";
 import { IPotRepository } from "@/core/interfaces/IPotRepository";
 import {
   CreatePotDto,
@@ -12,6 +13,12 @@ export const createPot =
     if (!userId) throw new AuthError();
 
     const validatedData = createPotSchema.parse(input);
+
+    const currentCount = await potRepository.getCount(userId);
+    const maxItems = COLOR_OPTIONS.length;
+    if (currentCount >= maxItems) {
+      throw new DomainValidationError("Maximum number of pots reached");
+    }
 
     const existingPot = await potRepository.getOneByName(
       userId,

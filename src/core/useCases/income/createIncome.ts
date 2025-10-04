@@ -1,3 +1,4 @@
+import { COLOR_OPTIONS } from "@/constants/colors";
 import { IIncomeRepository } from "@/core/interfaces/IIncomeRepository";
 import { CreateIncomeDto, IncomeDto, createIncomeSchema } from "@/core/schemas";
 import { AuthError, ConflictError, DomainValidationError } from "@/utils";
@@ -8,6 +9,12 @@ export const createIncome =
     if (!userId) throw new AuthError();
 
     const validatedData = createIncomeSchema.parse(input);
+
+    const currentCount = await incomeRepository.getCount(userId);
+    const maxItems = COLOR_OPTIONS.length;
+    if (currentCount >= maxItems) {
+      throw new DomainValidationError("Maximum number of incomes reached");
+    }
     const incomeExists = await incomeRepository.getOneByName(
       userId,
       validatedData.name

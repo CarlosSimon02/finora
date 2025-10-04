@@ -3,6 +3,7 @@ import {
   createIncome,
   deleteIncome,
   getIncome,
+  getIncomesCount,
   listUsedIncomeColors,
   updateIncome,
 } from "@/core/useCases/income";
@@ -17,6 +18,13 @@ import { protectedProcedure, router } from "./trpc";
 const incomeRepository = new IncomeRepository();
 
 export const incomesRouter = router({
+  getIncomesCount: protectedProcedure.query(async ({ ctx }) => {
+    "use cache";
+    cacheTag(cacheTags.INCOMES_COUNT);
+    const { user } = ctx;
+    const fn = getIncomesCount(incomeRepository);
+    return await fn(user.id);
+  }),
   listUsedIncomeColors: protectedProcedure.query(async ({ ctx }) => {
     "use cache";
     cacheTag(cacheTags.INCOMES_USED_COLORS);
@@ -72,6 +80,7 @@ export const incomesRouter = router({
       revalidateTag(cacheTags.PAGINATED_INCOMES);
       revalidateTag(cacheTags.PAGINATED_INCOMES_WITH_TRANSACTIONS);
       revalidateTag(cacheTags.INCOMES_SUMMARY);
+      revalidateTag(cacheTags.INCOMES_COUNT);
       return result;
     }),
   updateIncome: protectedProcedure
@@ -89,6 +98,7 @@ export const incomesRouter = router({
       revalidateTag(cacheTags.PAGINATED_INCOMES);
       revalidateTag(cacheTags.PAGINATED_INCOMES_WITH_TRANSACTIONS);
       revalidateTag(cacheTags.INCOMES_SUMMARY);
+      revalidateTag(cacheTags.INCOMES_COUNT);
       return result;
     }),
   deleteIncome: protectedProcedure
@@ -100,6 +110,7 @@ export const incomesRouter = router({
       revalidateTag(cacheTags.PAGINATED_INCOMES);
       revalidateTag(cacheTags.PAGINATED_INCOMES_WITH_TRANSACTIONS);
       revalidateTag(cacheTags.INCOMES_SUMMARY);
+      revalidateTag(cacheTags.INCOMES_COUNT);
       return undefined;
     }),
 });

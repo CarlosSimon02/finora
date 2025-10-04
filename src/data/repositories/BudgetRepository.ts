@@ -108,6 +108,10 @@ export class BudgetRepository implements IBudgetRepository {
     return this.budgetDatasource.getDistinctColors(userId);
   }
 
+  async getCount(userId: string): Promise<number> {
+    return this.budgetDatasource.getCount(userId);
+  }
+
   // #########################################################
   // # 📗 Get Paginated With Transactions
   // #########################################################

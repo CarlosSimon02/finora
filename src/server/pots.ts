@@ -5,6 +5,7 @@ import {
   deletePot,
   getPaginatedPots,
   getPot,
+  getPotsCount,
   listUsedPotColors,
   updatePot,
   withdrawMoneyFromPot,
@@ -17,6 +18,13 @@ import { protectedProcedure, router } from "./trpc";
 const potRepository = new PotRepository();
 
 export const potsRouter = router({
+  getPotsCount: protectedProcedure.query(async ({ ctx }) => {
+    "use cache";
+    cacheTag(cacheTags.POTS_COUNT);
+    const { user } = ctx;
+    const fn = getPotsCount(potRepository);
+    return await fn(user.id);
+  }),
   listUsedPotColors: protectedProcedure.query(async ({ ctx }) => {
     "use cache";
     cacheTag(cacheTags.POTS_USED_COLORS);
@@ -53,6 +61,7 @@ export const potsRouter = router({
       const result = await fn(user.id, input.data as any);
       revalidateTag(cacheTags.PAGINATED_POTS);
       revalidateTag(cacheTags.POTS_SUMMARY);
+      revalidateTag(cacheTags.POTS_COUNT);
       revalidateTag(cacheTags.POTS_USED_COLORS);
       return result;
     }),
@@ -70,6 +79,7 @@ export const potsRouter = router({
       const result = await fn(user.id, input.potId, input.data as any);
       revalidateTag(cacheTags.PAGINATED_POTS);
       revalidateTag(cacheTags.POTS_SUMMARY);
+      revalidateTag(cacheTags.POTS_COUNT);
       revalidateTag(cacheTags.POTS_USED_COLORS);
       return result;
     }),
@@ -80,6 +90,7 @@ export const potsRouter = router({
       const fn = deletePot(potRepository);
       await fn(user.id, input.potId);
       revalidateTag(cacheTags.PAGINATED_POTS);
+      revalidateTag(cacheTags.POTS_COUNT);
       revalidateTag(cacheTags.POTS_USED_COLORS);
       revalidateTag(cacheTags.POTS_SUMMARY);
       return undefined;

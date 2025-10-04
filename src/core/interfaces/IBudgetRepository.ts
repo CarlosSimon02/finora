@@ -18,6 +18,7 @@ export interface IBudgetRepository {
     params: PaginationParams
   ): Promise<PaginatedBudgetsResponseDto>;
   getUsedColors(userId: string): Promise<string[]>;
+  getCount(userId: string): Promise<number>;
   updateOne(
     userId: string,
     budgetId: string,

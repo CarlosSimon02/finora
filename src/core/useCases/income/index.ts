@@ -1,6 +1,7 @@
 export { createIncome } from "./createIncome";
 export { deleteIncome } from "./deleteIncome";
 export { getIncome } from "./getIncome";
+export { getIncomesCount } from "./getIncomesCount";
 export { getIncomesSummary } from "./getIncomesSummary";
 export { getPaginatedIncomes } from "./getPaginatedIncomes";
 export { getPaginatedIncomesWithTransactions } from "./getPaginatedIncomesWithTransactions";

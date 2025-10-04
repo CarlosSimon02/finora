@@ -89,6 +89,10 @@ export class PotRepository implements IPotRepository {
     return this.potDatasource.getDistinctColors(userId);
   }
 
+  async getCount(userId: string): Promise<number> {
+    return this.potDatasource.getCount(userId);
+  }
+
   // #########################################################
   // # 📃 Update One
   // #########################################################

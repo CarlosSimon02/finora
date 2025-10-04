@@ -18,6 +18,7 @@ export interface IIncomeRepository {
     params: PaginationParams
   ): Promise<PaginatedIncomesResponseDto>;
   getUsedColors(userId: string): Promise<string[]>;
+  getCount(userId: string): Promise<number>;
   updateOne(
     userId: string,
     incomeId: string,

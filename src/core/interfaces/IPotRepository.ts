@@ -16,6 +16,7 @@ export interface IPotRepository {
     params: PaginationParams
   ): Promise<PaginatedPotsResponseDto>;
   getUsedColors(userId: string): Promise<string[]>;
+  getCount(userId: string): Promise<number>;
   updateOne(
     userId: string,
     potId: string,
