@@ -73,6 +73,7 @@ export const budgetsRouter = router({
       revalidateTag(cacheTags.PAGINATED_BUDGETS_WITH_TRANSACTIONS);
       revalidateTag(cacheTags.BUDGETS_SUMMARY);
       revalidateTag(cacheTags.PAGINATED_CATEGORIES);
+      revalidateTag(cacheTags.BUDGETS_USED_COLORS);
       return result;
     }),
   updateBudget: protectedProcedure
@@ -91,6 +92,7 @@ export const budgetsRouter = router({
       revalidateTag(cacheTags.PAGINATED_BUDGETS_WITH_TRANSACTIONS);
       revalidateTag(cacheTags.BUDGETS_SUMMARY);
       revalidateTag(cacheTags.PAGINATED_CATEGORIES);
+      revalidateTag(cacheTags.BUDGETS_USED_COLORS);
       return result;
     }),
   deleteBudget: protectedProcedure
@@ -103,6 +105,7 @@ export const budgetsRouter = router({
       revalidateTag(cacheTags.PAGINATED_BUDGETS_WITH_TRANSACTIONS);
       revalidateTag(cacheTags.BUDGETS_SUMMARY);
       revalidateTag(cacheTags.PAGINATED_CATEGORIES);
+      revalidateTag(cacheTags.BUDGETS_USED_COLORS);
       return undefined;
     }),
 });

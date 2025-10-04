@@ -1,11 +1,10 @@
 "use client";
 
 import { CaretDownIcon, CheckIcon } from "@phosphor-icons/react";
-import ReactSelectPrimitive, {
-  components as RSComponents,
-  type GroupBase,
-  type Props as SelectProps,
-} from "react-select";
+import { components as RSComponents, type GroupBase } from "react-select";
+import AsyncSelectPrimitive, {
+  type AsyncProps as SelectProps,
+} from "react-select/async";
 
 /**
  * Small helper to join class strings (you probably already have `cn` in your project;
@@ -24,7 +23,7 @@ type ReactSelectProps<
  * Tailwind classes mapped from your Radix `SelectTrigger`
  * Keep this in sync when you tweak tokens (or replace with your `cn` util).
  */
-const triggerBase = () =>
+const triggerBase = (isDisabled?: boolean) =>
   cx(
     "text-preset-4 text-grey-900 border-beige-500 placeholder:text-beige-500 cursor-pointer",
     "data-[is-focused=true]:border-grey-900 aria-invalid:border-secondary-red",
@@ -34,7 +33,8 @@ const triggerBase = () =>
     // keep svg rules (svg children shouldn't capture pointer events)
     "[&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
     // rotate svg when open/state -> we'll toggle `data-state` on the indicator
-    "data-[placeholder]:text-beige-500"
+    "data-[placeholder]:text-beige-500",
+    isDisabled && "pointer-events-none cursor-not-allowed opacity-50"
   );
 
 /**
@@ -44,7 +44,7 @@ export const optionBase = (isDisabled?: boolean, isSelected?: boolean) =>
   cx(
     "txt-preset-4 [&_svg:not([class*='text-'])]:text-grey-900 transition-colors",
     "relative flex w-full cursor-pointer items-center gap-2",
-    "border-b py-3 pr-8 pl-0 outline-hidden select-none last:border-b-0 border-b-grey-100",
+    "border-b py-3 outline-hidden select-none last:border-b-0 border-b-grey-100 flex-wrap",
     " [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
     isDisabled ? "pointer-events-none opacity-50" : "hover:text-grey-500"
   );
@@ -84,7 +84,7 @@ export const ReactSelect = <
       : undefined;
 
   return (
-    <ReactSelectPrimitive<Option, IsMulti, Group>
+    <AsyncSelectPrimitive<Option, IsMulti, Group>
       aria-invalid={ariaInvalid ?? false}
       // unstyled gives us full control with classNames/components
       unstyled
@@ -98,8 +98,14 @@ export const ReactSelect = <
       // component overrides: small focused set so it's easy to maintain
       components={{
         Control: (controlProps) => {
-          const { children, innerRef, innerProps, selectProps, isFocused } =
-            controlProps;
+          const {
+            children,
+            innerRef,
+            innerProps,
+            selectProps,
+            isFocused,
+            isDisabled,
+          } = controlProps;
 
           return (
             <div
@@ -107,7 +113,7 @@ export const ReactSelect = <
               {...innerProps}
               aria-invalid={ariaInvalid ?? false}
               // react-select gives a calculated className we ignore to apply our Tailwind exactly
-              className={triggerBase()}
+              className={triggerBase(isDisabled)}
               // copy data attributes you'd like to rely on — react-select exposes menuIsOpen via selectProps
               data-state={selectProps.menuIsOpen ? "open" : "closed"}
               data-is-focused={isFocused ? "true" : "false"}

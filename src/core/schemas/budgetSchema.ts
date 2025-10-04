@@ -1,10 +1,11 @@
+import { COLOR_OPTIONS } from "@/constants/colors";
 import {
   BUDGET_NAME_MAX_LENGTH,
   BUDGET_SUMMARY_MAX_ITEMS,
   BUDGET_TRANSACTION_PREVIEW_MAX_COUNT,
 } from "@/core/constants";
 import { z } from "zod";
-import { trimmedStringSchema, validateOptionalHexColor } from "./helpers";
+import { trimmedStringSchema } from "./helpers";
 import { createPaginationResponseSchema } from "./paginationSchema";
 import { transactionSchema } from "./transactionSchema";
 
@@ -19,9 +20,7 @@ export const createBudgetSchema = z.object({
     .number()
     .positive("Maximum spending must be greater than 0")
     .finite("Maximum spending must be a finite number"),
-  colorTag: trimmedStringSchema.refine(validateOptionalHexColor, {
-    message: "Color tag must be a valid hex color code (e.g., #FF5733)",
-  }),
+  colorTag: z.enum(COLOR_OPTIONS.map((o) => o.value)),
 });
 
 export const updateBudgetSchema = createBudgetSchema.partial();

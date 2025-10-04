@@ -1,5 +1,6 @@
 "use client";
 
+import { ColorValue } from "@/constants/colors";
 import {
   CreatePotDto,
   createPotSchema,
@@ -43,8 +44,8 @@ export const CreateUpdatePotDialog = ({
   const getDefaultValues = useCallback(
     (): CreatePotDto => ({
       name: initialData?.name ?? "",
-      colorTag: initialData?.colorTag ?? "",
-      target: initialData?.target ?? 0,
+      target: initialData?.target ?? (undefined as unknown as number),
+      colorTag: initialData?.colorTag ?? (undefined as unknown as ColorValue),
     }),
     [initialData]
   );
@@ -64,6 +65,8 @@ export const CreateUpdatePotDialog = ({
       form.reset(getDefaultValues());
       handleOpenChange(false);
       utils.getPaginatedPots.invalidate();
+      utils.invalidate();
+      utils.listUsedPotColors.invalidate();
     },
     onError: handleError,
   });
@@ -89,6 +92,11 @@ export const CreateUpdatePotDialog = ({
     getDefaultValues,
     isSubmitting,
   });
+
+  const { data: usedPotColors, isLoading: isLoadingUsedPotColors } =
+    trpc.listUsedPotColors.useQuery(undefined, {
+      enabled: open,
+    });
 
   useUnsavedChangesGuard({
     isDirty: form.formState.isDirty,
@@ -183,7 +191,10 @@ export const CreateUpdatePotDialog = ({
                   value={field.value}
                   onValueChange={field.onChange}
                   placeholder="Select color"
-                  aria-invalid={!!form.formState.errors.colorTag}
+                  isLoading={isLoadingUsedPotColors}
+                  isOptionDisabled={(option) =>
+                    usedPotColors?.includes(option.value) ?? false
+                  }
                   disabled={field.disabled}
                 />
               )}

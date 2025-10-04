@@ -1,4 +1,4 @@
-export type ColorOption = { label: string; value: string };
+export type ColorOption = { label: ColorLabel; value: ColorValue };
 
 export const COLOR_OPTIONS = [
   { label: "Green", value: "#277C78" },
@@ -19,7 +19,14 @@ export const COLOR_OPTIONS = [
 ] as const;
 
 export type ColorLabel = (typeof COLOR_OPTIONS)[number]["label"];
+export type ColorValue = (typeof COLOR_OPTIONS)[number]["value"];
 
-export const COLOR_MAP: Record<ColorLabel, string> = Object.fromEntries(
+export const COLOR_MAP: Record<ColorLabel, ColorValue> = Object.fromEntries(
   COLOR_OPTIONS.map((c) => [c.label, c.value])
-) as Record<ColorLabel, string>;
+) as Record<ColorLabel, ColorValue>;
+
+export const COLOR_MAP_REVERSE: Record<ColorValue, ColorLabel> =
+  Object.fromEntries(COLOR_OPTIONS.map((c) => [c.value, c.label])) as Record<
+    ColorValue,
+    ColorLabel
+  >;

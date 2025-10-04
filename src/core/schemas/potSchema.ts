@@ -1,10 +1,11 @@
+import { COLOR_OPTIONS } from "@/constants/colors";
 import {
   POT_MONEY_OPERATION_MIN,
   POT_NAME_MAX_LENGTH,
   POT_TARGET_MIN,
 } from "@/core/constants";
 import { z } from "zod";
-import { trimmedStringSchema, validateOptionalHexColor } from "./helpers";
+import { trimmedStringSchema } from "./helpers";
 import { createPaginationResponseSchema } from "./paginationSchema";
 
 export const createPotSchema = z.object({
@@ -14,9 +15,7 @@ export const createPotSchema = z.object({
       POT_NAME_MAX_LENGTH,
       `Pot name must be at most ${POT_NAME_MAX_LENGTH} characters`
     ),
-  colorTag: trimmedStringSchema.refine(validateOptionalHexColor, {
-    message: "Color tag must be a valid hex color code (e.g., #FF5733)",
-  }),
+  colorTag: z.enum(COLOR_OPTIONS.map((o) => o.value)),
   target: z
     .number()
     .min(POT_TARGET_MIN, `Target must be at least ${POT_TARGET_MIN}`),

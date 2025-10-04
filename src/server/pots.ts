@@ -80,6 +80,7 @@ export const potsRouter = router({
       const fn = deletePot(potRepository);
       await fn(user.id, input.potId);
       revalidateTag(cacheTags.PAGINATED_POTS);
+      revalidateTag(cacheTags.POTS_USED_COLORS);
       revalidateTag(cacheTags.POTS_SUMMARY);
       return undefined;
     }),

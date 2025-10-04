@@ -1,10 +1,11 @@
+import { COLOR_OPTIONS } from "@/constants/colors";
 import {
   INCOME_NAME_MAX_LENGTH,
   INCOME_SUMMARY_MAX_ITEMS,
   TRANSACTION_PREVIEW_MAX_COUNT,
 } from "@/core/constants";
 import { z } from "zod";
-import { trimmedStringSchema, validateOptionalHexColor } from "./helpers";
+import { trimmedStringSchema } from "./helpers";
 import { createPaginationResponseSchema } from "./paginationSchema";
 import { transactionSchema } from "./transactionSchema";
 
@@ -15,9 +16,7 @@ export const createIncomeSchema = z.object({
       INCOME_NAME_MAX_LENGTH,
       `Income name must be at most ${INCOME_NAME_MAX_LENGTH} characters`
     ),
-  colorTag: trimmedStringSchema.refine(validateOptionalHexColor, {
-    message: "Color tag must be a valid hex color code (e.g., #FF5733)",
-  }),
+  colorTag: z.enum(COLOR_OPTIONS.map((o) => o.value)),
 });
 
 export const updateIncomeSchema = createIncomeSchema.partial();
