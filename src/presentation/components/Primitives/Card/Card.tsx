@@ -14,7 +14,7 @@ export const Card = ({
     <div
       data-slot="card"
       className={cn(
-        "rounded-2xl p-5 shadow-xl sm:p-300 md:p-8",
+        "rounded-2xl p-5 shadow-md sm:p-300 md:p-8",
         variant === "primary" && "text-grey-900 bg-white",
         variant === "secondary" && "bg-grey-900 text-white",
         className
