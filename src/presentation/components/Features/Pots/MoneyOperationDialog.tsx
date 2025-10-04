@@ -5,7 +5,7 @@ import { trpc } from "@/lib/trpc/client";
 import { CurrencyInput } from "@/presentation/components/Primitives";
 import { Dialog, Form, LoadingButton } from "@/presentation/components/UI";
 import { formatCurrency } from "@/utils";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
@@ -104,19 +104,36 @@ export const MoneyOperationDialog = ({
     form.reset();
   };
 
+  useEffect(() => {
+    const handler = (e: BeforeUnloadEvent) => {
+      if (!form.formState.isDirty || isPending) return;
+      e.preventDefault();
+      e.returnValue = "";
+    };
+    window.addEventListener("beforeunload", handler);
+    return () => window.removeEventListener("beforeunload", handler);
+  }, [form.formState.isDirty, isPending]);
+
+  const handleOpenChange = (open: boolean) => {
+    if (!open) {
+      if (form.formState.isDirty && !isPending) {
+        const ok = window.confirm("Discard your unsaved changes?");
+        if (!ok) return;
+      }
+      form.reset({ amount: null });
+    } else {
+      form.reset({ amount: null });
+    }
+    setIsOpen(open);
+  };
+
   const getTitle = () =>
     operation === "add"
       ? `Add to '${pot.name}'`
       : `Withdraw from '${pot.name}'`;
 
   return (
-    <Dialog
-      open={isOpen}
-      onOpenChange={(open) => {
-        setIsOpen(open);
-        form.reset({ amount: null });
-      }}
-    >
+    <Dialog open={isOpen} onOpenChange={handleOpenChange}>
       <Dialog.Trigger asChild>{children}</Dialog.Trigger>
       <Dialog.Content>
         <Dialog.Header>

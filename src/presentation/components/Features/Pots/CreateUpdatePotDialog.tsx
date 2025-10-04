@@ -15,7 +15,7 @@ import {
   LoadingButton,
 } from "@/presentation/components/UI";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { ReactNode, useCallback, useState } from "react";
+import { ReactNode, useCallback, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
@@ -90,6 +90,29 @@ export const CreateUpdatePotDialog = ({
   const isSubmitting =
     createPotMutation.isPending || updatePotMutation.isPending;
 
+  useEffect(() => {
+    const handler = (e: BeforeUnloadEvent) => {
+      if (!form.formState.isDirty || isSubmitting) return;
+      e.preventDefault();
+      e.returnValue = "";
+    };
+    window.addEventListener("beforeunload", handler);
+    return () => window.removeEventListener("beforeunload", handler);
+  }, [form.formState.isDirty, isSubmitting]);
+
+  const handleOpenChange = (open: boolean) => {
+    if (!open) {
+      if (form.formState.isDirty && !isSubmitting) {
+        const ok = window.confirm("Discard your unsaved changes?");
+        if (!ok) return;
+      }
+      form.reset(getDefaultValues());
+    } else {
+      form.reset(getDefaultValues());
+    }
+    setIsOpen(open);
+  };
+
   const handleSubmit = async (data: CreatePotDto | UpdatePotDto) => {
     if (operation === "create") {
       await createPotMutation.mutateAsync({
@@ -107,13 +130,7 @@ export const CreateUpdatePotDialog = ({
   };
 
   return (
-    <Dialog
-      open={isOpen}
-      onOpenChange={(open) => {
-        setIsOpen(open);
-        form.reset(getDefaultValues());
-      }}
-    >
+    <Dialog open={isOpen} onOpenChange={handleOpenChange}>
       <Dialog.Trigger asChild>{children}</Dialog.Trigger>
       <Dialog.Content>
         <Dialog.Header>

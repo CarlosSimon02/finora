@@ -15,7 +15,7 @@ import {
   LoadingButton,
 } from "@/presentation/components/UI";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
@@ -136,8 +136,31 @@ export const CreateUpdateBudgetDialog = ({
     }
   };
 
+  useEffect(() => {
+    const handler = (e: BeforeUnloadEvent) => {
+      if (!form.formState.isDirty || isSubmitting) return;
+      e.preventDefault();
+      e.returnValue = "";
+    };
+    window.addEventListener("beforeunload", handler);
+    return () => window.removeEventListener("beforeunload", handler);
+  }, [form.formState.isDirty, isSubmitting]);
+
+  const guardedOpenChange = (newOpen: boolean) => {
+    if (!newOpen) {
+      if (form.formState.isDirty && !isSubmitting) {
+        const ok = window.confirm("Discard your unsaved changes?");
+        if (!ok) return;
+      }
+      form.reset(getDefaultValues());
+    } else {
+      form.reset(getDefaultValues());
+    }
+    handleOpenChange(newOpen);
+  };
+
   return (
-    <Dialog open={open} onOpenChange={handleOpenChange}>
+    <Dialog open={open} onOpenChange={guardedOpenChange}>
       <Dialog.Trigger asChild>{children}</Dialog.Trigger>
       <Dialog.Content>
         <Dialog.Header>
