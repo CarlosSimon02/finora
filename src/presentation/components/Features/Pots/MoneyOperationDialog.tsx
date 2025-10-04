@@ -4,8 +4,13 @@ import { MoneyOperationInput, PotDto } from "@/core/schemas/potSchema";
 import { trpc } from "@/lib/trpc/client";
 import { CurrencyInput } from "@/presentation/components/Primitives";
 import { Dialog, Form, LoadingButton } from "@/presentation/components/UI";
+import {
+  useErrorHandler,
+  useFormDialog,
+  useUnsavedChangesGuard,
+} from "@/presentation/hooks";
 import { formatCurrency } from "@/utils";
-import { useEffect, useState } from "react";
+import { useCallback } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
@@ -16,53 +21,65 @@ type MoneyOperationDialogProps = {
   onError?: (error: Error) => void;
 };
 
+type MoneyOperationFormValues = {
+  amount: number | null;
+};
+
 export const MoneyOperationDialog = ({
   children,
   pot,
   operation,
   onError,
 }: MoneyOperationDialogProps) => {
-  const [isOpen, setIsOpen] = useState(false);
-  const form = useForm<{ amount: number | null }>({
-    defaultValues: { amount: null },
+  const getDefaultValues = useCallback(
+    (): MoneyOperationFormValues => ({
+      amount: null,
+    }),
+    []
+  );
+
+  const form = useForm<MoneyOperationFormValues>({
+    defaultValues: getDefaultValues(),
     mode: "onChange",
   });
 
   const utils = trpc.useUtils();
 
-  const handleError = (error: unknown) => {
-    const message =
-      error instanceof Error
-        ? error.message
-        : typeof error === "string"
-          ? error
-          : "Something went wrong";
-    toast.error(message);
-    onError?.(error as Error);
-  };
+  const handleError = useErrorHandler({ onError });
 
   const addMoneyMutation = trpc.addMoneyToPot.useMutation({
     onSuccess: () => {
       toast.success("Money added successfully!");
-      setIsOpen(false);
+      handleOpenChange(false);
       utils.getPaginatedPots.invalidate();
       utils.getPot.invalidate({ potId: pot.id });
     },
-    onError: (err) => handleError(err),
+    onError: handleError,
   });
 
   const withdrawMoneyMutation = trpc.withdrawMoneyFromPot.useMutation({
     onSuccess: () => {
       toast.success("Money withdrawn successfully!");
-      setIsOpen(false);
+      handleOpenChange(false);
       utils.getPaginatedPots.invalidate();
       utils.getPot.invalidate({ potId: pot.id });
     },
-    onError: (err) => handleError(err),
+    onError: handleError,
   });
 
   const isPending =
     addMoneyMutation.isPending || withdrawMoneyMutation.isPending;
+
+  const { open, handleOpenChange } = useFormDialog({
+    form,
+    getDefaultValues,
+    isSubmitting: isPending,
+  });
+
+  useUnsavedChangesGuard({
+    isDirty: form.formState.isDirty,
+    isSubmitting: isPending,
+  });
 
   const safeTarget = Math.max(pot.target || 0, 1);
   const inputAmount = Math.max(0, form.watch("amount") ?? 0);
@@ -76,12 +93,14 @@ export const MoneyOperationDialog = ({
   const newPercentage = (newAmount / safeTarget) * 100;
   const operationPercentage = Math.abs(newPercentage - currentPercentage);
 
-  const handleSubmit = async ({ amount }: { amount: number | null }) => {
+  const handleSubmit = async ({ amount }: MoneyOperationFormValues) => {
     const amt = Math.max(0, amount ?? 0);
+
     if (!amt) {
       form.setError("amount", { type: "validate", message: "Enter an amount" });
       return;
     }
+
     if (operation === "withdraw" && amt > pot.totalSaved) {
       form.setError("amount", {
         type: "validate",
@@ -89,11 +108,8 @@ export const MoneyOperationDialog = ({
       });
       return;
     }
-    // no-op guard: do not call API if resulting value equals current
-    if (
-      (operation === "add" && amt === 0) ||
-      (operation === "withdraw" && amt === 0)
-    ) {
+
+    if (amt === 0) {
       toast.info("No changes to apply");
       return;
     }
@@ -101,38 +117,15 @@ export const MoneyOperationDialog = ({
     const data: MoneyOperationInput = { amount: amt };
 
     if (operation === "add") {
-      await addMoneyMutation.mutateAsync({ potId: pot.id, amount: amt } as any);
+      await addMoneyMutation.mutateAsync({ potId: pot.id, amount: amt });
     } else {
       await withdrawMoneyMutation.mutateAsync({
         potId: pot.id,
         amount: amt,
-      } as any);
+      });
     }
 
     form.reset();
-  };
-
-  useEffect(() => {
-    const handler = (e: BeforeUnloadEvent) => {
-      if (!form.formState.isDirty || isPending) return;
-      e.preventDefault();
-      e.returnValue = "";
-    };
-    window.addEventListener("beforeunload", handler);
-    return () => window.removeEventListener("beforeunload", handler);
-  }, [form.formState.isDirty, isPending]);
-
-  const handleOpenChange = (open: boolean) => {
-    if (!open) {
-      if (form.formState.isDirty && !isPending) {
-        const ok = window.confirm("Discard your unsaved changes?");
-        if (!ok) return;
-      }
-      form.reset({ amount: null });
-    } else {
-      form.reset({ amount: null });
-    }
-    setIsOpen(open);
   };
 
   const getTitle = () =>
@@ -141,7 +134,7 @@ export const MoneyOperationDialog = ({
       : `Withdraw from '${pot.name}'`;
 
   return (
-    <Dialog open={isOpen} onOpenChange={handleOpenChange}>
+    <Dialog open={open} onOpenChange={handleOpenChange}>
       <Dialog.Trigger asChild>{children}</Dialog.Trigger>
       <Dialog.Content>
         <Dialog.Header>

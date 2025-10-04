@@ -14,8 +14,14 @@ import {
   Form,
   LoadingButton,
 } from "@/presentation/components/UI";
+import {
+  useErrorHandler,
+  useFormDialog,
+  useUnsavedChangesGuard,
+} from "@/presentation/hooks";
+import { hasObjectChanges, normalizeNumber, normalizeString } from "@/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
@@ -46,24 +52,8 @@ export const CreateUpdateBudgetDialog = ({
   onOpenChange: propsOnOpenChange,
   children,
 }: CreateUpdateBudgetDialogProps) => {
-  const [internalOpen, setInternalOpen] = useState(false);
-
-  const isControlled = propsOpen !== undefined;
-  const open = isControlled ? propsOpen : internalOpen;
-
-  const handleOpenChange = (newOpen: boolean) => {
-    if (!isControlled) {
-      setInternalOpen(newOpen);
-    }
-    propsOnOpenChange?.(newOpen);
-
-    if (!newOpen) {
-      onClose?.();
-    }
-  };
-
   const getDefaultValues = useCallback(
-    () => ({
+    (): CreateBudgetDto => ({
       name: initialData?.name ?? "",
       colorTag: initialData?.colorTag ?? "",
       maximumSpending: initialData?.maximumSpending ?? 0,
@@ -78,16 +68,7 @@ export const CreateUpdateBudgetDialog = ({
 
   const utils = trpc.useUtils();
 
-  const handleError = (error: unknown) => {
-    const message =
-      error instanceof Error
-        ? error.message
-        : typeof error === "string"
-          ? error
-          : "Something went wrong";
-    toast.error(message);
-    onError?.(error as Error);
-  };
+  const handleError = useErrorHandler({ onError });
 
   const createBudgetMutation = trpc.createBudget.useMutation({
     onSuccess: (data) => {
@@ -99,8 +80,8 @@ export const CreateUpdateBudgetDialog = ({
       utils.getPaginatedBudgetsWithTransactions.invalidate();
       utils.getBudgetsSummary.invalidate();
     },
-    onError: (err) => handleError(err),
-    onSettled: () => onSettled?.(),
+    onError: handleError,
+    onSettled,
   });
 
   const updateBudgetMutation = trpc.updateBudget.useMutation({
@@ -116,22 +97,39 @@ export const CreateUpdateBudgetDialog = ({
         utils.getBudget.invalidate({ budgetId: initialData.id });
       }
     },
-    onError: (err) => handleError(err),
-    onSettled: () => onSettled?.(),
+    onError: handleError,
+    onSettled,
   });
 
   const isSubmitting =
     createBudgetMutation.isPending || updateBudgetMutation.isPending;
 
-  const hasBudgetChanges = (values: CreateBudgetDto | UpdateBudgetDto) => {
+  const { open, handleOpenChange } = useFormDialog({
+    form,
+    getDefaultValues,
+    isSubmitting,
+    propsOpen,
+    propsOnOpenChange,
+    onClose,
+  });
+
+  useUnsavedChangesGuard({
+    isDirty: form.formState.isDirty,
+    isSubmitting,
+  });
+
+  const hasBudgetChanges = (values: CreateBudgetDto): boolean => {
     if (operation !== "update" || !initialData) return true;
-    const nameChanged =
-      (values.name ?? "").trim() !== (initialData.name ?? "").trim();
-    const colorChanged = (values as any).colorTag !== initialData.colorTag;
-    const maximumChanged =
-      Number((values as any).maximumSpending ?? 0) !==
-      Number(initialData.maximumSpending ?? 0);
-    return nameChanged || colorChanged || maximumChanged;
+
+    return hasObjectChanges(
+      values,
+      initialData,
+      ["name", "colorTag", "maximumSpending"],
+      {
+        name: normalizeString,
+        maximumSpending: normalizeNumber,
+      }
+    );
   };
 
   const handleSubmit = async (data: CreateBudgetDto) => {
@@ -140,44 +138,20 @@ export const CreateUpdateBudgetDialog = ({
         toast.info("No changes to update");
         return;
       }
-    }
-    if (operation === "create") {
-      await createBudgetMutation.mutateAsync({ data } as any);
-      return;
-    }
-    if (operation === "update" && initialData) {
       await updateBudgetMutation.mutateAsync({
         budgetId: initialData.id,
         data: data as UpdateBudgetDto,
-      } as any);
+      });
+      return;
     }
-  };
 
-  useEffect(() => {
-    const handler = (e: BeforeUnloadEvent) => {
-      if (!form.formState.isDirty || isSubmitting) return;
-      e.preventDefault();
-      e.returnValue = "";
-    };
-    window.addEventListener("beforeunload", handler);
-    return () => window.removeEventListener("beforeunload", handler);
-  }, [form.formState.isDirty, isSubmitting]);
-
-  const guardedOpenChange = (newOpen: boolean) => {
-    if (!newOpen) {
-      if (form.formState.isDirty && !isSubmitting) {
-        const ok = window.confirm("Discard your unsaved changes?");
-        if (!ok) return;
-      }
-      form.reset(getDefaultValues());
-    } else {
-      form.reset(getDefaultValues());
+    if (operation === "create") {
+      await createBudgetMutation.mutateAsync({ data });
     }
-    handleOpenChange(newOpen);
   };
 
   return (
-    <Dialog open={open} onOpenChange={guardedOpenChange}>
+    <Dialog open={open} onOpenChange={handleOpenChange}>
       <Dialog.Trigger asChild>{children}</Dialog.Trigger>
       <Dialog.Content>
         <Dialog.Header>

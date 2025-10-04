@@ -1,8 +1,8 @@
 "use client";
 
 import { ForgotPasswordDto, forgotPasswordSchema } from "@/core/schemas";
-import { Button, Input } from "@/presentation/components/Primitives";
-import { Card, Form, LoadingButton } from "@/presentation/components/UI";
+import { Button, Card, Input } from "@/presentation/components/Primitives";
+import { Form, LoadingButton } from "@/presentation/components/UI";
 import { useResetPassword } from "@/presentation/hooks";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CheckIcon } from "@phosphor-icons/react";

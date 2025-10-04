@@ -14,8 +14,14 @@ import {
   Form,
   LoadingButton,
 } from "@/presentation/components/UI";
+import {
+  useErrorHandler,
+  useFormDialog,
+  useUnsavedChangesGuard,
+} from "@/presentation/hooks";
+import { hasObjectChanges, normalizeNumber, normalizeString } from "@/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { ReactNode, useCallback, useEffect, useState } from "react";
+import { ReactNode, useCallback } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
@@ -34,9 +40,8 @@ export const CreateUpdatePotDialog = ({
   initialData,
   onError,
 }: CreateUpdatePotDialogProps) => {
-  const [isOpen, setIsOpen] = useState(false);
   const getDefaultValues = useCallback(
-    () => ({
+    (): CreatePotDto => ({
       name: initialData?.name ?? "",
       colorTag: initialData?.colorTag ?? "",
       target: initialData?.target ?? 0,
@@ -51,102 +56,81 @@ export const CreateUpdatePotDialog = ({
 
   const utils = trpc.useUtils();
 
-  const handleError = (error: unknown) => {
-    const message =
-      error instanceof Error
-        ? error.message
-        : typeof error === "string"
-          ? error
-          : "Something went wrong";
-    toast.error(message);
-    if (onError) {
-      onError(error as Error);
-    }
-  };
+  const handleError = useErrorHandler({ onError });
 
   const createPotMutation = trpc.createPot.useMutation({
     onSuccess: () => {
       toast.success("Pot created successfully!");
       form.reset(getDefaultValues());
-      setIsOpen(false);
+      handleOpenChange(false);
       utils.getPaginatedPots.invalidate();
     },
-    onError: (err) => handleError(err),
+    onError: handleError,
   });
 
   const updatePotMutation = trpc.updatePot.useMutation({
     onSuccess: () => {
       toast.success("Pot updated successfully!");
       form.reset(getDefaultValues());
-      setIsOpen(false);
+      handleOpenChange(false);
       utils.getPaginatedPots.invalidate();
       if (initialData) {
         utils.getPot.invalidate({ potId: initialData.id });
       }
     },
-    onError: (err) => handleError(err),
+    onError: handleError,
   });
 
   const isSubmitting =
     createPotMutation.isPending || updatePotMutation.isPending;
 
-  const hasPotChanges = (values: CreatePotDto | UpdatePotDto) => {
+  const { open, handleOpenChange } = useFormDialog({
+    form,
+    getDefaultValues,
+    isSubmitting,
+  });
+
+  useUnsavedChangesGuard({
+    isDirty: form.formState.isDirty,
+    isSubmitting,
+  });
+
+  const hasPotChanges = (values: CreatePotDto): boolean => {
     if (operation !== "update" || !initialData) return true;
-    const nameChanged =
-      (values.name ?? "").trim() !== (initialData.name ?? "").trim();
-    const colorChanged = (values as any).colorTag !== initialData.colorTag;
-    const targetChanged =
-      Number((values as any).target ?? 0) !== Number(initialData.target ?? 0);
-    return nameChanged || colorChanged || targetChanged;
-  };
 
-  useEffect(() => {
-    const handler = (e: BeforeUnloadEvent) => {
-      if (!form.formState.isDirty || isSubmitting) return;
-      e.preventDefault();
-      e.returnValue = "";
-    };
-    window.addEventListener("beforeunload", handler);
-    return () => window.removeEventListener("beforeunload", handler);
-  }, [form.formState.isDirty, isSubmitting]);
-
-  const handleOpenChange = (open: boolean) => {
-    if (!open) {
-      if (form.formState.isDirty && !isSubmitting) {
-        const ok = window.confirm("Discard your unsaved changes?");
-        if (!ok) return;
+    return hasObjectChanges(
+      values,
+      initialData,
+      ["name", "colorTag", "target"],
+      {
+        name: normalizeString,
+        target: normalizeNumber,
       }
-      form.reset(getDefaultValues());
-    } else {
-      form.reset(getDefaultValues());
-    }
-    setIsOpen(open);
+    );
   };
 
-  const handleSubmit = async (data: CreatePotDto | UpdatePotDto) => {
+  const handleSubmit = async (data: CreatePotDto) => {
     if (operation === "update" && initialData) {
       if (!form.formState.isDirty || !hasPotChanges(data)) {
         toast.info("No changes to update");
         return;
       }
-    }
-    if (operation === "create") {
-      await createPotMutation.mutateAsync({
-        data: data as CreatePotDto,
-      } as any);
-      return;
-    }
-    if (operation === "update" && initialData) {
       await updatePotMutation.mutateAsync({
         potId: initialData.id,
         data: data as UpdatePotDto,
-      } as any);
+      });
       return;
+    }
+
+    if (operation === "create") {
+      await createPotMutation.mutateAsync({
+        data: data as CreatePotDto,
+      });
     }
   };
 
   return (
-    <Dialog open={isOpen} onOpenChange={handleOpenChange}>
+    <Dialog open={open} onOpenChange={handleOpenChange}>
       <Dialog.Trigger asChild>{children}</Dialog.Trigger>
       <Dialog.Content>
         <Dialog.Header>
