@@ -1,18 +1,19 @@
-import {
-  TRANSACTION_AMOUNT_DECIMALS_REGEX,
-  TRANSACTION_NAME_MAX_LENGTH,
-} from "@/core/constants";
+import { TRANSACTION_NAME_MAX_LENGTH } from "@/core/constants";
 import { z } from "zod";
 import {
+  idSchema,
   isValidEmoji,
+  moneyAmountSchema,
+  nameSchema,
+  optionalDescriptionSchema,
   trimmedStringSchema,
   validateOptionalHexColor,
 } from "./helpers";
 import { createPaginationResponseSchema } from "./paginationSchema";
 
 export const transactionCategorySchema = z.object({
-  id: trimmedStringSchema.min(1, "Category ID is required"),
-  name: trimmedStringSchema.min(1, "Category name is required"),
+  id: idSchema,
+  name: nameSchema,
   colorTag: trimmedStringSchema.refine(validateOptionalHexColor, {
     message: "Color must be a valid hex color code (e.g., #FF5733) or null",
   }),
@@ -30,31 +31,25 @@ const baseTransactionSchema = z.object({
       `Transaction name must be at most ${TRANSACTION_NAME_MAX_LENGTH} characters`
     ),
   type: transactionTypeSchema,
-  amount: z
-    .number()
-    .positive("Amount must be greater than 0")
-    .refine(
-      (val) => TRANSACTION_AMOUNT_DECIMALS_REGEX.test(val.toString()),
-      "Amount must have at most 2 decimal places"
-    ),
+  amount: moneyAmountSchema,
   recipientOrPayer: trimmedStringSchema.nullable(),
   transactionDate: z.instanceof(Date, {
     message: "Transaction date must be a valid date",
   }),
-  description: trimmedStringSchema.nullable(),
+  description: optionalDescriptionSchema,
   emoji: trimmedStringSchema.refine(isValidEmoji, {
     message: "Only emoji characters are allowed",
   }),
 });
 
 export const createTransactionSchema = baseTransactionSchema.extend({
-  categoryId: trimmedStringSchema.min(1, "Category ID is required"),
+  categoryId: idSchema,
 });
 
 export const updateTransactionSchema = createTransactionSchema.partial();
 
 export const transactionSchema = baseTransactionSchema.extend({
-  id: trimmedStringSchema.min(1, "Transaction ID is required"),
+  id: idSchema,
   createdAt: z.instanceof(Date),
   updatedAt: z.instanceof(Date),
   category: transactionCategorySchema,

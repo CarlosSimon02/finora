@@ -1,38 +1,34 @@
 import { COLOR_OPTIONS } from "@/constants/colors";
 import {
-  BUDGET_NAME_MAX_LENGTH,
   BUDGET_SUMMARY_MAX_ITEMS,
   BUDGET_TRANSACTION_PREVIEW_MAX_COUNT,
 } from "@/core/constants";
 import { z } from "zod";
-import { trimmedStringSchema } from "./helpers";
+import {
+  idSchema,
+  moneyAmountSchema,
+  nameSchema,
+  nonNegativeMoneyAmountSchema,
+} from "./helpers";
 import { createPaginationResponseSchema } from "./paginationSchema";
 import { transactionSchema } from "./transactionSchema";
 
 export const createBudgetSchema = z.object({
-  name: trimmedStringSchema
-    .min(1, "Budget name is required")
-    .max(
-      BUDGET_NAME_MAX_LENGTH,
-      `Budget name must be at most ${BUDGET_NAME_MAX_LENGTH} characters`
-    ),
-  maximumSpending: z
-    .number()
-    .positive("Maximum spending must be greater than 0")
-    .finite("Maximum spending must be a finite number"),
+  name: nameSchema,
+  maximumSpending: moneyAmountSchema,
   colorTag: z.enum(COLOR_OPTIONS.map((o) => o.value)),
 });
 
 export const updateBudgetSchema = createBudgetSchema.partial();
 
 export const budgetSchema = createBudgetSchema.extend({
-  id: trimmedStringSchema.min(1, "Budget ID is required"),
+  id: idSchema,
   createdAt: z.date(),
   updatedAt: z.date(),
 });
 
 export const budgetSchemaWithTotalSpending = budgetSchema.extend({
-  totalSpending: z.number().min(0, "Total spending must be non-negative"),
+  totalSpending: nonNegativeMoneyAmountSchema,
 });
 
 export const budgetWithTransactionsSchema =
@@ -47,9 +43,9 @@ export const paginatedBudgetsWithTransactionsResponseSchema =
   createPaginationResponseSchema(budgetWithTransactionsSchema);
 
 export const budgetsSummarySchema = z.object({
-  totalMaxSpending: z.number().int().positive(),
-  totalSpending: z.number().int().positive(),
-  count: z.number().int().positive(),
+  totalMaxSpending: z.number().int().nonnegative(),
+  totalSpending: z.number().int().nonnegative(),
+  count: z.number().int().nonnegative(),
   budgets: z.array(budgetSchemaWithTotalSpending),
 });
 

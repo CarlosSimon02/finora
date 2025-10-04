@@ -1,34 +1,28 @@
 import { COLOR_OPTIONS } from "@/constants/colors";
 import {
-  INCOME_NAME_MAX_LENGTH,
   INCOME_SUMMARY_MAX_ITEMS,
   TRANSACTION_PREVIEW_MAX_COUNT,
 } from "@/core/constants";
 import { z } from "zod";
-import { trimmedStringSchema } from "./helpers";
+import { idSchema, nameSchema, nonNegativeMoneyAmountSchema } from "./helpers";
 import { createPaginationResponseSchema } from "./paginationSchema";
 import { transactionSchema } from "./transactionSchema";
 
 export const createIncomeSchema = z.object({
-  name: trimmedStringSchema
-    .min(1, "Income name is required")
-    .max(
-      INCOME_NAME_MAX_LENGTH,
-      `Income name must be at most ${INCOME_NAME_MAX_LENGTH} characters`
-    ),
+  name: nameSchema,
   colorTag: z.enum(COLOR_OPTIONS.map((o) => o.value)),
 });
 
 export const updateIncomeSchema = createIncomeSchema.partial();
 
 export const incomeSchema = createIncomeSchema.extend({
-  id: trimmedStringSchema.min(1, "Income ID is required"),
+  id: idSchema,
   createdAt: z.date(),
   updatedAt: z.date(),
 });
 
 export const incomeSchemaWithTotalEarned = incomeSchema.extend({
-  totalEarned: z.number().int().min(0, "Total earned must be positive"),
+  totalEarned: nonNegativeMoneyAmountSchema,
 });
 
 export const incomeWithTransactionsSchema = incomeSchemaWithTotalEarned.extend({
@@ -42,8 +36,8 @@ export const paginatedIncomesWithTransactionsResponseSchema =
   createPaginationResponseSchema(incomeWithTransactionsSchema);
 
 export const incomesSummarySchema = z.object({
-  totalEarned: z.number().int().positive(),
-  count: z.number().int().positive(),
+  totalEarned: z.number().int().nonnegative(),
+  count: z.number().int().nonnegative(),
   incomes: z.array(incomeSchemaWithTotalEarned),
 });
 

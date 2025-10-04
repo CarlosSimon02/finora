@@ -1,10 +1,13 @@
-import {
-  TRANSACTION_AMOUNT_DECIMALS_REGEX,
-  TRANSACTION_NAME_MAX_LENGTH,
-} from "@/core/constants";
+import { TRANSACTION_NAME_MAX_LENGTH } from "@/core/constants";
 import { Frequency, RRule } from "rrule";
 import { z } from "zod";
-import { isValidEmoji, trimmedStringSchema } from "./helpers";
+import {
+  idSchema,
+  isValidEmoji,
+  moneyAmountSchema,
+  optionalDescriptionSchema,
+  trimmedStringSchema,
+} from "./helpers";
 import {
   createPaginationResponseSchema,
   paginationParamsSchema,
@@ -35,19 +38,13 @@ const baseRecurringBillShape = z.object({
       TRANSACTION_NAME_MAX_LENGTH,
       `Bill name must be at most ${TRANSACTION_NAME_MAX_LENGTH} characters`
     ),
-  amount: z
-    .number()
-    .positive("Amount must be greater than 0")
-    .refine(
-      (val) => TRANSACTION_AMOUNT_DECIMALS_REGEX.test(val.toString()),
-      "Amount must have at most 2 decimal places"
-    ),
+  amount: moneyAmountSchema,
   recipientOrPayer: trimmedStringSchema.nullable(),
-  description: trimmedStringSchema.nullable(),
+  description: optionalDescriptionSchema,
   emoji: trimmedStringSchema.refine(isValidEmoji, {
     message: "Only emoji characters are allowed",
   }),
-  categoryId: trimmedStringSchema.min(1, "Category ID is required"),
+  categoryId: idSchema,
   rrule: rruleStringSchema,
   dtstart: z.instanceof(Date, { message: "Start date must be a valid date" }),
   until: z.instanceof(Date).optional(),
@@ -69,7 +66,7 @@ export const createRecurringBillSchema = baseRecurringBillSchema;
 export const updateRecurringBillSchema = baseRecurringBillSchema.partial();
 
 export const recurringBillSchema = baseRecurringBillSchema.safeExtend({
-  id: trimmedStringSchema.min(1, "Recurring bill ID is required"),
+  id: idSchema,
   createdAt: z.instanceof(Date),
   updatedAt: z.instanceof(Date),
   category: transactionCategorySchema,
@@ -109,23 +106,17 @@ export const recurringBillsWithTotalsSchema = z.object({
 });
 
 export const createRecurringBillPaymentSchema = z.object({
-  billId: trimmedStringSchema.min(1, "Recurring bill ID is required"),
+  billId: idSchema,
   occurrenceDate: z.instanceof(Date, {
     message: "Occurrence date must be a valid date",
   }),
-  amountPaid: z
-    .number()
-    .positive("Amount must be greater than 0")
-    .refine(
-      (val) => TRANSACTION_AMOUNT_DECIMALS_REGEX.test(val.toString()),
-      "Amount must have at most 2 decimal places"
-    ),
-  note: trimmedStringSchema.nullable().optional(),
+  amountPaid: moneyAmountSchema,
+  note: optionalDescriptionSchema.optional(),
 });
 
 export const recurringBillPaymentSchema =
   createRecurringBillPaymentSchema.extend({
-    id: trimmedStringSchema.min(1, "Payment ID is required"),
+    id: idSchema,
     createdAt: z.instanceof(Date),
     updatedAt: z.instanceof(Date),
     transactionId: trimmedStringSchema.nullable().optional(),

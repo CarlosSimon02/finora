@@ -1,31 +1,36 @@
 import { COLOR_OPTIONS } from "@/constants/colors";
 import {
+  COMMON_MAX_NUMBER,
   POT_MONEY_OPERATION_MIN,
-  POT_NAME_MAX_LENGTH,
   POT_TARGET_MIN,
 } from "@/core/constants";
 import { z } from "zod";
-import { trimmedStringSchema } from "./helpers";
+import {
+  idSchema,
+  nameSchema,
+  nonNegativeMoneyAmountSchema,
+  validateTwoDecimalPlaces,
+} from "./helpers";
 import { createPaginationResponseSchema } from "./paginationSchema";
 
 export const createPotSchema = z.object({
-  name: trimmedStringSchema
-    .min(1, "Pot name is required")
-    .max(
-      POT_NAME_MAX_LENGTH,
-      `Pot name must be at most ${POT_NAME_MAX_LENGTH} characters`
-    ),
+  name: nameSchema,
   colorTag: z.enum(COLOR_OPTIONS.map((o) => o.value)),
   target: z
     .number()
-    .min(POT_TARGET_MIN, `Target must be at least ${POT_TARGET_MIN}`),
+    .min(POT_TARGET_MIN, `Target must be at least ${POT_TARGET_MIN}`)
+    .max(COMMON_MAX_NUMBER, `Target must be at most ${COMMON_MAX_NUMBER}`)
+    .refine(
+      validateTwoDecimalPlaces,
+      "Target must have at most 2 decimal places"
+    ),
 });
 
 export const updatePotSchema = createPotSchema.partial();
 
 export const potSchema = createPotSchema.extend({
-  id: trimmedStringSchema.min(1, "Pot ID is required"),
-  totalSaved: z.number().min(0, "Total saved cannot be negative"),
+  id: idSchema,
+  totalSaved: nonNegativeMoneyAmountSchema,
   createdAt: z.date(),
   updatedAt: z.date(),
 });
@@ -39,6 +44,11 @@ export const moneyOperationSchema = z.object({
     .min(
       POT_MONEY_OPERATION_MIN,
       `Amount must be at least ${POT_MONEY_OPERATION_MIN}`
+    )
+    .max(COMMON_MAX_NUMBER, `Amount must be at most ${COMMON_MAX_NUMBER}`)
+    .refine(
+      validateTwoDecimalPlaces,
+      "Amount must have at most 2 decimal places"
     ),
 });
 

@@ -1,3 +1,4 @@
+import { COMMON_MAX_NUMBER } from "@/core/constants";
 import { IPotRepository } from "@/core/interfaces/IPotRepository";
 import {
   MoneyOperationInput,
@@ -21,6 +22,10 @@ export const addMoneyToPot =
     const pot = await potRepository.getOneById(userId, potId);
     if (!pot) {
       throw new NotFoundError("Pot not found");
+    }
+
+    if (validatedData.amount + pot.totalSaved > COMMON_MAX_NUMBER) {
+      throw new DomainValidationError("Amount exceeds maximum number");
     }
 
     return potRepository.addToTotalSaved(userId, potId, validatedData.amount);
