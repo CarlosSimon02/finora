@@ -19,7 +19,7 @@ const firebaseAdminParams = {
   storageBucket: env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
 };
 
-export function initializeFirebaseAdmin(params: FirebaseAdminParams) {
+const initializeFirebaseAdmin = (params: FirebaseAdminParams) => {
   if (admin.apps.length > 0) {
     debugLog("Firebase Admin", "using cached admin instance");
     return admin.app();
@@ -46,7 +46,7 @@ export function initializeFirebaseAdmin(params: FirebaseAdminParams) {
   });
 
   return app;
-}
+};
 
 const adminApp = initializeFirebaseAdmin(firebaseAdminParams);
 
