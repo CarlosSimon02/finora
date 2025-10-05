@@ -1,5 +1,6 @@
 "use client";
 
+import { ColorValue } from "@/constants/colors";
 import {
   BudgetDto,
   CreateBudgetDto,
@@ -55,8 +56,9 @@ export const CreateUpdateBudgetDialog = ({
   const getDefaultValues = useCallback(
     (): CreateBudgetDto => ({
       name: initialData?.name ?? "",
-      colorTag: initialData?.colorTag ?? "",
-      maximumSpending: initialData?.maximumSpending ?? 0,
+      colorTag: initialData?.colorTag ?? (undefined as unknown as ColorValue),
+      maximumSpending:
+        initialData?.maximumSpending ?? (undefined as unknown as number),
     }),
     [initialData]
   );
@@ -112,6 +114,11 @@ export const CreateUpdateBudgetDialog = ({
     propsOnOpenChange,
     onClose,
   });
+
+  const { data: usedBudgetColors, isLoading: isLoadingUsedBudgetColors } =
+    trpc.listUsedBudgetColors.useQuery(undefined, {
+      enabled: open,
+    });
 
   useUnsavedChangesGuard({
     isDirty: form.formState.isDirty,
@@ -202,10 +209,14 @@ export const CreateUpdateBudgetDialog = ({
               disabled={isSubmitting}
               inputComponent={({ field }) => (
                 <ColorPickerReactSelect
+                  defaultValue={field.value}
                   value={field.value}
                   onValueChange={field.onChange}
                   placeholder="Select color"
-                  aria-invalid={!!form.formState.errors.colorTag}
+                  isLoading={isLoadingUsedBudgetColors}
+                  isOptionDisabled={(option) =>
+                    usedBudgetColors?.includes(option.value) ?? false
+                  }
                   disabled={field.disabled}
                 />
               )}

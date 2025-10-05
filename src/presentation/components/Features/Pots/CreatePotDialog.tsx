@@ -10,32 +10,37 @@ import { PlusIcon } from "@phosphor-icons/react";
 import { CreateUpdatePotDialog } from "./CreateUpdatePotDialog";
 
 export const CreatePotDialog = () => {
-  const { data: potsCount, isLoading: isLoadingPotsCount } =
-    trpc.getPotsCount.useQuery();
+  const { data: potsCount, isLoading } = trpc.getPotsCount.useQuery();
 
-  const AddPotButton = () => (
-    <LoadingButton
-      icon={{ component: PlusIcon, weight: "bold" }}
-      label="Add New Pot"
-      isLoading={isLoadingPotsCount}
-    />
-  );
-
-  if (isLoadingPotsCount) {
-    return <AddPotButton />;
-  }
-
-  if (potsCount && potsCount >= COLOR_OPTIONS.length) {
+  if (isLoading) {
     return (
-      <LimitHasReachedDialog name="Pots">
-        <AddPotButton />
-      </LimitHasReachedDialog>
+      <LoadingButton
+        icon={{ component: PlusIcon, weight: "bold" }}
+        label="Add New Pot"
+        isLoading
+      />
     );
   }
 
-  return (
-    <CreateUpdatePotDialog title="Add New Pot" operation="create">
-      <AddPotButton />
-    </CreateUpdatePotDialog>
+  const count = potsCount ?? 0;
+  const reachedLimit = count >= COLOR_OPTIONS.length;
+
+  const button = (
+    <LoadingButton
+      icon={{ component: PlusIcon, weight: "bold" }}
+      label="Add New Pot"
+      isLoading={false}
+    />
   );
+
+  const renderWithDialog = (child: React.ReactNode) =>
+    reachedLimit ? (
+      <LimitHasReachedDialog name="Pots">{child}</LimitHasReachedDialog>
+    ) : (
+      <CreateUpdatePotDialog title="Add New Pot" operation="create">
+        {child}
+      </CreateUpdatePotDialog>
+    );
+
+  return <>{renderWithDialog(button)}</>;
 };
