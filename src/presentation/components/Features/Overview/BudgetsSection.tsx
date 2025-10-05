@@ -2,11 +2,9 @@
 
 import { BudgetDto } from "@/core/schemas";
 import { BudgetChart } from "@/presentation/components/Features/Budgets";
-import {
-  ColoredAmountItem,
-  EmptyState,
-} from "@/presentation/components/Primitives";
+import { ColoredAmountItem } from "@/presentation/components/Primitives";
 import { cn } from "@/utils";
+import { OverviewEmptyState } from "./OverviewEmptyState";
 import { TitledCard } from "./TitledCard";
 
 type BudgetsSectionProps = {
@@ -51,7 +49,7 @@ export const BudgetsSection = ({
           </div>
         </div>
       ) : (
-        <EmptyState message="No budgets found" color="Gold" />
+        <OverviewEmptyState message="No budgets found" color="Gold" />
       )}
     </TitledCard>
   );

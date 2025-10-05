@@ -12,7 +12,6 @@ import { TransactionsSection } from "./TransactionsSection";
 export const Overview = () => {
   const error = false;
   const isLoading = false;
-  const errorMessage = "Error loading overview";
 
   const body = (() => {
     if (isLoading) {
@@ -21,11 +20,8 @@ export const Overview = () => {
 
     if (error) {
       return (
-        <Card className="mx-auto flex max-w-xl flex-col items-center justify-center gap-6">
-          <ErrorState
-            title="Error loading overview contents"
-            errorMessage={errorMessage}
-          />
+        <Card className="grid place-items-center gap-6 p-4 py-10">
+          <ErrorState />
         </Card>
       );
     }

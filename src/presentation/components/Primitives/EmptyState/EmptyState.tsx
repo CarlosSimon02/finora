@@ -1,34 +1,28 @@
-"use client";
-
-import { COLOR_MAP, ColorLabel } from "@/constants/colors";
-import { cn } from "@/utils";
-import { GhostIcon } from "@phosphor-icons/react";
+import { IconProps } from "@phosphor-icons/react";
 
 type EmptyStateProps = {
+  title: string;
   message: string;
-  className?: string;
-  color?: ColorLabel;
+  icon: React.ComponentType<IconProps>;
+  action: React.ReactNode;
 };
 
 export const EmptyState = ({
+  title,
   message,
-  className,
-  color = "Cyan",
+  icon: Icon,
+  action,
 }: EmptyStateProps) => {
-  const hex = color ? COLOR_MAP[color] : undefined;
   return (
-    <div
-      className={cn(
-        "grid h-full place-items-center content-center p-4",
-        className
-      )}
-    >
-      <GhostIcon
-        weight="fill"
-        className="size-10 opacity-50"
-        style={{ color: hex }}
-      />
-      <p className="txt-preset-4 text-grey-300">{message}</p>
+    <div className="grid place-items-center gap-6 p-4 py-10">
+      <div className="bg-grey-100 grid place-items-center rounded-full p-10">
+        <Icon className="text-grey-500 size-15" />
+      </div>
+      <div className="space-y-2 text-center">
+        <p className="txt-preset-2 text-grey-900">{title}</p>
+        <p className="txt-preset-4 text-grey-500">{message}</p>
+      </div>
+      {action}
     </div>
   );
 };

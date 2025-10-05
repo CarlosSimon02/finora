@@ -10,6 +10,7 @@ import {
 } from "@/presentation/components/Primitives";
 import { Pagination } from "@/presentation/components/UI";
 import { usePagination } from "@/presentation/hooks";
+import { TipJarIcon } from "@phosphor-icons/react";
 import { CreatePotDialog } from "./CreatePotDialog";
 import { PotCard } from "./PotCard";
 import { PotsSkeleton } from "./PotsSkeleton";
@@ -39,20 +40,21 @@ export const Pots = () => {
 
     if (error) {
       return (
-        <Card className="mx-auto flex max-w-xl flex-col items-center justify-center gap-6">
-          <ErrorState
-            title="Error loading pots"
-            errorMessage={error?.message ?? "Something went wrong"}
-          />
+        <Card className="grid place-items-center gap-6 p-4 py-10">
+          <ErrorState />
         </Card>
       );
     }
 
     if (!data || !data.data.length) {
       return (
-        <Card className="mx-auto flex max-w-xl flex-col items-center justify-center gap-6">
-          <EmptyState message="No pots found" />
-          <CreatePotDialog />
+        <Card className="grid place-items-center gap-6 p-4 py-10">
+          <EmptyState
+            title="No pots yet"
+            message="Create your first pot to start saving."
+            icon={TipJarIcon}
+            action={<CreatePotDialog />}
+          />
         </Card>
       );
     }

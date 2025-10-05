@@ -1,12 +1,10 @@
 "use client";
 
 import { PotDto } from "@/core/schemas";
-import {
-  ColoredAmountItem,
-  EmptyState,
-} from "@/presentation/components/Primitives";
+import { ColoredAmountItem } from "@/presentation/components/Primitives";
 import { cn, formatCurrency } from "@/utils";
 import { TipJarIcon } from "@phosphor-icons/react";
+import { OverviewEmptyState } from "./OverviewEmptyState";
 import { TitledCard } from "./TitledCard";
 
 type PotsSectionProps = {
@@ -55,7 +53,7 @@ export function PotsSection({
           </div>
         </div>
       ) : (
-        <EmptyState message="No pots found" />
+        <OverviewEmptyState message="No pots found" />
       )}
     </TitledCard>
   );

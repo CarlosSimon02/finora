@@ -1,42 +1,26 @@
 "use client";
 
-import { cn } from "@/utils";
 import { ArrowClockwiseIcon, ImageBrokenIcon } from "@phosphor-icons/react";
+import { useRouter } from "next/navigation";
 import { Button } from "../Button";
 
-type ErrorStateProps = {
-  errorMessage?: string;
-  title: string;
-  className?: string;
-};
-
-export const ErrorState = ({
-  errorMessage = "An error occurred, please try again later.",
-  title,
-  className,
-}: ErrorStateProps) => {
+export const ErrorState = () => {
+  const router = useRouter();
   return (
-    <div
-      className={cn(
-        "grid h-full place-items-center content-center gap-4 p-4",
-        className
-      )}
-    >
-      <ImageBrokenIcon
-        weight="fill"
-        className="text-secondary-red size-15 opacity-50"
-      />
-      <div className="flex flex-col gap-2 text-center">
-        <p className="txt-preset-2 text-secondary-red">{title}</p>
-        {errorMessage && <pre className="txt-preset-4">{errorMessage}</pre>}
+    <div className="grid place-items-center gap-6 p-4 py-10">
+      <div className="bg-secondary-red/10 grid place-items-center rounded-full p-10">
+        <ImageBrokenIcon className="text-secondary-red size-15" />
+      </div>
+      <div className="space-y-2 text-center">
+        <p className="txt-preset-2 text-grey-900">Something went wrong</p>
+        <p className="txt-preset-4 text-grey-500">
+          Don't worry, we'll fix it. Please try again later.
+        </p>
       </div>
       <Button
-        icon={{
-          component: ArrowClockwiseIcon,
-          weight: "fill",
-        }}
-        onClick={() => window.location.reload()}
-        label="Reload Page"
+        onClick={() => router.refresh()}
+        label="Try again"
+        icon={{ component: ArrowClockwiseIcon }}
       />
     </div>
   );
