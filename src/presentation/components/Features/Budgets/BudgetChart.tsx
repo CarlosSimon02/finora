@@ -1,6 +1,7 @@
 "use client";
 import { BudgetDto } from "@/core/schemas";
 import { Chart } from "@/presentation/components/UI";
+import { formatCurrency } from "@/utils";
 import { Label, Pie, PieChart } from "recharts";
 
 type BudgetChartProps = {
@@ -63,14 +64,14 @@ export const BudgetChart = ({
                         y={(viewBox.cy || 0) - 3}
                         className="!txt-preset-1 fill-grey-900"
                       >
-                        ₱{totalSpent.toLocaleString()}
+                        {formatCurrency(totalSpent)}
                       </tspan>
                       <tspan
                         x={viewBox.cx}
                         y={(viewBox.cy || 0) + 25}
                         className="txt-preset-5 fill-grey-500"
                       >
-                        of ₱{totalLimit.toLocaleString()} limit
+                        of {formatCurrency(totalLimit)} limit
                       </tspan>
                     </text>
                   );
