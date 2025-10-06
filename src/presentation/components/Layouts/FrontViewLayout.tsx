@@ -15,7 +15,7 @@ export const FrontViewLayout = ({
         <h1 className="txt-preset-1 text-grey-900">{title}</h1>
         {actions}
       </div>
-      <div>{children}</div>
+      <div className="w-full">{children}</div>
     </div>
   );
 };
