@@ -10,7 +10,10 @@ import { transactionSchema } from "./transactionSchema";
 
 export const createIncomeSchema = z.object({
   name: nameSchema,
-  colorTag: z.enum(COLOR_OPTIONS.map((o) => o.value)),
+  colorTag: z.enum(
+    COLOR_OPTIONS.map((o) => o.value),
+    "Color tag must be a valid color"
+  ),
 });
 
 export const updateIncomeSchema = createIncomeSchema.partial();

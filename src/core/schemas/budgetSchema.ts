@@ -16,7 +16,10 @@ import { transactionSchema } from "./transactionSchema";
 export const createBudgetSchema = z.object({
   name: nameSchema,
   maximumSpending: moneyAmountSchema,
-  colorTag: z.enum(COLOR_OPTIONS.map((o) => o.value)),
+  colorTag: z.enum(
+    COLOR_OPTIONS.map((o) => o.value),
+    "Color tag must be a valid color"
+  ),
 });
 
 export const updateBudgetSchema = createBudgetSchema.partial();

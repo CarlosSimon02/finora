@@ -22,8 +22,8 @@ export const BudgetCardSkeleton = ({ className }: BudgetCardSkeletonProps) => {
         <Skeleton className="h-5 w-48" />
 
         {/* Progress bar */}
-        <div className="bg-beige-100 border-beige-100 h-8 w-full rounded-lg border-4">
-          <Skeleton className="h-full w-3/5 rounded-lg" />
+        <div className="h-8 w-full rounded-lg border border-transparent">
+          <Skeleton className="h-full rounded-lg" />
         </div>
 
         {/* Spent and Remaining amounts */}
@@ -40,7 +40,7 @@ export const BudgetCardSkeleton = ({ className }: BudgetCardSkeletonProps) => {
       </div>
 
       {/* Latest Spending section */}
-      <div className="bg-beige-100 space-y-5 rounded-xl p-5">
+      <div className="space-y-5 rounded-xl p-5">
         <div className="flex items-center justify-between">
           <Skeleton className="h-5 w-32" />
           <Skeleton className="h-8 w-20 rounded-lg" />
