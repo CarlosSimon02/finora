@@ -1,8 +1,15 @@
 import { Card, Skeleton } from "@/presentation/components/Primitives";
+import { cn } from "@/utils";
 
-export const SpendingSummaryCardSkeleton = () => {
+type SpendingSummaryCardSkeletonProps = {
+  className?: string;
+};
+
+export const SpendingSummaryCardSkeleton = ({
+  className,
+}: SpendingSummaryCardSkeletonProps) => {
   return (
-    <Card className="grid gap-8">
+    <Card className={cn("grid gap-8", className)}>
       <div className="flex justify-center py-5">
         <Skeleton className="h-48 w-48 rounded-full" />
       </div>
