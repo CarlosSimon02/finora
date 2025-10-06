@@ -9,18 +9,26 @@ export const normalizeNewLines = (key: string) => {
   return key.replace(/\\n/g, "\n");
 };
 
-export const formatDate = (dateInput: Date): string => {
+export const formatDate = (
+  dateInput: Date,
+  options: { showTime?: boolean } = {}
+): string => {
   return new Intl.DateTimeFormat("en-GB", {
     day: "2-digit",
     month: "short",
     year: "numeric",
+    ...(options.showTime && {
+      hour: "2-digit",
+      minute: "2-digit",
+    }),
   }).format(dateInput);
 };
 
 export const formatCurrency = (
   amount: number,
   showPlus = false,
-  currency = "PHP"
+  currency = "PHP",
+  showDecimal: boolean = true
 ): string => {
   const isNegative = amount < 0;
   const isPositive = amount > 0;
@@ -29,8 +37,8 @@ export const formatCurrency = (
   const formatted = new Intl.NumberFormat("en-PH", {
     style: "currency",
     currency,
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2,
+    minimumFractionDigits: showDecimal ? 2 : 0,
+    maximumFractionDigits: showDecimal ? 2 : 0,
   }).format(absoluteAmount);
 
   if (isNegative) return `-${formatted}`;

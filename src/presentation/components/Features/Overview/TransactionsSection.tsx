@@ -2,8 +2,8 @@
 
 import { TransactionDto } from "@/core/schemas";
 import { TransactionEmoji } from "@/presentation/components/Features/Transactions";
+import { InlineEmptyState } from "@/presentation/components/Primitives";
 import { cn, formatCurrency, formatDate } from "@/utils";
-import { OverviewEmptyState } from "./OverviewEmptyState";
 import { TitledCard } from "./TitledCard";
 
 type TransactionsSectionProps = {
@@ -51,7 +51,7 @@ export const TransactionsSection = ({
             ))}
           </div>
         ) : (
-          <OverviewEmptyState
+          <InlineEmptyState
             message="No transactions found"
             color="Army Green"
           />

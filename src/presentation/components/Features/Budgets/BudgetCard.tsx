@@ -1,6 +1,15 @@
+"use client";
+
+import { COLOR_OPTIONS } from "@/constants/colors";
 import { BudgetWithTransactionsDto } from "@/core/schemas/budgetSchema";
-import { Card } from "@/presentation/components/Primitives";
-import Link from "next/link";
+import {
+  Button,
+  Card,
+  ColoredAmountItem,
+  InlineEmptyState,
+} from "@/presentation/components/Primitives";
+import { formatCurrency, formatDate } from "@/utils";
+import { CaretRightIcon } from "@phosphor-icons/react";
 import { TransactionEmoji } from "../Transactions";
 import { BudgetCardActions } from "./BudgetCardActions";
 
@@ -16,86 +25,98 @@ export function BudgetCard({ budget }: BudgetCardProps) {
   const transactions = budget.transactions;
 
   return (
-    <Card>
-      <div className="flex flex-row items-center justify-between pb-2">
-        <div className="flex items-center gap-2">
+    <Card className="grid gap-5">
+      <div className="flex flex-row items-center justify-between gap-10 pb-2">
+        <div className="flex items-center gap-4">
           <div
-            className="h-4 w-4 rounded-full"
+            className="size-4 shrink-0 rounded-full"
             style={{ backgroundColor: budget.colorTag }}
           />
-          <h3 className="font-medium">{budget.name}</h3>
+          <h3 className="txt-preset-2">{budget.name}</h3>
         </div>
-        <BudgetCardActions budget={budget} />
+        <BudgetCardActions budget={budget} className="shrink-0" />
       </div>
-      <div className="space-y-6">
-        <div className="space-y-2">
-          <p className="text-muted-foreground text-sm">
-            Maximum of ₱{budget.maximumSpending.toLocaleString()}
-          </p>
-          <div className="bg-muted h-2 w-full rounded-full">
-            <div
-              className="h-2 rounded-full"
-              style={{
-                width: `${Math.min(100, percentSpent)}%`,
-                backgroundColor: budget.colorTag,
-              }}
-            />
-          </div>
+      <div className="space-y-4">
+        <p className="txt-preset-4 text-grey-500">
+          Maximum of ₱{budget.maximumSpending.toLocaleString()}
+        </p>
+        <div className="bg-beige-100 border-beige-100 h-8 w-full rounded-lg border-4">
+          <div
+            className="h-full rounded-lg"
+            style={{
+              width: `${Math.min(100, percentSpent)}%`,
+              backgroundColor: budget.colorTag,
+            }}
+          />
         </div>
-
         <div className="grid grid-cols-2 gap-4">
-          <div className="space-y-1">
-            <p className="text-muted-foreground text-xs">Spent</p>
-            <div className="flex items-center gap-2">
-              <div
-                className="h-8 w-1 rounded-full"
-                style={{ backgroundColor: budget.colorTag }}
-              />
-              <p className="font-medium">
-                ₱{Math.abs(budget.totalSpending).toLocaleString()}
-              </p>
-            </div>
-          </div>
-          <div className="space-y-1">
-            <p className="text-muted-foreground text-xs">Remaining</p>
-            <div className="flex items-center gap-2">
-              <div className="bg-muted h-8 w-1 rounded-full" />
-              <p className="font-medium">₱{remaining.toLocaleString()}</p>
-            </div>
-          </div>
+          <ColoredAmountItem
+            name="Spent"
+            amount={budget.totalSpending}
+            color={budget.colorTag}
+          />
+          <ColoredAmountItem
+            name="Remaining"
+            amount={remaining}
+            color="var(--color-beige-100)"
+          />
+        </div>
+      </div>
+      <div className="bg-beige-100 space-y-5 rounded-xl p-5">
+        <div className="flex items-center justify-between">
+          <h4 className="txt-preset-3">Latest Spending</h4>
+          <Button
+            variant="tertiary"
+            label="See all"
+            icon={{
+              component: CaretRightIcon,
+              weight: "fill",
+              size: "sm",
+              loc: "right",
+            }}
+          />
         </div>
 
-        {transactions.length > 0 && (
-          <div className="space-y-3">
-            <div className="flex items-center justify-between">
-              <h4 className="text-sm font-medium">Latest Spending</h4>
-              <Link href="#" className="text-primary text-xs hover:underline">
-                See all
-              </Link>
-            </div>
-
-            <div className="space-y-3">
-              {transactions.map((transaction, index) => (
-                <div key={transaction.id}>
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-3">
-                      <TransactionEmoji emoji={transaction.emoji} />
-                      <span className="text-sm">{transaction.name}</span>
-                    </div>
-                    <div className="text-right">
-                      <p className="text-sm font-medium text-red-600">
-                        -₱{Math.abs(transaction.amount).toLocaleString()}
-                      </p>
-                      <p className="text-muted-foreground text-xs">
-                        {transaction.transactionDate.toLocaleDateString()}
-                      </p>
-                    </div>
+        <div>
+          {transactions.length > 0 ? (
+            transactions.map((transaction) => (
+              <div
+                key={transaction.id}
+                className="border-b-grey-500/20 border-b py-3 first:pt-0 last:border-b-0 last:pb-0"
+              >
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-4">
+                    <TransactionEmoji
+                      emoji={transaction.emoji}
+                      className="bg-white"
+                    />
+                    <span className="txt-preset-5-bold">
+                      {transaction.name}
+                    </span>
+                  </div>
+                  <div className="space-y-1 text-right">
+                    <p className="txt-preset-5-bold">
+                      -{formatCurrency(transaction.amount)}
+                    </p>
+                    <p className="txt-preset-5 text-grey-500">
+                      {formatDate(transaction.transactionDate, {
+                        showTime: true,
+                      })}
+                    </p>
                   </div>
                 </div>
-              ))}
-            </div>
-          </div>
-        )}
+              </div>
+            ))
+          ) : (
+            <InlineEmptyState
+              message="No transactions yet"
+              color={
+                COLOR_OPTIONS.find((color) => color.value === budget.colorTag)
+                  ?.label
+              }
+            />
+          )}
+        </div>
       </div>
     </Card>
   );

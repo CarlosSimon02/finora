@@ -4,6 +4,7 @@ export * from "./ColoredAmountItem";
 export * from "./CurrencyInput";
 export * from "./EmptyState";
 export * from "./ErrorState";
+export * from "./InlineEmptyState";
 export * from "./Input";
 export * from "./Label";
 export * from "./Logo";

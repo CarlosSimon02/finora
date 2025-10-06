@@ -1,135 +1,110 @@
-import { BudgetsSummaryDto, BudgetWithTransactionsDto } from "@/core/schemas";
+"use client";
+
+import { trpc } from "@/lib/trpc/client";
 import { FrontViewLayout } from "@/presentation/components/Layouts";
+import {
+  Card,
+  ErrorState,
+  InlineEmptyState,
+} from "@/presentation/components/Primitives";
 import { Pagination } from "@/presentation/components/UI";
+import { usePagination } from "@/presentation/hooks";
 import { BudgetCard } from "./BudgetCard";
+import { BudgetCardSkeleton } from "./BudgetCardSkeleton";
 import { CreateBudgetDialog } from "./CreateBudgetDialog";
 import { SpendingSummaryCard } from "./SpendingSummaryCard";
+import { SpendingSummaryCardSkeleton } from "./SpendingSummaryCardSkeleton";
 
 export const Budgets = () => {
-  const tempBudgetsSummary: BudgetsSummaryDto = {
-    totalMaxSpending: 1000,
-    totalSpending: 500,
-    count: 3,
-    budgets: [
-      {
-        id: "1",
-        name: "Budget 1",
-        colorTag: "#277C78",
-        totalSpending: 100,
-        maximumSpending: 1000,
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      },
-      {
-        id: "2",
-        name: "Budget 2",
-        colorTag: "#F2CDAC",
-        totalSpending: 200,
-        maximumSpending: 1000,
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      },
-      {
-        id: "3",
-        name: "Budget 3",
-        colorTag: "#82C9D7",
-        totalSpending: 300,
-        maximumSpending: 1000,
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      },
-    ],
-  };
+  const pageSize = 4;
+  const { page, setPage, validatedParams } = usePagination({
+    defaultPage: 1,
+    defaultPerPage: pageSize,
+    includeParams: ["pagination"],
+  });
 
-  const tempBudgetsWithTransactions: BudgetWithTransactionsDto[] = [
-    {
-      ...tempBudgetsSummary.budgets[0],
-      transactions: [
-        {
-          id: "1",
-          name: "Transaction 1",
-          amount: 100,
-          type: "expense",
-          recipientOrPayer: "Transaction 1",
-          transactionDate: new Date(),
-          description: "Transaction 1",
-          emoji: "💰",
-          createdAt: new Date(),
-          updatedAt: new Date(),
-          category: {
-            id: "1",
-            name: "Category 1",
-            colorTag: "#277C78",
-          },
-        },
-      ],
-    },
-    {
-      ...tempBudgetsSummary.budgets[1],
-      transactions: [
-        {
-          id: "2",
-          name: "Transaction 2",
-          amount: 200,
-          type: "expense",
-          recipientOrPayer: "Transaction 2",
-          transactionDate: new Date(),
-          description: "Transaction 2",
-          emoji: "💰",
-          createdAt: new Date(),
-          updatedAt: new Date(),
-          category: {
-            id: "2",
-            name: "Category 2",
-            colorTag: "#F2CDAC",
-          },
-        },
-      ],
-    },
-    {
-      ...tempBudgetsSummary.budgets[2],
-      transactions: [
-        {
-          id: "3",
-          name: "Transaction 3",
-          amount: 300,
-          type: "expense",
-          recipientOrPayer: "Transaction 3",
-          transactionDate: new Date(),
-          description: "Transaction 3",
-          emoji: "💰",
-          createdAt: new Date(),
-          updatedAt: new Date(),
-          category: {
-            id: "3",
-            name: "Category 3",
-            colorTag: "#82C9D7",
-          },
-        },
-      ],
-    },
-  ];
+  const {
+    data: budgetsSummary,
+    isLoading: isLoadingBudgetsSummary,
+    error: errorBudgetsSummary,
+  } = trpc.getBudgetsSummary.useQuery();
 
-  return (
-    <FrontViewLayout title="Budgets" actions={<CreateBudgetDialog />}>
-      <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
-        <div className="lg:col-span-1">
-          <SpendingSummaryCard budgetsSummary={tempBudgetsSummary} />
-        </div>
-        <div className="lg:col-span-2">
-          <div className="space-y-6">
-            <div className="grid grid-cols-1 gap-6">
-              {tempBudgetsWithTransactions.map((budget) => (
-                <BudgetCard key={budget.id} budget={budget} />
-              ))}
-            </div>
+  const {
+    data: budgets,
+    isLoading: isLoadingBudgets,
+    error: errorBudgets,
+  } = trpc.getPaginatedBudgetsWithTransactions.useQuery({
+    search: validatedParams.search,
+    filters: validatedParams.filters,
+    sort: validatedParams.sort || { field: "createdAt", order: "desc" },
+    pagination: { page, perPage: pageSize },
+  });
 
-            {tempBudgetsWithTransactions.length > 1 && (
-              <Pagination currentPage={1} totalPages={1} />
+  const body = (() => {
+    if (errorBudgetsSummary || errorBudgets) {
+      return (
+        <Card className="grid place-items-center gap-6 p-4 py-10">
+          <ErrorState />
+        </Card>
+      );
+    }
+
+    if (!budgetsSummary || !budgets) {
+      return (
+        <Card className="grid place-items-center gap-6 p-4 py-10">
+          <InlineEmptyState message="No budgets found" color="Gold" />
+        </Card>
+      );
+    }
+
+    return (
+      <div className="flex flex-col items-start gap-6 @4xl:flex-row">
+        <div className="flex flex-col items-start gap-6 @4xl:flex-row">
+          {isLoadingBudgetsSummary ? (
+            <SpendingSummaryCardSkeleton />
+          ) : (
+            <SpendingSummaryCard
+              budgetsSummary={budgetsSummary}
+              className="w-full min-w-[21.25rem] basis-5/11"
+            />
+          )}
+          <div className="w-full">
+            {isLoadingBudgets ? (
+              <BudgetCardSkeleton />
+            ) : (
+              <div className="space-y-6">
+                <div className="grid grid-cols-1 gap-6">
+                  {budgets.data.map((budget) => (
+                    <BudgetCard key={budget.id} budget={budget} />
+                  ))}
+                </div>
+
+                {(() => {
+                  const totalItems = budgets.meta?.pagination?.totalItems ?? 0;
+                  const totalPages = Math.max(
+                    1,
+                    Math.ceil(totalItems / pageSize)
+                  );
+                  return totalPages > 1 ? (
+                    <Pagination
+                      currentPage={page}
+                      totalPages={totalPages}
+                      onPageChange={setPage}
+                    />
+                  ) : null;
+                })()}
+              </div>
             )}
           </div>
         </div>
       </div>
-    </FrontViewLayout>
+    );
+  })();
+
+  return (
+    <FrontViewLayout
+      title="Budgets"
+      actions={<CreateBudgetDialog />}
+    ></FrontViewLayout>
   );
 };

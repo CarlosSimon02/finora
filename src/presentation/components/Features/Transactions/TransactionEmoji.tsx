@@ -14,7 +14,7 @@ export const TransactionEmoji = ({
   return (
     <div
       className={cn(
-        "bg-grey-100 flex h-10 w-10 items-center justify-center rounded-full",
+        "bg-grey-100 flex h-10 w-10 shrink-0 items-center justify-center rounded-full",
         className
       )}
     >

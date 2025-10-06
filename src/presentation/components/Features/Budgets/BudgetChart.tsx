@@ -62,9 +62,10 @@ export const BudgetChart = ({
                       <tspan
                         x={viewBox.cx}
                         y={(viewBox.cy || 0) - 3}
-                        className="!txt-preset-1 fill-grey-900"
+                        className="!txt-preset-1 fill-grey-900 !max-w-[8ch]"
+                        width="8ch"
                       >
-                        {formatCurrency(totalSpent)}
+                        {formatCurrency(totalSpent, false, "PHP", false)}
                       </tspan>
                       <tspan
                         x={viewBox.cx}
