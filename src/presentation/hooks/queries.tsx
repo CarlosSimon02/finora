@@ -1,4 +1,3 @@
-// hooks/usePagination.ts
 import { PaginationParams, paginationParamsSchema } from "@/core/schemas";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useMemo } from "react";

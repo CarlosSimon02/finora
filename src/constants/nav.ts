@@ -1,5 +1,6 @@
 import {
   ArrowsDownUpIcon,
+  BankIcon,
   ChartDonutIcon,
   HouseIcon,
   ReceiptIcon,
@@ -16,6 +17,11 @@ export const NAV_MAIN = [
     title: "Transactions",
     url: "/transactions",
     icon: ArrowsDownUpIcon,
+  },
+  {
+    title: "Incomes",
+    url: "/incomes",
+    icon: BankIcon,
   },
   {
     title: "Budgets",

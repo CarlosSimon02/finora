@@ -41,7 +41,7 @@ export const TransactionsSection = ({
                       transaction.amount > 0 && "text-secondary-green"
                     )}
                   >
-                    {formatCurrency(transaction.amount, true)}
+                    {formatCurrency(transaction.amount, { showPlus: true })}
                   </p>
                   <p className="txt-preset-5 text-grey-500">
                     {formatDate(transaction.transactionDate)}

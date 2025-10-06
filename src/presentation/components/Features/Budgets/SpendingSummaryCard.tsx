@@ -2,7 +2,7 @@
 
 import { BudgetsSummaryDto } from "@/core/schemas/budgetSchema";
 import { Card } from "@/presentation/components/Primitives";
-import { cn } from "@/utils";
+import { cn, formatCurrency } from "@/utils";
 import { BudgetChart } from "./BudgetChart";
 
 type SpendingSummaryCardProps = {
@@ -42,11 +42,14 @@ export const SpendingSummaryCard = ({
               </div>
               <div className="txt-preset-5 text-right">
                 <span className="txt-preset-3 text-grey-900 mr-1">
-                  ₱{Math.abs(budget.totalSpending).toLocaleString()}
+                  {formatCurrency(budget.totalSpending, { showDecimal: false })}
                 </span>
                 <span className="text-muted-foreground">
                   {" "}
-                  of ₱{budget.maximumSpending.toLocaleString()}
+                  of{" "}
+                  {formatCurrency(budget.maximumSpending, {
+                    showDecimal: false,
+                  })}
                 </span>
               </div>
             </div>

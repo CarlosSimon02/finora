@@ -26,17 +26,21 @@ export const formatDate = (
 
 export const formatCurrency = (
   amount: number,
-  showPlus = false,
-  currency = "PHP",
-  showDecimal: boolean = true
+  options: {
+    showPlus?: boolean;
+    currency?: string;
+    showDecimal?: boolean;
+  } = {}
 ): string => {
+  const { showPlus = false, currency = "PHP", showDecimal = true } = options;
+
   const isNegative = amount < 0;
   const isPositive = amount > 0;
   const absoluteAmount = Math.abs(amount);
 
   const formatted = new Intl.NumberFormat("en-PH", {
     style: "currency",
-    currency,
+    currency: currency,
     minimumFractionDigits: showDecimal ? 2 : 0,
     maximumFractionDigits: showDecimal ? 2 : 0,
   }).format(absoluteAmount);

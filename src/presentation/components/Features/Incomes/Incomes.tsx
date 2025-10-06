@@ -1,6 +1,6 @@
 "use client";
 
-import { BUDGET_DEFAULT_PER_PAGE } from "@/core/constants";
+import { INCOME_DEFAULT_PER_PAGE } from "@/core/constants";
 import { trpc } from "@/lib/trpc/client";
 import { FrontViewLayout } from "@/presentation/components/Layouts";
 import {
@@ -11,46 +11,46 @@ import {
 import { Pagination } from "@/presentation/components/UI";
 import { usePagination } from "@/presentation/hooks";
 import { cn } from "@/utils";
-import { ChartBarIcon } from "@phosphor-icons/react";
-import { BudgetCard } from "./BudgetCard";
-import { BudgetCardSkeleton } from "./BudgetCardSkeleton";
-import { CreateBudgetDialog } from "./CreateBudgetDialog";
-import { SpendingSummaryCard as SpendingSummaryCardComponent } from "./SpendingSummaryCard";
-import { SpendingSummaryCardSkeleton } from "./SpendingSummaryCardSkeleton";
+import { CurrencyCircleDollarIcon } from "@phosphor-icons/react";
+import { CreateIncomeDialog } from "./CreateIncomeDialog";
+import { EarningsSummaryCard as EarningsSummaryCardComponent } from "./EarningsSummaryCard";
+import { EarningsSummaryCardSkeleton } from "./EarningsSummaryCardSkeleton";
+import { IncomeCard } from "./IncomeCard";
+import { IncomeCardSkeleton } from "./IncomeCardSkeleton";
 
-type SpendingSummaryCardProps = {
+type EarningsSummaryCardProps = {
   className?: string;
 };
 
-const SpendingSummaryCard = ({ className }: SpendingSummaryCardProps) => {
-  const { data, isLoading, error } = trpc.getBudgetsSummary.useQuery();
+const EarningsSummaryCard = ({ className }: EarningsSummaryCardProps) => {
+  const { data, isLoading, error } = trpc.getIncomesSummary.useQuery();
 
   if (isLoading) {
-    return <SpendingSummaryCardSkeleton className={cn(className)} />;
+    return <EarningsSummaryCardSkeleton className={cn(className)} />;
   }
 
   if (error) {
     return <></>;
   }
 
-  if (!data) {
+  if (!data || !data.count) {
     return <></>;
   }
 
   return (
-    <SpendingSummaryCardComponent
-      budgetsSummary={data}
+    <EarningsSummaryCardComponent
+      incomesSummary={data}
       className={cn(className)}
     />
   );
 };
 
-type BudgetCardsGridProps = {
+type IncomeCardsGridProps = {
   className?: string;
 };
 
-const BudgetCardsGrid = ({ className }: BudgetCardsGridProps) => {
-  const pageSize = BUDGET_DEFAULT_PER_PAGE;
+const IncomeCardsGrid = ({ className }: IncomeCardsGridProps) => {
+  const pageSize = INCOME_DEFAULT_PER_PAGE;
 
   const { page, setPage, validatedParams } = usePagination({
     defaultPage: 1,
@@ -59,7 +59,7 @@ const BudgetCardsGrid = ({ className }: BudgetCardsGridProps) => {
   });
 
   const { data, isLoading, error } =
-    trpc.getPaginatedBudgetsWithTransactions.useQuery({
+    trpc.getPaginatedIncomesWithTransactions.useQuery({
       ...validatedParams,
       sort: validatedParams.sort || { field: "createdAt", order: "desc" },
     });
@@ -69,7 +69,7 @@ const BudgetCardsGrid = ({ className }: BudgetCardsGridProps) => {
       return (
         <div className="space-y-6">
           {Array.from({ length: 4 }).map((_, idx) => (
-            <BudgetCardSkeleton key={idx} />
+            <IncomeCardSkeleton key={idx} />
           ))}
         </div>
       );
@@ -87,10 +87,10 @@ const BudgetCardsGrid = ({ className }: BudgetCardsGridProps) => {
       return (
         <Card className="grid place-items-center gap-6 p-4 py-10">
           <EmptyState
-            title="No budgets found"
-            message="Create your first budget to start tracking your spending."
-            icon={ChartBarIcon}
-            action={<CreateBudgetDialog />}
+            title="No incomes found"
+            message="Create your first income to start tracking your earnings."
+            icon={CurrencyCircleDollarIcon}
+            action={<CreateIncomeDialog />}
           />
         </Card>
       );
@@ -99,8 +99,8 @@ const BudgetCardsGrid = ({ className }: BudgetCardsGridProps) => {
     return (
       <div className="space-y-6">
         <div className="grid grid-cols-1 gap-6">
-          {data.data.map((budget) => (
-            <BudgetCard key={budget.id} budget={budget} />
+          {data.data.map((income) => (
+            <IncomeCard key={income.id} income={income} />
           ))}
         </div>
 
@@ -122,12 +122,12 @@ const BudgetCardsGrid = ({ className }: BudgetCardsGridProps) => {
   return <div className={cn(className)}>{body}</div>;
 };
 
-export const Budgets = () => {
+export const Incomes = () => {
   return (
-    <FrontViewLayout title="Budgets" actions={<CreateBudgetDialog />}>
+    <FrontViewLayout title="Incomes" actions={<CreateIncomeDialog />}>
       <div className="flex flex-col items-start gap-6 @4xl:flex-row">
-        <SpendingSummaryCard className="w-full min-w-[21.25rem] basis-5/11" />
-        <BudgetCardsGrid className="w-full" />
+        <EarningsSummaryCard className="w-full min-w-[21.25rem] basis-5/11" />
+        <IncomeCardsGrid className="w-full" />
       </div>
     </FrontViewLayout>
   );

@@ -1,33 +1,30 @@
 "use client";
-import { BudgetDto } from "@/core/schemas";
+import { IncomeDtoWithTotalEarned } from "@/core/schemas/incomeSchema";
 import { Chart } from "@/presentation/components/UI";
 import { formatCurrency } from "@/utils";
 import { Label, Pie, PieChart } from "recharts";
 
-type BudgetChartProps = {
-  budgetData: BudgetDto[];
-  totalSpent: number;
-  totalLimit: number;
+type IncomeChartProps = {
+  incomeData: IncomeDtoWithTotalEarned[];
+  totalEarned: number;
 };
 
-export const BudgetChart = ({
-  budgetData,
-  totalSpent,
-  totalLimit,
-}: BudgetChartProps) => {
-  // Format data for the chart
-  const chartData = budgetData.map((budget) => ({
-    name: budget.name,
-    value: budget.maximumSpending,
-    fill: budget.colorTag,
+export const IncomeChart = ({
+  incomeData,
+  totalEarned = 0,
+}: IncomeChartProps) => {
+  const chartData = incomeData.map((income) => ({
+    name: income.name,
+    value: income.totalEarned,
+    fill: income.colorTag,
   }));
 
-  const chartConfig = budgetData.reduce<
+  const chartConfig = incomeData.reduce<
     Record<string, { label: string; color: string }>
-  >((acc, budget) => {
-    acc[budget.name.toLowerCase()] = {
-      label: budget.name,
-      color: budget.colorTag,
+  >((acc, income) => {
+    acc[income.name.toLowerCase()] = {
+      label: income.name,
+      color: income.colorTag,
     };
     return acc;
   }, {});
@@ -65,15 +62,14 @@ export const BudgetChart = ({
                         className="!txt-preset-1 fill-grey-900 !max-w-[8ch]"
                         width="8ch"
                       >
-                        {formatCurrency(totalSpent, { showDecimal: false })}
+                        {formatCurrency(totalEarned, { showDecimal: false })}
                       </tspan>
                       <tspan
                         x={viewBox.cx}
                         y={(viewBox.cy || 0) + 25}
                         className="txt-preset-5 fill-grey-500"
                       >
-                        of {formatCurrency(totalLimit, { showDecimal: false })}{" "}
-                        limit
+                        total earned
                       </tspan>
                     </text>
                   );
