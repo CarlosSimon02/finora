@@ -76,7 +76,7 @@ export const CreateUpdateTransactionDialog = ({
       recipientOrPayer: initialData?.recipientOrPayer ?? "",
       transactionDate: initialData?.transactionDate ?? new Date(),
       description: initialData?.description ?? "",
-      emoji: initialData?.emoji ?? "",
+      emoji: initialData?.emoji ?? "📃",
       categoryId: category?.value ?? "",
     }),
     [initialData, category]
@@ -202,14 +202,21 @@ export const CreateUpdateTransactionDialog = ({
             onSubmit={form.handleSubmit(handleSubmit)}
             className="space-y-5"
           >
-            <div className="grid w-full grid-cols-2 gap-2">
+            <div className="grid w-full grid-cols-2 items-start gap-2">
               <Form.InputField
                 control={form.control}
                 name="type"
                 label="Transaction Type"
                 disabled={isSubmitting}
                 inputComponent={({ field }) => (
-                  <TransactionTypeSelect {...field} />
+                  <TransactionTypeSelect
+                    value={field.value}
+                    onValueChange={field.onChange}
+                    disabled={field.disabled}
+                    defaultValue={field.value}
+                    onBlur={field.onBlur}
+                    name={field.name}
+                  />
                 )}
               />
               <Form.InputField
@@ -233,7 +240,7 @@ export const CreateUpdateTransactionDialog = ({
               />
             </div>
 
-            <div className="grid w-full grid-cols-[1fr_30%] gap-2">
+            <div className="grid w-full grid-cols-[1fr_30%] items-start gap-2">
               <Form.InputField
                 control={form.control}
                 name="name"

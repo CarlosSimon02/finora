@@ -38,11 +38,10 @@ export function buildQueryFromParams(
 
   // Apply sort (fallback to createdAt asc if missing)
   const sort = params.sort || { field: "createdAt", order: "asc" as const };
-  // If search already ordered by searchField, allow secondary order for stability
-  if (!(params.search && sort.field === searchField)) {
+  // If search already ordered by the same field, avoid duplicate orderBy
+  if (!params.search) {
     q = q.orderBy(sort.field, sort.order);
-  } else {
-    // Ensure stable ordering when search is active and sort matches searchField
+  } else if (sort.field !== searchField) {
     q = q.orderBy(sort.field, sort.order);
   }
 

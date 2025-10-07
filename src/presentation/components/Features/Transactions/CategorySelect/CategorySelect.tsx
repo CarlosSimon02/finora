@@ -106,10 +106,11 @@ export const CategorySelect = ({
         loadOptions={loadOptions}
         onCreateOption={onCreateOption}
         onChange={handleChange}
-        cacheUniqs={[cacheUniq]}
+        cacheUniqs={[transactionType, cacheUniq]}
         formatOptionLabel={CategoryOptionLabel}
         placeholder={placeholder}
         selectRef={selectRef}
+        additional={{ page: 1 }}
       />
 
       <CreateUpdateBudgetDialog

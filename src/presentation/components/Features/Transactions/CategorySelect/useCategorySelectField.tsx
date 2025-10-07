@@ -23,16 +23,18 @@ export const useCategoryOptions = (transactionType: TransactionTypeDto) => {
       prevOptions: OptionsOrGroups<
         CategoryOptionType,
         GroupBase<CategoryOptionType>
-      >
+      >,
+      additional?: { page?: number }
     ) => {
       const limitPerPage = 10;
+      const nextPage = additional?.page ?? 1;
       const params: PaginationParams = {
         sort: {
           field: "name",
           order: "asc",
         },
         pagination: {
-          page: Math.floor(prevOptions.length / limitPerPage) + 1,
+          page: nextPage,
           perPage: limitPerPage,
         },
         filters: [],
@@ -44,6 +46,7 @@ export const useCategoryOptions = (transactionType: TransactionTypeDto) => {
           ? await utils.getPaginatedIncomes.fetch(params)
           : await utils.getPaginatedBudgets.fetch(params);
 
+      const hasMore = response.meta.pagination.nextPage !== null;
       return {
         options:
           response.data.map((item) => ({
@@ -51,7 +54,8 @@ export const useCategoryOptions = (transactionType: TransactionTypeDto) => {
             label: item.name,
             colorTag: item.colorTag,
           })) ?? [],
-        hasMore: response.meta.pagination.nextPage !== null,
+        hasMore,
+        additional: { page: hasMore ? nextPage + 1 : nextPage },
       };
     },
     [transactionType]
