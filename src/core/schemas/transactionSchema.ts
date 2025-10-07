@@ -1,3 +1,4 @@
+import { COLOR_OPTIONS } from "@/constants/colors";
 import { TRANSACTION_NAME_MAX_LENGTH } from "@/core/constants";
 import { z } from "zod";
 import {
@@ -7,16 +8,16 @@ import {
   nameSchema,
   optionalDescriptionSchema,
   trimmedStringSchema,
-  validateOptionalHexColor,
 } from "./helpers";
 import { createPaginationResponseSchema } from "./paginationSchema";
 
 export const transactionCategorySchema = z.object({
   id: idSchema,
   name: nameSchema,
-  colorTag: trimmedStringSchema.refine(validateOptionalHexColor, {
-    message: "Color must be a valid hex color code (e.g., #FF5733) or null",
-  }),
+  colorTag: z.enum(
+    COLOR_OPTIONS.map((o) => o.value),
+    "Color tag must be a valid color"
+  ),
 });
 
 export const transactionTypeSchema = z.enum(["income", "expense"], {
@@ -43,7 +44,7 @@ const baseTransactionSchema = z.object({
 });
 
 export const createTransactionSchema = baseTransactionSchema.extend({
-  categoryId: idSchema,
+  categoryId: trimmedStringSchema.min(1, "Category is required"),
 });
 
 export const updateTransactionSchema = createTransactionSchema.partial();
