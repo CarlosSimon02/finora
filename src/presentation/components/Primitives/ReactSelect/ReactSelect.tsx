@@ -25,7 +25,7 @@ type ReactSelectProps<
  */
 const triggerBase = (isDisabled?: boolean) =>
   cx(
-    "text-preset-4 text-grey-900 border-beige-500 placeholder:text-beige-500 cursor-pointer",
+    "text-preset-4 text-grey-900 border-beige-500 placeholder:text-beige-500 cursor-pointer h-[3.125rem]",
     "data-[is-focused=true]:border-grey-900 aria-invalid:border-secondary-red",
     "flex min-w-0 items-center justify-between gap-2 rounded-lg border bg-transparent",
     "whitespace-nowrap transition-[color] outline-none",

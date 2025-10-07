@@ -12,3 +12,4 @@ export * from "./PasswordInput";
 export * from "./ReactSelect";
 export * from "./Skeleton";
 export * from "./Sonner";
+export * from "./Textarea";

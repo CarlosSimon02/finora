@@ -99,9 +99,7 @@ export function BudgetCard({ budget }: BudgetCardProps) {
                       -{formatCurrency(transaction.amount)}
                     </p>
                     <p className="txt-preset-5 text-grey-500">
-                      {formatDate(transaction.transactionDate, {
-                        showTime: true,
-                      })}
+                      {formatDate(transaction.transactionDate)}
                     </p>
                   </div>
                 </div>

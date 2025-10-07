@@ -37,7 +37,7 @@ type CreateUpdateIncomeDialogProps = {
   onClose?: () => void;
   open?: boolean;
   onOpenChange?: (open: boolean) => void;
-  children: React.ReactNode;
+  children?: React.ReactNode;
 };
 
 export const CreateUpdateIncomeDialog = ({
@@ -154,7 +154,7 @@ export const CreateUpdateIncomeDialog = ({
 
   return (
     <Dialog open={open} onOpenChange={handleOpenChange}>
-      <Dialog.Trigger asChild>{children}</Dialog.Trigger>
+      {children && <Dialog.Trigger asChild>{children}</Dialog.Trigger>}
       <Dialog.Content>
         <Dialog.Header>
           <Dialog.Title>{title}</Dialog.Title>

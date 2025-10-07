@@ -9,18 +9,11 @@ export const normalizeNewLines = (key: string) => {
   return key.replace(/\\n/g, "\n");
 };
 
-export const formatDate = (
-  dateInput: Date,
-  options: { showTime?: boolean } = {}
-): string => {
+export const formatDate = (dateInput: Date): string => {
   return new Intl.DateTimeFormat("en-GB", {
     day: "2-digit",
     month: "short",
     year: "numeric",
-    ...(options.showTime && {
-      hour: "2-digit",
-      minute: "2-digit",
-    }),
   }).format(dateInput);
 };
 

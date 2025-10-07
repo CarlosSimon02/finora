@@ -32,7 +32,7 @@ const baseTransactionSchema = z.object({
     ),
   type: transactionTypeSchema,
   amount: moneyAmountSchema,
-  recipientOrPayer: trimmedStringSchema.nullable(),
+  recipientOrPayer: trimmedStringSchema.optional(),
   transactionDate: z.instanceof(Date, {
     message: "Transaction date must be a valid date",
   }),

@@ -35,7 +35,7 @@ export const optionalDescriptionSchema = trimmedStringSchema
     COMMON_MAX_DESCRIPTION_LENGTH,
     `Description must be at most ${COMMON_MAX_DESCRIPTION_LENGTH} characters`
   )
-  .nullable();
+  .optional();
 
 export const positiveNumberSchema = z
   .number("Must be a number")
