@@ -1,7 +1,10 @@
 "use client";
 
 import { COLOR_OPTIONS, ColorOption, ColorValue } from "@/constants/colors";
-import { optionBase, ReactSelect } from "@/presentation/components/Primitives";
+import {
+  ReactSelect,
+  rsOptionBase,
+} from "@/presentation/components/Primitives";
 import { CheckIcon } from "@phosphor-icons/react";
 import { GroupBase, components as RSComponents } from "react-select";
 import { AsyncProps } from "react-select/async";
@@ -49,7 +52,7 @@ export const ColorPickerReactSelect = ({
             role="option"
             aria-disabled={isDisabled}
             aria-selected={isSelected}
-            className={optionBase(isDisabled, isSelected)}
+            className={rsOptionBase(isDisabled, isSelected)}
           >
             <div className="flex flex-1 items-center gap-3">
               <span

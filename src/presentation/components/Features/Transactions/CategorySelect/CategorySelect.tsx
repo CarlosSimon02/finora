@@ -4,6 +4,11 @@ import { BudgetDto, IncomeDto } from "@/core/schemas";
 import { TransactionTypeDto } from "@/core/schemas/transactionSchema";
 import { CreateUpdateBudgetDialog } from "@/presentation/components/Features/Budgets";
 import { CreateUpdateIncomeDialog } from "@/presentation/components/Features/Incomes";
+import {
+  createRSSharedComponents,
+  getMenuPortalTarget,
+  rsMenuBase,
+} from "@/presentation/components/Primitives/ReactSelect/ReactSelect";
 import { ReactElement, useCallback } from "react";
 import { RefCallBack } from "react-hook-form";
 import { GroupBase } from "react-select";
@@ -27,6 +32,7 @@ type CategorySelectProps = {
   transactionType: TransactionTypeDto;
   disabled?: boolean;
   selectRef: RefCallBack;
+  "aria-invalid"?: boolean;
 };
 
 type Additional = {
@@ -54,11 +60,13 @@ const CreatableAsyncPaginate = withAsyncPaginate(
 ) as AsyncPaginateCreatableType;
 
 const CategoryOptionLabel = ({ label, colorTag }: CategoryOptionType) => (
-  <div className="flex items-center gap-2">
-    <div
-      className="size-3 rounded-full"
-      style={{ backgroundColor: colorTag }}
-    />
+  <div className="flex items-center gap-3">
+    {colorTag && (
+      <div
+        className="size-4 rounded-full"
+        style={{ backgroundColor: colorTag }}
+      />
+    )}
     <div>{label}</div>
   </div>
 );
@@ -69,6 +77,7 @@ export const CategorySelect = ({
   transactionType,
   disabled,
   selectRef,
+  "aria-invalid": ariaInvalid,
 }: CategorySelectProps) => {
   const { loadOptions } = useCategoryOptions(transactionType);
   const {
@@ -98,9 +107,18 @@ export const CategorySelect = ({
   const categoryType = transactionType === "income" ? "income" : "budget";
   const placeholder = `Select or create a ${categoryType} category`;
 
+  const components = createRSSharedComponents<
+    CategoryOptionType,
+    false,
+    GroupBase<CategoryOptionType>
+  >(ariaInvalid);
+
   return (
     <>
       <CreatableAsyncPaginate
+        menuPlacement="auto"
+        menuPosition="fixed"
+        menuPortalTarget={getMenuPortalTarget()}
         isDisabled={isAddingInProgress || disabled}
         value={selectedOption}
         loadOptions={loadOptions}
@@ -111,6 +129,25 @@ export const CategorySelect = ({
         placeholder={placeholder}
         selectRef={selectRef}
         additional={{ page: 1 }}
+        defaultOptions
+        components={{
+          Control: components.Control,
+          DropdownIndicator: components.DropdownIndicator,
+          IndicatorSeparator: components.IndicatorSeparator,
+          ValueContainer: components.ValueContainer,
+          SingleValue: components.SingleValue,
+          Placeholder: components.Placeholder,
+          Menu: components.Menu,
+          MenuList: components.MenuList,
+          Option: components.Option,
+          LoadingMessage: components.LoadingMessage,
+        }}
+        styles={{
+          menu: () => ({}),
+        }}
+        classNames={{
+          menu: () => rsMenuBase,
+        }}
       />
 
       <CreateUpdateBudgetDialog
