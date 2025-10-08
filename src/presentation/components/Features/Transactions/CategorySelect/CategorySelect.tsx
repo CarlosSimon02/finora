@@ -26,6 +26,7 @@ import {
 } from "./useCategorySelectField";
 
 type CategorySelectProps = {
+  defaultValue: CategoryOptionType | null;
   value: CategoryOptionType | null;
   onChange: (category: CategoryOptionType | null) => void;
   transactionType: TransactionTypeDto;
@@ -71,6 +72,7 @@ const CategoryOptionLabel = ({ label, colorTag }: CategoryOptionType) => (
 );
 
 export const CategorySelect = ({
+  defaultValue,
   value,
   onChange,
   transactionType,
@@ -115,6 +117,7 @@ export const CategorySelect = ({
   return (
     <>
       <CreatableAsyncPaginate
+        defaultValue={defaultValue}
         menuPlacement="auto"
         menuPosition="fixed"
         menuPortalTarget={getMenuPortalTarget()}

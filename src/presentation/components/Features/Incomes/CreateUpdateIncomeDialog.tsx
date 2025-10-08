@@ -124,7 +124,14 @@ export const CreateUpdateIncomeDialog = ({
     });
   };
 
-  const handleSubmit = async (data: CreateIncomeDto) => {
+  const handleSubmit = async (
+    data: CreateIncomeDto,
+    e?: React.BaseSyntheticEvent
+  ) => {
+    // Prevent event from bubbling to parent forms
+    e?.preventDefault();
+    e?.stopPropagation();
+
     if (operation === "update" && initialData) {
       if (!("id" in initialData)) {
         toast.error("Cannot update income: missing ID");
@@ -149,7 +156,11 @@ export const CreateUpdateIncomeDialog = ({
   return (
     <Dialog open={open} onOpenChange={handleOpenChange}>
       {children && <Dialog.Trigger asChild>{children}</Dialog.Trigger>}
-      <Dialog.Content>
+      <Dialog.Content
+        onSubmit={(e: React.FormEvent) => {
+          e.stopPropagation();
+        }}
+      >
         <Dialog.Header>
           <Dialog.Title>{title}</Dialog.Title>
           {description && (
@@ -161,9 +172,18 @@ export const CreateUpdateIncomeDialog = ({
         </Dialog.Header>
         <Form {...form}>
           <form
-            onSubmit={form.handleSubmit(handleSubmit)}
+            onSubmit={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              form.handleSubmit(handleSubmit)(e);
+            }}
+            onKeyDown={(e) => {
+              // Prevent Enter key from bubbling to parent forms
+              if (e.key === "Enter" && e.target instanceof HTMLInputElement) {
+                e.stopPropagation();
+              }
+            }}
             className="space-y-5"
-            id="create-update-income-form"
           >
             <Form.InputField
               control={form.control}
@@ -195,7 +215,6 @@ export const CreateUpdateIncomeDialog = ({
               <LoadingButton
                 type="submit"
                 isLoading={isSubmitting}
-                form="create-update-income-form"
                 loadingLabel={
                   operation === "create" ? "Creating..." : "Updating..."
                 }

@@ -190,7 +190,6 @@ export const CreateUpdateTransactionDialog = ({
           <form
             onSubmit={form.handleSubmit(handleSubmit)}
             className="space-y-5"
-            id="create-update-transaction-form"
           >
             <div className="grid w-full grid-cols-2 items-start gap-2">
               <Form.InputField
@@ -254,6 +253,7 @@ export const CreateUpdateTransactionDialog = ({
               disabled={isSubmitting}
               inputComponent={({ field }) => (
                 <CategorySelect
+                  defaultValue={category}
                   value={category}
                   onChange={(value) => {
                     setCategory(value);
@@ -291,7 +291,6 @@ export const CreateUpdateTransactionDialog = ({
               <LoadingButton
                 type="submit"
                 isLoading={isSubmitting}
-                form="create-update-transaction-form"
                 loadingLabel={
                   operation === "create" ? "Creating..." : "Updating..."
                 }
