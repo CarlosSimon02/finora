@@ -135,6 +135,22 @@ export const CreateUpdateTransactionDialog = ({
     onClose,
   });
 
+  // Reset category state when dialog opens/closes or initialData changes
+  useEffect(() => {
+    if (open) {
+      // When dialog opens, reset to initialData category or null
+      if (initialData?.category) {
+        setCategory({
+          value: initialData.category.id,
+          label: initialData.category.name,
+          colorTag: initialData.category.colorTag,
+        });
+      } else {
+        setCategory(null);
+      }
+    }
+  }, [open, initialData]);
+
   useUnsavedChangesGuard({
     isDirty: form.formState.isDirty,
     isSubmitting,
@@ -253,7 +269,6 @@ export const CreateUpdateTransactionDialog = ({
               disabled={isSubmitting}
               inputComponent={({ field }) => (
                 <CategorySelect
-                  defaultValue={category}
                   value={category}
                   onChange={(value) => {
                     setCategory(value);
