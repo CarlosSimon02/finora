@@ -60,7 +60,7 @@ export const LoginForm = () => {
               helperText={
                 <Link
                   href="/forgot-password"
-                  className="text-preset-5 underline"
+                  className="txt-preset-5 underline"
                 >
                   Forgot password?
                 </Link>

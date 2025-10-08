@@ -8,10 +8,11 @@ export const filterOperator = z.enum(["==", ">", ">=", "<", "<=", "!="]);
 export const sortOrder = z.enum(["asc", "desc"]);
 
 export const filterValue = z.union([
+  z.null(),
   trimmedStringSchema,
   z.number(),
   z.boolean(),
-  z.null(),
+  z.undefined(),
 ]);
 
 export const filterSchema = z.object({

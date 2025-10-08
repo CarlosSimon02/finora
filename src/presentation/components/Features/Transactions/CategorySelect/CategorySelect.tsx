@@ -5,7 +5,6 @@ import { CreateUpdateBudgetDialog } from "@/presentation/components/Features/Bud
 import { CreateUpdateIncomeDialog } from "@/presentation/components/Features/Incomes";
 import {
   createRSSharedComponents,
-  getMenuPortalTarget,
   rsMenuBase,
 } from "@/presentation/components/Primitives/ReactSelect/ReactSelect";
 import { ReactElement, useCallback } from "react";
@@ -117,7 +116,6 @@ export const CategorySelect = ({
       <CreatableAsyncPaginate
         menuPlacement="auto"
         menuPosition="fixed"
-        menuPortalTarget={getMenuPortalTarget()}
         isDisabled={isAddingInProgress || disabled}
         value={selectedOption}
         loadOptions={loadOptions}

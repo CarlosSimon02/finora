@@ -20,14 +20,6 @@ import {
 import AsyncSelectPrimitive, {
   type AsyncProps as SelectProps,
 } from "react-select/async";
-import { type CreatableProps } from "react-select/creatable";
-
-/**
- * Small helper to join class strings (you probably already have `cn` in your project;
- * swap this out for that if you prefer).
- */
-const cx = (...classes: Array<string | false | null | undefined>) =>
-  classes.filter(Boolean).join(" ");
 
 type ReactSelectProps<
   Option,
@@ -35,19 +27,13 @@ type ReactSelectProps<
   Group extends GroupBase<Option> = GroupBase<Option>,
 > = SelectProps<Option, IsMulti, Group>;
 
-type ReactCreatableProps<
-  Option,
-  IsMulti extends boolean = false,
-  Group extends GroupBase<Option> = GroupBase<Option>,
-> = CreatableProps<Option, IsMulti, Group>;
-
 /**
  * Tailwind classes mapped from your Radix `SelectTrigger`
  * Keep this in sync when you tweak tokens (or replace with your `cn` util).
  */
-const rsTriggerBase = (isDisabled?: boolean) =>
-  cx(
-    "text-preset-4 text-grey-900 border-beige-500 placeholder:text-beige-500 cursor-pointer h-[3.125rem]",
+export const rsTriggerBase = (isDisabled?: boolean) =>
+  cn(
+    "txt-preset-4 text-grey-900 border-beige-500 placeholder:text-beige-500 cursor-pointer h-[3.125rem]",
     "data-[is-focused=true]:border-grey-900 aria-invalid:border-secondary-red",
     "flex min-w-0 items-center justify-between gap-2 rounded-lg border bg-transparent",
     "whitespace-nowrap transition-[color] outline-none",
@@ -63,7 +49,7 @@ const rsTriggerBase = (isDisabled?: boolean) =>
  * Option classes come from your SelectItem
  */
 export const rsOptionBase = (isDisabled?: boolean, isSelected?: boolean) =>
-  cx(
+  cn(
     "txt-preset-4 [&_svg:not([class*='text-'])]:text-grey-900 transition-colors",
     "relative flex w-full cursor-pointer items-center gap-2",
     "border-b py-3 outline-hidden select-none last:border-b-0 border-b-grey-100 flex-wrap",
@@ -74,7 +60,7 @@ export const rsOptionBase = (isDisabled?: boolean, isSelected?: boolean) =>
 /**
  * Menu wrapper classes copied from SelectContent
  */
-export const rsMenuBase = cx(
+export const rsMenuBase = cn(
   "text-grey-900 relative z-99 max-h-[var(--radix-select-content-available-height)] max-h-[18.75rem]",
   "origin-[var(--radix-select-content-transform-origin)] overflow-x-hidden overflow-y-auto",
   "rounded-lg bg-white shadow-lg",
@@ -109,11 +95,11 @@ export const createRSSharedComponents = <
     return (
       <div
         ref={innerRef}
-        {...innerProps}
         aria-invalid={ariaInvalid ?? false}
         className={rsTriggerBase(isDisabled)}
         data-state={selectProps.menuIsOpen ? "open" : "closed"}
         data-is-focused={isFocused ? "true" : "false"}
+        {...innerProps}
       >
         {children}
       </div>
@@ -234,7 +220,7 @@ const sharedClassNames = {
   menu: () => rsMenuBase,
   menuList: () => "!px-5",
   option: (state: { isDisabled?: boolean; isSelected?: boolean }) =>
-    cx(rsOptionBase(state.isDisabled, state.isSelected)),
+    cn(rsOptionBase(state.isDisabled, state.isSelected)),
   groupHeading: () => "txt-preset-4 text-grey-500 px-2 py-1.5",
   dropdownIndicator: () => "h-full px-4",
   indicatorSeparator: () => "hidden",

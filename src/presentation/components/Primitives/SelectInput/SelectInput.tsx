@@ -89,7 +89,7 @@ export const SelectInput = ({
       classNames={{
         control: () =>
           cn(
-            "text-preset-4 text-grey-900 border-beige-500 focus-visible:border-grey-900 aria-invalid:border-secondary-red flex w-full min-w-0 items-center gap-2 rounded-lg border bg-transparent whitespace-nowrap transition-[color] outline-none disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50",
+            "txt-preset-4 text-grey-900 border-beige-500 focus-visible:border-grey-900 aria-invalid:border-secondary-red flex w-full min-w-0 items-center gap-2 rounded-lg border bg-transparent whitespace-nowrap transition-[color] outline-none disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50",
             size === "sm" ? "px-3 py-2" : "px-5 py-3",
             ariaInvalid && "border-secondary-red"
           ),

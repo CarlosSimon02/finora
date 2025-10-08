@@ -14,21 +14,29 @@ import {
   SortSelect,
   SORTYPE_OPTIONS,
 } from "@/presentation/components/UI";
+import { SearchInput } from "@/presentation/components/UI/SearchInput";
 import { usePagination } from "@/presentation/hooks";
 import { CurrencyDollarIcon } from "@phosphor-icons/react";
-import { SearchInput } from "../../UI/SearchInput";
+import { CategoryFilterSelect } from "./CategoryFilterSelect";
 import { CreateTransactionDialog } from "./CreateTransaction";
 import { TransactionsSkeleton } from "./TransactionsSkeleton";
 import { TransactionsTable } from "./TransactionsTable";
 
 export const Transactions = () => {
   const pageSize = TRANSACTION_DEFAULT_PER_PAGE;
-  const { page, setPage, validatedParams, search, sort, setPaginationParams } =
-    usePagination({
-      defaultPage: 1,
-      defaultPerPage: pageSize,
-      includeParams: ["pagination", "search", "sort"],
-    });
+  const {
+    page,
+    setPage,
+    validatedParams,
+    search,
+    sort,
+    setPaginationParams,
+    filters,
+  } = usePagination({
+    defaultPage: 1,
+    defaultPerPage: pageSize,
+    includeParams: ["pagination", "search", "sort", "filters"],
+  });
 
   const { data, isLoading, error } = trpc.getPaginatedTransactions.useQuery({
     ...validatedParams,
@@ -81,37 +89,66 @@ export const Transactions = () => {
   return (
     <FrontViewLayout title="Transactions" actions={<CreateTransactionDialog />}>
       <Card className="space-y-6">
-        <div className="flex items-center gap-4">
+        <div className="flex items-center justify-between gap-3 @4xl:gap-6">
           <SearchInput
-            value={search || ""}
-            onChange={(value) => {
+            defaultValue={search || ""}
+            onSearch={(value) => {
               setPaginationParams({
                 search: value || undefined,
                 pagination: { ...validatedParams.pagination, page: 1 },
               });
             }}
-            placeholder="Search transactions..."
-            className="flex-1"
+            placeholder="Search transactions"
+            className="max-w-[25rem] flex-1"
           />
-          <SortSelect
-            value={
-              SORTYPE_OPTIONS.find(
-                (option) =>
-                  option.value.field === sort?.field &&
-                  option.value.order === sort?.order
-              ) ?? DEFAULT_SORT_OPTION
-            }
-            onValueChange={(sort) => {
-              if (sort && sort.value) {
-                setPaginationParams({
-                  sort: { field: sort.value.field, order: sort.value.order },
-                  pagination: { ...validatedParams.pagination, page: 1 },
-                });
-              } else {
-                setPaginationParams({ sort: undefined });
+          <div className="flex items-center gap-3 @4xl:gap-6">
+            <SortSelect
+              value={
+                SORTYPE_OPTIONS.find(
+                  (option) =>
+                    option.value.field === sort?.field &&
+                    option.value.order === sort?.order
+                ) ?? DEFAULT_SORT_OPTION
               }
-            }}
-          />
+              onValueChange={(sort) => {
+                if (sort && sort.value) {
+                  setPaginationParams({
+                    sort: { field: sort.value.field, order: sort.value.order },
+                    pagination: { ...validatedParams.pagination, page: 1 },
+                  });
+                } else {
+                  setPaginationParams({ sort: undefined });
+                }
+              }}
+            />
+            <CategoryFilterSelect
+              value={
+                filters[0]?.value
+                  ? {
+                      label: filters[0].value as string,
+                      value: filters[0].value as string,
+                    }
+                  : { value: "all transactions", label: "All Transactions" }
+              }
+              onChange={(value) => {
+                if (value?.value === "all transactions") {
+                  setPaginationParams({
+                    filters: [],
+                  });
+                } else {
+                  setPaginationParams({
+                    filters: [
+                      {
+                        field: "category.name",
+                        operator: "==",
+                        value: value?.value,
+                      },
+                    ],
+                  });
+                }
+              }}
+            />
+          </div>
         </div>
         {body}
       </Card>

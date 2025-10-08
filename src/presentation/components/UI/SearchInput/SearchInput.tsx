@@ -1,49 +1,66 @@
 "use client";
 
 import { Input } from "@/presentation/components/Primitives";
-import { useEffect, useState } from "react";
-import { useDebouncedCallback } from "use-debounce";
+import { Tooltip } from "@/presentation/components/UI";
+import { cn } from "@/utils";
+import { MagnifyingGlass } from "@phosphor-icons/react";
+import { useState } from "react";
 
-type SearchInputProps = Omit<React.ComponentProps<typeof Input>, "onChange"> & {
-  onChange?: (value: string) => void;
-  value?: string;
-  debounceMs?: number;
-  onImmediateChange?: (value: string) => void;
+type SearchInputProps = Omit<
+  React.ComponentProps<typeof Input>,
+  "type" | "onChange"
+> & {
+  onSearch?: (value: string) => void;
+  defaultValue?: string;
 };
 
 export const SearchInput = ({
-  onChange,
-  value: controlledValue,
-  debounceMs = 300,
-  onImmediateChange,
+  className,
+  onSearch,
+  defaultValue = "",
   ...props
 }: SearchInputProps) => {
-  const [internalValue, setInternalValue] = useState(controlledValue ?? "");
+  const [searchValue, setSearchValue] = useState(defaultValue);
 
-  useEffect(() => {
-    if (controlledValue !== undefined) {
-      setInternalValue(controlledValue);
+  const handleSearch = () => {
+    onSearch?.(searchValue);
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      handleSearch();
     }
-  }, [controlledValue]);
-
-  const debouncedOnChange = useDebouncedCallback((value: string) => {
-    onChange?.(value);
-  }, debounceMs);
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newValue = e.target.value;
-    setInternalValue(newValue);
-    onImmediateChange?.(newValue);
-    debouncedOnChange(newValue);
   };
 
   return (
-    <Input
-      type="search"
-      placeholder="Search"
-      value={internalValue}
-      onChange={handleChange}
-      {...props}
-    />
+    <div className={cn("relative", className)}>
+      <Input
+        type="search"
+        placeholder="Search"
+        value={searchValue}
+        onChange={(e) => setSearchValue(e.target.value)}
+        onKeyDown={handleKeyDown}
+        className="pr-[3.125rem]"
+        {...props}
+      />
+      <Tooltip.Provider>
+        <Tooltip>
+          <Tooltip.Trigger asChild>
+            <button
+              className="text-grey-900 hover:text-grey-500 absolute top-0 right-0 h-full px-4 transition-colors"
+              type="button"
+              onClick={handleSearch}
+              aria-label="Search"
+            >
+              <MagnifyingGlass size={20} weight="bold" />
+              <span className="sr-only">Search</span>
+            </button>
+          </Tooltip.Trigger>
+          <Tooltip.Content>
+            <p>Search</p>
+          </Tooltip.Content>
+        </Tooltip>
+      </Tooltip.Provider>
+    </div>
   );
 };
