@@ -12,6 +12,7 @@ export const INCOME_SUMMARY_MAX_ITEMS = COLOR_OPTIONS.length;
 export const INCOME_TRANSACTION_PREVIEW_MAX_COUNT = 50;
 export const INCOME_DEFAULT_PER_PAGE = 4;
 
+export const POT_SUMMARY_MAX_ITEMS = COLOR_OPTIONS.length;
 export const POT_TARGET_MIN = 1;
 export const POT_MONEY_OPERATION_MIN = 1;
 export const POT_DEFAULT_PER_PAGE = 6;

@@ -2,6 +2,7 @@ import { COLOR_OPTIONS } from "@/constants/colors";
 import {
   COMMON_MAX_NUMBER,
   POT_MONEY_OPERATION_MIN,
+  POT_SUMMARY_MAX_ITEMS,
   POT_TARGET_MIN,
 } from "@/core/constants";
 import { z } from "zod";
@@ -54,6 +55,26 @@ export const moneyOperationSchema = z.object({
       "Amount must have at most 2 decimal places"
     ),
 });
+
+export const potsSummarySchema = z.object({
+  totalEarned: z.number().int().nonnegative(),
+  count: z.number().int().nonnegative(),
+  incomes: z.array(potSchema),
+});
+
+export const incomesSummaryParamsSchema = z
+  .object({
+    maxIncomesToShow: z
+      .number()
+      .int()
+      .min(1, "Max incomes to show must be greater than 0")
+      .max(
+        POT_SUMMARY_MAX_ITEMS,
+        `Max incomes to show must be at most ${POT_SUMMARY_MAX_ITEMS}`
+      )
+      .optional(),
+  })
+  .default({});
 
 export type CreatePotDto = z.infer<typeof createPotSchema>;
 export type UpdatePotDto = z.infer<typeof updatePotSchema>;
