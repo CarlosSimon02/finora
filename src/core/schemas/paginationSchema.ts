@@ -5,6 +5,8 @@ export const MAX_PER_PAGE = 100;
 
 export const filterOperator = z.enum(["==", ">", ">=", "<", "<=", "!="]);
 
+export const sortOrder = z.enum(["asc", "desc"]);
+
 export const filterValue = z.union([
   trimmedStringSchema,
   z.number(),
@@ -30,7 +32,7 @@ export const paginationParamsSchema = z.object({
   sort: z
     .object({
       field: trimmedStringSchema,
-      order: z.enum(["asc", "desc"]).default("asc"),
+      order: sortOrder.default("asc"),
     })
     .optional(),
 
@@ -58,7 +60,7 @@ export const paginationResponseBaseSchema = z.object({
     sort: z
       .object({
         field: trimmedStringSchema.optional(),
-        order: z.enum(["asc", "desc"]).optional(),
+        order: sortOrder.optional(),
       })
       .optional(),
     filters: z.array(filterSchema).optional(),
@@ -87,3 +89,4 @@ export type PaginationMeta = z.infer<typeof paginationMetaSchema>;
 export type PaginatedResponse<T extends ZodTypeAny> = z.infer<
   ReturnType<typeof createPaginationResponseSchema<T>>
 >;
+export type SortOrder = z.infer<typeof sortOrder>;
