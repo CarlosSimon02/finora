@@ -8,24 +8,31 @@ import {
   EmptyState,
   ErrorState,
 } from "@/presentation/components/Primitives";
-import { Pagination } from "@/presentation/components/UI";
+import {
+  DEFAULT_SORT_OPTION,
+  Pagination,
+  SortSelect,
+  SORTYPE_OPTIONS,
+} from "@/presentation/components/UI";
 import { usePagination } from "@/presentation/hooks";
 import { CurrencyDollarIcon } from "@phosphor-icons/react";
+import { SearchInput } from "../../UI/SearchInput";
 import { CreateTransactionDialog } from "./CreateTransaction";
 import { TransactionsSkeleton } from "./TransactionsSkeleton";
 import { TransactionsTable } from "./TransactionsTable";
 
 export const Transactions = () => {
   const pageSize = TRANSACTION_DEFAULT_PER_PAGE;
-  const { page, setPage, validatedParams, search } = usePagination({
-    defaultPage: 1,
-    defaultPerPage: pageSize,
-    includeParams: ["pagination", "search"],
-  });
+  const { page, setPage, validatedParams, search, sort, setPaginationParams } =
+    usePagination({
+      defaultPage: 1,
+      defaultPerPage: pageSize,
+      includeParams: ["pagination", "search", "sort"],
+    });
 
   const { data, isLoading, error } = trpc.getPaginatedTransactions.useQuery({
     ...validatedParams,
-    sort: validatedParams.sort || { field: "createdAt", order: "desc" },
+    sort: validatedParams.sort || DEFAULT_SORT_OPTION.value,
   });
 
   const body = (() => {
@@ -73,7 +80,41 @@ export const Transactions = () => {
 
   return (
     <FrontViewLayout title="Transactions" actions={<CreateTransactionDialog />}>
-      <Card className="space-y-6">{body}</Card>
+      <Card className="space-y-6">
+        <div className="flex items-center gap-4">
+          <SearchInput
+            value={search || ""}
+            onChange={(value) => {
+              setPaginationParams({
+                search: value || undefined,
+                pagination: { ...validatedParams.pagination, page: 1 },
+              });
+            }}
+            placeholder="Search transactions..."
+            className="flex-1"
+          />
+          <SortSelect
+            value={
+              SORTYPE_OPTIONS.find(
+                (option) =>
+                  option.value.field === sort?.field &&
+                  option.value.order === sort?.order
+              ) ?? DEFAULT_SORT_OPTION
+            }
+            onValueChange={(sort) => {
+              if (sort && sort.value) {
+                setPaginationParams({
+                  sort: { field: sort.value.field, order: sort.value.order },
+                  pagination: { ...validatedParams.pagination, page: 1 },
+                });
+              } else {
+                setPaginationParams({ sort: undefined });
+              }
+            }}
+          />
+        </div>
+        {body}
+      </Card>
     </FrontViewLayout>
   );
 };

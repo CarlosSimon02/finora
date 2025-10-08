@@ -10,5 +10,7 @@ export * from "./LimitHasReachedDialog";
 export * from "./LoadingButton";
 export * from "./Pagination";
 export * from "./Popover";
+export * from "./SearchInput";
 export * from "./Select";
+export * from "./SortSelect";
 export * from "./ToolTip";
