@@ -42,6 +42,7 @@ const SelectTrigger = ({
   ...props
 }: TriggerProps) => (
   <SelectPrimitive.Trigger
+    suppressHydrationWarning
     data-slot="select-trigger"
     className={cn(
       "txt-preset-4 text-grey-900 border-beige-500 placeholder:text-beige-500 focus-visible:border-grey-900 aria-invalid:border-secondary-red flex !h-[3.125rem] min-w-0 items-center justify-between gap-2 rounded-lg border bg-transparent px-5 py-3 whitespace-nowrap transition-[color] outline-none disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50",
@@ -108,7 +109,7 @@ const SelectItem = ({ className, children, ...props }: ItemProps) => (
   <SelectPrimitive.Item
     data-slot="select-item"
     className={cn(
-      "focus:bg-accent txt-preset-4 focus:text-grey-500 [&_svg:not([class*='text-'])]:text-grey-900 border-grey-100 relative flex w-full cursor-pointer items-center gap-2 rounded-sm border-b py-3 pr-8 pl-0 outline-hidden select-none last:border-b-0 data-[disabled]:pointer-events-none data-[disabled]:opacity-50 data-[state=checked]:font-bold [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 *:[span]:last:flex *:[span]:last:items-center *:[span]:last:gap-2",
+      "txt-preset-4 hover:text-grey-500 [&_svg:not([class*='text-'])]:text-grey-900 border-grey-100 relative flex w-full cursor-pointer items-center gap-2 rounded-sm border-b py-3 pr-8 pl-0 outline-hidden select-none last:border-b-0 data-[disabled]:pointer-events-none data-[disabled]:opacity-50 data-[state=checked]:font-bold [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 *:[span]:last:flex *:[span]:last:items-center *:[span]:last:gap-2",
       className
     )}
     {...props}

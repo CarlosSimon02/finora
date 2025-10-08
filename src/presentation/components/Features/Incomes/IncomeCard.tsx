@@ -51,6 +51,7 @@ export function IncomeCard({ income }: IncomeCardProps) {
               size: "sm",
               loc: "right",
             }}
+            href={`/transactions?filters=[{"field"%3A"category.name"%2C"operator"%3A"%3D%3D"%2C"value"%3A"${income.name}"}]`}
           />
         </div>
 
