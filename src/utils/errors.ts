@@ -20,9 +20,21 @@ export class DomainValidationError extends Error {
 }
 
 export class DatasourceError extends Error {
-  constructor(message: string = "Datasource operation failed") {
+  cause?: unknown;
+  originalError?: Error;
+
+  constructor(
+    message: string = "Datasource operation failed",
+    cause?: unknown
+  ) {
     super(message);
     this.name = "DatasourceError";
+    this.cause = cause;
+    if (cause instanceof Error) {
+      this.originalError = cause;
+      // Preserve the original stack trace
+      this.stack = cause.stack;
+    }
   }
 }
 

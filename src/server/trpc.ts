@@ -1,6 +1,6 @@
 import { authConfig } from "@/config/nextFirebaseAuthEdge";
 import { tokensToUser } from "@/lib/auth/authTokens";
-import { getErrorMetadata, getValidationErrors } from "@/utils";
+import { debugLog, getErrorMetadata, getValidationErrors } from "@/utils";
 import { initTRPC, TRPCError } from "@trpc/server";
 import { getTokens } from "next-firebase-auth-edge";
 import { NextRequest } from "next/server";
@@ -73,11 +73,110 @@ function mapToTrpcError(err: unknown): TRPCError {
   });
 }
 
+// Helper function to ensure error logging always works
+function logError(message: string) {
+  // Use multiple methods to ensure visibility
+  console.error(message);
+  console.log(message);
+  if (typeof process !== "undefined" && process.stderr) {
+    process.stderr.write(message + "\n");
+  }
+}
+
 // Global error adapter so all procedures share consistent error mapping
-const errorAdapter = t.middleware(async ({ next }) => {
+const errorAdapter = t.middleware(async ({ next, path, type }) => {
+  const startTime = Date.now();
+
+  // Log every procedure call for debugging
+  console.log(`[TRPC] ${type.toUpperCase()} ${path} - Started`);
+
   try {
-    return await next();
+    const result = await next();
+    const duration = Date.now() - startTime;
+    console.log(
+      `[TRPC] ${type.toUpperCase()} ${path} - Success (${duration}ms)`
+    );
+    return result;
   } catch (err) {
+    const duration = Date.now() - startTime;
+
+    // Use all logging methods to ensure visibility
+    const separator = "=".repeat(80);
+    logError(separator);
+    logError("❌ TRPC ERROR CAUGHT IN MIDDLEWARE");
+    logError(separator);
+    logError(`Procedure: ${path}`);
+    logError(`Type: ${type}`);
+    logError(`Duration: ${duration}ms`);
+    logError(`Timestamp: ${new Date().toISOString()}`);
+    logError(separator);
+
+    if (err instanceof Error) {
+      logError(`Error Name: ${err.name}`);
+      logError(`Error Message: ${err.message}`);
+      logError(`Stack Trace:`);
+      logError(err.stack || "No stack trace available");
+
+      // Log additional error properties
+      const errAny = err as any;
+
+      // Check for originalError (from our DatasourceError)
+      if (errAny.originalError) {
+        logError(`\n📍 Original Error (unwrapped):`);
+        logError(`  Name: ${errAny.originalError.name}`);
+        logError(`  Message: ${errAny.originalError.message}`);
+        if (errAny.originalError.stack) {
+          logError(`  Stack: ${errAny.originalError.stack}`);
+        }
+
+        // Check if original error has the Firestore index URL
+        if (
+          errAny.originalError.message &&
+          errAny.originalError.message.includes("index")
+        ) {
+          logError("\n" + "⚠️".repeat(40));
+          logError("⚠️  FIRESTORE INDEX REQUIRED!");
+          logError("⚠️  This query requires a composite index.");
+          logError("⚠️  Look for the URL in the error message above.");
+          logError("⚠️  Click the URL to create the index automatically.");
+          logError("⚠️".repeat(40));
+        }
+      }
+
+      // Check for cause
+      if ("cause" in err && err.cause) {
+        logError(`\n📎 Error Cause:`);
+        if (err.cause instanceof Error) {
+          logError(`  Name: ${err.cause.name}`);
+          logError(`  Message: ${err.cause.message}`);
+          if (err.cause.stack) {
+            logError(`  Stack: ${err.cause.stack}`);
+          }
+        } else {
+          logError(JSON.stringify(err.cause, null, 2));
+        }
+      }
+
+      // Special handling for Firestore errors in main message
+      if (err.message && err.message.includes("index")) {
+        logError("\n" + "⚠️".repeat(40));
+        logError("⚠️  FIRESTORE INDEX REQUIRED!");
+        logError("⚠️  This query requires a composite index.");
+        logError("⚠️  Look for the URL in the error message above.");
+        logError("⚠️  Click the URL to create the index automatically.");
+        logError("⚠️".repeat(40));
+      }
+    } else {
+      logError(`Unknown Error Type: ${typeof err}`);
+      logError(`Error Value: ${JSON.stringify(err, null, 2)}`);
+    }
+
+    logError(separator);
+    logError(""); // Empty line for readability
+
+    // Also use debugLog as backup
+    debugLog("TRPC", "Error Details", err);
+
     throw mapToTrpcError(err);
   }
 });
@@ -104,6 +203,14 @@ const isAuthenticated = t.middleware(async ({ ctx, next }) => {
   return next({ ctx: { user: tokensToUser(tokens.decodedToken) } });
 });
 
+// Log middleware setup on module load
+console.log("[TRPC] Middleware setup complete - errorAdapter is active");
+
 export const router = t.router;
 export const publicProcedure = t.procedure.use(errorAdapter);
 export const protectedProcedure = publicProcedure.use(isAuthenticated);
+
+// Log that procedures are exported
+console.log(
+  "[TRPC] publicProcedure and protectedProcedure exported successfully"
+);
