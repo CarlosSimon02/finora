@@ -7,11 +7,7 @@ import {
   UpdateTransactionDto,
 } from "@/core/schemas";
 import { trpc } from "@/lib/trpc/client";
-import {
-  CurrencyInput,
-  Input,
-  Textarea,
-} from "@/presentation/components/Primitives";
+import { CurrencyInput, Input } from "@/presentation/components/Primitives";
 import {
   Dialog,
   EmojiPicker,
@@ -23,7 +19,7 @@ import {
   useFormDialog,
   useUnsavedChangesGuard,
 } from "@/presentation/hooks";
-import { hasObjectChanges, normalizeString } from "@/utils";
+import { hasObjectChanges, normalizeString, toInputDateString } from "@/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useCallback, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -73,9 +69,7 @@ export const CreateUpdateTransactionDialog = ({
       name: initialData?.name ?? "",
       type: initialData?.type ?? "expense",
       amount: initialData?.amount ?? ("" as unknown as number),
-      recipientOrPayer: initialData?.recipientOrPayer ?? "",
       transactionDate: initialData?.transactionDate ?? new Date(),
-      description: initialData?.description ?? "",
       emoji: initialData?.emoji ?? "📃",
       categoryId: category?.value ?? "",
     }),
@@ -111,8 +105,7 @@ export const CreateUpdateTransactionDialog = ({
       form.reset(getDefaultValues());
       handleOpenChange(false);
       onSuccess?.(data);
-      utils.getPaginatedTransactions.invalidate();
-      utils.getPaginatedCategories.invalidate();
+      utils.invalidate();
     },
     onError: handleError,
     onSettled,
@@ -124,11 +117,7 @@ export const CreateUpdateTransactionDialog = ({
       form.reset(getDefaultValues());
       handleOpenChange(false);
       onSuccess?.(data);
-      utils.getPaginatedTransactions.invalidate();
-      utils.getPaginatedCategories.invalidate();
-      if (initialData) {
-        utils.getTransaction.invalidate({ transactionId: initialData.id });
-      }
+      utils.invalidate();
     },
     onError: handleError,
     onSettled,
@@ -201,6 +190,7 @@ export const CreateUpdateTransactionDialog = ({
           <form
             onSubmit={form.handleSubmit(handleSubmit)}
             className="space-y-5"
+            id="create-update-transaction-form"
           >
             <div className="grid w-full grid-cols-2 items-start gap-2">
               <Form.InputField
@@ -259,20 +249,6 @@ export const CreateUpdateTransactionDialog = ({
 
             <Form.InputField
               control={form.control}
-              name="transactionDate"
-              label="Transaction Date"
-              disabled={isSubmitting}
-              inputComponent={({ field }) => (
-                <Input
-                  type="date"
-                  {...field}
-                  value={field.value?.toISOString()}
-                />
-              )}
-            />
-
-            <Form.InputField
-              control={form.control}
               name="categoryId"
               label="Category"
               disabled={isSubmitting}
@@ -291,24 +267,31 @@ export const CreateUpdateTransactionDialog = ({
 
             <Form.InputField
               control={form.control}
-              name="recipientOrPayer"
-              label="Recipient or Payer"
+              name="transactionDate"
+              label="Transaction Date"
               disabled={isSubmitting}
-              inputComponent={({ field }) => <Input {...field} />}
-            />
-
-            <Form.InputField
-              control={form.control}
-              name="description"
-              label="Description"
-              disabled={isSubmitting}
-              inputComponent={({ field }) => <Textarea {...field} />}
+              inputComponent={({ field }) => {
+                return (
+                  <Input
+                    type="date"
+                    onBlur={field.onBlur}
+                    name={field.name}
+                    disabled={field.disabled}
+                    placeholder="Select transaction date"
+                    value={toInputDateString(field.value)}
+                    onChange={(e) => {
+                      field.onChange(new Date(e.target.value));
+                    }}
+                  />
+                );
+              }}
             />
 
             <Dialog.Footer>
               <LoadingButton
                 type="submit"
                 isLoading={isSubmitting}
+                form="create-update-transaction-form"
                 loadingLabel={
                   operation === "create" ? "Creating..." : "Updating..."
                 }

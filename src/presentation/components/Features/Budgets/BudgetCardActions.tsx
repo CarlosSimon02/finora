@@ -30,9 +30,7 @@ export const BudgetCardActions = ({
     trpc.deleteBudget.useMutation({
       onSuccess: () => {
         toast.success("Pot deleted successfully!");
-        utils.getPaginatedBudgets.invalidate();
-        utils.getPaginatedBudgetsWithTransactions.invalidate();
-        utils.getBudgetsSummary.invalidate();
+        utils.invalidate();
       },
       onError: handleError,
     });

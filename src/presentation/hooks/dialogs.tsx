@@ -59,6 +59,14 @@ export const useFormDialog = <TFormValues extends FieldValues>({
     ]
   );
 
+  // Reset form when dialog opens or when getDefaultValues changes (e.g., initialData updates)
+  // This ensures the form always displays current data, especially for controlled dialogs
+  useEffect(() => {
+    if (open) {
+      form.reset(getDefaultValues());
+    }
+  }, [open, getDefaultValues, form]);
+
   return { open, handleOpenChange };
 };
 

@@ -50,3 +50,17 @@ export const normalizeString = (value: unknown): string => {
 export const normalizeNumber = (value: unknown): number => {
   return Number(value ?? 0);
 };
+
+export const toInputDateString = (val?: Date | string | null) => {
+  if (!val) return "";
+  const d = val instanceof Date ? val : new Date(val);
+  const yyyy = d.getFullYear();
+  const mm = String(d.getMonth() + 1).padStart(2, "0");
+  const dd = String(d.getDate()).padStart(2, "0");
+  return `${yyyy}-${mm}-${dd}`;
+};
+
+export const fromInputDateString = (val?: string | null) => {
+  if (!val) return null;
+  return new Date(val);
+};

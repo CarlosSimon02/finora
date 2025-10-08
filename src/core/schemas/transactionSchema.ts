@@ -6,7 +6,6 @@ import {
   isValidEmoji,
   moneyAmountSchema,
   nameSchema,
-  optionalDescriptionSchema,
   trimmedStringSchema,
 } from "./helpers";
 import { createPaginationResponseSchema } from "./paginationSchema";
@@ -33,11 +32,9 @@ const baseTransactionSchema = z.object({
     ),
   type: transactionTypeSchema,
   amount: moneyAmountSchema,
-  recipientOrPayer: trimmedStringSchema.optional(),
   transactionDate: z.instanceof(Date, {
     message: "Transaction date must be a valid date",
   }),
-  description: optionalDescriptionSchema,
   emoji: trimmedStringSchema.refine(isValidEmoji, {
     message: "Only emoji characters are allowed",
   }),

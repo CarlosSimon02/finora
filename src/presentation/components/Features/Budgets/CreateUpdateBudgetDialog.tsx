@@ -30,7 +30,7 @@ type CreateUpdateBudgetDialogProps = {
   title: string;
   description?: string;
   operation: "create" | "update";
-  initialData?: BudgetDto;
+  initialData?: BudgetDto | Partial<CreateBudgetDto>;
   onSuccess?: (data: BudgetDto) => void;
   onError?: (error: Error) => void;
   onSettled?: () => void;
@@ -78,9 +78,7 @@ export const CreateUpdateBudgetDialog = ({
       form.reset(getDefaultValues());
       handleOpenChange(false);
       onSuccess?.(data as BudgetDto);
-      utils.getPaginatedBudgets.invalidate();
-      utils.getPaginatedBudgetsWithTransactions.invalidate();
-      utils.getBudgetsSummary.invalidate();
+      utils.invalidate();
     },
     onError: handleError,
     onSettled,
@@ -92,12 +90,7 @@ export const CreateUpdateBudgetDialog = ({
       form.reset(getDefaultValues());
       handleOpenChange(false);
       onSuccess?.(data as BudgetDto);
-      utils.getPaginatedBudgets.invalidate();
-      utils.getPaginatedBudgetsWithTransactions.invalidate();
-      utils.getBudgetsSummary.invalidate();
-      if (initialData) {
-        utils.getBudget.invalidate({ budgetId: initialData.id });
-      }
+      utils.invalidate();
     },
     onError: handleError,
     onSettled,
@@ -141,6 +134,10 @@ export const CreateUpdateBudgetDialog = ({
 
   const handleSubmit = async (data: CreateBudgetDto) => {
     if (operation === "update" && initialData) {
+      if (!("id" in initialData)) {
+        toast.error("Cannot update budget: missing ID");
+        return;
+      }
       if (!form.formState.isDirty || !hasBudgetChanges(data)) {
         toast.info("No changes to update");
         return;
@@ -175,6 +172,7 @@ export const CreateUpdateBudgetDialog = ({
           <form
             onSubmit={form.handleSubmit(handleSubmit)}
             className="space-y-5"
+            id="create-update-budget-form"
           >
             <Form.InputField
               control={form.control}
@@ -225,6 +223,7 @@ export const CreateUpdateBudgetDialog = ({
               <LoadingButton
                 type="submit"
                 isLoading={isSubmitting}
+                form="create-update-budget-form"
                 loadingLabel={
                   operation === "create" ? "Creating..." : "Updating..."
                 }

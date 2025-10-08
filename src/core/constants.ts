@@ -16,3 +16,4 @@ export const POT_DEFAULT_PER_PAGE = 6;
 
 export const TRANSACTION_NAME_MAX_LENGTH = 100;
 export const TRANSACTION_AMOUNT_DECIMALS_REGEX = /^\d+(\.\d{1,2})?$/;
+export const TRANSACTION_DEFAULT_PER_PAGE = 10;

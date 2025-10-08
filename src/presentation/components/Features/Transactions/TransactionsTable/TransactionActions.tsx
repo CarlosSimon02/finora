@@ -1,6 +1,6 @@
 "use client";
 
-import { IncomeDto } from "@/core/schemas/incomeSchema";
+import { TransactionDto } from "@/core/schemas";
 import { trpc } from "@/lib/trpc/client";
 import { Button } from "@/presentation/components/Primitives";
 import {
@@ -11,32 +11,32 @@ import { useErrorHandler } from "@/presentation/hooks";
 import { DotsThreeIcon } from "@phosphor-icons/react";
 import { DropdownMenuSeparator } from "@radix-ui/react-dropdown-menu";
 import { toast } from "sonner";
-import { CreateUpdateIncomeDialog } from "./CreateUpdateIncomeDialog";
+import { CreateUpdateTransactionDialog } from "../CreateUpdateTransactionDialog";
 
-type IncomeCardActionsProps = {
-  income: IncomeDto;
+type TransactionActionsProps = {
+  transaction: TransactionDto;
   className?: string;
 };
 
-export const IncomeCardActions = ({
-  income,
+export const TransactionActions = ({
+  transaction,
   className,
-}: IncomeCardActionsProps) => {
+}: TransactionActionsProps) => {
   const utils = trpc.useUtils();
 
   const handleError = useErrorHandler();
 
-  const { mutateAsync: deleteIncome, isPending: isDeleting } =
-    trpc.deleteIncome.useMutation({
+  const { mutateAsync: deleteTransaction, isPending: isDeleting } =
+    trpc.deleteTransaction.useMutation({
       onSuccess: () => {
-        toast.success("Income deleted successfully!");
+        toast.success("Transaction deleted successfully!");
         utils.invalidate();
       },
       onError: handleError,
     });
 
   const handleDelete = async () => {
-    await deleteIncome({ incomeId: income.id });
+    await deleteTransaction({ transactionId: transaction.id });
   };
 
   return (
@@ -51,20 +51,20 @@ export const IncomeCardActions = ({
         />
       </DropdownMenu.Trigger>
       <DropdownMenu.Content align="end">
-        <CreateUpdateIncomeDialog
-          title="Edit Income"
+        <CreateUpdateTransactionDialog
+          title="Edit Transaction"
           operation="update"
-          initialData={income}
+          initialData={transaction}
           onError={handleError}
         >
           <DropdownMenu.Item onSelect={(e) => e.preventDefault()}>
-            Edit Income
+            Edit Transaction
           </DropdownMenu.Item>
-        </CreateUpdateIncomeDialog>
+        </CreateUpdateTransactionDialog>
         <DropdownMenuSeparator />
         <ConfirmDeleteDialog
-          title={`Delete '${income.name}'`}
-          description="Are you sure you want to delete this income? This action cannot be reversed."
+          title={`Delete '${transaction.name}'`}
+          description="Are you sure you want to delete this transaction? This action cannot be reversed, and all the data inside it will be removed forever."
           onDelete={handleDelete}
           isDeleting={isDeleting}
         >
@@ -72,7 +72,7 @@ export const IncomeCardActions = ({
             variant="destructive"
             onSelect={(e) => e.preventDefault()}
           >
-            Delete Income
+            Delete Transaction
           </DropdownMenu.Item>
         </ConfirmDeleteDialog>
       </DropdownMenu.Content>

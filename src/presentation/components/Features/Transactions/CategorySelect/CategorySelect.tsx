@@ -1,6 +1,5 @@
 "use client";
 
-import { BudgetDto, IncomeDto } from "@/core/schemas";
 import { TransactionTypeDto } from "@/core/schemas/transactionSchema";
 import { CreateUpdateBudgetDialog } from "@/presentation/components/Features/Budgets";
 import { CreateUpdateIncomeDialog } from "@/presentation/components/Features/Incomes";
@@ -154,7 +153,7 @@ export const CategorySelect = ({
         title="Create New Budget"
         description="Create a new budget to track your spending."
         operation="create"
-        initialData={(initialDialogData as BudgetDto) || undefined}
+        initialData={initialDialogData || undefined}
         open={isBudgetDialogOpen}
         onOpenChange={(open: boolean) => {
           if (!open) {
@@ -169,7 +168,7 @@ export const CategorySelect = ({
         title="Create New Income"
         description="Create a new income category to track your earnings."
         operation="create"
-        initialData={(initialDialogData as IncomeDto) || undefined}
+        initialData={initialDialogData || undefined}
         open={isIncomeDialogOpen}
         onOpenChange={(open: boolean) => {
           if (!open) {

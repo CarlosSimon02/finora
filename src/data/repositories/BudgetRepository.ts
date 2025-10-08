@@ -166,7 +166,7 @@ export class BudgetRepository implements IBudgetRepository {
         return {
           ...mapBudgetModelToDto(budget),
           transactions,
-          totalSpending,
+          totalSpending: Math.abs(totalSpending),
         };
       })
     );
@@ -279,7 +279,7 @@ export class BudgetRepository implements IBudgetRepository {
 
         return {
           ...mapBudgetModelToDto(budget),
-          totalSpending,
+          totalSpending: Math.abs(totalSpending),
         };
       })
     );
@@ -301,7 +301,7 @@ export class BudgetRepository implements IBudgetRepository {
     );
 
     return {
-      totalSpending,
+      totalSpending: Math.abs(totalSpending),
       totalMaxSpending,
       budgets,
       count,

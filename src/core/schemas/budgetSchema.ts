@@ -2,13 +2,14 @@ import { COLOR_OPTIONS } from "@/constants/colors";
 import {
   BUDGET_SUMMARY_MAX_ITEMS,
   BUDGET_TRANSACTION_PREVIEW_MAX_COUNT,
+  COMMON_MAX_NUMBER,
 } from "@/core/constants";
 import { z } from "zod";
 import {
   idSchema,
   moneyAmountSchema,
   nameSchema,
-  nonNegativeMoneyAmountSchema,
+  validateTwoDecimalPlaces,
 } from "./helpers";
 import { createPaginationResponseSchema } from "./paginationSchema";
 import { transactionSchema } from "./transactionSchema";
@@ -31,7 +32,13 @@ export const budgetSchema = createBudgetSchema.extend({
 });
 
 export const budgetSchemaWithTotalSpending = budgetSchema.extend({
-  totalSpending: nonNegativeMoneyAmountSchema,
+  totalSpending: z
+    .number("Amount must be a number")
+    .max(COMMON_MAX_NUMBER, `Amount must be at most ${COMMON_MAX_NUMBER}`)
+    .refine(
+      validateTwoDecimalPlaces,
+      "Amount must have at most 2 decimal places"
+    ),
 });
 
 export const budgetWithTransactionsSchema =

@@ -27,8 +27,7 @@ export const PotCardActions = ({ pot, className }: PotCardActionsProps) => {
     trpc.deletePot.useMutation({
       onSuccess: () => {
         toast.success("Pot deleted successfully!");
-        utils.getPaginatedPots.invalidate();
-        utils.getPot.invalidate({ potId: pot.id });
+        utils.invalidate();
       },
       onError: handleError,
     });

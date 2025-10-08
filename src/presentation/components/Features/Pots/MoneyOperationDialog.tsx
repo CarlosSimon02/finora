@@ -51,8 +51,7 @@ export const MoneyOperationDialog = ({
     onSuccess: () => {
       toast.success("Money added successfully!");
       handleOpenChange(false);
-      utils.getPaginatedPots.invalidate();
-      utils.getPot.invalidate({ potId: pot.id });
+      utils.invalidate();
     },
     onError: handleError,
   });
@@ -61,8 +60,7 @@ export const MoneyOperationDialog = ({
     onSuccess: () => {
       toast.success("Money withdrawn successfully!");
       handleOpenChange(false);
-      utils.getPaginatedPots.invalidate();
-      utils.getPot.invalidate({ potId: pot.id });
+      utils.invalidate();
     },
     onError: handleError,
   });

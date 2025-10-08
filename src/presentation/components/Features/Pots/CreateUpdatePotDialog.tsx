@@ -64,9 +64,7 @@ export const CreateUpdatePotDialog = ({
       toast.success("Pot created successfully!");
       form.reset(getDefaultValues());
       handleOpenChange(false);
-      utils.getPaginatedPots.invalidate();
-      utils.listUsedPotColors.invalidate();
-      utils.getPotsCount.invalidate();
+      utils.invalidate();
     },
     onError: handleError,
   });
@@ -76,10 +74,7 @@ export const CreateUpdatePotDialog = ({
       toast.success("Pot updated successfully!");
       form.reset(getDefaultValues());
       handleOpenChange(false);
-      utils.getPaginatedPots.invalidate();
-      if (initialData) {
-        utils.getPot.invalidate({ potId: initialData.id });
-      }
+      utils.invalidate();
     },
     onError: handleError,
   });

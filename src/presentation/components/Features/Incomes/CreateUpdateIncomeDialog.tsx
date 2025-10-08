@@ -30,7 +30,7 @@ type CreateUpdateIncomeDialogProps = {
   title: string;
   description?: string;
   operation: "create" | "update";
-  initialData?: IncomeDto;
+  initialData?: IncomeDto | Partial<CreateIncomeDto>;
   onSuccess?: (data: IncomeDto) => void;
   onError?: (error: Error) => void;
   onSettled?: () => void;
@@ -49,13 +49,10 @@ export const CreateUpdateIncomeDialog = ({
   onError,
   onSettled,
   onClose,
-  propsOpen,
-  propsOnOpenChange,
+  open: propsOpen,
+  onOpenChange: propsOnOpenChange,
   children,
-}: CreateUpdateIncomeDialogProps & {
-  propsOpen?: boolean;
-  propsOnOpenChange?: (open: boolean) => void;
-}) => {
+}: CreateUpdateIncomeDialogProps) => {
   const getDefaultValues = useCallback(
     (): CreateIncomeDto => ({
       name: initialData?.name ?? "",
@@ -79,9 +76,7 @@ export const CreateUpdateIncomeDialog = ({
       form.reset(getDefaultValues());
       handleOpenChange(false);
       onSuccess?.(data as IncomeDto);
-      utils.getPaginatedIncomes.invalidate();
-      utils.getPaginatedIncomesWithTransactions.invalidate();
-      utils.getIncomesSummary.invalidate();
+      utils.invalidate();
     },
     onError: handleError,
     onSettled,
@@ -93,12 +88,7 @@ export const CreateUpdateIncomeDialog = ({
       form.reset(getDefaultValues());
       handleOpenChange(false);
       onSuccess?.(data as IncomeDto);
-      utils.getPaginatedIncomes.invalidate();
-      utils.getPaginatedIncomesWithTransactions.invalidate();
-      utils.getIncomesSummary.invalidate();
-      if (initialData) {
-        utils.getIncome.invalidate({ incomeId: initialData.id });
-      }
+      utils.invalidate();
     },
     onError: handleError,
     onSettled,
@@ -136,6 +126,10 @@ export const CreateUpdateIncomeDialog = ({
 
   const handleSubmit = async (data: CreateIncomeDto) => {
     if (operation === "update" && initialData) {
+      if (!("id" in initialData)) {
+        toast.error("Cannot update income: missing ID");
+        return;
+      }
       if (!form.formState.isDirty || !hasIncomeChanges(data)) {
         toast.info("No changes to update");
         return;
@@ -169,6 +163,7 @@ export const CreateUpdateIncomeDialog = ({
           <form
             onSubmit={form.handleSubmit(handleSubmit)}
             className="space-y-5"
+            id="create-update-income-form"
           >
             <Form.InputField
               control={form.control}
@@ -200,6 +195,7 @@ export const CreateUpdateIncomeDialog = ({
               <LoadingButton
                 type="submit"
                 isLoading={isSubmitting}
+                form="create-update-income-form"
                 loadingLabel={
                   operation === "create" ? "Creating..." : "Updating..."
                 }
