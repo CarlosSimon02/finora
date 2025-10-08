@@ -57,20 +57,20 @@ export const moneyOperationSchema = z.object({
 });
 
 export const potsSummarySchema = z.object({
-  totalEarned: z.number().int().nonnegative(),
+  totalSaved: z.number().int().nonnegative(),
   count: z.number().int().nonnegative(),
-  incomes: z.array(potSchema),
+  pots: z.array(potSchema),
 });
 
-export const incomesSummaryParamsSchema = z
+export const potsSummaryParamsSchema = z
   .object({
-    maxIncomesToShow: z
+    maxPotsToShow: z
       .number()
       .int()
-      .min(1, "Max incomes to show must be greater than 0")
+      .min(1, "Max pots to show must be greater than 0")
       .max(
         POT_SUMMARY_MAX_ITEMS,
-        `Max incomes to show must be at most ${POT_SUMMARY_MAX_ITEMS}`
+        `Max pots to show must be at most ${POT_SUMMARY_MAX_ITEMS}`
       )
       .optional(),
   })
@@ -83,3 +83,4 @@ export type PaginatedPotsResponseDto = z.infer<
   typeof paginatedPotsResponseSchema
 >;
 export type MoneyOperationInput = z.infer<typeof moneyOperationSchema>;
+export type PotsSummaryDto = z.infer<typeof potsSummarySchema>;

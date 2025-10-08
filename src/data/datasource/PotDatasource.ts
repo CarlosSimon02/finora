@@ -4,7 +4,7 @@ import { paginateByCursor } from "@/data/firestore/paginate";
 import { buildQueryFromParams } from "@/data/firestore/query";
 import { validateOrThrow } from "@/data/utils/validation";
 import { DatasourceError, hasKeys } from "@/utils";
-import { FieldValue } from "firebase-admin/firestore";
+import { AggregateField, FieldValue } from "firebase-admin/firestore";
 import {
   CreatePotModel,
   createPotModelSchema,
@@ -220,6 +220,22 @@ export class PotDatasource {
     } catch (e) {
       if (e instanceof Error) {
         throw new DatasourceError(`getCount failed: ${e.message}`);
+      }
+      throw e;
+    }
+  }
+
+  async getTotalSaved(userId: string) {
+    try {
+      const potCollection = this.getPotCollection(userId);
+      const totalSavedAggregation = potCollection.aggregate({
+        totalSaved: AggregateField.sum("totalSaved"),
+      });
+      const aggregationResult = await totalSavedAggregation.get();
+      return aggregationResult.data().totalSaved ?? 0;
+    } catch (e) {
+      if (e instanceof Error) {
+        throw new DatasourceError(`getTotalSaved failed: ${e.message}`);
       }
       throw e;
     }

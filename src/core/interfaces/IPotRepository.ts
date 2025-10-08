@@ -3,6 +3,7 @@ import {
   PaginatedPotsResponseDto,
   PaginationParams,
   PotDto,
+  PotsSummaryDto,
   UpdatePotDto,
 } from "@/core/schemas";
 
@@ -17,6 +18,7 @@ export interface IPotRepository {
   ): Promise<PaginatedPotsResponseDto>;
   getUsedColors(userId: string): Promise<string[]>;
   getCount(userId: string): Promise<number>;
+  getSummary(userId: string, maxPotsToShow?: number): Promise<PotsSummaryDto>;
   updateOne(
     userId: string,
     potId: string,

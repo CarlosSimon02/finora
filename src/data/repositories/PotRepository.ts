@@ -4,6 +4,7 @@ import {
   CreatePotDto,
   PaginatedPotsResponseDto,
   PotDto,
+  PotsSummaryDto,
   UpdatePotDto,
 } from "@/core/schemas/potSchema";
 import { PotDatasource } from "@/data/datasource/PotDatasource";
@@ -162,5 +163,42 @@ export class PotRepository implements IPotRepository {
   ): Promise<PotDto> {
     await this.potDatasource.subtractFromTotalSaved(userId, potId, amount);
     return this.getAndMapPot(userId, potId);
+  }
+
+  // #########################################################
+  // # 📈 Get Summary
+  // #########################################################
+
+  private async getPotsToShowInSummary(userId: string, maxPotsToShow: number) {
+    const response = await this.potDatasource.getPaginated(userId, {
+      sort: {
+        field: "totalSaved",
+        order: "desc",
+      },
+      pagination: {
+        page: 1,
+        perPage: maxPotsToShow,
+      },
+      filters: [],
+    });
+
+    return response.data.map(mapPotModelToDto);
+  }
+
+  async getSummary(
+    userId: string,
+    maxPotsToShow: number = 12
+  ): Promise<PotsSummaryDto> {
+    const [pots, totalSaved, count] = await Promise.all([
+      this.getPotsToShowInSummary(userId, maxPotsToShow),
+      this.potDatasource.getTotalSaved(userId),
+      this.potDatasource.getCount(userId),
+    ]);
+
+    return {
+      pots,
+      totalSaved,
+      count,
+    };
   }
 }

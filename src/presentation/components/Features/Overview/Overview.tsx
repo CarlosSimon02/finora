@@ -32,11 +32,24 @@ export const Overview = () => {
   } = trpc.getPaginatedTransactions.useQuery({
     pagination: { page: 1, perPage: 5 },
   });
+  const {
+    data: potsSummary,
+    isLoading: isLoadingPotsSummary,
+    error: errorPotsSummary,
+  } = trpc.getPotsSummary.useQuery({
+    maxPotsToShow: 4,
+  });
 
   const isLoading =
-    isLoadingBudgetsSummary || isLoadingTransactions || isLoadingIncomesSummary;
+    isLoadingBudgetsSummary ||
+    isLoadingTransactions ||
+    isLoadingIncomesSummary ||
+    isLoadingPotsSummary;
   const isError =
-    errorBudgetsSummary || errorTransactions || errorIncomesSummary;
+    errorBudgetsSummary ||
+    errorTransactions ||
+    errorIncomesSummary ||
+    errorPotsSummary;
 
   const body = (() => {
     if (isLoading) {
@@ -64,7 +77,7 @@ export const Overview = () => {
 
         <div className="grid h-full grid-cols-1 gap-6 @3xl:grid-cols-[55%_1fr]">
           <div className="grid h-full grid-rows-[auto_1fr] gap-6">
-            <PotsSection />
+            <PotsSection potsSummary={potsSummary} />
             <TransactionsSection
               className="h-full"
               transactions={transactions?.data ?? []}

@@ -4,6 +4,7 @@ export { deletePot } from "./deletePot";
 export { getPaginatedPots } from "./getPaginatedPots";
 export { getPot } from "./getPot";
 export { getPotsCount } from "./getPotsCount";
+export { getPotsSummary } from "./getPotsSummary";
 export { getUsedColors as listUsedPotColors } from "./getUsedColors";
 export { updatePot } from "./updatePot";
 export { withdrawMoneyFromPot } from "./withdrawMoneyFromPot";

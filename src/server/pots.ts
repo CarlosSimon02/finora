@@ -1,4 +1,5 @@
 import { paginationParamsSchema } from "@/core/schemas/paginationSchema";
+import { potsSummaryParamsSchema } from "@/core/schemas/potSchema";
 import {
   addMoneyToPot,
   createPot,
@@ -6,6 +7,7 @@ import {
   getPaginatedPots,
   getPot,
   getPotsCount,
+  getPotsSummary,
   listUsedPotColors,
   updatePot,
   withdrawMoneyFromPot,
@@ -25,6 +27,15 @@ export const potsRouter = router({
     const fn = getPotsCount(potRepository);
     return await fn(user.id);
   }),
+  getPotsSummary: protectedProcedure
+    .input(potsSummaryParamsSchema)
+    .query(async ({ ctx, input }) => {
+      "use cache";
+      cacheTag(cacheTags.POTS_SUMMARY);
+      const { user } = ctx;
+      const fn = getPotsSummary(potRepository);
+      return await fn(user.id, input.maxPotsToShow);
+    }),
   listUsedPotColors: protectedProcedure.query(async ({ ctx }) => {
     "use cache";
     cacheTag(cacheTags.POTS_USED_COLORS);
