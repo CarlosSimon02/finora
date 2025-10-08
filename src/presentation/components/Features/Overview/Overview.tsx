@@ -1,5 +1,6 @@
 "use client";
 
+import { trpc } from "@/lib/trpc/client";
 import { FrontViewLayout } from "@/presentation/components/Layouts";
 import { Card, ErrorState } from "@/presentation/components/Primitives";
 import { BudgetsSection } from "./BudgetsSection";
@@ -10,15 +11,39 @@ import { SummarySection } from "./SummarySection";
 import { TransactionsSection } from "./TransactionsSection";
 
 export const Overview = () => {
-  const error = false;
-  const isLoading = false;
+  const {
+    data: budgetsSummary,
+    isLoading: isLoadingBudgetsSummary,
+    error: errorBudgetsSummary,
+  } = trpc.getBudgetsSummary.useQuery({
+    maxBudgetsToShow: 4,
+  });
+  const {
+    data: incomesSummary,
+    isLoading: isLoadingIncomesSummary,
+    error: errorIncomesSummary,
+  } = trpc.getIncomesSummary.useQuery({
+    maxIncomesToShow: 4,
+  });
+  const {
+    data: transactions,
+    isLoading: isLoadingTransactions,
+    error: errorTransactions,
+  } = trpc.getPaginatedTransactions.useQuery({
+    pagination: { page: 1, perPage: 5 },
+  });
+
+  const isLoading =
+    isLoadingBudgetsSummary || isLoadingTransactions || isLoadingIncomesSummary;
+  const isError =
+    errorBudgetsSummary || errorTransactions || errorIncomesSummary;
 
   const body = (() => {
     if (isLoading) {
       return <OverviewSkeleton />;
     }
 
-    if (error) {
+    if (isError) {
       return (
         <Card className="grid place-items-center gap-6 p-4 py-10">
           <ErrorState />
@@ -28,16 +53,29 @@ export const Overview = () => {
 
     return (
       <div className="space-y-6">
-        <SummarySection />
+        <SummarySection
+          income={incomesSummary?.totalEarned}
+          expenses={budgetsSummary?.totalSpending}
+          balance={
+            Math.abs(incomesSummary?.totalEarned ?? 0) -
+            Math.abs(budgetsSummary?.totalSpending ?? 0)
+          }
+        />
 
         <div className="grid h-full grid-cols-1 gap-6 @3xl:grid-cols-[55%_1fr]">
           <div className="grid h-full grid-rows-[auto_1fr] gap-6">
             <PotsSection />
-            <TransactionsSection className="h-full" />
+            <TransactionsSection
+              className="h-full"
+              transactions={transactions?.data ?? []}
+            />
           </div>
 
           <div className="grid h-full grid-rows-[1fr_auto] gap-6">
-            <BudgetsSection className="h-full" />
+            <BudgetsSection
+              className="h-full"
+              budgetsSummary={budgetsSummary}
+            />
             <RecurringBillsSection />
           </div>
         </div>

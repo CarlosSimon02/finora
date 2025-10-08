@@ -59,17 +59,19 @@ export const budgetsSummarySchema = z.object({
   budgets: z.array(budgetSchemaWithTotalSpending),
 });
 
-export const budgetsSummaryParamsSchema = z.object({
-  maxBudgetsToShow: z
-    .number()
-    .int()
-    .min(1, "Max budgets to show must be greater than 0")
-    .max(
-      BUDGET_SUMMARY_MAX_ITEMS,
-      `Max budgets to show must be at most ${BUDGET_SUMMARY_MAX_ITEMS}`
-    )
-    .optional(),
-});
+export const budgetsSummaryParamsSchema = z
+  .object({
+    maxBudgetsToShow: z
+      .number()
+      .int()
+      .min(1, "Max budgets to show must be greater than 0")
+      .max(
+        BUDGET_SUMMARY_MAX_ITEMS,
+        `Max budgets to show must be at most ${BUDGET_SUMMARY_MAX_ITEMS}`
+      )
+      .optional(),
+  })
+  .default({});
 
 export const budgetTransactionPreviewCountSchema = z
   .number()

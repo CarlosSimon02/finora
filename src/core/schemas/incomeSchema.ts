@@ -44,17 +44,19 @@ export const incomesSummarySchema = z.object({
   incomes: z.array(incomeSchemaWithTotalEarned),
 });
 
-export const incomesSummaryParamsSchema = z.object({
-  maxIncomesToShow: z
-    .number()
-    .int()
-    .min(1, "Max incomes to show must be greater than 0")
-    .max(
-      INCOME_SUMMARY_MAX_ITEMS,
-      `Max incomes to show must be at most ${INCOME_SUMMARY_MAX_ITEMS}`
-    )
-    .optional(),
-});
+export const incomesSummaryParamsSchema = z
+  .object({
+    maxIncomesToShow: z
+      .number()
+      .int()
+      .min(1, "Max incomes to show must be greater than 0")
+      .max(
+        INCOME_SUMMARY_MAX_ITEMS,
+        `Max incomes to show must be at most ${INCOME_SUMMARY_MAX_ITEMS}`
+      )
+      .optional(),
+  })
+  .default({});
 
 export const transactionPreviewCountSchema = z
   .number()

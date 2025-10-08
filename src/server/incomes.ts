@@ -1,3 +1,4 @@
+import { incomesSummaryParamsSchema } from "@/core/schemas";
 import { paginationParamsSchema } from "@/core/schemas/paginationSchema";
 import {
   createIncome,
@@ -32,14 +33,16 @@ export const incomesRouter = router({
     const fn = listUsedIncomeColors(incomeRepository);
     return await fn(user.id);
   }),
-  getIncomesSummary: protectedProcedure.query(async ({ ctx }) => {
-    "use cache";
-    cacheTag(cacheTags.INCOMES_SUMMARY);
+  getIncomesSummary: protectedProcedure
+    .input(incomesSummaryParamsSchema)
+    .query(async ({ ctx, input }) => {
+      "use cache";
+      cacheTag(cacheTags.INCOMES_SUMMARY);
 
-    const { user } = ctx;
-    const fn = getIncomesSummary(incomeRepository);
-    return await fn(user.id);
-  }),
+      const { user } = ctx;
+      const fn = getIncomesSummary(incomeRepository);
+      return await fn(user.id, input.maxIncomesToShow);
+    }),
   getPaginatedIncomes: protectedProcedure
     .input(paginationParamsSchema)
     .query(async ({ ctx, input }) => {

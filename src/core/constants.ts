@@ -1,12 +1,14 @@
+import { COLOR_OPTIONS } from "@/constants/colors";
+
 export const COMMON_MAX_NAME_LENGTH = 50;
 export const COMMON_MAX_DESCRIPTION_LENGTH = 1000;
 export const COMMON_MAX_NUMBER = 999_999_999_999;
 
-export const BUDGET_SUMMARY_MAX_ITEMS = 50;
+export const BUDGET_SUMMARY_MAX_ITEMS = COLOR_OPTIONS.length;
 export const BUDGET_TRANSACTION_PREVIEW_MAX_COUNT = 50;
 export const BUDGET_DEFAULT_PER_PAGE = 4;
 
-export const INCOME_SUMMARY_MAX_ITEMS = 50;
+export const INCOME_SUMMARY_MAX_ITEMS = COLOR_OPTIONS.length;
 export const INCOME_TRANSACTION_PREVIEW_MAX_COUNT = 50;
 export const INCOME_DEFAULT_PER_PAGE = 4;
 

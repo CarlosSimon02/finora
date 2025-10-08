@@ -1,3 +1,4 @@
+import { budgetsSummaryParamsSchema } from "@/core/schemas";
 import { paginationParamsSchema } from "@/core/schemas/paginationSchema";
 import {
   createBudget,
@@ -32,14 +33,16 @@ export const budgetsRouter = router({
     const fn = listUsedBudgetColors(budgetRepository);
     return await fn(user.id);
   }),
-  getBudgetsSummary: protectedProcedure.query(async ({ ctx }) => {
-    "use cache";
-    cacheTag(cacheTags.BUDGETS_SUMMARY);
+  getBudgetsSummary: protectedProcedure
+    .input(budgetsSummaryParamsSchema)
+    .query(async ({ ctx, input }) => {
+      "use cache";
+      cacheTag(cacheTags.BUDGETS_SUMMARY);
 
-    const { user } = ctx;
-    const fn = getBudgetsSummary(budgetRepository);
-    return await fn(user.id);
-  }),
+      const { user } = ctx;
+      const fn = getBudgetsSummary(budgetRepository);
+      return await fn(user.id, input.maxBudgetsToShow);
+    }),
   getPaginatedBudgetsWithTransactions: protectedProcedure
     .input(paginationParamsSchema)
     .query(async ({ ctx, input }) => {

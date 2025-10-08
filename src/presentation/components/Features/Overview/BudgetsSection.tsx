@@ -1,6 +1,6 @@
 "use client";
 
-import { BudgetDto } from "@/core/schemas";
+import { BudgetsSummaryDto } from "@/core/schemas";
 import { BudgetChart } from "@/presentation/components/Features/Budgets";
 import {
   ColoredAmountItem,
@@ -11,16 +11,12 @@ import { TitledCard } from "./TitledCard";
 
 type BudgetsSectionProps = {
   className?: string;
-  budgets?: BudgetDto[];
-  totalSpent?: number;
-  totalLimit?: number;
+  budgetsSummary?: BudgetsSummaryDto;
 };
 
 export const BudgetsSection = ({
   className,
-  budgets = [],
-  totalSpent = 0,
-  totalLimit = 0,
+  budgetsSummary,
 }: BudgetsSectionProps) => {
   return (
     <TitledCard
@@ -28,18 +24,19 @@ export const BudgetsSection = ({
       href="/budgets"
       className={cn("@container/budgets", className)}
     >
-      {budgets.length > 0 ? (
-        <div className="grid grid-cols-1 content-center items-center gap-5 @md/budgets:grid-cols-[1fr_35%]">
+      {budgetsSummary?.budgets?.length &&
+      budgetsSummary?.budgets?.length > 0 ? (
+        <div className="grid h-full grid-cols-1 content-center items-center gap-5 @md/budgets:grid-cols-[1fr_35%]">
           <div className="flex flex-col items-center justify-center">
             <BudgetChart
-              budgetData={budgets}
-              totalSpent={totalSpent}
-              totalLimit={totalLimit}
+              budgetData={budgetsSummary.budgets}
+              totalSpent={budgetsSummary.totalSpending}
+              totalLimit={budgetsSummary.totalMaxSpending}
             />
           </div>
           <div className="@container/grid">
             <div className="grid grid-cols-1 gap-4 @3xs/grid:grid-cols-2">
-              {budgets.map((budget) => (
+              {budgetsSummary.budgets.map((budget) => (
                 <ColoredAmountItem
                   key={budget.id}
                   name={budget.name}

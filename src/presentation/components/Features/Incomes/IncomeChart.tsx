@@ -69,7 +69,7 @@ export const IncomeChart = ({
                         y={(viewBox.cy || 0) + 25}
                         className="txt-preset-5 fill-grey-500"
                       >
-                        total earned
+                        Total earned
                       </tspan>
                     </text>
                   );

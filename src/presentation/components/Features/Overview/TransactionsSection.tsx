@@ -17,7 +17,7 @@ export const TransactionsSection = ({
 }: TransactionsSectionProps) => {
   return (
     <TitledCard title="Transactions" href="/transactions" className={className}>
-      <div className="@container/transactions flex-1">
+      <div className="@container/transactions grid flex-1 content-center">
         {transactions.length > 0 ? (
           <div>
             {transactions.map((transaction) => (
