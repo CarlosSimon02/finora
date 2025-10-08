@@ -63,6 +63,7 @@ export const Transactions = () => {
               currentPage={page}
               totalPages={totalPages}
               onPageChange={setPage}
+              className="pb-0"
             />
           ) : null;
         })()}
@@ -72,7 +73,7 @@ export const Transactions = () => {
 
   return (
     <FrontViewLayout title="Transactions" actions={<CreateTransactionDialog />}>
-      <Card>{body}</Card>
+      <Card className="space-y-6">{body}</Card>
     </FrontViewLayout>
   );
 };

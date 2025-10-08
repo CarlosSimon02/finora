@@ -1,3 +1,4 @@
+import { TRANSACTION_DEFAULT_PER_PAGE } from "@/core/constants";
 import { Skeleton } from "@/presentation/components/Primitives";
 
 export const TransactionsSkeleton = () => {
@@ -24,33 +25,35 @@ export const TransactionsSkeleton = () => {
             </tr>
           </thead>
           <tbody>
-            {Array.from({ length: 10 }).map((_, idx) => (
-              <tr
-                key={idx}
-                className="border-grey-100 border-b last:border-b-0 [&>*]:py-3 [&>*]:first:pl-4 [&>*]:last:pr-4"
-              >
-                <td>
-                  <div className="flex items-center gap-4">
-                    <Skeleton className="size-10 rounded-full" />
-                    <Skeleton className="h-5 w-40" />
-                  </div>
-                </td>
-                <td>
-                  <Skeleton className="h-4 w-28" />
-                </td>
-                <td>
-                  <Skeleton className="h-4 w-32" />
-                </td>
-                <td>
-                  <Skeleton className="h-5 w-24" />
-                </td>
-                <td className="text-right">
-                  <div className="flex justify-end">
-                    <Skeleton className="size-8 rounded-lg" />
-                  </div>
-                </td>
-              </tr>
-            ))}
+            {Array.from({ length: TRANSACTION_DEFAULT_PER_PAGE }).map(
+              (_, idx) => (
+                <tr
+                  key={idx}
+                  className="border-grey-100 border-b last:border-b-0 [&>*]:py-3 [&>*]:first:pl-4 [&>*]:last:pr-4"
+                >
+                  <td>
+                    <div className="flex items-center gap-4">
+                      <Skeleton className="size-10 rounded-full" />
+                      <Skeleton className="h-5 w-40" />
+                    </div>
+                  </td>
+                  <td>
+                    <Skeleton className="h-4 w-28" />
+                  </td>
+                  <td>
+                    <Skeleton className="h-4 w-32" />
+                  </td>
+                  <td>
+                    <Skeleton className="h-5 w-24" />
+                  </td>
+                  <td className="text-right">
+                    <div className="flex justify-end">
+                      <Skeleton className="size-8 rounded-lg" />
+                    </div>
+                  </td>
+                </tr>
+              )
+            )}
           </tbody>
         </table>
       </div>
