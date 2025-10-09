@@ -20,14 +20,12 @@ type SortOption = {
 
 type SortSelectProps = {
   value?: SortOption;
-  defaultValue?: SortOption;
   onValueChange?: (value?: SortOption) => void;
   disabled?: boolean;
 };
 
 export const SortSelect = ({
   value,
-  defaultValue,
   onValueChange,
   disabled,
 }: SortSelectProps) => {

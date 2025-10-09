@@ -79,7 +79,7 @@ export const incomesRouter = router({
     .mutation(async ({ ctx, input }) => {
       const { user } = ctx;
       const fn = createIncome(incomeRepository);
-      const result = await fn(user.id, input.data as any);
+      const result = await fn(user.id, input.data);
       revalidateTag(cacheTags.PAGINATED_INCOMES);
       revalidateTag(cacheTags.PAGINATED_INCOMES_WITH_TRANSACTIONS);
       revalidateTag(cacheTags.INCOMES_SUMMARY);
@@ -97,7 +97,7 @@ export const incomesRouter = router({
     .mutation(async ({ ctx, input }) => {
       const { user } = ctx;
       const fn = updateIncome(incomeRepository);
-      const result = await fn(user.id, input.incomeId, input.data as any);
+      const result = await fn(user.id, input.incomeId, input.data);
       revalidateTag(cacheTags.PAGINATED_INCOMES);
       revalidateTag(cacheTags.PAGINATED_INCOMES_WITH_TRANSACTIONS);
       revalidateTag(cacheTags.INCOMES_SUMMARY);

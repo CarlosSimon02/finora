@@ -5,10 +5,18 @@ import * as React from "react";
 
 import { cn } from "@/utils";
 
-const Avatar = ({
-  className,
-  ...props
-}: React.ComponentProps<typeof AvatarPrimitive.Root>) => {
+type AvatarRootProps = React.ComponentProps<typeof AvatarPrimitive.Root>;
+type AvatarImageProps = React.ComponentProps<typeof AvatarPrimitive.Image>;
+type AvatarFallbackProps = React.ComponentProps<
+  typeof AvatarPrimitive.Fallback
+>;
+
+type AvatarComponent = React.FC<AvatarRootProps> & {
+  Image: React.FC<AvatarImageProps>;
+  Fallback: React.FC<AvatarFallbackProps>;
+};
+
+const Avatar: AvatarComponent = ({ className, ...props }) => {
   return (
     <AvatarPrimitive.Root
       data-slot="avatar"
@@ -21,10 +29,9 @@ const Avatar = ({
   );
 };
 
-Avatar.Image = ({
-  className,
-  ...props
-}: React.ComponentProps<typeof AvatarPrimitive.Image>) => {
+Avatar.displayName = "Avatar";
+
+const AvatarImage: React.FC<AvatarImageProps> = ({ className, ...props }) => {
   return (
     <AvatarPrimitive.Image
       data-slot="avatar-image"
@@ -33,11 +40,12 @@ Avatar.Image = ({
     />
   );
 };
+AvatarImage.displayName = "Avatar.Image";
 
-Avatar.Fallback = ({
+const AvatarFallback: React.FC<AvatarFallbackProps> = ({
   className,
   ...props
-}: React.ComponentProps<typeof AvatarPrimitive.Fallback>) => {
+}) => {
   return (
     <AvatarPrimitive.Fallback
       data-slot="avatar-fallback"
@@ -49,5 +57,9 @@ Avatar.Fallback = ({
     />
   );
 };
+AvatarFallback.displayName = "Avatar.Fallback";
+
+Avatar.Image = AvatarImage;
+Avatar.Fallback = AvatarFallback;
 
 export { Avatar };

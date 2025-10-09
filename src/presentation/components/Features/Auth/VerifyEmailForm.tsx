@@ -26,7 +26,7 @@ export const VerifyEmailForm = () => {
 
   const reloadPage = () => {
     // Full reload (triggers middleware)
-    window.location.href = window.location.href;
+    window.location.reload();
   };
 
   return (

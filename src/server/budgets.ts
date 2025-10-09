@@ -79,7 +79,7 @@ export const budgetsRouter = router({
     .mutation(async ({ ctx, input }) => {
       const { user } = ctx;
       const fn = createBudget(budgetRepository);
-      const result = await fn(user.id, input.data as any);
+      const result = await fn(user.id, input.data);
       revalidateTag(cacheTags.PAGINATED_BUDGETS);
       revalidateTag(cacheTags.PAGINATED_BUDGETS_WITH_TRANSACTIONS);
       revalidateTag(cacheTags.BUDGETS_SUMMARY);
@@ -99,7 +99,7 @@ export const budgetsRouter = router({
     .mutation(async ({ ctx, input }) => {
       const { user } = ctx;
       const fn = updateBudget(budgetRepository);
-      const result = await fn(user.id, input.budgetId, input.data as any);
+      const result = await fn(user.id, input.budgetId, input.data);
       revalidateTag(cacheTags.PAGINATED_BUDGETS);
       revalidateTag(cacheTags.PAGINATED_BUDGETS_WITH_TRANSACTIONS);
       revalidateTag(cacheTags.BUDGETS_SUMMARY);

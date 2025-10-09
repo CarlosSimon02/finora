@@ -12,9 +12,9 @@ export const ErrorState = () => {
         <ImageBrokenIcon className="text-secondary-red size-15" />
       </div>
       <div className="space-y-2 text-center">
-        <p className="txt-preset-2 text-grey-900">Something went wrong</p>
+        <p className="txt-preset-2 text-grey-900">{"Something went wrong"}</p>
         <p className="txt-preset-4 text-grey-500">
-          Don't worry, we'll fix it. Please try again later.
+          {"Don't worry, we'll fix it. Please try again later."}
         </p>
       </div>
       <Button

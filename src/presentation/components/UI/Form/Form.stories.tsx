@@ -17,7 +17,7 @@ export default meta;
 type Story = StoryObj<typeof Form>;
 
 export const Default: Story = {
-  render: (args) => {
+  render: () => {
     const methods = useForm({
       resolver: zodResolver(
         z.object({

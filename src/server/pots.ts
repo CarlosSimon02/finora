@@ -69,7 +69,7 @@ export const potsRouter = router({
     .mutation(async ({ ctx, input }) => {
       const { user } = ctx;
       const fn = createPot(potRepository);
-      const result = await fn(user.id, input.data as any);
+      const result = await fn(user.id, input.data);
       revalidateTag(cacheTags.PAGINATED_POTS);
       revalidateTag(cacheTags.POTS_SUMMARY);
       revalidateTag(cacheTags.POTS_COUNT);
@@ -87,7 +87,7 @@ export const potsRouter = router({
     .mutation(async ({ ctx, input }) => {
       const { user } = ctx;
       const fn = updatePot(potRepository);
-      const result = await fn(user.id, input.potId, input.data as any);
+      const result = await fn(user.id, input.potId, input.data);
       revalidateTag(cacheTags.PAGINATED_POTS);
       revalidateTag(cacheTags.POTS_SUMMARY);
       revalidateTag(cacheTags.POTS_COUNT);

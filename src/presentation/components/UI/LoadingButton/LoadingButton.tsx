@@ -45,7 +45,7 @@ export const LoadingButton = ({
     loc: (icon as IconConfig)?.loc ?? "left",
   };
 
-  const effectiveIcon: IconProp = isLoading ? spinnerIcon : icon;
+  const effectiveIcon = isLoading ? spinnerIcon : icon;
 
   const effectiveLabel = isLoading ? (loadingLabel ?? label) : label;
 

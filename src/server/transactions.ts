@@ -71,7 +71,7 @@ export const transactionsRouter = router({
     .mutation(async ({ ctx, input }) => {
       const { user } = ctx;
       const fn = updateTransaction(transactionRepository);
-      const result = await fn(user.id, input.transactionId, input.data as any);
+      const result = await fn(user.id, input.transactionId, input.data);
       revalidateTag(cacheTags.PAGINATED_TRANSACTIONS);
       revalidateTag(cacheTags.PAGINATED_CATEGORIES);
       revalidateTag(cacheTags.BUDGETS_SUMMARY);

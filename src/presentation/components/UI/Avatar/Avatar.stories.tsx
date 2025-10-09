@@ -8,8 +8,6 @@ const meta = {
   tags: ["autodocs"],
   argTypes: {
     className: { control: "text" },
-    src: { control: "text" },
-    alt: { control: "text" },
   },
 } satisfies Meta<typeof Avatar>;
 

@@ -35,12 +35,7 @@ const SelectValue = (props: ValueProps) => (
   <SelectPrimitive.Value data-slot="select-value" {...props} />
 );
 
-const SelectTrigger = ({
-  className,
-  size = "default",
-  children,
-  ...props
-}: TriggerProps) => (
+const SelectTrigger = ({ className, children, ...props }: TriggerProps) => (
   <SelectPrimitive.Trigger
     suppressHydrationWarning
     data-slot="select-trigger"

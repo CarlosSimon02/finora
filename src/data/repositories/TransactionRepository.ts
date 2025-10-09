@@ -161,10 +161,8 @@ export class TransactionRepository implements ITransactionRepository {
       type: input.type,
       amount: input.amount,
       signedAmount: this.calculateSignedAmount(input.amount, input.type),
-      recipientOrPayer: input.recipientOrPayer,
       category,
       transactionDate: Timestamp.fromDate(input.transactionDate),
-      description: input.description,
       emoji: input.emoji,
       name: input.name,
     };
@@ -267,24 +265,10 @@ export class TransactionRepository implements ITransactionRepository {
     }
 
     if (
-      input.recipientOrPayer !== undefined &&
-      input.recipientOrPayer !== currentTransaction.recipientOrPayer
-    ) {
-      updateData.recipientOrPayer = input.recipientOrPayer;
-    }
-
-    if (
       input.transactionDate !== undefined &&
       input.transactionDate !== currentTransaction.transactionDate
     ) {
       updateData.transactionDate = Timestamp.fromDate(input.transactionDate);
-    }
-
-    if (
-      input.description !== undefined &&
-      input.description !== currentTransaction.description
-    ) {
-      updateData.description = input.description;
     }
 
     if (input.emoji !== undefined && input.emoji !== currentTransaction.emoji) {

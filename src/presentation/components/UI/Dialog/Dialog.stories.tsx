@@ -46,7 +46,7 @@ export const WithoutCloseButton: Story = {
       <Dialog.Trigger>
         <Button label="Open (no close icon)" />
       </Dialog.Trigger>
-      <Dialog.Content showCloseButton={false}>
+      <Dialog.Content>
         <Dialog.Header>
           <Dialog.Title>No Close Icon</Dialog.Title>
           <Dialog.Description>

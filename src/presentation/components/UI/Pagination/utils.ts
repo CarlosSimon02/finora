@@ -13,7 +13,7 @@ export const getPageNumbersResponsive = (
 
   const middleCount = pagesToShow - 2; // exclude first & last
   let left = Math.max(2, currentPage - Math.floor(middleCount / 2));
-  let right = Math.min(totalPages - 1, left + middleCount - 1);
+  const right = Math.min(totalPages - 1, left + middleCount - 1);
   left = Math.max(2, right - middleCount + 1);
 
   const pages: number[] = [1];
