@@ -32,6 +32,7 @@ export const Overview = () => {
     error: errorTransactions,
   } = trpc.getPaginatedTransactions.useQuery({
     pagination: { page: 1, perPage: 5 },
+    sort: { field: "transactionDate", order: "desc" },
   });
   const {
     data: potsSummary,
