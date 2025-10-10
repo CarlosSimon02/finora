@@ -36,7 +36,7 @@ export const BudgetsSection = ({
           </div>
           <div className="@container/grid">
             <div className="grid grid-cols-1 gap-4 @3xs/grid:grid-cols-2">
-              {budgetsSummary.budgets.map((budget) => (
+              {budgetsSummary.budgets.slice(0, 4).map((budget) => (
                 <ColoredAmountItem
                   key={budget.id}
                   name={budget.name}

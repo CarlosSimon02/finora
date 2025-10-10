@@ -2,6 +2,7 @@
 
 import { GoogleIcon } from "@/presentation/components/SVGs";
 import { LoadingButton } from "@/presentation/components/UI";
+import { useGuestSignIn } from "@/presentation/hooks/auth";
 import { DetectiveIcon } from "@phosphor-icons/react";
 
 type AuthAltButtonsProps = {
@@ -29,6 +30,7 @@ export const AuthAltButtons = ({
   onGoogleClick,
   onGuestClick,
 }: AuthAltButtonsProps) => {
+  const guest = useGuestSignIn();
   return (
     <>
       <div className="txt-preset-4 text-grey-500 shrink-0 text-center">
@@ -51,14 +53,15 @@ export const AuthAltButtons = ({
           variant="secondary"
           className="w-full"
           disabled={disabled}
-          isLoading={Boolean(guestLoading)}
+          isLoading={Boolean(guestLoading) || guest.isPending}
           icon={{
             component: DetectiveIcon,
-            weight: "fill",
+            weight:
+              Boolean(guestLoading) || guest.isPending ? "regular" : "fill",
             className: "text-other-magenta size-5",
           }}
           loadingLabel={guestLoadingLabel}
-          onClick={onGuestClick}
+          onClick={onGuestClick ?? (() => guest.mutate())}
           label={guestLabel}
         />
       </div>

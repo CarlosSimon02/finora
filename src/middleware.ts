@@ -36,10 +36,12 @@ export async function middleware(request: NextRequest) {
       authConfig.experimental_enableTokenRefreshOnExpiredKidHeader,
     handleValidToken: async ({ decodedToken }, headers) => {
       // Enforce email verification: if authenticated but email not verified, force to /verify-email
+      const isGuest = Boolean((decodedToken as any)?.role === "guest");
 
       if (
         decodedToken &&
         !decodedToken.email_verified &&
+        !isGuest &&
         pathname !== "/verify-email"
       ) {
         return NextResponse.redirect(new URL("/verify-email", request.nextUrl));
@@ -48,7 +50,7 @@ export async function middleware(request: NextRequest) {
       // If email is verified and user visits /verify-email, send them home
       if (
         decodedToken &&
-        decodedToken.email_verified &&
+        (decodedToken.email_verified || isGuest) &&
         pathname === "/verify-email"
       ) {
         return redirectToHome(request);

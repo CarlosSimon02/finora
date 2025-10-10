@@ -7,10 +7,11 @@ import {
   getTransaction,
   updateTransaction,
 } from "@/core/useCases/transaction";
+import * as demo from "@/data/demo";
 import { TransactionRepository } from "@/data/repositories/TransactionRepository";
 import { cacheTags } from "@/utils";
 import { unstable_cacheTag as cacheTag, revalidateTag } from "next/cache";
-import { protectedProcedure, router } from "./trpc";
+import { protectedProcedure, protectedWriteProcedure, router } from "./trpc";
 
 const transactionRepository = new TransactionRepository();
 
@@ -22,6 +23,10 @@ export const transactionsRouter = router({
       cacheTag(cacheTags.PAGINATED_TRANSACTIONS);
 
       const { user } = ctx;
+      const role = user.customClaims?.role as string | undefined;
+      if (role === "guest") {
+        return demo.getPaginatedTransactions(input);
+      }
       const fn = getPaginatedTransactions(transactionRepository);
       return await fn(user.id, input);
     }),
@@ -32,6 +37,10 @@ export const transactionsRouter = router({
       cacheTag(cacheTags.PAGINATED_CATEGORIES);
 
       const { user } = ctx;
+      const role = user.customClaims?.role as string | undefined;
+      if (role === "guest") {
+        return demo.getPaginatedCategories(input);
+      }
       const fn = getPaginatedCategories(transactionRepository);
       return await fn(user.id, input);
     }),
@@ -39,11 +48,15 @@ export const transactionsRouter = router({
     .input((val: unknown) => val as { transactionId: string })
     .query(async ({ ctx, input }) => {
       const { user } = ctx;
+      const role = user.customClaims?.role as string | undefined;
+      if (role === "guest") {
+        return demo.getTransaction(input.transactionId);
+      }
       const fn = getTransaction(transactionRepository);
       return await fn(user.id, input.transactionId);
     }),
 
-  createTransaction: protectedProcedure
+  createTransaction: protectedWriteProcedure
     .input(
       (val: unknown) =>
         val as { data: Parameters<ReturnType<typeof createTransaction>>[1] }
@@ -51,7 +64,7 @@ export const transactionsRouter = router({
     .mutation(async ({ ctx, input }) => {
       const { user } = ctx;
       const fn = createTransaction(transactionRepository);
-      const result = await fn(user.id, input.data as any);
+      const result = await fn(user.id, input.data);
       revalidateTag(cacheTags.PAGINATED_TRANSACTIONS);
       revalidateTag(cacheTags.PAGINATED_CATEGORIES);
       revalidateTag(cacheTags.BUDGETS_SUMMARY);
@@ -60,7 +73,7 @@ export const transactionsRouter = router({
       revalidateTag(cacheTags.PAGINATED_INCOMES_WITH_TRANSACTIONS);
       return result;
     }),
-  updateTransaction: protectedProcedure
+  updateTransaction: protectedWriteProcedure
     .input(
       (val: unknown) =>
         val as {
@@ -80,7 +93,7 @@ export const transactionsRouter = router({
       revalidateTag(cacheTags.PAGINATED_INCOMES_WITH_TRANSACTIONS);
       return result;
     }),
-  deleteTransaction: protectedProcedure
+  deleteTransaction: protectedWriteProcedure
     .input((val: unknown) => val as { transactionId: string })
     .mutation(async ({ ctx, input }) => {
       const { user } = ctx;

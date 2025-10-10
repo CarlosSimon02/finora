@@ -35,7 +35,7 @@ export const IncomesSection = ({
           </div>
           <div className="@container/grid">
             <div className="grid grid-cols-1 gap-4 @3xs/grid:grid-cols-2">
-              {incomesSummary.incomes.map((income) => (
+              {incomesSummary.incomes.slice(0, 4).map((income) => (
                 <ColoredAmountItem
                   key={income.id}
                   name={income.name}

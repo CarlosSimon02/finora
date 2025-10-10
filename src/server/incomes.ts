@@ -11,10 +11,11 @@ import {
 import { getIncomesSummary } from "@/core/useCases/income/getIncomesSummary";
 import { getPaginatedIncomes } from "@/core/useCases/income/getPaginatedIncomes";
 import { getPaginatedIncomesWithTransactions } from "@/core/useCases/income/getPaginatedIncomesWithTransactions";
+import * as demo from "@/data/demo";
 import { IncomeRepository } from "@/data/repositories/IncomeRepository";
 import { cacheTags } from "@/utils";
 import { unstable_cacheTag as cacheTag, revalidateTag } from "next/cache";
-import { protectedProcedure, router } from "./trpc";
+import { protectedProcedure, protectedWriteProcedure, router } from "./trpc";
 
 const incomeRepository = new IncomeRepository();
 
@@ -23,6 +24,10 @@ export const incomesRouter = router({
     "use cache";
     cacheTag(cacheTags.INCOMES_COUNT);
     const { user } = ctx;
+    const role = user.customClaims?.role as string | undefined;
+    if (role === "guest") {
+      return demo.getIncomesCount();
+    }
     const fn = getIncomesCount(incomeRepository);
     return await fn(user.id);
   }),
@@ -30,6 +35,10 @@ export const incomesRouter = router({
     "use cache";
     cacheTag(cacheTags.INCOMES_USED_COLORS);
     const { user } = ctx;
+    const role = user.customClaims?.role as string | undefined;
+    if (role === "guest") {
+      return demo.listUsedIncomeColors();
+    }
     const fn = listUsedIncomeColors(incomeRepository);
     return await fn(user.id);
   }),
@@ -40,6 +49,10 @@ export const incomesRouter = router({
       cacheTag(cacheTags.INCOMES_SUMMARY);
 
       const { user } = ctx;
+      const role = user.customClaims?.role as string | undefined;
+      if (role === "guest") {
+        return demo.getIncomesSummary(input.maxIncomesToShow);
+      }
       const fn = getIncomesSummary(incomeRepository);
       return await fn(user.id, input.maxIncomesToShow);
     }),
@@ -50,6 +63,10 @@ export const incomesRouter = router({
       cacheTag(cacheTags.PAGINATED_INCOMES);
 
       const { user } = ctx;
+      const role = user.customClaims?.role as string | undefined;
+      if (role === "guest") {
+        return demo.getPaginatedIncomes(input);
+      }
       const fn = getPaginatedIncomes(incomeRepository);
       return await fn(user.id, input);
     }),
@@ -60,6 +77,10 @@ export const incomesRouter = router({
       cacheTag(cacheTags.PAGINATED_INCOMES_WITH_TRANSACTIONS);
 
       const { user } = ctx;
+      const role = user.customClaims?.role as string | undefined;
+      if (role === "guest") {
+        return demo.getPaginatedIncomesWithTransactions(input);
+      }
       const fn = getPaginatedIncomesWithTransactions(incomeRepository);
       return await fn(user.id, input);
     }),
@@ -67,11 +88,15 @@ export const incomesRouter = router({
     .input((val: unknown) => val as { incomeId: string })
     .query(async ({ ctx, input }) => {
       const { user } = ctx;
+      const role = user.customClaims?.role as string | undefined;
+      if (role === "guest") {
+        return demo.getIncome(input.incomeId);
+      }
       const fn = getIncome(incomeRepository);
       return await fn(user.id, input.incomeId);
     }),
 
-  createIncome: protectedProcedure
+  createIncome: protectedWriteProcedure
     .input(
       (val: unknown) =>
         val as { data: Parameters<ReturnType<typeof createIncome>>[1] }
@@ -86,7 +111,7 @@ export const incomesRouter = router({
       revalidateTag(cacheTags.INCOMES_COUNT);
       return result;
     }),
-  updateIncome: protectedProcedure
+  updateIncome: protectedWriteProcedure
     .input(
       (val: unknown) =>
         val as {
@@ -104,7 +129,7 @@ export const incomesRouter = router({
       revalidateTag(cacheTags.INCOMES_COUNT);
       return result;
     }),
-  deleteIncome: protectedProcedure
+  deleteIncome: protectedWriteProcedure
     .input((val: unknown) => val as { incomeId: string })
     .mutation(async ({ ctx, input }) => {
       const { user } = ctx;

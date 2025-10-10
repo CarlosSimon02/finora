@@ -11,10 +11,11 @@ import {
   listUsedBudgetColors,
   updateBudget,
 } from "@/core/useCases/budget";
+import * as demo from "@/data/demo";
 import { BudgetRepository } from "@/data/repositories/BudgetRepository";
 import { cacheTags } from "@/utils";
 import { unstable_cacheTag as cacheTag, revalidateTag } from "next/cache";
-import { protectedProcedure, router } from "./trpc";
+import { protectedProcedure, protectedWriteProcedure, router } from "./trpc";
 
 const budgetRepository = new BudgetRepository();
 
@@ -23,6 +24,10 @@ export const budgetsRouter = router({
     "use cache";
     cacheTag(cacheTags.BUDGETS_COUNT);
     const { user } = ctx;
+    const role = user.customClaims?.role as string | undefined;
+    if (role === "guest") {
+      return demo.getBudgetsCount();
+    }
     const fn = getBudgetsCount(budgetRepository);
     return await fn(user.id);
   }),
@@ -30,6 +35,10 @@ export const budgetsRouter = router({
     "use cache";
     cacheTag(cacheTags.BUDGETS_USED_COLORS);
     const { user } = ctx;
+    const role = user.customClaims?.role as string | undefined;
+    if (role === "guest") {
+      return demo.listUsedBudgetColors();
+    }
     const fn = listUsedBudgetColors(budgetRepository);
     return await fn(user.id);
   }),
@@ -40,6 +49,10 @@ export const budgetsRouter = router({
       cacheTag(cacheTags.BUDGETS_SUMMARY);
 
       const { user } = ctx;
+      const role = user.customClaims?.role as string | undefined;
+      if (role === "guest") {
+        return demo.getBudgetsSummary(input.maxBudgetsToShow);
+      }
       const fn = getBudgetsSummary(budgetRepository);
       return await fn(user.id, input.maxBudgetsToShow);
     }),
@@ -50,6 +63,10 @@ export const budgetsRouter = router({
       cacheTag(cacheTags.PAGINATED_BUDGETS_WITH_TRANSACTIONS);
 
       const { user } = ctx;
+      const role = user.customClaims?.role as string | undefined;
+      if (role === "guest") {
+        return demo.getPaginatedBudgetsWithTransactions(input);
+      }
       const fn = getPaginatedBudgetsWithTransactions(budgetRepository);
       return await fn(user.id, input);
     }),
@@ -60,6 +77,10 @@ export const budgetsRouter = router({
       cacheTag(cacheTags.PAGINATED_BUDGETS);
 
       const { user } = ctx;
+      const role = user.customClaims?.role as string | undefined;
+      if (role === "guest") {
+        return demo.getPaginatedBudgets(input);
+      }
       const fn = getPaginatedBudgets(budgetRepository);
       return await fn(user.id, input);
     }),
@@ -67,11 +88,15 @@ export const budgetsRouter = router({
     .input((val: unknown) => val as { budgetId: string })
     .query(async ({ ctx, input }) => {
       const { user } = ctx;
+      const role = user.customClaims?.role as string | undefined;
+      if (role === "guest") {
+        return demo.getBudget(input.budgetId);
+      }
       const fn = getBudget(budgetRepository);
       return await fn(user.id, input.budgetId);
     }),
 
-  createBudget: protectedProcedure
+  createBudget: protectedWriteProcedure
     .input(
       (val: unknown) =>
         val as { data: Parameters<ReturnType<typeof createBudget>>[1] }
@@ -88,7 +113,7 @@ export const budgetsRouter = router({
       revalidateTag(cacheTags.BUDGETS_USED_COLORS);
       return result;
     }),
-  updateBudget: protectedProcedure
+  updateBudget: protectedWriteProcedure
     .input(
       (val: unknown) =>
         val as {
@@ -108,7 +133,7 @@ export const budgetsRouter = router({
       revalidateTag(cacheTags.BUDGETS_USED_COLORS);
       return result;
     }),
-  deleteBudget: protectedProcedure
+  deleteBudget: protectedWriteProcedure
     .input((val: unknown) => val as { budgetId: string })
     .mutation(async ({ ctx, input }) => {
       const { user } = ctx;

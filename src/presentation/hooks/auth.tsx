@@ -15,8 +15,10 @@ import {
   verifyEmail,
 } from "@/core/useCases/auth/client";
 import { AuthClientRepository } from "@/data/repositories/AuthClientRepository";
+import { clientAuth } from "@/infrastructure/firebase/firebaseClient";
 import { trpc } from "@/lib/trpc/client";
 import { useMutation } from "@tanstack/react-query";
+import { signInWithCustomToken } from "firebase/auth";
 import { useRouter, useSearchParams } from "next/navigation";
 import { toast } from "sonner";
 
@@ -126,6 +128,34 @@ export const useLogin = () => {
       toast.error(normalizeAuthError(error));
     },
     onSettled: () => {},
+  });
+};
+
+export const useGuestSignIn = () => {
+  const redirect = useRedirectParam();
+  const router = useRouter();
+  const postSignIn = trpc.postSignIn.useMutation();
+
+  return useMutation({
+    mutationKey: ["auth", "guest"],
+    retry: 1,
+    mutationFn: async () => {
+      const res = await fetch("/api/guest-token", { method: "POST" });
+      if (!res.ok) throw new Error("Failed to fetch guest token");
+      const { token } = (await res.json()) as { token: string };
+      const cred = await signInWithCustomToken(clientAuth, token);
+      const idToken = await cred.user.getIdToken();
+      await postSignIn.mutateAsync({ idToken });
+      return true;
+    },
+    onSuccess: () => {
+      toast.success("Continuing as guest");
+      router.push(redirect);
+    },
+    onError: (error: unknown) => {
+      console.error("Guest sign-in error:", error);
+      toast.error(normalizeAuthError(error));
+    },
   });
 };
 

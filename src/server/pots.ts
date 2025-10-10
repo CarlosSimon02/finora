@@ -12,10 +12,11 @@ import {
   updatePot,
   withdrawMoneyFromPot,
 } from "@/core/useCases/pot";
+import * as demo from "@/data/demo";
 import { PotRepository } from "@/data/repositories/PotRepository";
 import { cacheTags } from "@/utils";
 import { unstable_cacheTag as cacheTag, revalidateTag } from "next/cache";
-import { protectedProcedure, router } from "./trpc";
+import { protectedProcedure, protectedWriteProcedure, router } from "./trpc";
 
 const potRepository = new PotRepository();
 
@@ -24,6 +25,10 @@ export const potsRouter = router({
     "use cache";
     cacheTag(cacheTags.POTS_COUNT);
     const { user } = ctx;
+    const role = user.customClaims?.role as string | undefined;
+    if (role === "guest") {
+      return demo.getPotsCount();
+    }
     const fn = getPotsCount(potRepository);
     return await fn(user.id);
   }),
@@ -33,6 +38,10 @@ export const potsRouter = router({
       "use cache";
       cacheTag(cacheTags.POTS_SUMMARY);
       const { user } = ctx;
+      const role = user.customClaims?.role as string | undefined;
+      if (role === "guest") {
+        return demo.getPotsSummary(input.maxPotsToShow);
+      }
       const fn = getPotsSummary(potRepository);
       return await fn(user.id, input.maxPotsToShow);
     }),
@@ -40,6 +49,10 @@ export const potsRouter = router({
     "use cache";
     cacheTag(cacheTags.POTS_USED_COLORS);
     const { user } = ctx;
+    const role = user.customClaims?.role as string | undefined;
+    if (role === "guest") {
+      return demo.listUsedPotColors();
+    }
     const fn = listUsedPotColors(potRepository);
     return await fn(user.id);
   }),
@@ -50,6 +63,10 @@ export const potsRouter = router({
       cacheTag(cacheTags.PAGINATED_POTS);
 
       const { user } = ctx;
+      const role = user.customClaims?.role as string | undefined;
+      if (role === "guest") {
+        return demo.getPaginatedPots(input);
+      }
       const fn = getPaginatedPots(potRepository);
       return await fn(user.id, input);
     }),
@@ -57,11 +74,15 @@ export const potsRouter = router({
     .input((val: unknown) => val as { potId: string })
     .query(async ({ ctx, input }) => {
       const { user } = ctx;
+      const role = user.customClaims?.role as string | undefined;
+      if (role === "guest") {
+        return demo.getPot(input.potId);
+      }
       const fn = getPot(potRepository);
       return await fn(user.id, input.potId);
     }),
 
-  createPot: protectedProcedure
+  createPot: protectedWriteProcedure
     .input(
       (val: unknown) =>
         val as { data: Parameters<ReturnType<typeof createPot>>[1] }
@@ -76,7 +97,7 @@ export const potsRouter = router({
       revalidateTag(cacheTags.POTS_USED_COLORS);
       return result;
     }),
-  updatePot: protectedProcedure
+  updatePot: protectedWriteProcedure
     .input(
       (val: unknown) =>
         val as {
@@ -94,7 +115,7 @@ export const potsRouter = router({
       revalidateTag(cacheTags.POTS_USED_COLORS);
       return result;
     }),
-  deletePot: protectedProcedure
+  deletePot: protectedWriteProcedure
     .input((val: unknown) => val as { potId: string })
     .mutation(async ({ ctx, input }) => {
       const { user } = ctx;
@@ -106,7 +127,7 @@ export const potsRouter = router({
       revalidateTag(cacheTags.POTS_SUMMARY);
       return undefined;
     }),
-  addMoneyToPot: protectedProcedure
+  addMoneyToPot: protectedWriteProcedure
     .input((val: unknown) => val as { potId: string; amount: number })
     .mutation(async ({ ctx, input }) => {
       const { user } = ctx;
@@ -116,7 +137,7 @@ export const potsRouter = router({
       revalidateTag(cacheTags.POTS_SUMMARY);
       return result;
     }),
-  withdrawMoneyFromPot: protectedProcedure
+  withdrawMoneyFromPot: protectedWriteProcedure
     .input((val: unknown) => val as { potId: string; amount: number })
     .mutation(async ({ ctx, input }) => {
       const { user } = ctx;

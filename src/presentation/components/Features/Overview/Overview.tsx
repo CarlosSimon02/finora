@@ -16,7 +16,7 @@ export const Overview = () => {
     isLoading: isLoadingBudgetsSummary,
     error: errorBudgetsSummary,
   } = trpc.getBudgetsSummary.useQuery({
-    maxBudgetsToShow: 4,
+    maxBudgetsToShow: 15,
   });
 
   const {
@@ -24,7 +24,7 @@ export const Overview = () => {
     isLoading: isLoadingIncomesSummary,
     error: errorIncomesSummary,
   } = trpc.getIncomesSummary.useQuery({
-    maxIncomesToShow: 4,
+    maxIncomesToShow: 15,
   });
   const {
     data: transactions,

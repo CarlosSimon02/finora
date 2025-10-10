@@ -181,6 +181,8 @@ const errorAdapter = t.middleware(async ({ next, path, type }) => {
   }
 });
 
+type AuthedContext = Context & { user: ReturnType<typeof tokensToUser> };
+
 const isAuthenticated = t.middleware(async ({ ctx, next }) => {
   const { req } = ctx;
   const tokens = await getTokens(req.cookies, authConfig);
@@ -192,7 +194,9 @@ const isAuthenticated = t.middleware(async ({ ctx, next }) => {
     });
   }
 
-  if (!tokens.decodedToken.email_verified) {
+  const isGuest = (tokens.decodedToken as any)?.role === "guest";
+
+  if (!tokens.decodedToken.email_verified && !isGuest) {
     throw new TRPCError({
       code: "UNAUTHORIZED",
       message: "Unauthorized",
@@ -200,7 +204,8 @@ const isAuthenticated = t.middleware(async ({ ctx, next }) => {
     });
   }
 
-  return next({ ctx: { user: tokensToUser(tokens.decodedToken) } });
+  const user = tokensToUser(tokens.decodedToken);
+  return next({ ctx: { ...ctx, user } as AuthedContext });
 });
 
 // Log middleware setup on module load
@@ -209,6 +214,19 @@ console.log("[TRPC] Middleware setup complete - errorAdapter is active");
 export const router = t.router;
 export const publicProcedure = t.procedure.use(errorAdapter);
 export const protectedProcedure = publicProcedure.use(isAuthenticated);
+const requireNonGuest = t.middleware(async ({ ctx, next }) => {
+  const role = (ctx as unknown as AuthedContext).user?.customClaims?.role as
+    | string
+    | undefined;
+  if (role === "guest") {
+    throw new TRPCError({
+      code: "FORBIDDEN",
+      message: "Guest users cannot perform write operations",
+    });
+  }
+  return next();
+});
+export const protectedWriteProcedure = protectedProcedure.use(requireNonGuest);
 
 // Log that procedures are exported
 console.log(
