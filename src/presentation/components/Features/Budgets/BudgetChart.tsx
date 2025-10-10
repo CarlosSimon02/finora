@@ -1,11 +1,11 @@
 "use client";
-import { BudgetDto } from "@/core/schemas";
+import { BudgetWithTotalSpendingDto } from "@/core/schemas";
 import { Chart } from "@/presentation/components/UI";
 import { formatCurrency } from "@/utils";
 import { Label, Pie, PieChart } from "recharts";
 
 type BudgetChartProps = {
-  budgetData: BudgetDto[];
+  budgetData: BudgetWithTotalSpendingDto[];
   totalSpent: number;
   totalLimit: number;
 };
@@ -18,7 +18,7 @@ export const BudgetChart = ({
   // Format data for the chart
   const chartData = budgetData.map((budget) => ({
     name: budget.name,
-    value: budget.maximumSpending,
+    value: budget.totalSpending,
     fill: budget.colorTag,
   }));
 

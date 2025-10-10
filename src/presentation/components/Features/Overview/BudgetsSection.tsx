@@ -41,7 +41,7 @@ export const BudgetsSection = ({
                   key={budget.id}
                   name={budget.name}
                   color={budget.colorTag}
-                  amount={budget.maximumSpending}
+                  amount={budget.totalSpending}
                 />
               ))}
             </div>

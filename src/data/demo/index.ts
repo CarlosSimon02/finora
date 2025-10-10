@@ -229,11 +229,12 @@ export const getBudgetsSummary = (
   );
 
   const budgetsWithSpending = budgets
-    .slice(0, maxBudgetsToShow)
     .map((budget) => ({
       ...budget,
       totalSpending: calculateCategoryTotal(budget.name, "expense"),
-    }));
+    }))
+    .sort((a, b) => b.totalSpending - a.totalSpending) // Sort by highest spending first
+    .slice(0, maxBudgetsToShow);
 
   return {
     totalSpending,
@@ -290,11 +291,12 @@ export const getIncomesSummary = (
   const totalEarned = calculateTotalFromTransactions(transactions, "income");
 
   const incomesWithEarnings = incomes
-    .slice(0, maxIncomesToShow)
     .map((income) => ({
       ...income,
       totalEarned: calculateCategoryTotal(income.name, "income"),
-    }));
+    }))
+    .sort((a, b) => b.totalEarned - a.totalEarned) // Sort by highest earnings first
+    .slice(0, maxIncomesToShow);
 
   return {
     totalEarned,
@@ -371,8 +373,10 @@ export const getPotsCount = (): number => {
 };
 
 export const getPotsSummary = (maxPotsToShow?: number): PotsSummaryDto => {
+  const sortedPots = [...pots].sort((a, b) => b.totalSaved - a.totalSaved); // Sort by highest savings first
+
   return {
-    pots: pots.slice(0, maxPotsToShow),
+    pots: sortedPots.slice(0, maxPotsToShow),
     totalSaved: pots.reduce((sum, pot) => sum + pot.totalSaved, 0),
     count: pots.length,
   };
