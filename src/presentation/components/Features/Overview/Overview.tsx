@@ -4,9 +4,9 @@ import { trpc } from "@/lib/trpc/client";
 import { FrontViewLayout } from "@/presentation/components/Layouts";
 import { Card, ErrorState } from "@/presentation/components/Primitives";
 import { BudgetsSection } from "./BudgetsSection";
+import { IncomesSection } from "./IncomesSection";
 import { OverviewSkeleton } from "./OverviewSkeleton";
 import { PotsSection } from "./PotsSection";
-import { RecurringBillsSection } from "./RecurringBillsSection";
 import { SummarySection } from "./SummarySection";
 import { TransactionsSection } from "./TransactionsSection";
 
@@ -18,6 +18,7 @@ export const Overview = () => {
   } = trpc.getBudgetsSummary.useQuery({
     maxBudgetsToShow: 4,
   });
+
   const {
     data: incomesSummary,
     isLoading: isLoadingIncomesSummary,
@@ -89,7 +90,10 @@ export const Overview = () => {
               className="h-full"
               budgetsSummary={budgetsSummary}
             />
-            <RecurringBillsSection />
+            <IncomesSection
+              className="h-full"
+              incomesSummary={incomesSummary}
+            />
           </div>
         </div>
       </div>

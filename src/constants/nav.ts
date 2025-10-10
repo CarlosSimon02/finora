@@ -3,7 +3,6 @@ import {
   BankIcon,
   ChartDonutIcon,
   HouseIcon,
-  ReceiptIcon,
   TipJarIcon,
 } from "@phosphor-icons/react";
 
@@ -32,10 +31,5 @@ export const NAV_MAIN = [
     title: "Pots",
     url: "/pots",
     icon: TipJarIcon,
-  },
-  {
-    title: "Recurring Bills",
-    url: "/recurring-bills",
-    icon: ReceiptIcon,
   },
 ];

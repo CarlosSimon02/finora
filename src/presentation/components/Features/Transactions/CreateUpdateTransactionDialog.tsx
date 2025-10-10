@@ -71,9 +71,9 @@ export const CreateUpdateTransactionDialog = ({
       amount: initialData?.amount ?? ("" as unknown as number),
       transactionDate: initialData?.transactionDate ?? new Date(),
       emoji: initialData?.emoji ?? "📃",
-      categoryId: category?.value ?? "",
+      categoryId: initialData?.category?.id ?? "",
     }),
-    [initialData, category]
+    [initialData]
   );
 
   const form = useForm<CreateTransactionDto>({
@@ -87,12 +87,21 @@ export const CreateUpdateTransactionDialog = ({
     // Only clear if transactionType changes after initial render
     if (form.formState.isDirty) {
       setCategory(null);
-      form.setValue("categoryId", "");
+      form.setValue("categoryId", "", {
+        shouldDirty: true,
+        shouldValidate: true,
+      });
     }
   }, [transactionType, form]);
 
   useEffect(() => {
-    form.setValue("categoryId", category?.value || "");
+    const newCategoryId = category?.value || "";
+    const previousCategoryId = form.getValues("categoryId");
+    const shouldDirty = previousCategoryId !== newCategoryId;
+    form.setValue("categoryId", newCategoryId, {
+      shouldDirty,
+      shouldValidate: shouldDirty,
+    });
   }, [category, form]);
 
   const utils = trpc.useUtils();
