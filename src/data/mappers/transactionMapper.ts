@@ -14,6 +14,7 @@ export const mapTransactionModelToDto = (
     id: model.id,
     type: model.type,
     amount: model.amount,
+    signedAmount: model.signedAmount,
     name: model.name,
     category,
     transactionDate: model.transactionDate.toDate(),

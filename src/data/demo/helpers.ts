@@ -1,3 +1,4 @@
+import { COLOR_OPTIONS } from "@/constants/colors";
 import { CategoryDto, TransactionTypeDto } from "@/core/schemas";
 import {
   getCategoryByName,
@@ -8,7 +9,7 @@ import {
 const FALLBACK_CATEGORY: CategoryDto = {
   id: "fallback_cat",
   name: "Uncategorized",
-  colorTag: "#696868",
+  colorTag: COLOR_OPTIONS[0].value,
   createdAt: new Date(),
   updatedAt: new Date(),
 };
