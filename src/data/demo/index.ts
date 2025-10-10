@@ -188,7 +188,13 @@ export const getTransactionsByCategory = (
       transaction.category.name === categoryName
   );
 
-  return limit ? filtered.slice(0, limit) : filtered;
+  // Sort by transactionDate in descending order (newest first)
+  const sorted = applySorting(filtered, {
+    field: "transactionDate",
+    order: "desc",
+  });
+
+  return limit ? sorted.slice(0, limit) : sorted;
 };
 
 export const calculateCategoryTotal = (
