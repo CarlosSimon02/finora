@@ -2,7 +2,7 @@
 
 import { GoogleIcon } from "@/presentation/components/SVGs";
 import { LoadingButton } from "@/presentation/components/UI";
-import { DatabaseIcon, DetectiveIcon } from "@phosphor-icons/react";
+import { DetectiveIcon } from "@phosphor-icons/react";
 
 type AuthAltButtonsProps = {
   disabled?: boolean;
@@ -13,26 +13,20 @@ type AuthAltButtonsProps = {
   localLabel?: string;
   guestLabel?: string;
   googleLoadingLabel?: string;
-  localLoadingLabel?: string;
   guestLoadingLabel?: string;
   onGoogleClick?: () => void;
-  onLocalClick?: () => void;
   onGuestClick?: () => void;
 };
 
 export const AuthAltButtons = ({
   disabled,
   googleLoading,
-  localLoading,
   guestLoading,
   googleLabel = "Proceed with Google",
-  localLabel = "Use local storage",
   guestLabel = "Continue as guest",
   googleLoadingLabel = "Proceeding with Google...",
-  localLoadingLabel = "Using local storage...",
   guestLoadingLabel = "Continuing as guest...",
   onGoogleClick,
-  onLocalClick,
   onGuestClick,
 }: AuthAltButtonsProps) => {
   return (
@@ -51,21 +45,6 @@ export const AuthAltButtons = ({
           loadingLabel={googleLoadingLabel}
           onClick={onGoogleClick}
           label={googleLabel}
-        />
-        <LoadingButton
-          type="button"
-          variant="secondary"
-          className="w-full"
-          disabled={disabled}
-          isLoading={Boolean(localLoading)}
-          icon={{
-            component: DatabaseIcon,
-            weight: "fill",
-            className: "text-other-blue size-5",
-          }}
-          loadingLabel={localLoadingLabel}
-          onClick={onLocalClick}
-          label={localLabel}
         />
         <LoadingButton
           type="button"
