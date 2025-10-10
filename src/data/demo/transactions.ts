@@ -12,6 +12,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Groceries"),
     createdAt: new Date("2024-01-15T10:30:00"),
     updatedAt: new Date("2024-01-15T10:30:00"),
+    signedAmount: -125.5,
   },
   {
     id: "2",
@@ -23,6 +24,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Groceries"),
     createdAt: new Date("2024-01-22T14:20:00"),
     updatedAt: new Date("2024-01-22T14:20:00"),
+    signedAmount: -89.25,
   },
   {
     id: "3",
@@ -34,6 +36,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Groceries"),
     createdAt: new Date("2024-02-05T09:15:00"),
     updatedAt: new Date("2024-02-05T09:15:00"),
+    signedAmount: -156.8,
   },
   {
     id: "4",
@@ -45,6 +48,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Groceries"),
     createdAt: new Date("2024-02-12T11:45:00"),
     updatedAt: new Date("2024-02-12T11:45:00"),
+    signedAmount: -67.4,
   },
   {
     id: "5",
@@ -56,6 +60,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Groceries"),
     createdAt: new Date("2024-02-19T16:30:00"),
     updatedAt: new Date("2024-02-19T16:30:00"),
+    signedAmount: -98.75,
   },
   {
     id: "6",
@@ -67,6 +72,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Groceries"),
     createdAt: new Date("2024-03-03T08:20:00"),
     updatedAt: new Date("2024-03-03T08:20:00"),
+    signedAmount: -45.6,
   },
   {
     id: "7",
@@ -78,6 +84,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Groceries"),
     createdAt: new Date("2024-03-10T13:10:00"),
     updatedAt: new Date("2024-03-10T13:10:00"),
+    signedAmount: -78.9,
   },
   {
     id: "8",
@@ -89,6 +96,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Groceries"),
     createdAt: new Date("2024-03-17T07:50:00"),
     updatedAt: new Date("2024-03-17T07:50:00"),
+    signedAmount: -23.45,
   },
   {
     id: "9",
@@ -100,6 +108,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Groceries"),
     createdAt: new Date("2024-04-01T15:25:00"),
     updatedAt: new Date("2024-04-01T15:25:00"),
+    signedAmount: -34.2,
   },
   {
     id: "10",
@@ -111,6 +120,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Groceries"),
     createdAt: new Date("2024-04-08T12:40:00"),
     updatedAt: new Date("2024-04-08T12:40:00"),
+    signedAmount: -52.15,
   },
   {
     id: "11",
@@ -122,6 +132,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Groceries"),
     createdAt: new Date("2024-04-15T10:15:00"),
     updatedAt: new Date("2024-04-15T10:15:00"),
+    signedAmount: -134.8,
   },
   {
     id: "12",
@@ -133,6 +144,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Groceries"),
     createdAt: new Date("2024-04-22T18:30:00"),
     updatedAt: new Date("2024-04-22T18:30:00"),
+    signedAmount: -41.3,
   },
   {
     id: "13",
@@ -144,6 +156,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Groceries"),
     createdAt: new Date("2024-05-06T14:50:00"),
     updatedAt: new Date("2024-05-06T14:50:00"),
+    signedAmount: -67.85,
   },
   {
     id: "14",
@@ -155,6 +168,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Groceries"),
     createdAt: new Date("2024-05-13T11:20:00"),
     updatedAt: new Date("2024-05-13T11:20:00"),
+    signedAmount: -89.7,
   },
   {
     id: "15",
@@ -166,6 +180,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Groceries"),
     createdAt: new Date("2024-05-20T16:45:00"),
     updatedAt: new Date("2024-05-20T16:45:00"),
+    signedAmount: -76.45,
   },
   {
     id: "16",
@@ -177,6 +192,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Groceries"),
     createdAt: new Date("2024-06-03T12:30:00"),
     updatedAt: new Date("2024-06-03T12:30:00"),
+    signedAmount: -28.9,
   },
   {
     id: "17",
@@ -188,6 +204,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Groceries"),
     createdAt: new Date("2024-06-10T08:15:00"),
     updatedAt: new Date("2024-06-10T08:15:00"),
+    signedAmount: -54.25,
   },
   {
     id: "18",
@@ -199,6 +216,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Groceries"),
     createdAt: new Date("2024-06-17T17:20:00"),
     updatedAt: new Date("2024-06-17T17:20:00"),
+    signedAmount: -112.6,
   },
   {
     id: "19",
@@ -210,6 +228,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Groceries"),
     createdAt: new Date("2024-07-01T13:40:00"),
     updatedAt: new Date("2024-07-01T13:40:00"),
+    signedAmount: -95.4,
   },
   {
     id: "20",
@@ -221,6 +240,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Groceries"),
     createdAt: new Date("2024-07-08T09:30:00"),
     updatedAt: new Date("2024-07-08T09:30:00"),
+    signedAmount: -187.35,
   },
   // Rent / Housing (20 transactions)
   {
@@ -233,6 +253,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Rent / Housing"),
     createdAt: new Date("2024-01-01T09:00:00"),
     updatedAt: new Date("2024-01-01T09:00:00"),
+    signedAmount: -2200,
   },
   {
     id: "22",
@@ -244,6 +265,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Rent / Housing"),
     createdAt: new Date("2024-01-15T14:30:00"),
     updatedAt: new Date("2024-01-15T14:30:00"),
+    signedAmount: -2200,
   },
   {
     id: "23",
@@ -255,6 +277,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Rent / Housing"),
     createdAt: new Date("2024-02-01T09:00:00"),
     updatedAt: new Date("2024-02-01T09:00:00"),
+    signedAmount: -2200,
   },
   {
     id: "24",
@@ -266,6 +289,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Rent / Housing"),
     createdAt: new Date("2024-03-01T09:00:00"),
     updatedAt: new Date("2024-03-01T09:00:00"),
+    signedAmount: -2200,
   },
   {
     id: "25",
@@ -277,6 +301,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Rent / Housing"),
     createdAt: new Date("2024-04-01T09:00:00"),
     updatedAt: new Date("2024-04-01T09:00:00"),
+    signedAmount: -2200,
   },
   {
     id: "26",
@@ -288,6 +313,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Rent / Housing"),
     createdAt: new Date("2024-05-01T09:00:00"),
     updatedAt: new Date("2024-05-01T09:00:00"),
+    signedAmount: -2200,
   },
   {
     id: "27",
@@ -299,6 +325,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Rent / Housing"),
     createdAt: new Date("2024-06-01T09:00:00"),
     updatedAt: new Date("2024-06-01T09:00:00"),
+    signedAmount: -2200,
   },
   {
     id: "28",
@@ -310,6 +337,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Rent / Housing"),
     createdAt: new Date("2024-07-01T09:00:00"),
     updatedAt: new Date("2024-07-01T09:00:00"),
+    signedAmount: -2200,
   },
   {
     id: "29",
@@ -321,6 +349,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Rent / Housing"),
     createdAt: new Date("2024-08-01T09:00:00"),
     updatedAt: new Date("2024-08-01T09:00:00"),
+    signedAmount: -2200,
   },
   {
     id: "30",
@@ -332,6 +361,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Rent / Housing"),
     createdAt: new Date("2024-09-01T09:00:00"),
     updatedAt: new Date("2024-09-01T09:00:00"),
+    signedAmount: -2200,
   },
   {
     id: "31",
@@ -343,6 +373,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Rent / Housing"),
     createdAt: new Date("2024-10-01T09:00:00"),
     updatedAt: new Date("2024-10-01T09:00:00"),
+    signedAmount: -2200,
   },
   {
     id: "32",
@@ -354,6 +385,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Rent / Housing"),
     createdAt: new Date("2024-11-01T09:00:00"),
     updatedAt: new Date("2024-11-01T09:00:00"),
+    signedAmount: -2200,
   },
   {
     id: "33",
@@ -365,6 +397,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Rent / Housing"),
     createdAt: new Date("2024-12-01T09:00:00"),
     updatedAt: new Date("2024-12-01T09:00:00"),
+    signedAmount: -2200,
   },
   {
     id: "34",
@@ -376,6 +409,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Rent / Housing"),
     createdAt: new Date("2024-02-15T11:20:00"),
     updatedAt: new Date("2024-02-15T11:20:00"),
+    signedAmount: -500,
   },
   {
     id: "35",
@@ -387,6 +421,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Rent / Housing"),
     createdAt: new Date("2024-03-10T16:45:00"),
     updatedAt: new Date("2024-03-10T16:45:00"),
+    signedAmount: -150,
   },
   {
     id: "36",
@@ -398,6 +433,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Rent / Housing"),
     createdAt: new Date("2024-04-05T13:30:00"),
     updatedAt: new Date("2024-04-05T13:30:00"),
+    signedAmount: -120,
   },
   {
     id: "37",
@@ -409,6 +445,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Rent / Housing"),
     createdAt: new Date("2024-05-12T10:15:00"),
     updatedAt: new Date("2024-05-12T10:15:00"),
+    signedAmount: -45,
   },
   {
     id: "38",
@@ -420,6 +457,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Rent / Housing"),
     createdAt: new Date("2024-06-20T14:20:00"),
     updatedAt: new Date("2024-06-20T14:20:00"),
+    signedAmount: -75,
   },
   {
     id: "39",
@@ -431,6 +469,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Rent / Housing"),
     createdAt: new Date("2024-07-05T18:30:00"),
     updatedAt: new Date("2024-07-05T18:30:00"),
+    signedAmount: -50,
   },
   {
     id: "40",
@@ -442,6 +481,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Rent / Housing"),
     createdAt: new Date("2024-08-15T12:45:00"),
     updatedAt: new Date("2024-08-15T12:45:00"),
+    signedAmount: -25,
   },
   // Utilities (20 transactions)
   {
@@ -454,6 +494,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Utilities")!,
     createdAt: new Date("2024-01-15T16:45:00"),
     updatedAt: new Date("2024-01-15T16:45:00"),
+    signedAmount: -180.75,
   },
   {
     id: "42",
@@ -465,6 +506,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Utilities")!,
     createdAt: new Date("2024-01-20T14:30:00"),
     updatedAt: new Date("2024-01-20T14:30:00"),
+    signedAmount: -95.4,
   },
   {
     id: "43",
@@ -476,6 +518,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Utilities")!,
     createdAt: new Date("2024-02-01T10:15:00"),
     updatedAt: new Date("2024-02-01T10:15:00"),
+    signedAmount: -67.25,
   },
   {
     id: "44",
@@ -487,6 +530,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Utilities")!,
     createdAt: new Date("2024-02-05T11:20:00"),
     updatedAt: new Date("2024-02-05T11:20:00"),
+    signedAmount: -45.8,
   },
   {
     id: "45",
@@ -498,6 +542,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Utilities")!,
     createdAt: new Date("2024-02-10T09:45:00"),
     updatedAt: new Date("2024-02-10T09:45:00"),
+    signedAmount: -35,
   },
   {
     id: "46",
@@ -509,6 +554,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Utilities")!,
     createdAt: new Date("2024-02-15T16:45:00"),
     updatedAt: new Date("2024-02-15T16:45:00"),
+    signedAmount: -165.3,
   },
   {
     id: "47",
@@ -520,6 +566,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Utilities")!,
     createdAt: new Date("2024-02-20T14:30:00"),
     updatedAt: new Date("2024-02-20T14:30:00"),
+    signedAmount: -78.9,
   },
   {
     id: "48",
@@ -531,6 +578,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Utilities")!,
     createdAt: new Date("2024-03-01T10:15:00"),
     updatedAt: new Date("2024-03-01T10:15:00"),
+    signedAmount: -72.15,
   },
   {
     id: "49",
@@ -542,6 +590,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Utilities")!,
     createdAt: new Date("2024-03-05T11:20:00"),
     updatedAt: new Date("2024-03-05T11:20:00"),
+    signedAmount: -48.6,
   },
   {
     id: "50",
@@ -553,6 +602,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Utilities")!,
     createdAt: new Date("2024-03-10T09:45:00"),
     updatedAt: new Date("2024-03-10T09:45:00"),
+    signedAmount: -35,
   },
   {
     id: "51",
@@ -564,6 +614,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Utilities")!,
     createdAt: new Date("2024-03-15T16:45:00"),
     updatedAt: new Date("2024-03-15T16:45:00"),
+    signedAmount: -142.85,
   },
   {
     id: "52",
@@ -575,6 +626,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Utilities")!,
     createdAt: new Date("2024-03-20T14:30:00"),
     updatedAt: new Date("2024-03-20T14:30:00"),
+    signedAmount: -65.2,
   },
   {
     id: "53",
@@ -586,6 +638,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Utilities")!,
     createdAt: new Date("2024-04-01T10:15:00"),
     updatedAt: new Date("2024-04-01T10:15:00"),
+    signedAmount: -69.45,
   },
   {
     id: "54",
@@ -597,6 +650,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Utilities")!,
     createdAt: new Date("2024-04-05T11:20:00"),
     updatedAt: new Date("2024-04-05T11:20:00"),
+    signedAmount: -46.75,
   },
   {
     id: "55",
@@ -608,6 +662,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Utilities")!,
     createdAt: new Date("2024-04-10T09:45:00"),
     updatedAt: new Date("2024-04-10T09:45:00"),
+    signedAmount: -35,
   },
   {
     id: "56",
@@ -619,6 +674,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Utilities")!,
     createdAt: new Date("2024-04-15T16:45:00"),
     updatedAt: new Date("2024-04-15T16:45:00"),
+    signedAmount: -158.9,
   },
   {
     id: "57",
@@ -630,6 +686,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Utilities")!,
     createdAt: new Date("2024-04-20T14:30:00"),
     updatedAt: new Date("2024-04-20T14:30:00"),
+    signedAmount: -52.3,
   },
   {
     id: "58",
@@ -641,6 +698,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Utilities")!,
     createdAt: new Date("2024-05-01T10:15:00"),
     updatedAt: new Date("2024-05-01T10:15:00"),
+    signedAmount: -74.6,
   },
   {
     id: "59",
@@ -652,6 +710,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Utilities")!,
     createdAt: new Date("2024-05-05T11:20:00"),
     updatedAt: new Date("2024-05-05T11:20:00"),
+    signedAmount: -49.25,
   },
   {
     id: "60",
@@ -663,6 +722,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Utilities")!,
     createdAt: new Date("2024-05-10T09:45:00"),
     updatedAt: new Date("2024-05-10T09:45:00"),
+    signedAmount: -35,
   },
   // Transportation (20 transactions)
   {
@@ -675,6 +735,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Transportation")!,
     createdAt: new Date("2024-01-12T07:30:00"),
     updatedAt: new Date("2024-01-12T07:30:00"),
+    signedAmount: -45.2,
   },
   {
     id: "62",
@@ -686,6 +747,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Transportation")!,
     createdAt: new Date("2024-01-18T16:45:00"),
     updatedAt: new Date("2024-01-18T16:45:00"),
+    signedAmount: -67.8,
   },
   {
     id: "63",
@@ -697,6 +759,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Transportation")!,
     createdAt: new Date("2024-02-01T08:00:00"),
     updatedAt: new Date("2024-02-01T08:00:00"),
+    signedAmount: -85,
   },
   {
     id: "64",
@@ -708,6 +771,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Transportation")!,
     createdAt: new Date("2024-02-05T14:20:00"),
     updatedAt: new Date("2024-02-05T14:20:00"),
+    signedAmount: -12.5,
   },
   {
     id: "65",
@@ -719,6 +783,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Transportation")!,
     createdAt: new Date("2024-02-10T22:15:00"),
     updatedAt: new Date("2024-02-10T22:15:00"),
+    signedAmount: -23.4,
   },
   {
     id: "66",
@@ -730,6 +795,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Transportation")!,
     createdAt: new Date("2024-02-15T10:30:00"),
     updatedAt: new Date("2024-02-15T10:30:00"),
+    signedAmount: -245.6,
   },
   {
     id: "67",
@@ -741,6 +807,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Transportation")!,
     createdAt: new Date("2024-02-22T17:20:00"),
     updatedAt: new Date("2024-02-22T17:20:00"),
+    signedAmount: -72.3,
   },
   {
     id: "68",
@@ -752,6 +819,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Transportation")!,
     createdAt: new Date("2024-03-03T09:45:00"),
     updatedAt: new Date("2024-03-03T09:45:00"),
+    signedAmount: -8.5,
   },
   {
     id: "69",
@@ -763,6 +831,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Transportation")!,
     createdAt: new Date("2024-03-08T19:30:00"),
     updatedAt: new Date("2024-03-08T19:30:00"),
+    signedAmount: -15.8,
   },
   {
     id: "70",
@@ -774,6 +843,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Transportation")!,
     createdAt: new Date("2024-03-12T11:15:00"),
     updatedAt: new Date("2024-03-12T11:15:00"),
+    signedAmount: -28,
   },
   {
     id: "71",
@@ -785,6 +855,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Transportation")!,
     createdAt: new Date("2024-03-18T16:00:00"),
     updatedAt: new Date("2024-03-18T16:00:00"),
+    signedAmount: -69.5,
   },
   {
     id: "72",
@@ -796,6 +867,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Transportation")!,
     createdAt: new Date("2024-03-25T20:45:00"),
     updatedAt: new Date("2024-03-25T20:45:00"),
+    signedAmount: -34.2,
   },
   {
     id: "73",
@@ -807,6 +879,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Transportation")!,
     createdAt: new Date("2024-04-01T08:00:00"),
     updatedAt: new Date("2024-04-01T08:00:00"),
+    signedAmount: -85,
   },
   {
     id: "74",
@@ -818,6 +891,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Transportation")!,
     createdAt: new Date("2024-04-05T15:30:00"),
     updatedAt: new Date("2024-04-05T15:30:00"),
+    signedAmount: -18.5,
   },
   {
     id: "75",
@@ -829,6 +903,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Transportation")!,
     createdAt: new Date("2024-04-12T17:45:00"),
     updatedAt: new Date("2024-04-12T17:45:00"),
+    signedAmount: -74.8,
   },
   {
     id: "76",
@@ -840,6 +915,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Transportation")!,
     createdAt: new Date("2024-04-18T13:20:00"),
     updatedAt: new Date("2024-04-18T13:20:00"),
+    signedAmount: -9.5,
   },
   {
     id: "77",
@@ -851,6 +927,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Transportation")!,
     createdAt: new Date("2024-04-25T18:30:00"),
     updatedAt: new Date("2024-04-25T18:30:00"),
+    signedAmount: -19.7,
   },
   {
     id: "78",
@@ -862,6 +939,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Transportation")!,
     createdAt: new Date("2024-05-02T10:15:00"),
     updatedAt: new Date("2024-05-02T10:15:00"),
+    signedAmount: -12,
   },
   {
     id: "79",
@@ -873,6 +951,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Transportation")!,
     createdAt: new Date("2024-05-08T16:30:00"),
     updatedAt: new Date("2024-05-08T16:30:00"),
+    signedAmount: -71.2,
   },
   {
     id: "80",
@@ -884,6 +963,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Transportation")!,
     createdAt: new Date("2024-05-15T12:45:00"),
     updatedAt: new Date("2024-05-15T12:45:00"),
+    signedAmount: -32.5,
   },
   // Internet & Phone (20 transactions)
   {
@@ -896,6 +976,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Internet & Phone")!,
     createdAt: new Date("2024-01-15T10:00:00"),
     updatedAt: new Date("2024-01-15T10:00:00"),
+    signedAmount: -89.99,
   },
   {
     id: "82",
@@ -907,6 +988,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Internet & Phone")!,
     createdAt: new Date("2024-01-20T14:30:00"),
     updatedAt: new Date("2024-01-20T14:30:00"),
+    signedAmount: -75,
   },
   {
     id: "83",
@@ -918,6 +1000,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Internet & Phone")!,
     createdAt: new Date("2024-02-15T10:00:00"),
     updatedAt: new Date("2024-02-15T10:00:00"),
+    signedAmount: -89.99,
   },
   {
     id: "84",
@@ -929,6 +1012,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Internet & Phone")!,
     createdAt: new Date("2024-02-20T14:30:00"),
     updatedAt: new Date("2024-02-20T14:30:00"),
+    signedAmount: -75,
   },
   {
     id: "85",
@@ -940,6 +1024,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Internet & Phone")!,
     createdAt: new Date("2024-03-15T10:00:00"),
     updatedAt: new Date("2024-03-15T10:00:00"),
+    signedAmount: -89.99,
   },
   {
     id: "86",
@@ -951,6 +1036,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Internet & Phone")!,
     createdAt: new Date("2024-03-20T14:30:00"),
     updatedAt: new Date("2024-03-20T14:30:00"),
+    signedAmount: -75,
   },
   {
     id: "87",
@@ -962,6 +1048,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Internet & Phone")!,
     createdAt: new Date("2024-04-15T10:00:00"),
     updatedAt: new Date("2024-04-15T10:00:00"),
+    signedAmount: -89.99,
   },
   {
     id: "88",
@@ -973,6 +1060,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Internet & Phone")!,
     createdAt: new Date("2024-04-20T14:30:00"),
     updatedAt: new Date("2024-04-20T14:30:00"),
+    signedAmount: -75,
   },
   {
     id: "89",
@@ -984,6 +1072,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Internet & Phone")!,
     createdAt: new Date("2024-05-15T10:00:00"),
     updatedAt: new Date("2024-05-15T10:00:00"),
+    signedAmount: -89.99,
   },
   {
     id: "90",
@@ -995,6 +1084,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Internet & Phone")!,
     createdAt: new Date("2024-05-20T14:30:00"),
     updatedAt: new Date("2024-05-20T14:30:00"),
+    signedAmount: -75,
   },
   {
     id: "91",
@@ -1006,6 +1096,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Internet & Phone")!,
     createdAt: new Date("2024-06-15T10:00:00"),
     updatedAt: new Date("2024-06-15T10:00:00"),
+    signedAmount: -89.99,
   },
   {
     id: "92",
@@ -1017,6 +1108,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Internet & Phone")!,
     createdAt: new Date("2024-06-20T14:30:00"),
     updatedAt: new Date("2024-06-20T14:30:00"),
+    signedAmount: -75,
   },
   {
     id: "93",
@@ -1028,6 +1120,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Internet & Phone")!,
     createdAt: new Date("2024-07-15T10:00:00"),
     updatedAt: new Date("2024-07-15T10:00:00"),
+    signedAmount: -89.99,
   },
   {
     id: "94",
@@ -1039,6 +1132,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Internet & Phone")!,
     createdAt: new Date("2024-07-20T14:30:00"),
     updatedAt: new Date("2024-07-20T14:30:00"),
+    signedAmount: -75,
   },
   {
     id: "95",
@@ -1050,6 +1144,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Internet & Phone")!,
     createdAt: new Date("2024-08-15T10:00:00"),
     updatedAt: new Date("2024-08-15T10:00:00"),
+    signedAmount: -89.99,
   },
   {
     id: "96",
@@ -1061,6 +1156,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Internet & Phone")!,
     createdAt: new Date("2024-08-20T14:30:00"),
     updatedAt: new Date("2024-08-20T14:30:00"),
+    signedAmount: -75,
   },
   {
     id: "97",
@@ -1072,6 +1168,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Internet & Phone")!,
     createdAt: new Date("2024-09-15T10:00:00"),
     updatedAt: new Date("2024-09-15T10:00:00"),
+    signedAmount: -89.99,
   },
   {
     id: "98",
@@ -1083,6 +1180,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Internet & Phone")!,
     createdAt: new Date("2024-09-20T14:30:00"),
     updatedAt: new Date("2024-09-20T14:30:00"),
+    signedAmount: -75,
   },
   {
     id: "99",
@@ -1094,6 +1192,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Internet & Phone")!,
     createdAt: new Date("2024-10-15T10:00:00"),
     updatedAt: new Date("2024-10-15T10:00:00"),
+    signedAmount: -89.99,
   },
   {
     id: "100",
@@ -1105,6 +1204,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Internet & Phone")!,
     createdAt: new Date("2024-10-20T14:30:00"),
     updatedAt: new Date("2024-10-20T14:30:00"),
+    signedAmount: -75,
   },
   // Health & Fitness (20 transactions)
   {
@@ -1117,6 +1217,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Health & Fitness")!,
     createdAt: new Date("2024-01-01T08:00:00"),
     updatedAt: new Date("2024-01-01T08:00:00"),
+    signedAmount: -49.99,
   },
   {
     id: "102",
@@ -1128,6 +1229,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Health & Fitness")!,
     createdAt: new Date("2024-01-15T16:30:00"),
     updatedAt: new Date("2024-01-15T16:30:00"),
+    signedAmount: -67.5,
   },
   {
     id: "103",
@@ -1139,6 +1241,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Health & Fitness")!,
     createdAt: new Date("2024-02-01T08:00:00"),
     updatedAt: new Date("2024-02-01T08:00:00"),
+    signedAmount: -49.99,
   },
   {
     id: "104",
@@ -1150,6 +1253,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Health & Fitness")!,
     createdAt: new Date("2024-02-10T18:00:00"),
     updatedAt: new Date("2024-02-10T18:00:00"),
+    signedAmount: -25,
   },
   {
     id: "105",
@@ -1161,6 +1265,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Health & Fitness")!,
     createdAt: new Date("2024-03-01T08:00:00"),
     updatedAt: new Date("2024-03-01T08:00:00"),
+    signedAmount: -49.99,
   },
   {
     id: "106",
@@ -1172,6 +1277,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Health & Fitness")!,
     createdAt: new Date("2024-03-15T17:30:00"),
     updatedAt: new Date("2024-03-15T17:30:00"),
+    signedAmount: -80,
   },
   {
     id: "107",
@@ -1183,6 +1289,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Health & Fitness")!,
     createdAt: new Date("2024-04-01T08:00:00"),
     updatedAt: new Date("2024-04-01T08:00:00"),
+    signedAmount: -49.99,
   },
   {
     id: "108",
@@ -1194,6 +1301,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Health & Fitness")!,
     createdAt: new Date("2024-04-10T14:20:00"),
     updatedAt: new Date("2024-04-10T14:20:00"),
+    signedAmount: -45.8,
   },
   {
     id: "109",
@@ -1205,6 +1313,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Health & Fitness")!,
     createdAt: new Date("2024-05-01T08:00:00"),
     updatedAt: new Date("2024-05-01T08:00:00"),
+    signedAmount: -49.99,
   },
   {
     id: "110",
@@ -1216,6 +1325,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Health & Fitness")!,
     createdAt: new Date("2024-05-12T19:00:00"),
     updatedAt: new Date("2024-05-12T19:00:00"),
+    signedAmount: -35,
   },
   {
     id: "111",
@@ -1227,6 +1337,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Health & Fitness")!,
     createdAt: new Date("2024-06-01T08:00:00"),
     updatedAt: new Date("2024-06-01T08:00:00"),
+    signedAmount: -49.99,
   },
   {
     id: "112",
@@ -1238,6 +1349,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Health & Fitness")!,
     createdAt: new Date("2024-06-20T15:30:00"),
     updatedAt: new Date("2024-06-20T15:30:00"),
+    signedAmount: -120,
   },
   {
     id: "113",
@@ -1249,6 +1361,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Health & Fitness")!,
     createdAt: new Date("2024-07-01T08:00:00"),
     updatedAt: new Date("2024-07-01T08:00:00"),
+    signedAmount: -49.99,
   },
   {
     id: "114",
@@ -1260,6 +1373,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Health & Fitness")!,
     createdAt: new Date("2024-07-15T12:45:00"),
     updatedAt: new Date("2024-07-15T12:45:00"),
+    signedAmount: -89.5,
   },
   {
     id: "115",
@@ -1271,6 +1385,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Health & Fitness")!,
     createdAt: new Date("2024-08-01T08:00:00"),
     updatedAt: new Date("2024-08-01T08:00:00"),
+    signedAmount: -49.99,
   },
   {
     id: "116",
@@ -1282,6 +1397,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Health & Fitness")!,
     createdAt: new Date("2024-08-18T18:30:00"),
     updatedAt: new Date("2024-08-18T18:30:00"),
+    signedAmount: -30,
   },
   {
     id: "117",
@@ -1293,6 +1409,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Health & Fitness")!,
     createdAt: new Date("2024-09-01T08:00:00"),
     updatedAt: new Date("2024-09-01T08:00:00"),
+    signedAmount: -49.99,
   },
   {
     id: "118",
@@ -1304,6 +1421,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Health & Fitness")!,
     createdAt: new Date("2024-09-25T14:00:00"),
     updatedAt: new Date("2024-09-25T14:00:00"),
+    signedAmount: -150,
   },
   {
     id: "119",
@@ -1315,6 +1433,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Health & Fitness")!,
     createdAt: new Date("2024-10-01T08:00:00"),
     updatedAt: new Date("2024-10-01T08:00:00"),
+    signedAmount: -49.99,
   },
   {
     id: "120",
@@ -1326,6 +1445,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Health & Fitness")!,
     createdAt: new Date("2024-10-15T10:30:00"),
     updatedAt: new Date("2024-10-15T10:30:00"),
+    signedAmount: -19.99,
   },
   // Entertainment (20 transactions)
   {
@@ -1338,6 +1458,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Entertainment")!,
     createdAt: new Date("2024-01-14T19:45:00"),
     updatedAt: new Date("2024-01-14T19:45:00"),
+    signedAmount: -28.5,
   },
   {
     id: "122",
@@ -1349,6 +1470,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Entertainment")!,
     createdAt: new Date("2024-01-25T20:00:00"),
     updatedAt: new Date("2024-01-25T20:00:00"),
+    signedAmount: -125,
   },
   {
     id: "123",
@@ -1360,6 +1482,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Entertainment")!,
     createdAt: new Date("2024-02-01T10:00:00"),
     updatedAt: new Date("2024-02-01T10:00:00"),
+    signedAmount: -15.99,
   },
   {
     id: "124",
@@ -1371,6 +1494,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Entertainment")!,
     createdAt: new Date("2024-02-10T18:30:00"),
     updatedAt: new Date("2024-02-10T18:30:00"),
+    signedAmount: -45,
   },
   {
     id: "125",
@@ -1382,6 +1506,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Entertainment")!,
     createdAt: new Date("2024-02-20T19:30:00"),
     updatedAt: new Date("2024-02-20T19:30:00"),
+    signedAmount: -89,
   },
   {
     id: "126",
@@ -1393,6 +1518,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Entertainment")!,
     createdAt: new Date("2024-03-01T10:00:00"),
     updatedAt: new Date("2024-03-01T10:00:00"),
+    signedAmount: -15.99,
   },
   {
     id: "127",
@@ -1404,6 +1530,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Entertainment")!,
     createdAt: new Date("2024-03-12T16:00:00"),
     updatedAt: new Date("2024-03-12T16:00:00"),
+    signedAmount: -32.5,
   },
   {
     id: "128",
@@ -1415,6 +1542,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Entertainment")!,
     createdAt: new Date("2024-03-22T20:00:00"),
     updatedAt: new Date("2024-03-22T20:00:00"),
+    signedAmount: -55,
   },
   {
     id: "129",
@@ -1426,6 +1554,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Entertainment")!,
     createdAt: new Date("2024-04-01T10:00:00"),
     updatedAt: new Date("2024-04-01T10:00:00"),
+    signedAmount: -15.99,
   },
   {
     id: "130",
@@ -1437,6 +1566,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Entertainment")!,
     createdAt: new Date("2024-04-15T14:30:00"),
     updatedAt: new Date("2024-04-15T14:30:00"),
+    signedAmount: -75,
   },
   {
     id: "131",
@@ -1448,6 +1578,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Entertainment")!,
     createdAt: new Date("2024-04-25T12:00:00"),
     updatedAt: new Date("2024-04-25T12:00:00"),
+    signedAmount: -69.99,
   },
   {
     id: "132",
@@ -1459,6 +1590,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Entertainment")!,
     createdAt: new Date("2024-05-01T10:00:00"),
     updatedAt: new Date("2024-05-01T10:00:00"),
+    signedAmount: -15.99,
   },
   {
     id: "133",
@@ -1470,6 +1602,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Entertainment")!,
     createdAt: new Date("2024-05-08T15:00:00"),
     updatedAt: new Date("2024-05-08T15:00:00"),
+    signedAmount: -22,
   },
   {
     id: "134",
@@ -1481,6 +1614,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Entertainment")!,
     createdAt: new Date("2024-05-18T11:00:00"),
     updatedAt: new Date("2024-05-18T11:00:00"),
+    signedAmount: -18,
   },
   {
     id: "135",
@@ -1492,6 +1626,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Entertainment")!,
     createdAt: new Date("2024-06-01T10:00:00"),
     updatedAt: new Date("2024-06-01T10:00:00"),
+    signedAmount: -15.99,
   },
   {
     id: "136",
@@ -1503,6 +1638,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Entertainment")!,
     createdAt: new Date("2024-06-12T20:30:00"),
     updatedAt: new Date("2024-06-12T20:30:00"),
+    signedAmount: -38.5,
   },
   {
     id: "137",
@@ -1514,6 +1650,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Entertainment")!,
     createdAt: new Date("2024-06-28T17:00:00"),
     updatedAt: new Date("2024-06-28T17:00:00"),
+    signedAmount: -25,
   },
   {
     id: "138",
@@ -1525,6 +1662,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Entertainment")!,
     createdAt: new Date("2024-07-01T10:00:00"),
     updatedAt: new Date("2024-07-01T10:00:00"),
+    signedAmount: -15.99,
   },
   {
     id: "139",
@@ -1536,6 +1674,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Entertainment")!,
     createdAt: new Date("2024-07-15T10:00:00"),
     updatedAt: new Date("2024-07-15T10:00:00"),
+    signedAmount: -95,
   },
   {
     id: "140",
@@ -1547,6 +1686,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Entertainment")!,
     createdAt: new Date("2024-07-25T12:00:00"),
     updatedAt: new Date("2024-07-25T12:00:00"),
+    signedAmount: -9.99,
   },
   // Dining Out (20 transactions)
   {
@@ -1559,6 +1699,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Dining Out")!,
     createdAt: new Date("2024-01-13T20:15:00"),
     updatedAt: new Date("2024-01-13T20:15:00"),
+    signedAmount: -67.8,
   },
   {
     id: "142",
@@ -1570,6 +1711,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Dining Out")!,
     createdAt: new Date("2024-01-18T09:30:00"),
     updatedAt: new Date("2024-01-18T09:30:00"),
+    signedAmount: -12.5,
   },
   {
     id: "143",
@@ -1581,6 +1723,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Dining Out")!,
     createdAt: new Date("2024-01-25T12:30:00"),
     updatedAt: new Date("2024-01-25T12:30:00"),
+    signedAmount: -24.5,
   },
   {
     id: "144",
@@ -1592,6 +1735,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Dining Out")!,
     createdAt: new Date("2024-02-02T19:45:00"),
     updatedAt: new Date("2024-02-02T19:45:00"),
+    signedAmount: -35.2,
   },
   {
     id: "145",
@@ -1603,6 +1747,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Dining Out")!,
     createdAt: new Date("2024-02-11T11:00:00"),
     updatedAt: new Date("2024-02-11T11:00:00"),
+    signedAmount: -42.8,
   },
   {
     id: "146",
@@ -1614,6 +1759,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Dining Out")!,
     createdAt: new Date("2024-02-18T14:20:00"),
     updatedAt: new Date("2024-02-18T14:20:00"),
+    signedAmount: -8.5,
   },
   {
     id: "147",
@@ -1625,6 +1771,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Dining Out")!,
     createdAt: new Date("2024-02-28T19:30:00"),
     updatedAt: new Date("2024-02-28T19:30:00"),
+    signedAmount: -89.5,
   },
   {
     id: "148",
@@ -1636,6 +1783,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Dining Out")!,
     createdAt: new Date("2024-03-05T13:15:00"),
     updatedAt: new Date("2024-03-05T13:15:00"),
+    signedAmount: -15.8,
   },
   {
     id: "149",
@@ -1647,6 +1795,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Dining Out")!,
     createdAt: new Date("2024-03-12T10:45:00"),
     updatedAt: new Date("2024-03-12T10:45:00"),
+    signedAmount: -11.2,
   },
   {
     id: "150",
@@ -1658,6 +1807,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Dining Out")!,
     createdAt: new Date("2024-03-20T20:00:00"),
     updatedAt: new Date("2024-03-20T20:00:00"),
+    signedAmount: -125,
   },
   {
     id: "151",
@@ -1669,6 +1819,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Dining Out")!,
     createdAt: new Date("2024-03-28T12:30:00"),
     updatedAt: new Date("2024-03-28T12:30:00"),
+    signedAmount: -18.5,
   },
   {
     id: "152",
@@ -1680,6 +1831,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Dining Out")!,
     createdAt: new Date("2024-04-05T08:15:00"),
     updatedAt: new Date("2024-04-05T08:15:00"),
+    signedAmount: -9.8,
   },
   {
     id: "153",
@@ -1691,6 +1843,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Dining Out")!,
     createdAt: new Date("2024-04-12T18:45:00"),
     updatedAt: new Date("2024-04-12T18:45:00"),
+    signedAmount: -45.6,
   },
   {
     id: "154",
@@ -1702,6 +1855,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Dining Out")!,
     createdAt: new Date("2024-04-20T16:30:00"),
     updatedAt: new Date("2024-04-20T16:30:00"),
+    signedAmount: -12.3,
   },
   {
     id: "155",
@@ -1713,6 +1867,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Dining Out")!,
     createdAt: new Date("2024-04-28T15:20:00"),
     updatedAt: new Date("2024-04-28T15:20:00"),
+    signedAmount: -13.5,
   },
   {
     id: "156",
@@ -1724,6 +1879,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Dining Out")!,
     createdAt: new Date("2024-05-08T19:00:00"),
     updatedAt: new Date("2024-05-08T19:00:00"),
+    signedAmount: -58.9,
   },
   {
     id: "157",
@@ -1735,6 +1891,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Dining Out")!,
     createdAt: new Date("2024-05-15T11:30:00"),
     updatedAt: new Date("2024-05-15T11:30:00"),
+    signedAmount: -10.7,
   },
   {
     id: "158",
@@ -1746,6 +1903,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Dining Out")!,
     createdAt: new Date("2024-05-22T18:30:00"),
     updatedAt: new Date("2024-05-22T18:30:00"),
+    signedAmount: -38.4,
   },
   {
     id: "159",
@@ -1757,6 +1915,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Dining Out")!,
     createdAt: new Date("2024-05-30T09:45:00"),
     updatedAt: new Date("2024-05-30T09:45:00"),
+    signedAmount: -7.9,
   },
   {
     id: "160",
@@ -1768,6 +1927,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Dining Out")!,
     createdAt: new Date("2024-06-05T20:15:00"),
     updatedAt: new Date("2024-06-05T20:15:00"),
+    signedAmount: -76.2,
   },
   // Clothing (20 transactions)
   {
@@ -1780,6 +1940,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Clothing")!,
     createdAt: new Date("2024-01-10T14:30:00"),
     updatedAt: new Date("2024-01-10T14:30:00"),
+    signedAmount: -189.99,
   },
   {
     id: "162",
@@ -1791,6 +1952,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Clothing")!,
     createdAt: new Date("2024-01-20T16:45:00"),
     updatedAt: new Date("2024-01-20T16:45:00"),
+    signedAmount: -89.5,
   },
   {
     id: "163",
@@ -1802,6 +1964,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Clothing")!,
     createdAt: new Date("2024-02-05T12:20:00"),
     updatedAt: new Date("2024-02-05T12:20:00"),
+    signedAmount: -75,
   },
   {
     id: "164",
@@ -1813,6 +1976,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Clothing")!,
     createdAt: new Date("2024-02-15T11:00:00"),
     updatedAt: new Date("2024-02-15T11:00:00"),
+    signedAmount: -125,
   },
   {
     id: "165",
@@ -1824,6 +1988,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Clothing")!,
     createdAt: new Date("2024-02-25T15:30:00"),
     updatedAt: new Date("2024-02-25T15:30:00"),
+    signedAmount: -45.8,
   },
   {
     id: "166",
@@ -1835,6 +2000,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Clothing")!,
     createdAt: new Date("2024-03-08T13:15:00"),
     updatedAt: new Date("2024-03-08T13:15:00"),
+    signedAmount: -165,
   },
   {
     id: "167",
@@ -1846,6 +2012,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Clothing")!,
     createdAt: new Date("2024-03-18T14:45:00"),
     updatedAt: new Date("2024-03-18T14:45:00"),
+    signedAmount: -68.5,
   },
   {
     id: "168",
@@ -1857,6 +2024,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Clothing")!,
     createdAt: new Date("2024-03-28T10:30:00"),
     updatedAt: new Date("2024-03-28T10:30:00"),
+    signedAmount: -35.2,
   },
   {
     id: "169",
@@ -1868,6 +2036,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Clothing")!,
     createdAt: new Date("2024-04-05T16:20:00"),
     updatedAt: new Date("2024-04-05T16:20:00"),
+    signedAmount: -95,
   },
   {
     id: "170",
@@ -1879,6 +2048,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Clothing")!,
     createdAt: new Date("2024-04-15T12:00:00"),
     updatedAt: new Date("2024-04-15T12:00:00"),
+    signedAmount: -42.5,
   },
   {
     id: "171",
@@ -1890,6 +2060,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Clothing")!,
     createdAt: new Date("2024-04-25T14:30:00"),
     updatedAt: new Date("2024-04-25T14:30:00"),
+    signedAmount: -55,
   },
   {
     id: "172",
@@ -1901,6 +2072,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Clothing")!,
     createdAt: new Date("2024-05-10T15:45:00"),
     updatedAt: new Date("2024-05-10T15:45:00"),
+    signedAmount: -125.8,
   },
   {
     id: "173",
@@ -1912,6 +2084,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Clothing")!,
     createdAt: new Date("2024-05-20T11:15:00"),
     updatedAt: new Date("2024-05-20T11:15:00"),
+    signedAmount: -38.9,
   },
   {
     id: "174",
@@ -1923,6 +2096,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Clothing")!,
     createdAt: new Date("2024-06-01T13:30:00"),
     updatedAt: new Date("2024-06-01T13:30:00"),
+    signedAmount: -75.5,
   },
   {
     id: "175",
@@ -1934,6 +2108,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Clothing")!,
     createdAt: new Date("2024-06-12T10:45:00"),
     updatedAt: new Date("2024-06-12T10:45:00"),
+    signedAmount: -25,
   },
   {
     id: "176",
@@ -1945,6 +2120,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Clothing")!,
     createdAt: new Date("2024-06-22T12:20:00"),
     updatedAt: new Date("2024-06-22T12:20:00"),
+    signedAmount: -45,
   },
   {
     id: "177",
@@ -1956,6 +2132,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Clothing")!,
     createdAt: new Date("2024-07-05T14:00:00"),
     updatedAt: new Date("2024-07-05T14:00:00"),
+    signedAmount: -89.99,
   },
   {
     id: "178",
@@ -1967,6 +2144,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Clothing")!,
     createdAt: new Date("2024-07-15T16:30:00"),
     updatedAt: new Date("2024-07-15T16:30:00"),
+    signedAmount: -65,
   },
   {
     id: "179",
@@ -1978,6 +2156,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Clothing")!,
     createdAt: new Date("2024-07-25T11:45:00"),
     updatedAt: new Date("2024-07-25T11:45:00"),
+    signedAmount: -199.99,
   },
   {
     id: "180",
@@ -1989,6 +2168,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Clothing")!,
     createdAt: new Date("2024-08-10T15:20:00"),
     updatedAt: new Date("2024-08-10T15:20:00"),
+    signedAmount: -78.5,
   },
   // Education (20 transactions)
   {
@@ -2001,6 +2181,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Education")!,
     createdAt: new Date("2024-01-15T10:00:00"),
     updatedAt: new Date("2024-01-15T10:00:00"),
+    signedAmount: -299.99,
   },
   {
     id: "182",
@@ -2012,6 +2193,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Education")!,
     createdAt: new Date("2024-01-25T14:30:00"),
     updatedAt: new Date("2024-01-25T14:30:00"),
+    signedAmount: -185.5,
   },
   {
     id: "183",
@@ -2023,6 +2205,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Education")!,
     createdAt: new Date("2024-02-10T09:15:00"),
     updatedAt: new Date("2024-02-10T09:15:00"),
+    signedAmount: -150,
   },
   {
     id: "184",
@@ -2034,6 +2217,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Education")!,
     createdAt: new Date("2024-02-20T16:45:00"),
     updatedAt: new Date("2024-02-20T16:45:00"),
+    signedAmount: -89.99,
   },
   {
     id: "185",
@@ -2045,6 +2229,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Education")!,
     createdAt: new Date("2024-03-05T11:30:00"),
     updatedAt: new Date("2024-03-05T11:30:00"),
+    signedAmount: -250,
   },
   {
     id: "186",
@@ -2056,6 +2241,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Education")!,
     createdAt: new Date("2024-03-15T13:20:00"),
     updatedAt: new Date("2024-03-15T13:20:00"),
+    signedAmount: -75.8,
   },
   {
     id: "187",
@@ -2067,6 +2253,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Education")!,
     createdAt: new Date("2024-03-25T10:00:00"),
     updatedAt: new Date("2024-03-25T10:00:00"),
+    signedAmount: -199.99,
   },
   {
     id: "188",
@@ -2078,6 +2265,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Education")!,
     createdAt: new Date("2024-04-01T08:30:00"),
     updatedAt: new Date("2024-04-01T08:30:00"),
+    signedAmount: -450,
   },
   {
     id: "189",
@@ -2089,6 +2277,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Education")!,
     createdAt: new Date("2024-04-10T12:15:00"),
     updatedAt: new Date("2024-04-10T12:15:00"),
+    signedAmount: -59.99,
   },
   {
     id: "190",
@@ -2100,6 +2289,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Education")!,
     createdAt: new Date("2024-04-20T14:00:00"),
     updatedAt: new Date("2024-04-20T14:00:00"),
+    signedAmount: -325,
   },
   {
     id: "191",
@@ -2111,6 +2301,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Education")!,
     createdAt: new Date("2024-05-05T10:00:00"),
     updatedAt: new Date("2024-05-05T10:00:00"),
+    signedAmount: -179.99,
   },
   {
     id: "192",
@@ -2122,6 +2313,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Education")!,
     createdAt: new Date("2024-05-15T14:30:00"),
     updatedAt: new Date("2024-05-15T14:30:00"),
+    signedAmount: -142.5,
   },
   {
     id: "193",
@@ -2133,6 +2325,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Education")!,
     createdAt: new Date("2024-05-25T15:45:00"),
     updatedAt: new Date("2024-05-25T15:45:00"),
+    signedAmount: -99.99,
   },
   {
     id: "194",
@@ -2144,6 +2337,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Education")!,
     createdAt: new Date("2024-06-05T16:20:00"),
     updatedAt: new Date("2024-06-05T16:20:00"),
+    signedAmount: -45,
   },
   {
     id: "195",
@@ -2155,6 +2349,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Education")!,
     createdAt: new Date("2024-06-15T10:00:00"),
     updatedAt: new Date("2024-06-15T10:00:00"),
+    signedAmount: -249.99,
   },
   {
     id: "196",
@@ -2166,6 +2361,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Education")!,
     createdAt: new Date("2024-06-25T11:30:00"),
     updatedAt: new Date("2024-06-25T11:30:00"),
+    signedAmount: -125,
   },
   {
     id: "197",
@@ -2177,6 +2373,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Education")!,
     createdAt: new Date("2024-07-05T13:15:00"),
     updatedAt: new Date("2024-07-05T13:15:00"),
+    signedAmount: -68.5,
   },
   {
     id: "198",
@@ -2188,6 +2385,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Education")!,
     createdAt: new Date("2024-07-15T10:00:00"),
     updatedAt: new Date("2024-07-15T10:00:00"),
+    signedAmount: -159.99,
   },
   {
     id: "199",
@@ -2199,6 +2397,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Education")!,
     createdAt: new Date("2024-07-25T09:30:00"),
     updatedAt: new Date("2024-07-25T09:30:00"),
+    signedAmount: -399.99,
   },
   {
     id: "200",
@@ -2210,6 +2409,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Education")!,
     createdAt: new Date("2024-08-05T12:45:00"),
     updatedAt: new Date("2024-08-05T12:45:00"),
+    signedAmount: -35.8,
   },
   // Savings & Investments (20 transactions)
   {
@@ -2222,6 +2422,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Savings & Investments")!,
     createdAt: new Date("2024-01-15T09:00:00"),
     updatedAt: new Date("2024-01-15T09:00:00"),
+    signedAmount: -800,
   },
   {
     id: "202",
@@ -2233,6 +2434,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Savings & Investments")!,
     createdAt: new Date("2024-01-30T14:30:00"),
     updatedAt: new Date("2024-01-30T14:30:00"),
+    signedAmount: -500,
   },
   {
     id: "203",
@@ -2244,6 +2446,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Savings & Investments")!,
     createdAt: new Date("2024-02-10T10:15:00"),
     updatedAt: new Date("2024-02-10T10:15:00"),
+    signedAmount: -1200,
   },
   {
     id: "204",
@@ -2255,6 +2458,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Savings & Investments")!,
     createdAt: new Date("2024-02-15T09:00:00"),
     updatedAt: new Date("2024-02-15T09:00:00"),
+    signedAmount: -800,
   },
   {
     id: "205",
@@ -2266,6 +2470,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Savings & Investments")!,
     createdAt: new Date("2024-02-28T16:45:00"),
     updatedAt: new Date("2024-02-28T16:45:00"),
+    signedAmount: -750,
   },
   {
     id: "206",
@@ -2277,6 +2482,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Savings & Investments")!,
     createdAt: new Date("2024-03-15T09:00:00"),
     updatedAt: new Date("2024-03-15T09:00:00"),
+    signedAmount: -800,
   },
   {
     id: "207",
@@ -2288,6 +2494,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Savings & Investments")!,
     createdAt: new Date("2024-03-25T11:30:00"),
     updatedAt: new Date("2024-03-25T11:30:00"),
+    signedAmount: -1000,
   },
   {
     id: "208",
@@ -2299,6 +2506,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Savings & Investments")!,
     createdAt: new Date("2024-04-05T14:30:00"),
     updatedAt: new Date("2024-04-05T14:30:00"),
+    signedAmount: -500,
   },
   {
     id: "209",
@@ -2310,6 +2518,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Savings & Investments")!,
     createdAt: new Date("2024-04-15T09:00:00"),
     updatedAt: new Date("2024-04-15T09:00:00"),
+    signedAmount: -800,
   },
   {
     id: "210",
@@ -2321,6 +2530,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Savings & Investments")!,
     createdAt: new Date("2024-04-30T13:20:00"),
     updatedAt: new Date("2024-04-30T13:20:00"),
+    signedAmount: -1500,
   },
   {
     id: "211",
@@ -2332,6 +2542,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Savings & Investments")!,
     createdAt: new Date("2024-05-15T09:00:00"),
     updatedAt: new Date("2024-05-15T09:00:00"),
+    signedAmount: -800,
   },
   {
     id: "212",
@@ -2343,6 +2554,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Savings & Investments")!,
     createdAt: new Date("2024-05-25T16:45:00"),
     updatedAt: new Date("2024-05-25T16:45:00"),
+    signedAmount: -750,
   },
   {
     id: "213",
@@ -2354,6 +2566,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Savings & Investments")!,
     createdAt: new Date("2024-06-15T09:00:00"),
     updatedAt: new Date("2024-06-15T09:00:00"),
+    signedAmount: -800,
   },
   {
     id: "214",
@@ -2365,6 +2578,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Savings & Investments")!,
     createdAt: new Date("2024-06-25T10:15:00"),
     updatedAt: new Date("2024-06-25T10:15:00"),
+    signedAmount: -900,
   },
   {
     id: "215",
@@ -2376,6 +2590,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Savings & Investments")!,
     createdAt: new Date("2024-07-05T14:30:00"),
     updatedAt: new Date("2024-07-05T14:30:00"),
+    signedAmount: -500,
   },
   {
     id: "216",
@@ -2387,6 +2602,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Savings & Investments")!,
     createdAt: new Date("2024-07-15T09:00:00"),
     updatedAt: new Date("2024-07-15T09:00:00"),
+    signedAmount: -800,
   },
   {
     id: "217",
@@ -2398,6 +2614,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Savings & Investments")!,
     createdAt: new Date("2024-07-25T11:30:00"),
     updatedAt: new Date("2024-07-25T11:30:00"),
+    signedAmount: -1000,
   },
   {
     id: "218",
@@ -2409,6 +2626,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Savings & Investments")!,
     createdAt: new Date("2024-08-15T09:00:00"),
     updatedAt: new Date("2024-08-15T09:00:00"),
+    signedAmount: -800,
   },
   {
     id: "219",
@@ -2420,6 +2638,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Savings & Investments")!,
     createdAt: new Date("2024-08-25T16:45:00"),
     updatedAt: new Date("2024-08-25T16:45:00"),
+    signedAmount: -750,
   },
   {
     id: "220",
@@ -2431,6 +2650,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Savings & Investments")!,
     createdAt: new Date("2024-09-05T14:30:00"),
     updatedAt: new Date("2024-09-05T14:30:00"),
+    signedAmount: -500,
   },
   // Insurance (20 transactions)
   {
@@ -2443,6 +2663,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Insurance")!,
     createdAt: new Date("2024-01-01T08:00:00"),
     updatedAt: new Date("2024-01-01T08:00:00"),
+    signedAmount: -450,
   },
   {
     id: "222",
@@ -2454,6 +2675,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Insurance")!,
     createdAt: new Date("2024-01-15T10:30:00"),
     updatedAt: new Date("2024-01-15T10:30:00"),
+    signedAmount: -180,
   },
   {
     id: "223",
@@ -2465,6 +2687,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Insurance")!,
     createdAt: new Date("2024-02-01T08:00:00"),
     updatedAt: new Date("2024-02-01T08:00:00"),
+    signedAmount: -450,
   },
   {
     id: "224",
@@ -2476,6 +2699,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Insurance")!,
     createdAt: new Date("2024-02-10T14:15:00"),
     updatedAt: new Date("2024-02-10T14:15:00"),
+    signedAmount: -125,
   },
   {
     id: "225",
@@ -2487,6 +2711,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Insurance")!,
     createdAt: new Date("2024-03-01T08:00:00"),
     updatedAt: new Date("2024-03-01T08:00:00"),
+    signedAmount: -450,
   },
   {
     id: "226",
@@ -2498,6 +2723,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Insurance")!,
     createdAt: new Date("2024-03-15T10:30:00"),
     updatedAt: new Date("2024-03-15T10:30:00"),
+    signedAmount: -180,
   },
   {
     id: "227",
@@ -2509,6 +2735,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Insurance")!,
     createdAt: new Date("2024-04-01T08:00:00"),
     updatedAt: new Date("2024-04-01T08:00:00"),
+    signedAmount: -450,
   },
   {
     id: "228",
@@ -2520,6 +2747,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Insurance")!,
     createdAt: new Date("2024-04-10T12:45:00"),
     updatedAt: new Date("2024-04-10T12:45:00"),
+    signedAmount: -200,
   },
   {
     id: "229",
@@ -2531,6 +2759,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Insurance")!,
     createdAt: new Date("2024-05-01T08:00:00"),
     updatedAt: new Date("2024-05-01T08:00:00"),
+    signedAmount: -450,
   },
   {
     id: "230",
@@ -2542,6 +2771,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Insurance")!,
     createdAt: new Date("2024-05-10T14:15:00"),
     updatedAt: new Date("2024-05-10T14:15:00"),
+    signedAmount: -125,
   },
   {
     id: "231",
@@ -2553,6 +2783,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Insurance")!,
     createdAt: new Date("2024-06-01T08:00:00"),
     updatedAt: new Date("2024-06-01T08:00:00"),
+    signedAmount: -450,
   },
   {
     id: "232",
@@ -2564,6 +2795,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Insurance")!,
     createdAt: new Date("2024-06-15T10:30:00"),
     updatedAt: new Date("2024-06-15T10:30:00"),
+    signedAmount: -180,
   },
   {
     id: "233",
@@ -2575,6 +2807,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Insurance")!,
     createdAt: new Date("2024-07-01T08:00:00"),
     updatedAt: new Date("2024-07-01T08:00:00"),
+    signedAmount: -450,
   },
   {
     id: "234",
@@ -2586,6 +2819,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Insurance")!,
     createdAt: new Date("2024-07-10T12:45:00"),
     updatedAt: new Date("2024-07-10T12:45:00"),
+    signedAmount: -200,
   },
   {
     id: "235",
@@ -2597,6 +2831,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Insurance")!,
     createdAt: new Date("2024-08-01T08:00:00"),
     updatedAt: new Date("2024-08-01T08:00:00"),
+    signedAmount: -450,
   },
   {
     id: "236",
@@ -2608,6 +2843,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Insurance")!,
     createdAt: new Date("2024-08-10T14:15:00"),
     updatedAt: new Date("2024-08-10T14:15:00"),
+    signedAmount: -125,
   },
   {
     id: "237",
@@ -2619,6 +2855,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Insurance")!,
     createdAt: new Date("2024-09-01T08:00:00"),
     updatedAt: new Date("2024-09-01T08:00:00"),
+    signedAmount: -450,
   },
   {
     id: "238",
@@ -2630,6 +2867,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Insurance")!,
     createdAt: new Date("2024-09-15T10:30:00"),
     updatedAt: new Date("2024-09-15T10:30:00"),
+    signedAmount: -180,
   },
   {
     id: "239",
@@ -2641,6 +2879,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Insurance")!,
     createdAt: new Date("2024-10-01T08:00:00"),
     updatedAt: new Date("2024-10-01T08:00:00"),
+    signedAmount: -450,
   },
   {
     id: "240",
@@ -2652,6 +2891,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Insurance")!,
     createdAt: new Date("2024-10-10T12:45:00"),
     updatedAt: new Date("2024-10-10T12:45:00"),
+    signedAmount: -200,
   },
   // Personal Care (20 transactions)
   {
@@ -2664,6 +2904,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Personal Care")!,
     createdAt: new Date("2024-01-12T14:30:00"),
     updatedAt: new Date("2024-01-12T14:30:00"),
+    signedAmount: -45,
   },
   {
     id: "242",
@@ -2675,6 +2916,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Personal Care")!,
     createdAt: new Date("2024-01-25T16:45:00"),
     updatedAt: new Date("2024-01-25T16:45:00"),
+    signedAmount: -78.5,
   },
   {
     id: "243",
@@ -2686,6 +2928,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Personal Care")!,
     createdAt: new Date("2024-02-15T14:30:00"),
     updatedAt: new Date("2024-02-15T14:30:00"),
+    signedAmount: -45,
   },
   {
     id: "244",
@@ -2697,6 +2940,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Personal Care")!,
     createdAt: new Date("2024-02-28T15:20:00"),
     updatedAt: new Date("2024-02-28T15:20:00"),
+    signedAmount: -35,
   },
   {
     id: "245",
@@ -2708,6 +2952,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Personal Care")!,
     createdAt: new Date("2024-03-18T14:30:00"),
     updatedAt: new Date("2024-03-18T14:30:00"),
+    signedAmount: -45,
   },
   {
     id: "246",
@@ -2719,6 +2964,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Personal Care")!,
     createdAt: new Date("2024-03-25T12:15:00"),
     updatedAt: new Date("2024-03-25T12:15:00"),
+    signedAmount: -28.5,
   },
   {
     id: "247",
@@ -2730,6 +2976,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Personal Care")!,
     createdAt: new Date("2024-04-20T14:30:00"),
     updatedAt: new Date("2024-04-20T14:30:00"),
+    signedAmount: -45,
   },
   {
     id: "248",
@@ -2741,6 +2988,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Personal Care")!,
     createdAt: new Date("2024-04-30T16:00:00"),
     updatedAt: new Date("2024-04-30T16:00:00"),
+    signedAmount: -120,
   },
   {
     id: "249",
@@ -2752,6 +3000,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Personal Care")!,
     createdAt: new Date("2024-05-22T14:30:00"),
     updatedAt: new Date("2024-05-22T14:30:00"),
+    signedAmount: -45,
   },
   {
     id: "250",
@@ -2763,6 +3012,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Personal Care")!,
     createdAt: new Date("2024-05-30T15:20:00"),
     updatedAt: new Date("2024-05-30T15:20:00"),
+    signedAmount: -35,
   },
   {
     id: "251",
@@ -2774,6 +3024,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Personal Care")!,
     createdAt: new Date("2024-06-25T14:30:00"),
     updatedAt: new Date("2024-06-25T14:30:00"),
+    signedAmount: -45,
   },
   {
     id: "252",
@@ -2785,6 +3036,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Personal Care")!,
     createdAt: new Date("2024-07-02T11:45:00"),
     updatedAt: new Date("2024-07-02T11:45:00"),
+    signedAmount: -22.8,
   },
   {
     id: "253",
@@ -2796,6 +3048,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Personal Care")!,
     createdAt: new Date("2024-07-28T14:30:00"),
     updatedAt: new Date("2024-07-28T14:30:00"),
+    signedAmount: -45,
   },
   {
     id: "254",
@@ -2807,6 +3060,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Personal Care")!,
     createdAt: new Date("2024-08-05T16:30:00"),
     updatedAt: new Date("2024-08-05T16:30:00"),
+    signedAmount: -55,
   },
   {
     id: "255",
@@ -2818,6 +3072,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Personal Care")!,
     createdAt: new Date("2024-08-30T14:30:00"),
     updatedAt: new Date("2024-08-30T14:30:00"),
+    signedAmount: -45,
   },
   {
     id: "256",
@@ -2829,6 +3084,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Personal Care")!,
     createdAt: new Date("2024-09-10T16:45:00"),
     updatedAt: new Date("2024-09-10T16:45:00"),
+    signedAmount: -65.5,
   },
   {
     id: "257",
@@ -2840,6 +3096,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Personal Care")!,
     createdAt: new Date("2024-09-25T14:30:00"),
     updatedAt: new Date("2024-09-25T14:30:00"),
+    signedAmount: -45,
   },
   {
     id: "258",
@@ -2851,6 +3108,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Personal Care")!,
     createdAt: new Date("2024-10-05T15:20:00"),
     updatedAt: new Date("2024-10-05T15:20:00"),
+    signedAmount: -35,
   },
   {
     id: "259",
@@ -2862,6 +3120,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Personal Care")!,
     createdAt: new Date("2024-10-20T14:30:00"),
     updatedAt: new Date("2024-10-20T14:30:00"),
+    signedAmount: -45,
   },
   {
     id: "260",
@@ -2873,6 +3132,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Personal Care")!,
     createdAt: new Date("2024-10-30T13:15:00"),
     updatedAt: new Date("2024-10-30T13:15:00"),
+    signedAmount: -42.3,
   },
   // Gifts & Donations (20 transactions)
   {
@@ -2885,6 +3145,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Gifts & Donations")!,
     createdAt: new Date("2024-01-15T16:30:00"),
     updatedAt: new Date("2024-01-15T16:30:00"),
+    signedAmount: -85,
   },
   {
     id: "262",
@@ -2896,6 +3157,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Gifts & Donations")!,
     createdAt: new Date("2024-01-25T14:20:00"),
     updatedAt: new Date("2024-01-25T14:20:00"),
+    signedAmount: -50,
   },
   {
     id: "263",
@@ -2907,6 +3169,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Gifts & Donations")!,
     createdAt: new Date("2024-02-14T18:00:00"),
     updatedAt: new Date("2024-02-14T18:00:00"),
+    signedAmount: -125,
   },
   {
     id: "264",
@@ -2918,6 +3181,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Gifts & Donations")!,
     createdAt: new Date("2024-02-28T15:45:00"),
     updatedAt: new Date("2024-02-28T15:45:00"),
+    signedAmount: -200,
   },
   {
     id: "265",
@@ -2929,6 +3193,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Gifts & Donations")!,
     createdAt: new Date("2024-03-10T12:30:00"),
     updatedAt: new Date("2024-03-10T12:30:00"),
+    signedAmount: -75,
   },
   {
     id: "266",
@@ -2940,6 +3205,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Gifts & Donations")!,
     createdAt: new Date("2024-03-20T16:15:00"),
     updatedAt: new Date("2024-03-20T16:15:00"),
+    signedAmount: -65,
   },
   {
     id: "267",
@@ -2951,6 +3217,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Gifts & Donations")!,
     createdAt: new Date("2024-03-31T11:00:00"),
     updatedAt: new Date("2024-03-31T11:00:00"),
+    signedAmount: -45,
   },
   {
     id: "268",
@@ -2962,6 +3229,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Gifts & Donations")!,
     createdAt: new Date("2024-04-15T14:20:00"),
     updatedAt: new Date("2024-04-15T14:20:00"),
+    signedAmount: -100,
   },
   {
     id: "269",
@@ -2973,6 +3241,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Gifts & Donations")!,
     createdAt: new Date("2024-05-12T10:30:00"),
     updatedAt: new Date("2024-05-12T10:30:00"),
+    signedAmount: -95,
   },
   {
     id: "270",
@@ -2984,6 +3253,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Gifts & Donations")!,
     createdAt: new Date("2024-05-25T17:00:00"),
     updatedAt: new Date("2024-05-25T17:00:00"),
+    signedAmount: -150,
   },
   {
     id: "271",
@@ -2995,6 +3265,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Gifts & Donations")!,
     createdAt: new Date("2024-06-05T12:30:00"),
     updatedAt: new Date("2024-06-05T12:30:00"),
+    signedAmount: -60,
   },
   {
     id: "272",
@@ -3006,6 +3277,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Gifts & Donations")!,
     createdAt: new Date("2024-06-16T11:00:00"),
     updatedAt: new Date("2024-06-16T11:00:00"),
+    signedAmount: -80,
   },
   {
     id: "273",
@@ -3017,6 +3289,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Gifts & Donations")!,
     createdAt: new Date("2024-07-04T19:30:00"),
     updatedAt: new Date("2024-07-04T19:30:00"),
+    signedAmount: -175,
   },
   {
     id: "274",
@@ -3028,6 +3301,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Gifts & Donations")!,
     createdAt: new Date("2024-07-20T14:20:00"),
     updatedAt: new Date("2024-07-20T14:20:00"),
+    signedAmount: -40,
   },
   {
     id: "275",
@@ -3039,6 +3313,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Gifts & Donations")!,
     createdAt: new Date("2024-08-10T16:30:00"),
     updatedAt: new Date("2024-08-10T16:30:00"),
+    signedAmount: -55,
   },
   {
     id: "276",
@@ -3050,6 +3325,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Gifts & Donations")!,
     createdAt: new Date("2024-08-25T12:30:00"),
     updatedAt: new Date("2024-08-25T12:30:00"),
+    signedAmount: -85,
   },
   {
     id: "277",
@@ -3061,6 +3337,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Gifts & Donations")!,
     createdAt: new Date("2024-09-05T15:45:00"),
     updatedAt: new Date("2024-09-05T15:45:00"),
+    signedAmount: -70,
   },
   {
     id: "278",
@@ -3072,6 +3349,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Gifts & Donations")!,
     createdAt: new Date("2024-09-20T14:20:00"),
     updatedAt: new Date("2024-09-20T14:20:00"),
+    signedAmount: -90,
   },
   {
     id: "279",
@@ -3083,6 +3361,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Gifts & Donations")!,
     createdAt: new Date("2024-10-08T16:30:00"),
     updatedAt: new Date("2024-10-08T16:30:00"),
+    signedAmount: -110,
   },
   {
     id: "280",
@@ -3094,6 +3373,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Gifts & Donations")!,
     createdAt: new Date("2024-10-25T12:30:00"),
     updatedAt: new Date("2024-10-25T12:30:00"),
+    signedAmount: -120,
   },
   // Emergency Fund (20 transactions)
   {
@@ -3106,6 +3386,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Emergency Fund")!,
     createdAt: new Date("2024-01-05T09:00:00"),
     updatedAt: new Date("2024-01-05T09:00:00"),
+    signedAmount: -500,
   },
   {
     id: "282",
@@ -3117,6 +3398,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Emergency Fund")!,
     createdAt: new Date("2024-01-20T09:00:00"),
     updatedAt: new Date("2024-01-20T09:00:00"),
+    signedAmount: -500,
   },
   {
     id: "283",
@@ -3128,6 +3410,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Emergency Fund")!,
     createdAt: new Date("2024-02-05T09:00:00"),
     updatedAt: new Date("2024-02-05T09:00:00"),
+    signedAmount: -500,
   },
   {
     id: "284",
@@ -3139,6 +3422,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Emergency Fund")!,
     createdAt: new Date("2024-02-20T09:00:00"),
     updatedAt: new Date("2024-02-20T09:00:00"),
+    signedAmount: -500,
   },
   {
     id: "285",
@@ -3150,6 +3434,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Emergency Fund")!,
     createdAt: new Date("2024-03-05T09:00:00"),
     updatedAt: new Date("2024-03-05T09:00:00"),
+    signedAmount: -500,
   },
   {
     id: "286",
@@ -3161,6 +3446,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Emergency Fund")!,
     createdAt: new Date("2024-03-20T09:00:00"),
     updatedAt: new Date("2024-03-20T09:00:00"),
+    signedAmount: -500,
   },
   {
     id: "287",
@@ -3172,6 +3458,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Emergency Fund")!,
     createdAt: new Date("2024-04-05T09:00:00"),
     updatedAt: new Date("2024-04-05T09:00:00"),
+    signedAmount: -500,
   },
   {
     id: "288",
@@ -3183,6 +3470,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Emergency Fund")!,
     createdAt: new Date("2024-04-20T09:00:00"),
     updatedAt: new Date("2024-04-20T09:00:00"),
+    signedAmount: -500,
   },
   {
     id: "289",
@@ -3194,6 +3482,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Emergency Fund")!,
     createdAt: new Date("2024-05-05T09:00:00"),
     updatedAt: new Date("2024-05-05T09:00:00"),
+    signedAmount: -500,
   },
   {
     id: "290",
@@ -3205,6 +3494,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Emergency Fund")!,
     createdAt: new Date("2024-05-20T09:00:00"),
     updatedAt: new Date("2024-05-20T09:00:00"),
+    signedAmount: -500,
   },
   {
     id: "291",
@@ -3216,6 +3506,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Emergency Fund")!,
     createdAt: new Date("2024-06-05T09:00:00"),
     updatedAt: new Date("2024-06-05T09:00:00"),
+    signedAmount: -500,
   },
   {
     id: "292",
@@ -3227,6 +3518,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Emergency Fund")!,
     createdAt: new Date("2024-06-20T09:00:00"),
     updatedAt: new Date("2024-06-20T09:00:00"),
+    signedAmount: -500,
   },
   {
     id: "293",
@@ -3238,6 +3530,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Emergency Fund")!,
     createdAt: new Date("2024-07-05T09:00:00"),
     updatedAt: new Date("2024-07-05T09:00:00"),
+    signedAmount: -500,
   },
   {
     id: "294",
@@ -3249,6 +3542,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Emergency Fund")!,
     createdAt: new Date("2024-07-20T09:00:00"),
     updatedAt: new Date("2024-07-20T09:00:00"),
+    signedAmount: -500,
   },
   {
     id: "295",
@@ -3260,6 +3554,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Emergency Fund")!,
     createdAt: new Date("2024-08-05T09:00:00"),
     updatedAt: new Date("2024-08-05T09:00:00"),
+    signedAmount: -500,
   },
   {
     id: "296",
@@ -3271,6 +3566,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Emergency Fund")!,
     createdAt: new Date("2024-08-20T09:00:00"),
     updatedAt: new Date("2024-08-20T09:00:00"),
+    signedAmount: -500,
   },
   {
     id: "297",
@@ -3282,6 +3578,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Emergency Fund")!,
     createdAt: new Date("2024-09-05T09:00:00"),
     updatedAt: new Date("2024-09-05T09:00:00"),
+    signedAmount: -500,
   },
   {
     id: "298",
@@ -3293,6 +3590,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Emergency Fund")!,
     createdAt: new Date("2024-09-20T09:00:00"),
     updatedAt: new Date("2024-09-20T09:00:00"),
+    signedAmount: -500,
   },
   {
     id: "299",
@@ -3304,6 +3602,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Emergency Fund")!,
     createdAt: new Date("2024-10-05T09:00:00"),
     updatedAt: new Date("2024-10-05T09:00:00"),
+    signedAmount: -500,
   },
   {
     id: "300",
@@ -3315,6 +3614,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Emergency Fund")!,
     createdAt: new Date("2024-10-20T09:00:00"),
     updatedAt: new Date("2024-10-20T09:00:00"),
+    signedAmount: -500,
   },
   // Salary (20 transactions)
   {
@@ -3327,6 +3627,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Salary")!,
     createdAt: new Date("2024-01-31T09:00:00"),
     updatedAt: new Date("2024-01-31T09:00:00"),
+    signedAmount: 4500,
   },
   {
     id: "302",
@@ -3338,6 +3639,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Salary")!,
     createdAt: new Date("2024-02-29T09:00:00"),
     updatedAt: new Date("2024-02-29T09:00:00"),
+    signedAmount: 4500,
   },
   {
     id: "303",
@@ -3349,6 +3651,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Salary")!,
     createdAt: new Date("2024-03-31T09:00:00"),
     updatedAt: new Date("2024-03-31T09:00:00"),
+    signedAmount: 4500,
   },
   {
     id: "304",
@@ -3360,6 +3663,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Salary")!,
     createdAt: new Date("2024-04-30T09:00:00"),
     updatedAt: new Date("2024-04-30T09:00:00"),
+    signedAmount: 4500,
   },
   {
     id: "305",
@@ -3371,6 +3675,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Salary")!,
     createdAt: new Date("2024-05-31T09:00:00"),
     updatedAt: new Date("2024-05-31T09:00:00"),
+    signedAmount: 4500,
   },
   {
     id: "306",
@@ -3382,6 +3687,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Salary")!,
     createdAt: new Date("2024-06-30T09:00:00"),
     updatedAt: new Date("2024-06-30T09:00:00"),
+    signedAmount: 4500,
   },
   {
     id: "307",
@@ -3393,6 +3699,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Salary")!,
     createdAt: new Date("2024-07-31T09:00:00"),
     updatedAt: new Date("2024-07-31T09:00:00"),
+    signedAmount: 4500,
   },
   {
     id: "308",
@@ -3404,6 +3711,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Salary")!,
     createdAt: new Date("2024-08-31T09:00:00"),
     updatedAt: new Date("2024-08-31T09:00:00"),
+    signedAmount: 4500,
   },
   {
     id: "309",
@@ -3415,6 +3723,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Salary")!,
     createdAt: new Date("2024-09-30T09:00:00"),
     updatedAt: new Date("2024-09-30T09:00:00"),
+    signedAmount: 4500,
   },
   {
     id: "310",
@@ -3426,6 +3735,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Salary")!,
     createdAt: new Date("2024-10-31T09:00:00"),
     updatedAt: new Date("2024-10-31T09:00:00"),
+    signedAmount: 4500,
   },
   {
     id: "311",
@@ -3437,6 +3747,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Salary")!,
     createdAt: new Date("2024-11-30T09:00:00"),
     updatedAt: new Date("2024-11-30T09:00:00"),
+    signedAmount: 4500,
   },
   {
     id: "312",
@@ -3448,6 +3759,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Salary")!,
     createdAt: new Date("2024-12-31T09:00:00"),
     updatedAt: new Date("2024-12-31T09:00:00"),
+    signedAmount: 4500,
   },
   {
     id: "313",
@@ -3459,6 +3771,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Salary")!,
     createdAt: new Date("2024-01-15T09:00:00"),
     updatedAt: new Date("2024-01-15T09:00:00"),
+    signedAmount: 2250,
   },
   {
     id: "314",
@@ -3470,6 +3783,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Salary")!,
     createdAt: new Date("2024-02-15T09:00:00"),
     updatedAt: new Date("2024-02-15T09:00:00"),
+    signedAmount: 2250,
   },
   {
     id: "315",
@@ -3481,6 +3795,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Salary")!,
     createdAt: new Date("2024-03-15T09:00:00"),
     updatedAt: new Date("2024-03-15T09:00:00"),
+    signedAmount: 2250,
   },
   {
     id: "316",
@@ -3492,6 +3807,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Salary")!,
     createdAt: new Date("2024-04-15T09:00:00"),
     updatedAt: new Date("2024-04-15T09:00:00"),
+    signedAmount: 2250,
   },
   {
     id: "317",
@@ -3503,6 +3819,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Salary")!,
     createdAt: new Date("2024-05-15T09:00:00"),
     updatedAt: new Date("2024-05-15T09:00:00"),
+    signedAmount: 2250,
   },
   {
     id: "318",
@@ -3514,6 +3831,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Salary")!,
     createdAt: new Date("2024-06-15T09:00:00"),
     updatedAt: new Date("2024-06-15T09:00:00"),
+    signedAmount: 2250,
   },
   {
     id: "319",
@@ -3525,6 +3843,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Salary")!,
     createdAt: new Date("2024-07-15T09:00:00"),
     updatedAt: new Date("2024-07-15T09:00:00"),
+    signedAmount: 2250,
   },
   {
     id: "320",
@@ -3536,6 +3855,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Salary")!,
     createdAt: new Date("2024-08-15T09:00:00"),
     updatedAt: new Date("2024-08-15T09:00:00"),
+    signedAmount: 2250,
   },
   // Freelance Work (20 transactions)
   {
@@ -3548,6 +3868,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Freelance Work")!,
     createdAt: new Date("2024-01-10T14:30:00"),
     updatedAt: new Date("2024-01-10T14:30:00"),
+    signedAmount: 1200,
   },
   {
     id: "322",
@@ -3559,6 +3880,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Freelance Work")!,
     createdAt: new Date("2024-01-25T16:45:00"),
     updatedAt: new Date("2024-01-25T16:45:00"),
+    signedAmount: 450,
   },
   {
     id: "323",
@@ -3570,6 +3892,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Freelance Work")!,
     createdAt: new Date("2024-02-05T11:20:00"),
     updatedAt: new Date("2024-02-05T11:20:00"),
+    signedAmount: 800,
   },
   {
     id: "324",
@@ -3581,6 +3904,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Freelance Work")!,
     createdAt: new Date("2024-02-20T13:15:00"),
     updatedAt: new Date("2024-02-20T13:15:00"),
+    signedAmount: 650,
   },
   {
     id: "325",
@@ -3592,6 +3916,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Freelance Work")!,
     createdAt: new Date("2024-03-08T10:00:00"),
     updatedAt: new Date("2024-03-08T10:00:00"),
+    signedAmount: 950,
   },
   {
     id: "326",
@@ -3603,6 +3928,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Freelance Work")!,
     createdAt: new Date("2024-03-22T15:30:00"),
     updatedAt: new Date("2024-03-22T15:30:00"),
+    signedAmount: 350,
   },
   {
     id: "327",
@@ -3614,6 +3940,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Freelance Work")!,
     createdAt: new Date("2024-04-12T09:45:00"),
     updatedAt: new Date("2024-04-12T09:45:00"),
+    signedAmount: 2500,
   },
   {
     id: "328",
@@ -3625,6 +3952,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Freelance Work")!,
     createdAt: new Date("2024-04-28T17:20:00"),
     updatedAt: new Date("2024-04-28T17:20:00"),
+    signedAmount: 750,
   },
   {
     id: "329",
@@ -3636,6 +3964,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Freelance Work")!,
     createdAt: new Date("2024-05-15T12:00:00"),
     updatedAt: new Date("2024-05-15T12:00:00"),
+    signedAmount: 600,
   },
   {
     id: "330",
@@ -3647,6 +3976,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Freelance Work")!,
     createdAt: new Date("2024-05-30T14:45:00"),
     updatedAt: new Date("2024-05-30T14:45:00"),
+    signedAmount: 400,
   },
   {
     id: "331",
@@ -3658,6 +3988,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Freelance Work")!,
     createdAt: new Date("2024-06-10T11:30:00"),
     updatedAt: new Date("2024-06-10T11:30:00"),
+    signedAmount: 300,
   },
   {
     id: "332",
@@ -3669,6 +4000,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Freelance Work")!,
     createdAt: new Date("2024-06-25T16:15:00"),
     updatedAt: new Date("2024-06-25T16:15:00"),
+    signedAmount: 1500,
   },
   {
     id: "333",
@@ -3680,6 +4012,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Freelance Work")!,
     createdAt: new Date("2024-07-08T10:20:00"),
     updatedAt: new Date("2024-07-08T10:20:00"),
+    signedAmount: 850,
   },
   {
     id: "334",
@@ -3691,6 +4024,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Freelance Work")!,
     createdAt: new Date("2024-07-22T13:45:00"),
     updatedAt: new Date("2024-07-22T13:45:00"),
+    signedAmount: 700,
   },
   {
     id: "335",
@@ -3702,6 +4036,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Freelance Work")!,
     createdAt: new Date("2024-08-05T09:15:00"),
     updatedAt: new Date("2024-08-05T09:15:00"),
+    signedAmount: 1100,
   },
   {
     id: "336",
@@ -3713,6 +4048,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Freelance Work")!,
     createdAt: new Date("2024-08-18T15:30:00"),
     updatedAt: new Date("2024-08-18T15:30:00"),
+    signedAmount: 500,
   },
   {
     id: "337",
@@ -3724,6 +4060,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Freelance Work")!,
     createdAt: new Date("2024-09-02T11:00:00"),
     updatedAt: new Date("2024-09-02T11:00:00"),
+    signedAmount: 1800,
   },
   {
     id: "338",
@@ -3735,6 +4072,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Freelance Work")!,
     createdAt: new Date("2024-09-16T14:20:00"),
     updatedAt: new Date("2024-09-16T14:20:00"),
+    signedAmount: 550,
   },
   {
     id: "339",
@@ -3746,6 +4084,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Freelance Work")!,
     createdAt: new Date("2024-10-05T10:45:00"),
     updatedAt: new Date("2024-10-05T10:45:00"),
+    signedAmount: 1200,
   },
   {
     id: "340",
@@ -3757,6 +4096,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Freelance Work")!,
     createdAt: new Date("2024-10-20T16:30:00"),
     updatedAt: new Date("2024-10-20T16:30:00"),
+    signedAmount: 900,
   },
   // Investment Returns (20 transactions)
   {
@@ -3769,6 +4109,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Investment Returns")!,
     createdAt: new Date("2024-01-15T10:00:00"),
     updatedAt: new Date("2024-01-15T10:00:00"),
+    signedAmount: 125,
   },
   {
     id: "342",
@@ -3780,6 +4121,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Investment Returns")!,
     createdAt: new Date("2024-01-31T16:30:00"),
     updatedAt: new Date("2024-01-31T16:30:00"),
+    signedAmount: 85.5,
   },
   {
     id: "343",
@@ -3791,6 +4133,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Investment Returns")!,
     createdAt: new Date("2024-02-15T10:00:00"),
     updatedAt: new Date("2024-02-15T10:00:00"),
+    signedAmount: 125,
   },
   {
     id: "344",
@@ -3802,6 +4145,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Investment Returns")!,
     createdAt: new Date("2024-02-28T14:15:00"),
     updatedAt: new Date("2024-02-28T14:15:00"),
+    signedAmount: 45,
   },
   {
     id: "345",
@@ -3813,6 +4157,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Investment Returns")!,
     createdAt: new Date("2024-03-15T10:00:00"),
     updatedAt: new Date("2024-03-15T10:00:00"),
+    signedAmount: 125,
   },
   {
     id: "346",
@@ -3824,6 +4169,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Investment Returns")!,
     createdAt: new Date("2024-03-31T16:30:00"),
     updatedAt: new Date("2024-03-31T16:30:00"),
+    signedAmount: 62.5,
   },
   {
     id: "347",
@@ -3835,6 +4181,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Investment Returns")!,
     createdAt: new Date("2024-04-15T10:00:00"),
     updatedAt: new Date("2024-04-15T10:00:00"),
+    signedAmount: 125,
   },
   {
     id: "348",
@@ -3846,6 +4193,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Investment Returns")!,
     createdAt: new Date("2024-04-30T15:45:00"),
     updatedAt: new Date("2024-04-30T15:45:00"),
+    signedAmount: 180,
   },
   {
     id: "349",
@@ -3857,6 +4205,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Investment Returns")!,
     createdAt: new Date("2024-05-15T10:00:00"),
     updatedAt: new Date("2024-05-15T10:00:00"),
+    signedAmount: 125,
   },
   {
     id: "350",
@@ -3868,6 +4217,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Investment Returns")!,
     createdAt: new Date("2024-05-31T14:15:00"),
     updatedAt: new Date("2024-05-31T14:15:00"),
+    signedAmount: 45,
   },
   {
     id: "351",
@@ -3879,6 +4229,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Investment Returns")!,
     createdAt: new Date("2024-06-15T10:00:00"),
     updatedAt: new Date("2024-06-15T10:00:00"),
+    signedAmount: 125,
   },
   {
     id: "352",
@@ -3890,6 +4241,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Investment Returns")!,
     createdAt: new Date("2024-06-30T16:30:00"),
     updatedAt: new Date("2024-06-30T16:30:00"),
+    signedAmount: 95,
   },
   {
     id: "353",
@@ -3901,6 +4253,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Investment Returns")!,
     createdAt: new Date("2024-07-15T10:00:00"),
     updatedAt: new Date("2024-07-15T10:00:00"),
+    signedAmount: 125,
   },
   {
     id: "354",
@@ -3912,6 +4265,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Investment Returns")!,
     createdAt: new Date("2024-07-31T16:30:00"),
     updatedAt: new Date("2024-07-31T16:30:00"),
+    signedAmount: 68.5,
   },
   {
     id: "355",
@@ -3923,6 +4277,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Investment Returns")!,
     createdAt: new Date("2024-08-15T10:00:00"),
     updatedAt: new Date("2024-08-15T10:00:00"),
+    signedAmount: 125,
   },
   {
     id: "356",
@@ -3934,6 +4289,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Investment Returns")!,
     createdAt: new Date("2024-08-31T14:15:00"),
     updatedAt: new Date("2024-08-31T14:15:00"),
+    signedAmount: 45,
   },
   {
     id: "357",
@@ -3945,6 +4301,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Investment Returns")!,
     createdAt: new Date("2024-09-15T10:00:00"),
     updatedAt: new Date("2024-09-15T10:00:00"),
+    signedAmount: 125,
   },
   {
     id: "358",
@@ -3956,6 +4313,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Investment Returns")!,
     createdAt: new Date("2024-09-30T15:45:00"),
     updatedAt: new Date("2024-09-30T15:45:00"),
+    signedAmount: 220,
   },
   {
     id: "359",
@@ -3967,6 +4325,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Investment Returns")!,
     createdAt: new Date("2024-10-15T10:00:00"),
     updatedAt: new Date("2024-10-15T10:00:00"),
+    signedAmount: 125,
   },
   {
     id: "360",
@@ -3978,6 +4337,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Investment Returns")!,
     createdAt: new Date("2024-10-31T16:30:00"),
     updatedAt: new Date("2024-10-31T16:30:00"),
+    signedAmount: 78.5,
   },
   // Rental Income (20 transactions)
   {
@@ -3990,6 +4350,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Rental Income")!,
     createdAt: new Date("2024-01-01T09:00:00"),
     updatedAt: new Date("2024-01-01T09:00:00"),
+    signedAmount: 1200,
   },
   {
     id: "362",
@@ -4001,6 +4362,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Rental Income")!,
     createdAt: new Date("2024-02-01T09:00:00"),
     updatedAt: new Date("2024-02-01T09:00:00"),
+    signedAmount: 1200,
   },
   {
     id: "363",
@@ -4012,6 +4374,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Rental Income")!,
     createdAt: new Date("2024-03-01T09:00:00"),
     updatedAt: new Date("2024-03-01T09:00:00"),
+    signedAmount: 1200,
   },
   {
     id: "364",
@@ -4023,6 +4386,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Rental Income")!,
     createdAt: new Date("2024-04-01T09:00:00"),
     updatedAt: new Date("2024-04-01T09:00:00"),
+    signedAmount: 1200,
   },
   {
     id: "365",
@@ -4034,6 +4398,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Rental Income")!,
     createdAt: new Date("2024-05-01T09:00:00"),
     updatedAt: new Date("2024-05-01T09:00:00"),
+    signedAmount: 1200,
   },
   {
     id: "366",
@@ -4045,6 +4410,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Rental Income")!,
     createdAt: new Date("2024-06-01T09:00:00"),
     updatedAt: new Date("2024-06-01T09:00:00"),
+    signedAmount: 1200,
   },
   {
     id: "367",
@@ -4056,6 +4422,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Rental Income")!,
     createdAt: new Date("2024-07-01T09:00:00"),
     updatedAt: new Date("2024-07-01T09:00:00"),
+    signedAmount: 1200,
   },
   {
     id: "368",
@@ -4067,6 +4434,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Rental Income")!,
     createdAt: new Date("2024-08-01T09:00:00"),
     updatedAt: new Date("2024-08-01T09:00:00"),
+    signedAmount: 1200,
   },
   {
     id: "369",
@@ -4078,6 +4446,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Rental Income")!,
     createdAt: new Date("2024-09-01T09:00:00"),
     updatedAt: new Date("2024-09-01T09:00:00"),
+    signedAmount: 1200,
   },
   {
     id: "370",
@@ -4089,6 +4458,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Rental Income")!,
     createdAt: new Date("2024-10-01T09:00:00"),
     updatedAt: new Date("2024-10-01T09:00:00"),
+    signedAmount: 1200,
   },
   {
     id: "371",
@@ -4100,6 +4470,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Rental Income")!,
     createdAt: new Date("2024-11-01T09:00:00"),
     updatedAt: new Date("2024-11-01T09:00:00"),
+    signedAmount: 1200,
   },
   {
     id: "372",
@@ -4111,6 +4482,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Rental Income")!,
     createdAt: new Date("2024-12-01T09:00:00"),
     updatedAt: new Date("2024-12-01T09:00:00"),
+    signedAmount: 1200,
   },
   {
     id: "373",
@@ -4122,6 +4494,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Rental Income")!,
     createdAt: new Date("2024-01-15T10:30:00"),
     updatedAt: new Date("2024-01-15T10:30:00"),
+    signedAmount: 150,
   },
   {
     id: "374",
@@ -4133,6 +4506,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Rental Income")!,
     createdAt: new Date("2024-02-15T10:30:00"),
     updatedAt: new Date("2024-02-15T10:30:00"),
+    signedAmount: 150,
   },
   {
     id: "375",
@@ -4144,6 +4518,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Rental Income")!,
     createdAt: new Date("2024-03-15T10:30:00"),
     updatedAt: new Date("2024-03-15T10:30:00"),
+    signedAmount: 150,
   },
   {
     id: "376",
@@ -4155,6 +4530,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Rental Income")!,
     createdAt: new Date("2024-04-15T10:30:00"),
     updatedAt: new Date("2024-04-15T10:30:00"),
+    signedAmount: 150,
   },
   {
     id: "377",
@@ -4166,6 +4542,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Rental Income")!,
     createdAt: new Date("2024-05-15T10:30:00"),
     updatedAt: new Date("2024-05-15T10:30:00"),
+    signedAmount: 150,
   },
   {
     id: "378",
@@ -4177,6 +4554,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Rental Income")!,
     createdAt: new Date("2024-06-15T10:30:00"),
     updatedAt: new Date("2024-06-15T10:30:00"),
+    signedAmount: 150,
   },
   {
     id: "379",
@@ -4188,6 +4566,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Rental Income")!,
     createdAt: new Date("2024-07-15T10:30:00"),
     updatedAt: new Date("2024-07-15T10:30:00"),
+    signedAmount: 150,
   },
   {
     id: "380",
@@ -4199,6 +4578,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Rental Income")!,
     createdAt: new Date("2024-08-15T10:30:00"),
     updatedAt: new Date("2024-08-15T10:30:00"),
+    signedAmount: 150,
   },
   // Side Business (20 transactions)
   {
@@ -4211,6 +4591,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Side Business")!,
     createdAt: new Date("2024-01-08T14:20:00"),
     updatedAt: new Date("2024-01-08T14:20:00"),
+    signedAmount: 285,
   },
   {
     id: "382",
@@ -4222,6 +4603,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Side Business")!,
     createdAt: new Date("2024-01-22T16:45:00"),
     updatedAt: new Date("2024-01-22T16:45:00"),
+    signedAmount: 180,
   },
   {
     id: "383",
@@ -4233,6 +4615,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Side Business")!,
     createdAt: new Date("2024-02-05T14:20:00"),
     updatedAt: new Date("2024-02-05T14:20:00"),
+    signedAmount: 320,
   },
   {
     id: "384",
@@ -4244,6 +4627,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Side Business")!,
     createdAt: new Date("2024-02-18T18:30:00"),
     updatedAt: new Date("2024-02-18T18:30:00"),
+    signedAmount: 150,
   },
   {
     id: "385",
@@ -4255,6 +4639,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Side Business")!,
     createdAt: new Date("2024-03-12T14:20:00"),
     updatedAt: new Date("2024-03-12T14:20:00"),
+    signedAmount: 245,
   },
   {
     id: "386",
@@ -4266,6 +4651,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Side Business")!,
     createdAt: new Date("2024-03-25T16:45:00"),
     updatedAt: new Date("2024-03-25T16:45:00"),
+    signedAmount: 200,
   },
   {
     id: "387",
@@ -4277,6 +4663,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Side Business")!,
     createdAt: new Date("2024-04-08T14:20:00"),
     updatedAt: new Date("2024-04-08T14:20:00"),
+    signedAmount: 380,
   },
   {
     id: "388",
@@ -4288,6 +4675,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Side Business")!,
     createdAt: new Date("2024-04-20T12:00:00"),
     updatedAt: new Date("2024-04-20T12:00:00"),
+    signedAmount: 120,
   },
   {
     id: "389",
@@ -4299,6 +4687,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Side Business")!,
     createdAt: new Date("2024-05-15T14:20:00"),
     updatedAt: new Date("2024-05-15T14:20:00"),
+    signedAmount: 295,
   },
   {
     id: "390",
@@ -4310,6 +4699,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Side Business")!,
     createdAt: new Date("2024-05-28T16:45:00"),
     updatedAt: new Date("2024-05-28T16:45:00"),
+    signedAmount: 160,
   },
   {
     id: "391",
@@ -4321,6 +4711,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Side Business")!,
     createdAt: new Date("2024-06-10T14:20:00"),
     updatedAt: new Date("2024-06-10T14:20:00"),
+    signedAmount: 410,
   },
   {
     id: "392",
@@ -4332,6 +4723,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Side Business")!,
     createdAt: new Date("2024-06-22T18:30:00"),
     updatedAt: new Date("2024-06-22T18:30:00"),
+    signedAmount: 180,
   },
   {
     id: "393",
@@ -4343,6 +4735,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Side Business")!,
     createdAt: new Date("2024-07-05T14:20:00"),
     updatedAt: new Date("2024-07-05T14:20:00"),
+    signedAmount: 265,
   },
   {
     id: "394",
@@ -4354,6 +4747,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Side Business")!,
     createdAt: new Date("2024-07-18T12:00:00"),
     updatedAt: new Date("2024-07-18T12:00:00"),
+    signedAmount: 140,
   },
   {
     id: "395",
@@ -4365,6 +4759,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Side Business")!,
     createdAt: new Date("2024-08-12T14:20:00"),
     updatedAt: new Date("2024-08-12T14:20:00"),
+    signedAmount: 350,
   },
   {
     id: "396",
@@ -4376,6 +4771,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Side Business")!,
     createdAt: new Date("2024-08-25T16:45:00"),
     updatedAt: new Date("2024-08-25T16:45:00"),
+    signedAmount: 190,
   },
   {
     id: "397",
@@ -4387,6 +4783,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Side Business")!,
     createdAt: new Date("2024-09-08T14:20:00"),
     updatedAt: new Date("2024-09-08T14:20:00"),
+    signedAmount: 425,
   },
   {
     id: "398",
@@ -4398,6 +4795,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Side Business")!,
     createdAt: new Date("2024-09-20T18:30:00"),
     updatedAt: new Date("2024-09-20T18:30:00"),
+    signedAmount: 165,
   },
   {
     id: "399",
@@ -4409,6 +4807,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Side Business")!,
     createdAt: new Date("2024-10-05T14:20:00"),
     updatedAt: new Date("2024-10-05T14:20:00"),
+    signedAmount: 310,
   },
   {
     id: "400",
@@ -4420,6 +4819,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Side Business")!,
     createdAt: new Date("2024-10-18T12:00:00"),
     updatedAt: new Date("2024-10-18T12:00:00"),
+    signedAmount: 130,
   },
   // Bonus (20 transactions)
   {
@@ -4432,6 +4832,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Bonus")!,
     createdAt: new Date("2024-01-15T10:00:00"),
     updatedAt: new Date("2024-01-15T10:00:00"),
+    signedAmount: 2500,
   },
   {
     id: "402",
@@ -4443,6 +4844,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Bonus")!,
     createdAt: new Date("2024-01-31T16:30:00"),
     updatedAt: new Date("2024-01-31T16:30:00"),
+    signedAmount: 1000,
   },
   {
     id: "403",
@@ -4454,6 +4856,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Bonus")!,
     createdAt: new Date("2024-02-28T14:15:00"),
     updatedAt: new Date("2024-02-28T14:15:00"),
+    signedAmount: 1500,
   },
   {
     id: "404",
@@ -4465,6 +4868,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Bonus")!,
     createdAt: new Date("2024-03-15T11:30:00"),
     updatedAt: new Date("2024-03-15T11:30:00"),
+    signedAmount: 800,
   },
   {
     id: "405",
@@ -4476,6 +4880,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Bonus")!,
     createdAt: new Date("2024-04-30T10:00:00"),
     updatedAt: new Date("2024-04-30T10:00:00"),
+    signedAmount: 2000,
   },
   {
     id: "406",
@@ -4487,6 +4892,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Bonus")!,
     createdAt: new Date("2024-05-20T15:45:00"),
     updatedAt: new Date("2024-05-20T15:45:00"),
+    signedAmount: 500,
   },
   {
     id: "407",
@@ -4498,6 +4904,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Bonus")!,
     createdAt: new Date("2024-06-10T14:15:00"),
     updatedAt: new Date("2024-06-10T14:15:00"),
+    signedAmount: 1200,
   },
   {
     id: "408",
@@ -4509,6 +4916,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Bonus")!,
     createdAt: new Date("2024-06-30T11:30:00"),
     updatedAt: new Date("2024-06-30T11:30:00"),
+    signedAmount: 950,
   },
   {
     id: "409",
@@ -4520,6 +4928,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Bonus")!,
     createdAt: new Date("2024-07-15T10:00:00"),
     updatedAt: new Date("2024-07-15T10:00:00"),
+    signedAmount: 1800,
   },
   {
     id: "410",
@@ -4531,6 +4940,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Bonus")!,
     createdAt: new Date("2024-08-05T15:45:00"),
     updatedAt: new Date("2024-08-05T15:45:00"),
+    signedAmount: 400,
   },
   {
     id: "411",
@@ -4542,6 +4952,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Bonus")!,
     createdAt: new Date("2024-08-25T14:15:00"),
     updatedAt: new Date("2024-08-25T14:15:00"),
+    signedAmount: 1600,
   },
   {
     id: "412",
@@ -4553,6 +4964,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Bonus")!,
     createdAt: new Date("2024-09-15T11:30:00"),
     updatedAt: new Date("2024-09-15T11:30:00"),
+    signedAmount: 750,
   },
   {
     id: "413",
@@ -4564,6 +4976,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Bonus")!,
     createdAt: new Date("2024-09-30T10:00:00"),
     updatedAt: new Date("2024-09-30T10:00:00"),
+    signedAmount: 2200,
   },
   {
     id: "414",
@@ -4575,6 +4988,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Bonus")!,
     createdAt: new Date("2024-10-10T15:45:00"),
     updatedAt: new Date("2024-10-10T15:45:00"),
+    signedAmount: 600,
   },
   {
     id: "415",
@@ -4586,6 +5000,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Bonus")!,
     createdAt: new Date("2024-10-25T14:15:00"),
     updatedAt: new Date("2024-10-25T14:15:00"),
+    signedAmount: 1400,
   },
   {
     id: "416",
@@ -4597,6 +5012,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Bonus")!,
     createdAt: new Date("2024-11-15T11:30:00"),
     updatedAt: new Date("2024-11-15T11:30:00"),
+    signedAmount: 850,
   },
   {
     id: "417",
@@ -4608,6 +5024,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Bonus")!,
     createdAt: new Date("2024-11-30T10:00:00"),
     updatedAt: new Date("2024-11-30T10:00:00"),
+    signedAmount: 1900,
   },
   {
     id: "418",
@@ -4619,6 +5036,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Bonus")!,
     createdAt: new Date("2024-12-10T15:45:00"),
     updatedAt: new Date("2024-12-10T15:45:00"),
+    signedAmount: 350,
   },
   {
     id: "419",
@@ -4630,6 +5048,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Bonus")!,
     createdAt: new Date("2024-12-20T14:15:00"),
     updatedAt: new Date("2024-12-20T14:15:00"),
+    signedAmount: 1300,
   },
   {
     id: "420",
@@ -4641,6 +5060,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Bonus")!,
     createdAt: new Date("2024-12-31T16:00:00"),
     updatedAt: new Date("2024-12-31T16:00:00"),
+    signedAmount: 3000,
   },
   // Dividends (20 transactions)
   {
@@ -4653,6 +5073,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Dividends")!,
     createdAt: new Date("2024-01-15T10:00:00"),
     updatedAt: new Date("2024-01-15T10:00:00"),
+    signedAmount: 45,
   },
   {
     id: "422",
@@ -4664,6 +5085,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Dividends")!,
     createdAt: new Date("2024-01-15T10:00:00"),
     updatedAt: new Date("2024-01-15T10:00:00"),
+    signedAmount: 38.5,
   },
   {
     id: "423",
@@ -4675,6 +5097,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Dividends")!,
     createdAt: new Date("2024-01-15T10:00:00"),
     updatedAt: new Date("2024-01-15T10:00:00"),
+    signedAmount: 52,
   },
   {
     id: "424",
@@ -4686,6 +5109,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Dividends")!,
     createdAt: new Date("2024-01-15T10:00:00"),
     updatedAt: new Date("2024-01-15T10:00:00"),
+    signedAmount: 41.5,
   },
   {
     id: "425",
@@ -4697,6 +5121,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Dividends")!,
     createdAt: new Date("2024-02-15T10:00:00"),
     updatedAt: new Date("2024-02-15T10:00:00"),
+    signedAmount: 45,
   },
   {
     id: "426",
@@ -4708,6 +5133,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Dividends")!,
     createdAt: new Date("2024-02-15T10:00:00"),
     updatedAt: new Date("2024-02-15T10:00:00"),
+    signedAmount: 38.5,
   },
   {
     id: "427",
@@ -4719,6 +5145,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Dividends")!,
     createdAt: new Date("2024-02-15T10:00:00"),
     updatedAt: new Date("2024-02-15T10:00:00"),
+    signedAmount: 52,
   },
   {
     id: "428",
@@ -4730,6 +5157,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Dividends")!,
     createdAt: new Date("2024-02-15T10:00:00"),
     updatedAt: new Date("2024-02-15T10:00:00"),
+    signedAmount: 41.5,
   },
   {
     id: "429",
@@ -4741,6 +5169,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Dividends")!,
     createdAt: new Date("2024-03-15T10:00:00"),
     updatedAt: new Date("2024-03-15T10:00:00"),
+    signedAmount: 45,
   },
   {
     id: "430",
@@ -4752,6 +5181,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Dividends")!,
     createdAt: new Date("2024-03-15T10:00:00"),
     updatedAt: new Date("2024-03-15T10:00:00"),
+    signedAmount: 38.5,
   },
   {
     id: "431",
@@ -4763,6 +5193,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Dividends")!,
     createdAt: new Date("2024-03-15T10:00:00"),
     updatedAt: new Date("2024-03-15T10:00:00"),
+    signedAmount: 52,
   },
   {
     id: "432",
@@ -4774,6 +5205,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Dividends")!,
     createdAt: new Date("2024-03-15T10:00:00"),
     updatedAt: new Date("2024-03-15T10:00:00"),
+    signedAmount: 41.5,
   },
   {
     id: "433",
@@ -4785,6 +5217,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Dividends")!,
     createdAt: new Date("2024-04-15T10:00:00"),
     updatedAt: new Date("2024-04-15T10:00:00"),
+    signedAmount: 45,
   },
   {
     id: "434",
@@ -4796,6 +5229,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Dividends")!,
     createdAt: new Date("2024-04-15T10:00:00"),
     updatedAt: new Date("2024-04-15T10:00:00"),
+    signedAmount: 38.5,
   },
   {
     id: "435",
@@ -4807,6 +5241,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Dividends")!,
     createdAt: new Date("2024-04-15T10:00:00"),
     updatedAt: new Date("2024-04-15T10:00:00"),
+    signedAmount: 52,
   },
   {
     id: "436",
@@ -4818,6 +5253,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Dividends")!,
     createdAt: new Date("2024-04-15T10:00:00"),
     updatedAt: new Date("2024-04-15T10:00:00"),
+    signedAmount: 41.5,
   },
   {
     id: "437",
@@ -4829,6 +5265,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Dividends")!,
     createdAt: new Date("2024-05-15T10:00:00"),
     updatedAt: new Date("2024-05-15T10:00:00"),
+    signedAmount: 45,
   },
   {
     id: "438",
@@ -4840,6 +5277,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Dividends")!,
     createdAt: new Date("2024-05-15T10:00:00"),
     updatedAt: new Date("2024-05-15T10:00:00"),
+    signedAmount: 38.5,
   },
   {
     id: "439",
@@ -4851,6 +5289,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Dividends")!,
     createdAt: new Date("2024-05-15T10:00:00"),
     updatedAt: new Date("2024-05-15T10:00:00"),
+    signedAmount: 52,
   },
   {
     id: "440",
@@ -4862,6 +5301,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Dividends")!,
     createdAt: new Date("2024-05-15T10:00:00"),
     updatedAt: new Date("2024-05-15T10:00:00"),
+    signedAmount: 41.5,
   },
   // Interest Income (20 transactions)
   {
@@ -4874,6 +5314,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Interest Income")!,
     createdAt: new Date("2024-01-31T16:30:00"),
     updatedAt: new Date("2024-01-31T16:30:00"),
+    signedAmount: 125,
   },
   {
     id: "442",
@@ -4885,6 +5326,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Interest Income")!,
     createdAt: new Date("2024-01-31T16:30:00"),
     updatedAt: new Date("2024-01-31T16:30:00"),
+    signedAmount: 85.5,
   },
   {
     id: "443",
@@ -4896,6 +5338,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Interest Income")!,
     createdAt: new Date("2024-01-31T16:30:00"),
     updatedAt: new Date("2024-01-31T16:30:00"),
+    signedAmount: 45,
   },
   {
     id: "444",
@@ -4907,6 +5350,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Interest Income")!,
     createdAt: new Date("2024-02-29T16:30:00"),
     updatedAt: new Date("2024-02-29T16:30:00"),
+    signedAmount: 125,
   },
   {
     id: "445",
@@ -4918,6 +5362,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Interest Income")!,
     createdAt: new Date("2024-02-29T16:30:00"),
     updatedAt: new Date("2024-02-29T16:30:00"),
+    signedAmount: 85.5,
   },
   {
     id: "446",
@@ -4929,6 +5374,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Interest Income")!,
     createdAt: new Date("2024-02-29T16:30:00"),
     updatedAt: new Date("2024-02-29T16:30:00"),
+    signedAmount: 45,
   },
   {
     id: "447",
@@ -4940,6 +5386,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Interest Income")!,
     createdAt: new Date("2024-03-31T16:30:00"),
     updatedAt: new Date("2024-03-31T16:30:00"),
+    signedAmount: 125,
   },
   {
     id: "448",
@@ -4951,6 +5398,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Interest Income")!,
     createdAt: new Date("2024-03-31T16:30:00"),
     updatedAt: new Date("2024-03-31T16:30:00"),
+    signedAmount: 85.5,
   },
   {
     id: "449",
@@ -4962,6 +5410,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Interest Income")!,
     createdAt: new Date("2024-03-31T16:30:00"),
     updatedAt: new Date("2024-03-31T16:30:00"),
+    signedAmount: 45,
   },
   {
     id: "450",
@@ -4973,6 +5422,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Interest Income")!,
     createdAt: new Date("2024-04-30T16:30:00"),
     updatedAt: new Date("2024-04-30T16:30:00"),
+    signedAmount: 125,
   },
   {
     id: "451",
@@ -4984,6 +5434,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Interest Income")!,
     createdAt: new Date("2024-04-30T16:30:00"),
     updatedAt: new Date("2024-04-30T16:30:00"),
+    signedAmount: 85.5,
   },
   {
     id: "452",
@@ -4995,6 +5446,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Interest Income")!,
     createdAt: new Date("2024-04-30T16:30:00"),
     updatedAt: new Date("2024-04-30T16:30:00"),
+    signedAmount: 45,
   },
   {
     id: "453",
@@ -5006,6 +5458,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Interest Income")!,
     createdAt: new Date("2024-05-31T16:30:00"),
     updatedAt: new Date("2024-05-31T16:30:00"),
+    signedAmount: 125,
   },
   {
     id: "454",
@@ -5017,6 +5470,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Interest Income")!,
     createdAt: new Date("2024-05-31T16:30:00"),
     updatedAt: new Date("2024-05-31T16:30:00"),
+    signedAmount: 85.5,
   },
   {
     id: "455",
@@ -5028,6 +5482,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Interest Income")!,
     createdAt: new Date("2024-05-31T16:30:00"),
     updatedAt: new Date("2024-05-31T16:30:00"),
+    signedAmount: 45,
   },
   {
     id: "456",
@@ -5039,6 +5494,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Interest Income")!,
     createdAt: new Date("2024-06-30T16:30:00"),
     updatedAt: new Date("2024-06-30T16:30:00"),
+    signedAmount: 125,
   },
   {
     id: "457",
@@ -5050,6 +5506,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Interest Income")!,
     createdAt: new Date("2024-06-30T16:30:00"),
     updatedAt: new Date("2024-06-30T16:30:00"),
+    signedAmount: 85.5,
   },
   {
     id: "458",
@@ -5061,6 +5518,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Interest Income")!,
     createdAt: new Date("2024-06-30T16:30:00"),
     updatedAt: new Date("2024-06-30T16:30:00"),
+    signedAmount: 45,
   },
   {
     id: "459",
@@ -5072,6 +5530,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Interest Income")!,
     createdAt: new Date("2024-07-31T16:30:00"),
     updatedAt: new Date("2024-07-31T16:30:00"),
+    signedAmount: 125,
   },
   {
     id: "460",
@@ -5083,6 +5542,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Interest Income")!,
     createdAt: new Date("2024-07-31T16:30:00"),
     updatedAt: new Date("2024-07-31T16:30:00"),
+    signedAmount: 85.5,
   },
   // Royalties (20 transactions)
   {
@@ -5095,6 +5555,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Royalties")!,
     createdAt: new Date("2024-01-15T10:00:00"),
     updatedAt: new Date("2024-01-15T10:00:00"),
+    signedAmount: 450,
   },
   {
     id: "462",
@@ -5106,6 +5567,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Royalties")!,
     createdAt: new Date("2024-01-31T16:30:00"),
     updatedAt: new Date("2024-01-31T16:30:00"),
+    signedAmount: 125.5,
   },
   {
     id: "463",
@@ -5117,6 +5579,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Royalties")!,
     createdAt: new Date("2024-02-10T14:20:00"),
     updatedAt: new Date("2024-02-10T14:20:00"),
+    signedAmount: 85,
   },
   {
     id: "464",
@@ -5128,6 +5591,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Royalties")!,
     createdAt: new Date("2024-02-15T10:00:00"),
     updatedAt: new Date("2024-02-15T10:00:00"),
+    signedAmount: 450,
   },
   {
     id: "465",
@@ -5139,6 +5603,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Royalties")!,
     createdAt: new Date("2024-02-29T16:30:00"),
     updatedAt: new Date("2024-02-29T16:30:00"),
+    signedAmount: 125.5,
   },
   {
     id: "466",
@@ -5150,6 +5615,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Royalties")!,
     createdAt: new Date("2024-03-05T11:15:00"),
     updatedAt: new Date("2024-03-05T11:15:00"),
+    signedAmount: 200,
   },
   {
     id: "467",
@@ -5161,6 +5627,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Royalties")!,
     createdAt: new Date("2024-03-15T10:00:00"),
     updatedAt: new Date("2024-03-15T10:00:00"),
+    signedAmount: 450,
   },
   {
     id: "468",
@@ -5172,6 +5639,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Royalties")!,
     createdAt: new Date("2024-03-31T16:30:00"),
     updatedAt: new Date("2024-03-31T16:30:00"),
+    signedAmount: 125.5,
   },
   {
     id: "469",
@@ -5183,6 +5651,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Royalties")!,
     createdAt: new Date("2024-04-12T14:20:00"),
     updatedAt: new Date("2024-04-12T14:20:00"),
+    signedAmount: 95,
   },
   {
     id: "470",
@@ -5194,6 +5663,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Royalties")!,
     createdAt: new Date("2024-04-15T10:00:00"),
     updatedAt: new Date("2024-04-15T10:00:00"),
+    signedAmount: 450,
   },
   {
     id: "471",
@@ -5205,6 +5675,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Royalties")!,
     createdAt: new Date("2024-04-30T16:30:00"),
     updatedAt: new Date("2024-04-30T16:30:00"),
+    signedAmount: 125.5,
   },
   {
     id: "472",
@@ -5216,6 +5687,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Royalties")!,
     createdAt: new Date("2024-05-05T11:15:00"),
     updatedAt: new Date("2024-05-05T11:15:00"),
+    signedAmount: 200,
   },
   {
     id: "473",
@@ -5227,6 +5699,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Royalties")!,
     createdAt: new Date("2024-05-15T10:00:00"),
     updatedAt: new Date("2024-05-15T10:00:00"),
+    signedAmount: 450,
   },
   {
     id: "474",
@@ -5238,6 +5711,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Royalties")!,
     createdAt: new Date("2024-05-31T16:30:00"),
     updatedAt: new Date("2024-05-31T16:30:00"),
+    signedAmount: 125.5,
   },
   {
     id: "475",
@@ -5249,6 +5723,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Royalties")!,
     createdAt: new Date("2024-06-08T14:20:00"),
     updatedAt: new Date("2024-06-08T14:20:00"),
+    signedAmount: 75,
   },
   {
     id: "476",
@@ -5260,6 +5735,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Royalties")!,
     createdAt: new Date("2024-06-15T10:00:00"),
     updatedAt: new Date("2024-06-15T10:00:00"),
+    signedAmount: 450,
   },
   {
     id: "477",
@@ -5271,6 +5747,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Royalties")!,
     createdAt: new Date("2024-06-30T16:30:00"),
     updatedAt: new Date("2024-06-30T16:30:00"),
+    signedAmount: 125.5,
   },
   {
     id: "478",
@@ -5282,6 +5759,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Royalties")!,
     createdAt: new Date("2024-07-05T11:15:00"),
     updatedAt: new Date("2024-07-05T11:15:00"),
+    signedAmount: 200,
   },
   {
     id: "479",
@@ -5293,6 +5771,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Royalties")!,
     createdAt: new Date("2024-07-15T10:00:00"),
     updatedAt: new Date("2024-07-15T10:00:00"),
+    signedAmount: 450,
   },
   {
     id: "480",
@@ -5304,6 +5783,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Royalties")!,
     createdAt: new Date("2024-07-31T16:30:00"),
     updatedAt: new Date("2024-07-31T16:30:00"),
+    signedAmount: 125.5,
   },
   // Consulting (20 transactions)
   {
@@ -5316,6 +5796,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Consulting")!,
     createdAt: new Date("2024-01-10T09:00:00"),
     updatedAt: new Date("2024-01-10T09:00:00"),
+    signedAmount: 1500,
   },
   {
     id: "482",
@@ -5327,6 +5808,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Consulting")!,
     createdAt: new Date("2024-01-25T14:30:00"),
     updatedAt: new Date("2024-01-25T14:30:00"),
+    signedAmount: 1200,
   },
   {
     id: "483",
@@ -5338,6 +5820,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Consulting")!,
     createdAt: new Date("2024-02-08T11:15:00"),
     updatedAt: new Date("2024-02-08T11:15:00"),
+    signedAmount: 800,
   },
   {
     id: "484",
@@ -5349,6 +5832,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Consulting")!,
     createdAt: new Date("2024-02-20T16:45:00"),
     updatedAt: new Date("2024-02-20T16:45:00"),
+    signedAmount: 1000,
   },
   {
     id: "485",
@@ -5360,6 +5844,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Consulting")!,
     createdAt: new Date("2024-03-05T09:00:00"),
     updatedAt: new Date("2024-03-05T09:00:00"),
+    signedAmount: 1500,
   },
   {
     id: "486",
@@ -5371,6 +5856,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Consulting")!,
     createdAt: new Date("2024-03-18T14:30:00"),
     updatedAt: new Date("2024-03-18T14:30:00"),
+    signedAmount: 1200,
   },
   {
     id: "487",
@@ -5382,6 +5868,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Consulting")!,
     createdAt: new Date("2024-03-28T10:20:00"),
     updatedAt: new Date("2024-03-28T10:20:00"),
+    signedAmount: 900,
   },
   {
     id: "488",
@@ -5393,6 +5880,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Consulting")!,
     createdAt: new Date("2024-04-12T11:15:00"),
     updatedAt: new Date("2024-04-12T11:15:00"),
+    signedAmount: 800,
   },
   {
     id: "489",
@@ -5404,6 +5892,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Consulting")!,
     createdAt: new Date("2024-04-25T09:00:00"),
     updatedAt: new Date("2024-04-25T09:00:00"),
+    signedAmount: 1500,
   },
   {
     id: "490",
@@ -5415,6 +5904,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Consulting")!,
     createdAt: new Date("2024-05-08T16:45:00"),
     updatedAt: new Date("2024-05-08T16:45:00"),
+    signedAmount: 1000,
   },
   {
     id: "491",
@@ -5426,6 +5916,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Consulting")!,
     createdAt: new Date("2024-05-22T14:30:00"),
     updatedAt: new Date("2024-05-22T14:30:00"),
+    signedAmount: 1200,
   },
   {
     id: "492",
@@ -5437,6 +5928,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Consulting")!,
     createdAt: new Date("2024-06-05T11:15:00"),
     updatedAt: new Date("2024-06-05T11:15:00"),
+    signedAmount: 800,
   },
   {
     id: "493",
@@ -5448,6 +5940,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Consulting")!,
     createdAt: new Date("2024-06-18T09:00:00"),
     updatedAt: new Date("2024-06-18T09:00:00"),
+    signedAmount: 1500,
   },
   {
     id: "494",
@@ -5459,6 +5952,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Consulting")!,
     createdAt: new Date("2024-06-30T10:20:00"),
     updatedAt: new Date("2024-06-30T10:20:00"),
+    signedAmount: 900,
   },
   {
     id: "495",
@@ -5470,6 +5964,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Consulting")!,
     createdAt: new Date("2024-07-12T14:30:00"),
     updatedAt: new Date("2024-07-12T14:30:00"),
+    signedAmount: 1200,
   },
   {
     id: "496",
@@ -5481,6 +5976,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Consulting")!,
     createdAt: new Date("2024-07-25T16:45:00"),
     updatedAt: new Date("2024-07-25T16:45:00"),
+    signedAmount: 1000,
   },
   {
     id: "497",
@@ -5492,6 +5988,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Consulting")!,
     createdAt: new Date("2024-08-08T11:15:00"),
     updatedAt: new Date("2024-08-08T11:15:00"),
+    signedAmount: 800,
   },
   {
     id: "498",
@@ -5503,6 +6000,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Consulting")!,
     createdAt: new Date("2024-08-20T09:00:00"),
     updatedAt: new Date("2024-08-20T09:00:00"),
+    signedAmount: 1500,
   },
   {
     id: "499",
@@ -5514,6 +6012,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Consulting")!,
     createdAt: new Date("2024-09-05T14:30:00"),
     updatedAt: new Date("2024-09-05T14:30:00"),
+    signedAmount: 1200,
   },
   {
     id: "500",
@@ -5525,6 +6024,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Consulting")!,
     createdAt: new Date("2024-09-18T10:20:00"),
     updatedAt: new Date("2024-09-18T10:20:00"),
+    signedAmount: 900,
   },
   // Part-time Job (20 transactions)
   {
@@ -5537,6 +6037,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Part-time Job")!,
     createdAt: new Date("2024-01-07T18:00:00"),
     updatedAt: new Date("2024-01-07T18:00:00"),
+    signedAmount: 320,
   },
   {
     id: "502",
@@ -5548,6 +6049,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Part-time Job")!,
     createdAt: new Date("2024-01-14T18:00:00"),
     updatedAt: new Date("2024-01-14T18:00:00"),
+    signedAmount: 320,
   },
   {
     id: "503",
@@ -5559,6 +6061,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Part-time Job")!,
     createdAt: new Date("2024-01-21T18:00:00"),
     updatedAt: new Date("2024-01-21T18:00:00"),
+    signedAmount: 320,
   },
   {
     id: "504",
@@ -5570,6 +6073,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Part-time Job")!,
     createdAt: new Date("2024-01-28T18:00:00"),
     updatedAt: new Date("2024-01-28T18:00:00"),
+    signedAmount: 320,
   },
   {
     id: "505",
@@ -5581,6 +6085,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Part-time Job")!,
     createdAt: new Date("2024-02-04T18:00:00"),
     updatedAt: new Date("2024-02-04T18:00:00"),
+    signedAmount: 320,
   },
   {
     id: "506",
@@ -5592,6 +6097,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Part-time Job")!,
     createdAt: new Date("2024-02-11T18:00:00"),
     updatedAt: new Date("2024-02-11T18:00:00"),
+    signedAmount: 320,
   },
   {
     id: "507",
@@ -5603,6 +6109,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Part-time Job")!,
     createdAt: new Date("2024-02-18T18:00:00"),
     updatedAt: new Date("2024-02-18T18:00:00"),
+    signedAmount: 320,
   },
   {
     id: "508",
@@ -5614,6 +6121,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Part-time Job")!,
     createdAt: new Date("2024-02-25T18:00:00"),
     updatedAt: new Date("2024-02-25T18:00:00"),
+    signedAmount: 320,
   },
   {
     id: "509",
@@ -5625,6 +6133,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Part-time Job")!,
     createdAt: new Date("2024-03-03T18:00:00"),
     updatedAt: new Date("2024-03-03T18:00:00"),
+    signedAmount: 320,
   },
   {
     id: "510",
@@ -5636,6 +6145,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Part-time Job")!,
     createdAt: new Date("2024-03-10T18:00:00"),
     updatedAt: new Date("2024-03-10T18:00:00"),
+    signedAmount: 320,
   },
   {
     id: "511",
@@ -5647,6 +6157,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Part-time Job")!,
     createdAt: new Date("2024-03-17T18:00:00"),
     updatedAt: new Date("2024-03-17T18:00:00"),
+    signedAmount: 320,
   },
   {
     id: "512",
@@ -5658,6 +6169,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Part-time Job")!,
     createdAt: new Date("2024-03-24T18:00:00"),
     updatedAt: new Date("2024-03-24T18:00:00"),
+    signedAmount: 320,
   },
   {
     id: "513",
@@ -5669,6 +6181,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Part-time Job")!,
     createdAt: new Date("2024-03-31T18:00:00"),
     updatedAt: new Date("2024-03-31T18:00:00"),
+    signedAmount: 320,
   },
   {
     id: "514",
@@ -5680,6 +6193,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Part-time Job")!,
     createdAt: new Date("2024-04-07T18:00:00"),
     updatedAt: new Date("2024-04-07T18:00:00"),
+    signedAmount: 320,
   },
   {
     id: "515",
@@ -5691,6 +6205,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Part-time Job")!,
     createdAt: new Date("2024-04-14T18:00:00"),
     updatedAt: new Date("2024-04-14T18:00:00"),
+    signedAmount: 320,
   },
   {
     id: "516",
@@ -5702,6 +6217,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Part-time Job")!,
     createdAt: new Date("2024-04-21T18:00:00"),
     updatedAt: new Date("2024-04-21T18:00:00"),
+    signedAmount: 320,
   },
   {
     id: "517",
@@ -5713,6 +6229,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Part-time Job")!,
     createdAt: new Date("2024-04-28T18:00:00"),
     updatedAt: new Date("2024-04-28T18:00:00"),
+    signedAmount: 320,
   },
   {
     id: "518",
@@ -5724,6 +6241,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Part-time Job")!,
     createdAt: new Date("2024-05-05T18:00:00"),
     updatedAt: new Date("2024-05-05T18:00:00"),
+    signedAmount: 320,
   },
   {
     id: "519",
@@ -5735,6 +6253,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Part-time Job")!,
     createdAt: new Date("2024-05-12T18:00:00"),
     updatedAt: new Date("2024-05-12T18:00:00"),
+    signedAmount: 320,
   },
   {
     id: "520",
@@ -5746,6 +6265,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Part-time Job")!,
     createdAt: new Date("2024-05-19T18:00:00"),
     updatedAt: new Date("2024-05-19T18:00:00"),
+    signedAmount: 320,
   },
   // Online Sales (20 transactions)
   {
@@ -5758,6 +6278,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Online Sales")!,
     createdAt: new Date("2024-01-05T14:30:00"),
     updatedAt: new Date("2024-01-05T14:30:00"),
+    signedAmount: 85,
   },
   {
     id: "522",
@@ -5769,6 +6290,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Online Sales")!,
     createdAt: new Date("2024-01-12T16:45:00"),
     updatedAt: new Date("2024-01-12T16:45:00"),
+    signedAmount: 120,
   },
   {
     id: "523",
@@ -5780,6 +6302,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Online Sales")!,
     createdAt: new Date("2024-01-18T14:30:00"),
     updatedAt: new Date("2024-01-18T14:30:00"),
+    signedAmount: 65,
   },
   {
     id: "524",
@@ -5791,6 +6314,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Online Sales")!,
     createdAt: new Date("2024-01-25T10:15:00"),
     updatedAt: new Date("2024-01-25T10:15:00"),
+    signedAmount: 45,
   },
   {
     id: "525",
@@ -5802,6 +6326,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Online Sales")!,
     createdAt: new Date("2024-02-02T16:45:00"),
     updatedAt: new Date("2024-02-02T16:45:00"),
+    signedAmount: 95,
   },
   {
     id: "526",
@@ -5813,6 +6338,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Online Sales")!,
     createdAt: new Date("2024-02-08T14:30:00"),
     updatedAt: new Date("2024-02-08T14:30:00"),
+    signedAmount: 150,
   },
   {
     id: "527",
@@ -5824,6 +6350,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Online Sales")!,
     createdAt: new Date("2024-02-15T10:15:00"),
     updatedAt: new Date("2024-02-15T10:15:00"),
+    signedAmount: 35,
   },
   {
     id: "528",
@@ -5835,6 +6362,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Online Sales")!,
     createdAt: new Date("2024-02-22T16:45:00"),
     updatedAt: new Date("2024-02-22T16:45:00"),
+    signedAmount: 75,
   },
   {
     id: "529",
@@ -5846,6 +6374,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Online Sales")!,
     createdAt: new Date("2024-03-01T14:30:00"),
     updatedAt: new Date("2024-03-01T14:30:00"),
+    signedAmount: 110,
   },
   {
     id: "530",
@@ -5857,6 +6386,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Online Sales")!,
     createdAt: new Date("2024-03-08T10:15:00"),
     updatedAt: new Date("2024-03-08T10:15:00"),
+    signedAmount: 55,
   },
   {
     id: "531",
@@ -5868,6 +6398,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Online Sales")!,
     createdAt: new Date("2024-03-15T16:45:00"),
     updatedAt: new Date("2024-03-15T16:45:00"),
+    signedAmount: 140,
   },
   {
     id: "532",
@@ -5879,6 +6410,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Online Sales")!,
     createdAt: new Date("2024-03-22T14:30:00"),
     updatedAt: new Date("2024-03-22T14:30:00"),
+    signedAmount: 80,
   },
   {
     id: "533",
@@ -5890,6 +6422,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Online Sales")!,
     createdAt: new Date("2024-03-29T10:15:00"),
     updatedAt: new Date("2024-03-29T10:15:00"),
+    signedAmount: 40,
   },
   {
     id: "534",
@@ -5901,6 +6434,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Online Sales")!,
     createdAt: new Date("2024-04-05T16:45:00"),
     updatedAt: new Date("2024-04-05T16:45:00"),
+    signedAmount: 105,
   },
   {
     id: "535",
@@ -5912,6 +6446,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Online Sales")!,
     createdAt: new Date("2024-04-12T14:30:00"),
     updatedAt: new Date("2024-04-12T14:30:00"),
+    signedAmount: 125,
   },
   {
     id: "536",
@@ -5923,6 +6458,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Online Sales")!,
     createdAt: new Date("2024-04-19T10:15:00"),
     updatedAt: new Date("2024-04-19T10:15:00"),
+    signedAmount: 50,
   },
   {
     id: "537",
@@ -5934,6 +6470,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Online Sales")!,
     createdAt: new Date("2024-04-26T16:45:00"),
     updatedAt: new Date("2024-04-26T16:45:00"),
+    signedAmount: 90,
   },
   {
     id: "538",
@@ -5945,6 +6482,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Online Sales")!,
     createdAt: new Date("2024-05-03T14:30:00"),
     updatedAt: new Date("2024-05-03T14:30:00"),
+    signedAmount: 70,
   },
   {
     id: "539",
@@ -5956,6 +6494,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Online Sales")!,
     createdAt: new Date("2024-05-10T10:15:00"),
     updatedAt: new Date("2024-05-10T10:15:00"),
+    signedAmount: 60,
   },
   {
     id: "540",
@@ -5967,6 +6506,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Online Sales")!,
     createdAt: new Date("2024-05-17T16:45:00"),
     updatedAt: new Date("2024-05-17T16:45:00"),
+    signedAmount: 115,
   },
   // Cashback (20 transactions)
   {
@@ -5979,6 +6519,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Cashback")!,
     createdAt: new Date("2024-01-31T16:30:00"),
     updatedAt: new Date("2024-01-31T16:30:00"),
+    signedAmount: 25,
   },
   {
     id: "542",
@@ -5990,6 +6531,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Cashback")!,
     createdAt: new Date("2024-02-05T14:20:00"),
     updatedAt: new Date("2024-02-05T14:20:00"),
+    signedAmount: 8.5,
   },
   {
     id: "543",
@@ -6001,6 +6543,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Cashback")!,
     createdAt: new Date("2024-02-29T16:30:00"),
     updatedAt: new Date("2024-02-29T16:30:00"),
+    signedAmount: 25,
   },
   {
     id: "544",
@@ -6012,6 +6555,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Cashback")!,
     createdAt: new Date("2024-03-08T14:20:00"),
     updatedAt: new Date("2024-03-08T14:20:00"),
+    signedAmount: 12,
   },
   {
     id: "545",
@@ -6023,6 +6567,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Cashback")!,
     createdAt: new Date("2024-03-31T16:30:00"),
     updatedAt: new Date("2024-03-31T16:30:00"),
+    signedAmount: 25,
   },
   {
     id: "546",
@@ -6034,6 +6579,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Cashback")!,
     createdAt: new Date("2024-04-12T14:20:00"),
     updatedAt: new Date("2024-04-12T14:20:00"),
+    signedAmount: 6.5,
   },
   {
     id: "547",
@@ -6045,6 +6591,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Cashback")!,
     createdAt: new Date("2024-04-30T16:30:00"),
     updatedAt: new Date("2024-04-30T16:30:00"),
+    signedAmount: 25,
   },
   {
     id: "548",
@@ -6056,6 +6603,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Cashback")!,
     createdAt: new Date("2024-05-15T14:20:00"),
     updatedAt: new Date("2024-05-15T14:20:00"),
+    signedAmount: 15,
   },
   {
     id: "549",
@@ -6067,6 +6615,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Cashback")!,
     createdAt: new Date("2024-05-31T16:30:00"),
     updatedAt: new Date("2024-05-31T16:30:00"),
+    signedAmount: 25,
   },
   {
     id: "550",
@@ -6078,6 +6627,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Cashback")!,
     createdAt: new Date("2024-06-08T14:20:00"),
     updatedAt: new Date("2024-06-08T14:20:00"),
+    signedAmount: 9.5,
   },
   {
     id: "551",
@@ -6089,6 +6639,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Cashback")!,
     createdAt: new Date("2024-06-30T16:30:00"),
     updatedAt: new Date("2024-06-30T16:30:00"),
+    signedAmount: 25,
   },
   {
     id: "552",
@@ -6100,6 +6651,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Cashback")!,
     createdAt: new Date("2024-07-10T14:20:00"),
     updatedAt: new Date("2024-07-10T14:20:00"),
+    signedAmount: 11,
   },
   {
     id: "553",
@@ -6111,6 +6663,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Cashback")!,
     createdAt: new Date("2024-07-31T16:30:00"),
     updatedAt: new Date("2024-07-31T16:30:00"),
+    signedAmount: 25,
   },
   {
     id: "554",
@@ -6122,6 +6675,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Cashback")!,
     createdAt: new Date("2024-08-12T14:20:00"),
     updatedAt: new Date("2024-08-12T14:20:00"),
+    signedAmount: 7.5,
   },
   {
     id: "555",
@@ -6133,6 +6687,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Cashback")!,
     createdAt: new Date("2024-08-31T16:30:00"),
     updatedAt: new Date("2024-08-31T16:30:00"),
+    signedAmount: 25,
   },
   {
     id: "556",
@@ -6144,6 +6699,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Cashback")!,
     createdAt: new Date("2024-09-15T14:20:00"),
     updatedAt: new Date("2024-09-15T14:20:00"),
+    signedAmount: 13.5,
   },
   {
     id: "557",
@@ -6155,6 +6711,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Cashback")!,
     createdAt: new Date("2024-09-30T16:30:00"),
     updatedAt: new Date("2024-09-30T16:30:00"),
+    signedAmount: 25,
   },
   {
     id: "558",
@@ -6166,6 +6723,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Cashback")!,
     createdAt: new Date("2024-10-08T14:20:00"),
     updatedAt: new Date("2024-10-08T14:20:00"),
+    signedAmount: 10,
   },
   {
     id: "559",
@@ -6177,6 +6735,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Cashback")!,
     createdAt: new Date("2024-10-31T16:30:00"),
     updatedAt: new Date("2024-10-31T16:30:00"),
+    signedAmount: 25,
   },
   {
     id: "560",
@@ -6188,6 +6747,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Cashback")!,
     createdAt: new Date("2024-11-12T14:20:00"),
     updatedAt: new Date("2024-11-12T14:20:00"),
+    signedAmount: 14,
   },
   // Refunds (20 transactions)
   {
@@ -6200,6 +6760,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Refunds")!,
     createdAt: new Date("2024-01-08T10:15:00"),
     updatedAt: new Date("2024-01-08T10:15:00"),
+    signedAmount: 45,
   },
   {
     id: "562",
@@ -6211,6 +6772,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Refunds")!,
     createdAt: new Date("2024-01-15T14:30:00"),
     updatedAt: new Date("2024-01-15T14:30:00"),
+    signedAmount: 28.5,
   },
   {
     id: "563",
@@ -6222,6 +6784,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Refunds")!,
     createdAt: new Date("2024-01-22T16:45:00"),
     updatedAt: new Date("2024-01-22T16:45:00"),
+    signedAmount: 75,
   },
   {
     id: "564",
@@ -6233,6 +6796,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Refunds")!,
     createdAt: new Date("2024-02-05T10:15:00"),
     updatedAt: new Date("2024-02-05T10:15:00"),
+    signedAmount: 32,
   },
   {
     id: "565",
@@ -6244,6 +6808,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Refunds")!,
     createdAt: new Date("2024-02-12T14:30:00"),
     updatedAt: new Date("2024-02-12T14:30:00"),
+    signedAmount: 18,
   },
   {
     id: "566",
@@ -6255,6 +6820,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Refunds")!,
     createdAt: new Date("2024-02-18T16:45:00"),
     updatedAt: new Date("2024-02-18T16:45:00"),
+    signedAmount: 55,
   },
   {
     id: "567",
@@ -6266,6 +6832,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Refunds")!,
     createdAt: new Date("2024-03-02T10:15:00"),
     updatedAt: new Date("2024-03-02T10:15:00"),
+    signedAmount: 68,
   },
   {
     id: "568",
@@ -6277,6 +6844,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Refunds")!,
     createdAt: new Date("2024-03-10T14:30:00"),
     updatedAt: new Date("2024-03-10T14:30:00"),
+    signedAmount: 42.5,
   },
   {
     id: "569",
@@ -6288,6 +6856,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Refunds")!,
     createdAt: new Date("2024-03-16T16:45:00"),
     updatedAt: new Date("2024-03-16T16:45:00"),
+    signedAmount: 25,
   },
   {
     id: "570",
@@ -6299,6 +6868,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Refunds")!,
     createdAt: new Date("2024-03-25T10:15:00"),
     updatedAt: new Date("2024-03-25T10:15:00"),
+    signedAmount: 38,
   },
   {
     id: "571",
@@ -6310,6 +6880,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Refunds")!,
     createdAt: new Date("2024-04-05T14:30:00"),
     updatedAt: new Date("2024-04-05T14:30:00"),
+    signedAmount: 22,
   },
   {
     id: "572",
@@ -6321,6 +6892,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Refunds")!,
     createdAt: new Date("2024-04-12T16:45:00"),
     updatedAt: new Date("2024-04-12T16:45:00"),
+    signedAmount: 85,
   },
   {
     id: "573",
@@ -6332,6 +6904,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Refunds")!,
     createdAt: new Date("2024-04-20T10:15:00"),
     updatedAt: new Date("2024-04-20T10:15:00"),
+    signedAmount: 52,
   },
   {
     id: "574",
@@ -6343,6 +6916,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Refunds")!,
     createdAt: new Date("2024-04-28T14:30:00"),
     updatedAt: new Date("2024-04-28T14:30:00"),
+    signedAmount: 35,
   },
   {
     id: "575",
@@ -6354,6 +6928,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Refunds")!,
     createdAt: new Date("2024-05-08T16:45:00"),
     updatedAt: new Date("2024-05-08T16:45:00"),
+    signedAmount: 48,
   },
   {
     id: "576",
@@ -6365,6 +6940,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Refunds")!,
     createdAt: new Date("2024-05-15T10:15:00"),
     updatedAt: new Date("2024-05-15T10:15:00"),
+    signedAmount: 29.5,
   },
   {
     id: "577",
@@ -6376,6 +6952,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Refunds")!,
     createdAt: new Date("2024-05-22T14:30:00"),
     updatedAt: new Date("2024-05-22T14:30:00"),
+    signedAmount: 15,
   },
   {
     id: "578",
@@ -6387,6 +6964,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Refunds")!,
     createdAt: new Date("2024-05-30T16:45:00"),
     updatedAt: new Date("2024-05-30T16:45:00"),
+    signedAmount: 62,
   },
   {
     id: "579",
@@ -6398,6 +6976,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Refunds")!,
     createdAt: new Date("2024-06-05T10:15:00"),
     updatedAt: new Date("2024-06-05T10:15:00"),
+    signedAmount: 41,
   },
   {
     id: "580",
@@ -6409,6 +6988,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Refunds")!,
     createdAt: new Date("2024-06-12T14:30:00"),
     updatedAt: new Date("2024-06-12T14:30:00"),
+    signedAmount: 33.5,
   },
   // Other Income (20 transactions)
   {
@@ -6421,6 +7001,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Other Income")!,
     createdAt: new Date("2024-01-01T12:00:00"),
     updatedAt: new Date("2024-01-01T12:00:00"),
+    signedAmount: 100,
   },
   {
     id: "582",
@@ -6432,6 +7013,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Other Income")!,
     createdAt: new Date("2024-01-15T10:00:00"),
     updatedAt: new Date("2024-01-15T10:00:00"),
+    signedAmount: 850,
   },
   {
     id: "583",
@@ -6443,6 +7025,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Other Income")!,
     createdAt: new Date("2024-02-14T12:00:00"),
     updatedAt: new Date("2024-02-14T12:00:00"),
+    signedAmount: 50,
   },
   {
     id: "584",
@@ -6454,6 +7037,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Other Income")!,
     createdAt: new Date("2024-02-28T14:30:00"),
     updatedAt: new Date("2024-02-28T14:30:00"),
+    signedAmount: 500,
   },
   {
     id: "585",
@@ -6465,6 +7049,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Other Income")!,
     createdAt: new Date("2024-03-17T12:00:00"),
     updatedAt: new Date("2024-03-17T12:00:00"),
+    signedAmount: 75,
   },
   {
     id: "586",
@@ -6476,6 +7061,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Other Income")!,
     createdAt: new Date("2024-03-25T16:45:00"),
     updatedAt: new Date("2024-03-25T16:45:00"),
+    signedAmount: 25,
   },
   {
     id: "587",
@@ -6487,6 +7073,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Other Income")!,
     createdAt: new Date("2024-04-01T12:00:00"),
     updatedAt: new Date("2024-04-01T12:00:00"),
+    signedAmount: 200,
   },
   {
     id: "588",
@@ -6498,6 +7085,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Other Income")!,
     createdAt: new Date("2024-04-15T14:30:00"),
     updatedAt: new Date("2024-04-15T14:30:00"),
+    signedAmount: 300,
   },
   {
     id: "589",
@@ -6509,6 +7097,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Other Income")!,
     createdAt: new Date("2024-05-05T12:00:00"),
     updatedAt: new Date("2024-05-05T12:00:00"),
+    signedAmount: 125,
   },
   {
     id: "590",
@@ -6520,6 +7109,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Other Income")!,
     createdAt: new Date("2024-05-20T16:45:00"),
     updatedAt: new Date("2024-05-20T16:45:00"),
+    signedAmount: 40,
   },
   {
     id: "591",
@@ -6531,6 +7121,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Other Income")!,
     createdAt: new Date("2024-06-01T12:00:00"),
     updatedAt: new Date("2024-06-01T12:00:00"),
+    signedAmount: 150,
   },
   {
     id: "592",
@@ -6542,6 +7133,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Other Income")!,
     createdAt: new Date("2024-06-15T14:30:00"),
     updatedAt: new Date("2024-06-15T14:30:00"),
+    signedAmount: 400,
   },
   {
     id: "593",
@@ -6553,6 +7145,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Other Income")!,
     createdAt: new Date("2024-07-04T12:00:00"),
     updatedAt: new Date("2024-07-04T12:00:00"),
+    signedAmount: 80,
   },
   {
     id: "594",
@@ -6564,6 +7157,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Other Income")!,
     createdAt: new Date("2024-07-18T16:45:00"),
     updatedAt: new Date("2024-07-18T16:45:00"),
+    signedAmount: 30,
   },
   {
     id: "595",
@@ -6575,6 +7169,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Other Income")!,
     createdAt: new Date("2024-08-01T12:00:00"),
     updatedAt: new Date("2024-08-01T12:00:00"),
+    signedAmount: 175,
   },
   {
     id: "596",
@@ -6586,6 +7181,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Other Income")!,
     createdAt: new Date("2024-08-20T14:30:00"),
     updatedAt: new Date("2024-08-20T14:30:00"),
+    signedAmount: 600,
   },
   {
     id: "597",
@@ -6597,6 +7193,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Other Income")!,
     createdAt: new Date("2024-09-15T12:00:00"),
     updatedAt: new Date("2024-09-15T12:00:00"),
+    signedAmount: 90,
   },
   {
     id: "598",
@@ -6608,6 +7205,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Other Income")!,
     createdAt: new Date("2024-09-30T16:45:00"),
     updatedAt: new Date("2024-09-30T16:45:00"),
+    signedAmount: 35,
   },
   {
     id: "599",
@@ -6619,6 +7217,7 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Other Income")!,
     createdAt: new Date("2024-10-31T12:00:00"),
     updatedAt: new Date("2024-10-31T12:00:00"),
+    signedAmount: 250,
   },
   {
     id: "600",
@@ -6630,5 +7229,6 @@ export const transactions: TransactionDto[] = [
     category: getSafeCategoryByName("Other Income")!,
     createdAt: new Date("2024-11-15T14:30:00"),
     updatedAt: new Date("2024-11-15T14:30:00"),
+    signedAmount: 350,
   },
 ];

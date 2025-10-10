@@ -51,6 +51,7 @@ export const transactionSchema = baseTransactionSchema.extend({
   createdAt: z.instanceof(Date),
   updatedAt: z.instanceof(Date),
   category: transactionCategorySchema,
+  signedAmount: z.number(),
 });
 
 export const paginatedTransactionsResponseSchema =

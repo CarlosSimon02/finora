@@ -47,6 +47,15 @@ export const applySearch = <T extends ItemWithName>(
   return items.filter((item) => item.name.toLowerCase().includes(searchLower));
 };
 
+// Helper function to get nested property value
+const getNestedValue = (obj: FilterableItem, path: string): unknown => {
+  return path.split(".").reduce((current, key) => {
+    return current && typeof current === "object"
+      ? (current as Record<string, unknown>)[key]
+      : undefined;
+  }, obj as unknown);
+};
+
 export const applyFilters = <T extends FilterableItem>(
   items: T[],
   filters?: PaginationParams["filters"]
@@ -55,7 +64,8 @@ export const applyFilters = <T extends FilterableItem>(
 
   return items.filter((item) =>
     filters.every((filter) => {
-      const value = item[filter.field];
+      // Support nested field paths like "category.name"
+      const value = getNestedValue(item, filter.field);
 
       switch (filter.operator) {
         case "==":
@@ -84,8 +94,9 @@ export const applySorting = <T extends FilterableItem>(
   if (!sort) return items;
 
   return [...items].sort((a, b) => {
-    const aValue = a[sort.field];
-    const bValue = b[sort.field];
+    // Support nested field paths like "category.name"
+    const aValue = getNestedValue(a, sort.field);
+    const bValue = getNestedValue(b, sort.field);
 
     // Handle Date objects
     if (aValue instanceof Date && bValue instanceof Date) {
@@ -328,7 +339,6 @@ export const getPaginatedCategories = (
 export const getPaginatedTransactions = (
   params: PaginationParams
 ): PaginatedTransactionsResponseDto => {
-  console.log("params", params);
   return paginateItems(transactions, params);
 };
 
