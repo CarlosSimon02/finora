@@ -4,16 +4,18 @@ import {
   budgetTransactionPreviewCountSchema,
 } from "@/core/schemas/budgetSchema";
 import { PaginationParams } from "@/core/schemas/paginationSchema";
-import { AuthError, DomainValidationError } from "@/utils";
+import { withAuth } from "@/core/useCases/utils";
+import { DomainValidationError } from "@/utils";
 
-export const getPaginatedBudgetsWithTransactions =
-  (budgetRepository: IBudgetRepository) =>
-  async (
+export const getPaginatedBudgetsWithTransactions = (
+  budgetRepository: IBudgetRepository
+) => {
+  const useCase = async (
     userId: string,
-    params: PaginationParams,
-    transactionCount?: number
+    input: { params: PaginationParams; transactionCount?: number }
   ): Promise<PaginatedBudgetsWithTransactionsResponseDto> => {
-    if (!userId) throw new AuthError();
+    const { params, transactionCount } = input;
+
     if (!params)
       throw new DomainValidationError("Pagination params are required");
 
@@ -28,3 +30,6 @@ export const getPaginatedBudgetsWithTransactions =
       parsedCount
     );
   };
+
+  return withAuth(useCase);
+};

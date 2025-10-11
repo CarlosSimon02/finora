@@ -4,19 +4,19 @@ import {
   moneyOperationSchema,
   PotDto,
 } from "@/core/schemas/potSchema";
-import { AuthError, DomainValidationError, NotFoundError } from "@/utils";
+import { withAuth } from "@/core/useCases/utils";
+import { DomainValidationError, NotFoundError } from "@/utils";
 
-export const withdrawMoneyFromPot =
-  (potRepository: IPotRepository) =>
-  async (
+export const withdrawMoneyFromPot = (potRepository: IPotRepository) => {
+  const useCase = async (
     userId: string,
-    potId: string,
-    input: MoneyOperationInput
+    input: { potId: string; data: MoneyOperationInput }
   ): Promise<PotDto> => {
-    if (!userId) throw new AuthError();
+    const { potId, data } = input;
+
     if (!potId) throw new DomainValidationError("Pot ID is required");
 
-    const validatedData = moneyOperationSchema.parse(input);
+    const validatedData = moneyOperationSchema.parse(data);
 
     const pot = await potRepository.getOneById(userId, potId);
     if (!pot) {
@@ -29,3 +29,6 @@ export const withdrawMoneyFromPot =
 
     return potRepository.withdrawMoney(userId, potId, validatedData.amount);
   };
+
+  return withAuth(useCase);
+};

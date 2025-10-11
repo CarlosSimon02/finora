@@ -60,8 +60,10 @@ const BudgetCardsGrid = ({ className }: BudgetCardsGridProps) => {
 
   const { data, isLoading, error } =
     trpc.getPaginatedBudgetsWithTransactions.useQuery({
-      ...validatedParams,
-      sort: validatedParams.sort || { field: "createdAt", order: "desc" },
+      params: {
+        ...validatedParams,
+        sort: validatedParams.sort || { field: "createdAt", order: "desc" },
+      },
     });
 
   const body = (() => {

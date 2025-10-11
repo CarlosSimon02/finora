@@ -66,32 +66,39 @@ export const incomesRouter = router({
       if (user.customClaims?.role === "guest") {
         return demo.getIncomesSummary(input.maxIncomesToShow);
       }
-      return await getIncomesSummary(incomeRepository)(
-        user.id,
-        input.maxIncomesToShow
-      );
+      return await getIncomesSummary(incomeRepository)(user.id, {
+        maxIncomesToShow: input.maxIncomesToShow,
+      });
     }),
   getPaginatedIncomes: protectedProcedure
-    .input(paginationParamsSchema)
+    .input(z.object({ params: paginationParamsSchema }))
     .query(async ({ ctx, input }) => {
       "use cache";
       cacheTag(cacheTags.PAGINATED_INCOMES);
 
       const { user } = ctx;
       if (user.customClaims?.role === "guest") {
-        return demo.getPaginatedIncomes(input);
+        return demo.getPaginatedIncomes(input.params);
       }
       return await getPaginatedIncomes(incomeRepository)(user.id, input);
     }),
   getPaginatedIncomesWithTransactions: protectedProcedure
-    .input(paginationParamsSchema)
+    .input(
+      z.object({
+        params: paginationParamsSchema,
+        transactionCount: z.number().optional(),
+      })
+    )
     .query(async ({ ctx, input }) => {
       "use cache";
       cacheTag(cacheTags.PAGINATED_INCOMES_WITH_TRANSACTIONS);
 
       const { user } = ctx;
       if (user.customClaims?.role === "guest") {
-        return demo.getPaginatedIncomesWithTransactions(input);
+        return demo.getPaginatedIncomesWithTransactions(
+          input.params,
+          input.transactionCount
+        );
       }
       return await getPaginatedIncomesWithTransactions(incomeRepository)(
         user.id,
@@ -105,14 +112,14 @@ export const incomesRouter = router({
       if (user.customClaims?.role === "guest") {
         return demo.getIncome(input.incomeId);
       }
-      return await getIncome(incomeRepository)(user.id, input.incomeId);
+      return await getIncome(incomeRepository)(user.id, input);
     }),
 
   createIncome: protectedWriteProcedure
     .input(z.object({ data: createIncomeSchema }))
     .mutation(async ({ ctx, input }) => {
       const { user } = ctx;
-      const result = await createIncome(incomeRepository)(user.id, input.data);
+      const result = await createIncome(incomeRepository)(user.id, input);
       revalidateCache();
       return result;
     }),
@@ -125,11 +132,7 @@ export const incomesRouter = router({
     )
     .mutation(async ({ ctx, input }) => {
       const { user } = ctx;
-      const result = await updateIncome(incomeRepository)(
-        user.id,
-        input.incomeId,
-        input.data
-      );
+      const result = await updateIncome(incomeRepository)(user.id, input);
       revalidateCache();
       return result;
     }),
@@ -137,7 +140,7 @@ export const incomesRouter = router({
     .input(z.object({ incomeId: z.string() }))
     .mutation(async ({ ctx, input }) => {
       const { user } = ctx;
-      await deleteIncome(incomeRepository)(user.id, input.incomeId);
+      await deleteIncome(incomeRepository)(user.id, input);
       revalidateCache();
       return undefined;
     }),

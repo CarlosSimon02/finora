@@ -5,5 +5,5 @@ export { getBudgetsCount } from "./getBudgetsCount";
 export { getBudgetsSummary } from "./getBudgetsSummary";
 export { getPaginatedBudgets } from "./getPaginatedBudgets";
 export { getPaginatedBudgetsWithTransactions } from "./getPaginatedBudgetsWithTransactions";
-export { getUsedColors as listUsedBudgetColors } from "./listUsedBudgetColors";
+export { listUsedBudgetColors } from "./listUsedBudgetColors";
 export { updateBudget } from "./updateBudget";

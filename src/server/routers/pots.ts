@@ -1,7 +1,7 @@
 import { paginationParamsSchema } from "@/core/schemas/paginationSchema";
 import {
   createPotSchema,
-  potsSummaryParamsSchema,
+  moneyOperationSchema,
   updatePotSchema,
 } from "@/core/schemas/potSchema";
 import {
@@ -40,7 +40,7 @@ export const potsRouter = router({
     return await getPotsCount(potRepository)(user.id);
   }),
   getPotsSummary: protectedProcedure
-    .input(potsSummaryParamsSchema)
+    .input(z.object({ maxPotsToShow: z.number().optional() }))
     .query(async ({ ctx, input }) => {
       "use cache";
       cacheTag(cacheTags.POTS_SUMMARY);
@@ -48,7 +48,7 @@ export const potsRouter = router({
       if (user.customClaims?.role === "guest") {
         return demo.getPotsSummary(input.maxPotsToShow);
       }
-      return await getPotsSummary(potRepository)(user.id, input.maxPotsToShow);
+      return await getPotsSummary(potRepository)(user.id, input);
     }),
   listUsedPotColors: protectedProcedure.query(async ({ ctx }) => {
     "use cache";
@@ -60,14 +60,14 @@ export const potsRouter = router({
     return await listUsedPotColors(potRepository)(user.id);
   }),
   getPaginatedPots: protectedProcedure
-    .input(paginationParamsSchema)
+    .input(z.object({ params: paginationParamsSchema }))
     .query(async ({ ctx, input }) => {
       "use cache";
       cacheTag(cacheTags.PAGINATED_POTS);
 
       const { user } = ctx;
       if (user.customClaims?.role === "guest") {
-        return demo.getPaginatedPots(input);
+        return demo.getPaginatedPots(input.params);
       }
       return await getPaginatedPots(potRepository)(user.id, input);
     }),
@@ -78,14 +78,14 @@ export const potsRouter = router({
       if (user.customClaims?.role === "guest") {
         return demo.getPot(input.potId);
       }
-      return await getPot(potRepository)(user.id, input.potId);
+      return await getPot(potRepository)(user.id, input);
     }),
 
   createPot: protectedWriteProcedure
     .input(z.object({ data: createPotSchema }))
     .mutation(async ({ ctx, input }) => {
       const { user } = ctx;
-      const result = await createPot(potRepository)(user.id, input.data);
+      const result = await createPot(potRepository)(user.id, input);
       revalidatePotsCache();
       return result;
     }),
@@ -98,11 +98,7 @@ export const potsRouter = router({
     )
     .mutation(async ({ ctx, input }) => {
       const { user } = ctx;
-      const result = await updatePot(potRepository)(
-        user.id,
-        input.potId,
-        input.data
-      );
+      const result = await updatePot(potRepository)(user.id, input);
       revalidatePotsCache();
       return result;
     }),
@@ -110,29 +106,23 @@ export const potsRouter = router({
     .input(z.object({ potId: z.string() }))
     .mutation(async ({ ctx, input }) => {
       const { user } = ctx;
-      await deletePot(potRepository)(user.id, input.potId);
+      await deletePot(potRepository)(user.id, input);
       revalidatePotsCache();
       return undefined;
     }),
   addMoneyToPot: protectedWriteProcedure
-    .input(z.object({ potId: z.string(), amount: z.number() }))
+    .input(z.object({ potId: z.string(), data: moneyOperationSchema }))
     .mutation(async ({ ctx, input }) => {
       const { user } = ctx;
-      const result = await addMoneyToPot(potRepository)(user.id, input.potId, {
-        amount: input.amount,
-      });
+      const result = await addMoneyToPot(potRepository)(user.id, input);
       revalidatePotsCache();
       return result;
     }),
   withdrawMoneyFromPot: protectedWriteProcedure
-    .input(z.object({ potId: z.string(), amount: z.number() }))
+    .input(z.object({ potId: z.string(), data: moneyOperationSchema }))
     .mutation(async ({ ctx, input }) => {
       const { user } = ctx;
-      const result = await withdrawMoneyFromPot(potRepository)(
-        user.id,
-        input.potId,
-        { amount: input.amount }
-      );
+      const result = await withdrawMoneyFromPot(potRepository)(user.id, input);
       revalidatePotsCache();
       return result;
     }),

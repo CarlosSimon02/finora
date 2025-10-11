@@ -4,19 +4,19 @@ import {
   UpdatePotDto,
   updatePotSchema,
 } from "@/core/schemas/potSchema";
-import { AuthError, DomainValidationError } from "@/utils";
+import { withAuth } from "@/core/useCases/utils";
+import { DomainValidationError } from "@/utils";
 
-export const updatePot =
-  (potRepository: IPotRepository) =>
-  async (
+export const updatePot = (potRepository: IPotRepository) => {
+  const useCase = async (
     userId: string,
-    potId: string,
-    input: UpdatePotDto
+    input: { potId: string; data: UpdatePotDto }
   ): Promise<PotDto> => {
-    if (!userId) throw new AuthError();
+    const { potId, data } = input;
+
     if (!potId) throw new DomainValidationError("Pot ID is required");
 
-    const validatedData = updatePotSchema.parse(input);
+    const validatedData = updatePotSchema.parse(data);
 
     if (validatedData.name) {
       const existingPot = await potRepository.getOneByName(
@@ -40,3 +40,6 @@ export const updatePot =
 
     return potRepository.updateOne(userId, potId, validatedData);
   };
+
+  return withAuth(useCase);
+};

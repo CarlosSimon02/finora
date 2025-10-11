@@ -37,14 +37,14 @@ const revalidateCache = () => {
 
 export const transactionsRouter = router({
   getPaginatedTransactions: protectedProcedure
-    .input(paginationParamsSchema)
+    .input(z.object({ params: paginationParamsSchema }))
     .query(async ({ ctx, input }) => {
       "use cache";
       cacheTag(cacheTags.PAGINATED_TRANSACTIONS);
 
       const { user } = ctx;
       if (user.customClaims?.role === "guest") {
-        return demo.getPaginatedTransactions(input);
+        return demo.getPaginatedTransactions(input.params);
       }
       return await getPaginatedTransactions(transactionRepository)(
         user.id,
@@ -52,14 +52,14 @@ export const transactionsRouter = router({
       );
     }),
   getPaginatedCategories: protectedProcedure
-    .input(paginationParamsSchema)
+    .input(z.object({ params: paginationParamsSchema }))
     .query(async ({ ctx, input }) => {
       "use cache";
       cacheTag(cacheTags.PAGINATED_CATEGORIES);
 
       const { user } = ctx;
       if (user.customClaims?.role === "guest") {
-        return demo.getPaginatedCategories(input);
+        return demo.getPaginatedCategories(input.params);
       }
       return await getPaginatedCategories(transactionRepository)(
         user.id,
@@ -76,10 +76,7 @@ export const transactionsRouter = router({
       if (user.customClaims?.role === "guest") {
         return demo.getTransaction(input.transactionId);
       }
-      return await getTransaction(transactionRepository)(
-        user.id,
-        input.transactionId
-      );
+      return await getTransaction(transactionRepository)(user.id, input);
     }),
 
   createTransaction: protectedWriteProcedure
@@ -88,7 +85,7 @@ export const transactionsRouter = router({
       const { user } = ctx;
       const result = await createTransaction(transactionRepository)(
         user.id,
-        input.data
+        input
       );
       revalidateCache();
       return result;
@@ -104,8 +101,7 @@ export const transactionsRouter = router({
       const { user } = ctx;
       const result = await updateTransaction(transactionRepository)(
         user.id,
-        input.transactionId,
-        input.data
+        input
       );
       revalidateCache();
       return result;
@@ -114,10 +110,7 @@ export const transactionsRouter = router({
     .input(z.object({ transactionId: z.string() }))
     .mutation(async ({ ctx, input }) => {
       const { user } = ctx;
-      await deleteTransaction(transactionRepository)(
-        user.id,
-        input.transactionId
-      );
+      await deleteTransaction(transactionRepository)(user.id, input);
       revalidateCache();
       return undefined;
     }),

@@ -4,16 +4,18 @@ import {
   transactionPreviewCountSchema,
 } from "@/core/schemas/incomeSchema";
 import { PaginationParams } from "@/core/schemas/paginationSchema";
-import { AuthError, DomainValidationError } from "@/utils";
+import { withAuth } from "@/core/useCases/utils";
+import { DomainValidationError } from "@/utils";
 
-export const getPaginatedIncomesWithTransactions =
-  (incomeRepository: IIncomeRepository) =>
-  async (
+export const getPaginatedIncomesWithTransactions = (
+  incomeRepository: IIncomeRepository
+) => {
+  const useCase = async (
     userId: string,
-    params: PaginationParams,
-    transactionCount?: number
+    input: { params: PaginationParams; transactionCount?: number }
   ): Promise<PaginatedIncomesWithTransactionsResponseDto> => {
-    if (!userId) throw new AuthError();
+    const { params, transactionCount } = input;
+
     if (!params)
       throw new DomainValidationError("Pagination params are required");
 
@@ -28,3 +30,6 @@ export const getPaginatedIncomesWithTransactions =
       parsedCount
     );
   };
+
+  return withAuth(useCase);
+};

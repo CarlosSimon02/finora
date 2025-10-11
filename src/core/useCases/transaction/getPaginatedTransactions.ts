@@ -1,17 +1,25 @@
 import { ITransactionRepository } from "@/core/interfaces/ITransactionRepository";
 import { PaginationParams } from "@/core/schemas/paginationSchema";
 import { PaginatedTransactionsResponseDto } from "@/core/schemas/transactionSchema";
-import { AuthError, DomainValidationError } from "@/utils";
+import { withAuth } from "@/core/useCases/utils";
+import { DomainValidationError } from "@/utils";
 
-export const getPaginatedTransactions =
-  (transactionRepository: ITransactionRepository) =>
-  async (
+export const getPaginatedTransactions = (
+  transactionRepository: ITransactionRepository
+) => {
+  const useCase = async (
     userId: string,
-    params: PaginationParams
+    input: {
+      params: PaginationParams;
+    }
   ): Promise<PaginatedTransactionsResponseDto> => {
-    if (!userId) throw new AuthError();
+    const { params } = input;
+
     if (!params)
       throw new DomainValidationError("Pagination params are required");
 
     return transactionRepository.getPaginated(userId, params);
   };
+
+  return withAuth(useCase);
+};

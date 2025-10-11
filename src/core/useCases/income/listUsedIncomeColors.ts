@@ -1,9 +1,10 @@
 import { IIncomeRepository } from "@/core/interfaces/IIncomeRepository";
-import { AuthError } from "@/utils";
+import { withAuth } from "@/core/useCases/utils";
 
-export const getUsedColors =
-  (incomeRepository: IIncomeRepository) =>
-  async (userId: string): Promise<string[]> => {
-    if (!userId) throw new AuthError();
+export const listUsedIncomeColors = (incomeRepository: IIncomeRepository) => {
+  const useCase = async (userId: string): Promise<string[]> => {
     return incomeRepository.getUsedColors(userId);
   };
+
+  return withAuth(useCase);
+};

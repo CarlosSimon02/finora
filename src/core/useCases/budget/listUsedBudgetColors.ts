@@ -1,9 +1,10 @@
 import { IBudgetRepository } from "@/core/interfaces/IBudgetRepository";
-import { AuthError } from "@/utils";
+import { withAuth } from "@/core/useCases/utils";
 
-export const getUsedColors =
-  (budgetRepository: IBudgetRepository) =>
-  async (userId: string): Promise<string[]> => {
-    if (!userId) throw new AuthError();
+export const listUsedBudgetColors = (budgetRepository: IBudgetRepository) => {
+  const useCase = async (userId: string): Promise<string[]> => {
     return budgetRepository.getUsedColors(userId);
   };
+
+  return withAuth(useCase);
+};

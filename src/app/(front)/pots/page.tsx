@@ -26,7 +26,7 @@ const PotsPage = async ({ searchParams }: PotsPageProps) => {
     },
   };
 
-  trpc.getPaginatedPots.prefetch(params);
+  trpc.getPaginatedPots.prefetch({ params });
   trpc.listUsedPotColors.prefetch();
   trpc.getPotsCount.prefetch();
 

@@ -1,11 +1,18 @@
 import { IBudgetRepository } from "@/core/interfaces/IBudgetRepository";
-import { AuthError, DomainValidationError } from "@/utils";
+import { withAuth } from "@/core/useCases/utils";
+import { DomainValidationError } from "@/utils";
 
-export const deleteBudget =
-  (budgetRepository: IBudgetRepository) =>
-  async (userId: string, budgetId: string): Promise<void> => {
-    if (!userId) throw new AuthError();
+export const deleteBudget = (budgetRepository: IBudgetRepository) => {
+  const useCase = async (
+    userId: string,
+    input: { budgetId: string }
+  ): Promise<void> => {
+    const { budgetId } = input;
+
     if (!budgetId) throw new DomainValidationError("Budget ID is required");
 
     await budgetRepository.deleteOne(userId, budgetId);
   };
+
+  return withAuth(useCase);
+};

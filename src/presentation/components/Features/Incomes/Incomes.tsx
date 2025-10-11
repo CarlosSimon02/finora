@@ -60,8 +60,10 @@ const IncomeCardsGrid = ({ className }: IncomeCardsGridProps) => {
 
   const { data, isLoading, error } =
     trpc.getPaginatedIncomesWithTransactions.useQuery({
-      ...validatedParams,
-      sort: validatedParams.sort || { field: "createdAt", order: "desc" },
+      params: {
+        ...validatedParams,
+        sort: validatedParams.sort || { field: "createdAt", order: "desc" },
+      },
     });
 
   const body = (() => {

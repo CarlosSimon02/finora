@@ -5,14 +5,17 @@ import {
   PotDto,
   createPotSchema,
 } from "@/core/schemas/potSchema";
-import { AuthError, ConflictError, DomainValidationError } from "@/utils";
+import { withAuth } from "@/core/useCases/utils";
+import { ConflictError, DomainValidationError } from "@/utils";
 
-export const createPot =
-  (potRepository: IPotRepository) =>
-  async (userId: string, input: CreatePotDto): Promise<PotDto> => {
-    if (!userId) throw new AuthError();
+export const createPot = (potRepository: IPotRepository) => {
+  const useCase = async (
+    userId: string,
+    input: { data: CreatePotDto }
+  ): Promise<PotDto> => {
+    const { data } = input;
 
-    const validatedData = createPotSchema.parse(input);
+    const validatedData = createPotSchema.parse(data);
 
     const currentCount = await potRepository.getCount(userId);
     const maxItems = COLOR_OPTIONS.length;
@@ -38,3 +41,6 @@ export const createPot =
 
     return potRepository.createOne(userId, validatedData);
   };
+
+  return withAuth(useCase);
+};

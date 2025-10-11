@@ -1,17 +1,21 @@
 import { IPotRepository } from "@/core/interfaces/IPotRepository";
 import { PaginationParams } from "@/core/schemas/paginationSchema";
 import { PaginatedPotsResponseDto } from "@/core/schemas/potSchema";
-import { AuthError, DomainValidationError } from "@/utils";
+import { withAuth } from "@/core/useCases/utils";
+import { DomainValidationError } from "@/utils";
 
-export const getPaginatedPots =
-  (potRepository: IPotRepository) =>
-  async (
+export const getPaginatedPots = (potRepository: IPotRepository) => {
+  const useCase = async (
     userId: string,
-    params: PaginationParams
+    input: { params: PaginationParams }
   ): Promise<PaginatedPotsResponseDto> => {
-    if (!userId) throw new AuthError();
+    const { params } = input;
+
     if (!params)
       throw new DomainValidationError("Pagination params are required");
 
     return potRepository.getPaginated(userId, params);
   };
+
+  return withAuth(useCase);
+};

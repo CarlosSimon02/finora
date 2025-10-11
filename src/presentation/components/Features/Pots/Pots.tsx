@@ -24,8 +24,10 @@ export const Pots = () => {
   });
 
   const { data, isLoading, error } = trpc.getPaginatedPots.useQuery({
-    ...validatedParams,
-    sort: validatedParams.sort || { field: "createdAt", order: "desc" },
+    params: {
+      ...validatedParams,
+      sort: validatedParams.sort || { field: "createdAt", order: "desc" },
+    },
   });
 
   const body = (() => {

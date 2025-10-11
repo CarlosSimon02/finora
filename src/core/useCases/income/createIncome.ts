@@ -1,14 +1,17 @@
 import { COLOR_OPTIONS } from "@/constants/colors";
 import { IIncomeRepository } from "@/core/interfaces/IIncomeRepository";
 import { CreateIncomeDto, IncomeDto, createIncomeSchema } from "@/core/schemas";
-import { AuthError, ConflictError, DomainValidationError } from "@/utils";
+import { withAuth } from "@/core/useCases/utils";
+import { ConflictError, DomainValidationError } from "@/utils";
 
-export const createIncome =
-  (incomeRepository: IIncomeRepository) =>
-  async (userId: string, input: CreateIncomeDto): Promise<IncomeDto> => {
-    if (!userId) throw new AuthError();
+export const createIncome = (incomeRepository: IIncomeRepository) => {
+  const useCase = async (
+    userId: string,
+    input: { data: CreateIncomeDto }
+  ): Promise<IncomeDto> => {
+    const { data } = input;
 
-    const validatedData = createIncomeSchema.parse(input);
+    const validatedData = createIncomeSchema.parse(data);
 
     const currentCount = await incomeRepository.getCount(userId);
     const maxItems = COLOR_OPTIONS.length;
@@ -32,3 +35,6 @@ export const createIncome =
 
     return incomeRepository.createOne(userId, validatedData);
   };
+
+  return withAuth(useCase);
+};

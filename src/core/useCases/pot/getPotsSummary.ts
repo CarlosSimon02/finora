@@ -3,12 +3,14 @@ import {
   PotsSummaryDto,
   potsSummaryParamsSchema,
 } from "@/core/schemas/potSchema";
-import { AuthError } from "@/utils";
+import { withAuth } from "@/core/useCases/utils";
 
-export const getPotsSummary =
-  (potRepository: IPotRepository) =>
-  async (userId: string, maxPotsToShow?: number): Promise<PotsSummaryDto> => {
-    if (!userId) throw new AuthError();
+export const getPotsSummary = (potRepository: IPotRepository) => {
+  const useCase = async (
+    userId: string,
+    input: { maxPotsToShow?: number }
+  ): Promise<PotsSummaryDto> => {
+    const { maxPotsToShow } = input;
 
     const { maxPotsToShow: limit } = potsSummaryParamsSchema.parse({
       maxPotsToShow,
@@ -16,3 +18,6 @@ export const getPotsSummary =
 
     return potRepository.getSummary(userId, limit);
   };
+
+  return withAuth(useCase);
+};

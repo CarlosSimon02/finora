@@ -3,15 +3,14 @@ import {
   IncomesSummaryDto,
   incomesSummaryParamsSchema,
 } from "@/core/schemas/incomeSchema";
-import { AuthError } from "@/utils";
+import { withAuth } from "@/core/useCases/utils";
 
-export const getIncomesSummary =
-  (incomeRepository: IIncomeRepository) =>
-  async (
+export const getIncomesSummary = (incomeRepository: IIncomeRepository) => {
+  const useCase = async (
     userId: string,
-    maxIncomesToShow?: number
+    input: { maxIncomesToShow?: number }
   ): Promise<IncomesSummaryDto> => {
-    if (!userId) throw new AuthError();
+    const { maxIncomesToShow } = input;
 
     const { maxIncomesToShow: limit } = incomesSummaryParamsSchema.parse({
       maxIncomesToShow,
@@ -19,3 +18,6 @@ export const getIncomesSummary =
 
     return incomeRepository.getSummary(userId, limit);
   };
+
+  return withAuth(useCase);
+};

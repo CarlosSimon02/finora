@@ -4,19 +4,19 @@ import {
   UpdateBudgetDto,
   updateBudgetSchema,
 } from "@/core/schemas/budgetSchema";
-import { AuthError, DomainValidationError } from "@/utils";
+import { withAuth } from "@/core/useCases/utils";
+import { DomainValidationError } from "@/utils";
 
-export const updateBudget =
-  (budgetRepository: IBudgetRepository) =>
-  async (
+export const updateBudget = (budgetRepository: IBudgetRepository) => {
+  const useCase = async (
     userId: string,
-    budgetId: string,
-    input: UpdateBudgetDto
+    input: { budgetId: string; data: UpdateBudgetDto }
   ): Promise<BudgetDto> => {
-    if (!userId) throw new AuthError();
+    const { budgetId, data } = input;
+
     if (!budgetId) throw new DomainValidationError("Budget ID is required");
 
-    const validatedData = updateBudgetSchema.parse(input);
+    const validatedData = updateBudgetSchema.parse(data);
 
     if (validatedData.name) {
       const existingByName = await budgetRepository.getOneByName(
@@ -38,3 +38,6 @@ export const updateBudget =
     }
     return budgetRepository.updateOne(userId, budgetId, validatedData);
   };
+
+  return withAuth(useCase);
+};

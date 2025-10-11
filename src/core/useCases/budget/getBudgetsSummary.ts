@@ -3,15 +3,14 @@ import {
   BudgetsSummaryDto,
   budgetsSummaryParamsSchema,
 } from "@/core/schemas/budgetSchema";
-import { AuthError } from "@/utils";
+import { withAuth } from "@/core/useCases/utils";
 
-export const getBudgetsSummary =
-  (budgetRepository: IBudgetRepository) =>
-  async (
+export const getBudgetsSummary = (budgetRepository: IBudgetRepository) => {
+  const useCase = async (
     userId: string,
-    maxBudgetsToShow?: number
+    input: { maxBudgetsToShow?: number }
   ): Promise<BudgetsSummaryDto> => {
-    if (!userId) throw new AuthError();
+    const { maxBudgetsToShow } = input;
 
     const { maxBudgetsToShow: limit } = budgetsSummaryParamsSchema.parse({
       maxBudgetsToShow,
@@ -19,3 +18,6 @@ export const getBudgetsSummary =
 
     return budgetRepository.getSummary(userId, limit);
   };
+
+  return withAuth(useCase);
+};

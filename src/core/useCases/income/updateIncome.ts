@@ -4,19 +4,19 @@ import {
   UpdateIncomeDto,
   updateIncomeSchema,
 } from "@/core/schemas/incomeSchema";
-import { AuthError, DomainValidationError } from "@/utils";
+import { withAuth } from "@/core/useCases/utils";
+import { DomainValidationError } from "@/utils";
 
-export const updateIncome =
-  (incomeRepository: IIncomeRepository) =>
-  async (
+export const updateIncome = (incomeRepository: IIncomeRepository) => {
+  const useCase = async (
     userId: string,
-    incomeId: string,
-    input: UpdateIncomeDto
+    input: { incomeId: string; data: UpdateIncomeDto }
   ): Promise<IncomeDto> => {
-    if (!userId) throw new AuthError();
+    const { incomeId, data } = input;
+
     if (!incomeId) throw new DomainValidationError("Income ID is required");
 
-    const validatedData = updateIncomeSchema.parse(input);
+    const validatedData = updateIncomeSchema.parse(data);
 
     if (validatedData.name) {
       const existingByName = await incomeRepository.getOneByName(
@@ -38,3 +38,6 @@ export const updateIncome =
     }
     return incomeRepository.updateOne(userId, incomeId, validatedData);
   };
+
+  return withAuth(useCase);
+};

@@ -26,7 +26,7 @@ const BudgetsPage = async ({ searchParams }: BudgetsPageProps) => {
     },
   };
 
-  trpc.getPaginatedBudgetsWithTransactions.prefetch(params);
+  trpc.getPaginatedBudgetsWithTransactions.prefetch({ params });
   trpc.getBudgetsCount.prefetch();
   trpc.getBudgetsSummary.prefetch();
 

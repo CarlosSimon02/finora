@@ -66,20 +66,25 @@ export const budgetsRouter = router({
       if (user.customClaims?.role === "guest") {
         return demo.getBudgetsSummary(input.maxBudgetsToShow);
       }
-      return await getBudgetsSummary(budgetRepository)(
-        user.id,
-        input.maxBudgetsToShow
-      );
+      return await getBudgetsSummary(budgetRepository)(user.id, input);
     }),
   getPaginatedBudgetsWithTransactions: protectedProcedure
-    .input(paginationParamsSchema)
+    .input(
+      z.object({
+        params: paginationParamsSchema,
+        transactionCount: z.number().optional(),
+      })
+    )
     .query(async ({ ctx, input }) => {
       "use cache";
       cacheTag(cacheTags.PAGINATED_BUDGETS_WITH_TRANSACTIONS);
 
       const { user } = ctx;
       if (user.customClaims?.role === "guest") {
-        return demo.getPaginatedBudgetsWithTransactions(input);
+        return demo.getPaginatedBudgetsWithTransactions(
+          input.params,
+          input.transactionCount
+        );
       }
       return await getPaginatedBudgetsWithTransactions(budgetRepository)(
         user.id,
@@ -87,14 +92,14 @@ export const budgetsRouter = router({
       );
     }),
   getPaginatedBudgets: protectedProcedure
-    .input(paginationParamsSchema)
+    .input(z.object({ params: paginationParamsSchema }))
     .query(async ({ ctx, input }) => {
       "use cache";
       cacheTag(cacheTags.PAGINATED_BUDGETS);
 
       const { user } = ctx;
       if (user.customClaims?.role === "guest") {
-        return demo.getPaginatedBudgets(input);
+        return demo.getPaginatedBudgets(input.params);
       }
       return await getPaginatedBudgets(budgetRepository)(user.id, input);
     }),
@@ -108,13 +113,13 @@ export const budgetsRouter = router({
       if (user.customClaims?.role === "guest") {
         return demo.getBudget(input.budgetId);
       }
-      return await getBudget(budgetRepository)(user.id, input.budgetId);
+      return await getBudget(budgetRepository)(user.id, input);
     }),
   createBudget: protectedWriteProcedure
     .input(z.object({ data: createBudgetSchema }))
     .mutation(async ({ ctx, input }) => {
       const { user } = ctx;
-      const result = await createBudget(budgetRepository)(user.id, input.data);
+      const result = await createBudget(budgetRepository)(user.id, input);
       revalidateCache();
       return result;
     }),
@@ -127,11 +132,7 @@ export const budgetsRouter = router({
     )
     .mutation(async ({ ctx, input }) => {
       const { user } = ctx;
-      const result = await updateBudget(budgetRepository)(
-        user.id,
-        input.budgetId,
-        input.data
-      );
+      const result = await updateBudget(budgetRepository)(user.id, input);
       revalidateCache();
       return result;
     }),
@@ -139,7 +140,7 @@ export const budgetsRouter = router({
     .input(z.object({ budgetId: z.string() }))
     .mutation(async ({ ctx, input }) => {
       const { user } = ctx;
-      await deleteBudget(budgetRepository)(user.id, input.budgetId);
+      await deleteBudget(budgetRepository)(user.id, input);
       revalidateCache();
       return undefined;
     }),

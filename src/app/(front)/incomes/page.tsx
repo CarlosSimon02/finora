@@ -26,7 +26,7 @@ const IncomesPage = async ({ searchParams }: IncomesPageProps) => {
     },
   };
 
-  trpc.getPaginatedIncomesWithTransactions.prefetch(params);
+  trpc.getPaginatedIncomesWithTransactions.prefetch({ params });
   trpc.getIncomesCount.prefetch();
   trpc.getIncomesSummary.prefetch();
 

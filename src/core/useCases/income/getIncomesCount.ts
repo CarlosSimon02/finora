@@ -1,9 +1,10 @@
 import { IIncomeRepository } from "@/core/interfaces/IIncomeRepository";
-import { AuthError } from "@/utils";
+import { withAuth } from "@/core/useCases/utils";
 
-export const getIncomesCount =
-  (incomeRepository: IIncomeRepository) =>
-  async (userId: string): Promise<number> => {
-    if (!userId) throw new AuthError();
+export const getIncomesCount = (incomeRepository: IIncomeRepository) => {
+  const useCase = async (userId: string): Promise<number> => {
     return incomeRepository.getCount(userId);
   };
+
+  return withAuth(useCase);
+};

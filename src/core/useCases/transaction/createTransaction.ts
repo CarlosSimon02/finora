@@ -4,16 +4,22 @@ import {
   TransactionDto,
   createTransactionSchema,
 } from "@/core/schemas/transactionSchema";
-import { AuthError } from "@/utils";
+import { withAuth } from "@/core/useCases/utils";
 
-export const createTransaction =
-  (transactionRepository: ITransactionRepository) =>
-  async (
+export const createTransaction = (
+  transactionRepository: ITransactionRepository
+) => {
+  const useCase = async (
     userId: string,
-    input: CreateTransactionDto
+    input: {
+      data: CreateTransactionDto;
+    }
   ): Promise<TransactionDto> => {
-    if (!userId) throw new AuthError();
+    const { data } = input;
 
-    const validatedTransaction = createTransactionSchema.parse(input);
+    const validatedTransaction = createTransactionSchema.parse(data);
     return transactionRepository.createOne(userId, validatedTransaction);
   };
+
+  return withAuth(useCase);
+};

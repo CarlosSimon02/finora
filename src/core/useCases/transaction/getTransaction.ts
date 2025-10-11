@@ -1,16 +1,24 @@
 import { ITransactionRepository } from "@/core/interfaces/ITransactionRepository";
 import { TransactionDto } from "@/core/schemas/transactionSchema";
-import { AuthError, DomainValidationError } from "@/utils";
+import { withAuth } from "@/core/useCases/utils";
+import { DomainValidationError } from "@/utils";
 
-export const getTransaction =
-  (transactionRepository: ITransactionRepository) =>
-  async (
+export const getTransaction = (
+  transactionRepository: ITransactionRepository
+) => {
+  const useCase = async (
     userId: string,
-    transactionId: string
+    input: {
+      transactionId: string;
+    }
   ): Promise<TransactionDto | null> => {
-    if (!userId) throw new AuthError();
+    const { transactionId } = input;
+
     if (!transactionId)
       throw new DomainValidationError("Transaction ID is required");
 
     return transactionRepository.getOneById(userId, transactionId);
   };
+
+  return withAuth(useCase);
+};

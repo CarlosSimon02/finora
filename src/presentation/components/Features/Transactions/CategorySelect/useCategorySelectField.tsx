@@ -43,8 +43,8 @@ export const useCategoryOptions = (transactionType: TransactionTypeDto) => {
 
       const response =
         transactionType === "income"
-          ? await utils.getPaginatedIncomes.fetch(params)
-          : await utils.getPaginatedBudgets.fetch(params);
+          ? await utils.getPaginatedIncomes.fetch({ params })
+          : await utils.getPaginatedBudgets.fetch({ params });
 
       const hasMore = response.meta.pagination.nextPage !== null;
       return {

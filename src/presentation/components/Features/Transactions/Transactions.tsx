@@ -39,8 +39,10 @@ export const Transactions = () => {
   });
 
   const { data, isLoading, error } = trpc.getPaginatedTransactions.useQuery({
-    ...validatedParams,
-    sort: validatedParams.sort || DEFAULT_SORT_OPTION.value,
+    params: {
+      ...validatedParams,
+      sort: validatedParams.sort || DEFAULT_SORT_OPTION.value,
+    },
   });
 
   const body = (() => {

@@ -1,17 +1,21 @@
 import { IBudgetRepository } from "@/core/interfaces/IBudgetRepository";
 import { PaginatedBudgetsResponseDto } from "@/core/schemas/budgetSchema";
 import { PaginationParams } from "@/core/schemas/paginationSchema";
-import { AuthError, DomainValidationError } from "@/utils";
+import { withAuth } from "@/core/useCases/utils";
+import { DomainValidationError } from "@/utils";
 
-export const getPaginatedBudgets =
-  (budgetRepository: IBudgetRepository) =>
-  async (
+export const getPaginatedBudgets = (budgetRepository: IBudgetRepository) => {
+  const useCase = async (
     userId: string,
-    params: PaginationParams
+    input: { params: PaginationParams }
   ): Promise<PaginatedBudgetsResponseDto> => {
-    if (!userId) throw new AuthError();
+    const { params } = input;
+
     if (!params)
       throw new DomainValidationError("Pagination params are required");
 
     return budgetRepository.getPaginated(userId, params);
   };
+
+  return withAuth(useCase);
+};

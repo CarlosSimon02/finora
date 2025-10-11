@@ -115,11 +115,14 @@ export const MoneyOperationDialog = ({
     const data: MoneyOperationInput = { amount: amt };
 
     if (operation === "add") {
-      await addMoneyMutation.mutateAsync({ potId: pot.id, amount: amt });
+      await addMoneyMutation.mutateAsync({
+        potId: pot.id,
+        data: { amount: amt },
+      });
     } else {
       await withdrawMoneyMutation.mutateAsync({
         potId: pot.id,
-        amount: amt,
+        data: { amount: amt },
       });
     }
 

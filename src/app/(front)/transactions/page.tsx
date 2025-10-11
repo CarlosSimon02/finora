@@ -19,13 +19,15 @@ const TransactionsPage = async ({ searchParams }: TransactionsPageProps) => {
     },
   });
 
-  trpc.getPaginatedTransactions.prefetch(params);
+  trpc.getPaginatedTransactions.prefetch({ params });
 
   await trpc.getPaginatedCategories.prefetch({
-    sort: { field: "name", order: "asc" },
-    pagination: { page: 1, perPage: 30 },
-    filters: [],
-    search: "",
+    params: {
+      sort: { field: "name", order: "asc" },
+      pagination: { page: 1, perPage: 30 },
+      filters: [],
+      search: "",
+    },
   });
 
   return (

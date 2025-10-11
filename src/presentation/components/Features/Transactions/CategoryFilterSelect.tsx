@@ -37,7 +37,7 @@ export const CategoryFilterSelect = ({
           filters: [],
           search: "",
         };
-        const res = await utils.getPaginatedCategories.fetch(params);
+        const res = await utils.getPaginatedCategories.fetch({ params });
         if (!mounted) return;
         setCategories(res.data.map((c) => c.name));
       } finally {

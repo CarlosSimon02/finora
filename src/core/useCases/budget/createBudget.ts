@@ -5,14 +5,17 @@ import {
   CreateBudgetDto,
   createBudgetSchema,
 } from "@/core/schemas/budgetSchema";
-import { AuthError, ConflictError, DomainValidationError } from "@/utils";
+import { withAuth } from "@/core/useCases/utils";
+import { ConflictError, DomainValidationError } from "@/utils";
 
-export const createBudget =
-  (budgetRepository: IBudgetRepository) =>
-  async (userId: string, input: CreateBudgetDto): Promise<BudgetDto> => {
-    if (!userId) throw new AuthError();
+export const createBudget = (budgetRepository: IBudgetRepository) => {
+  const useCase = async (
+    userId: string,
+    input: { data: CreateBudgetDto }
+  ): Promise<BudgetDto> => {
+    const { data } = input;
 
-    const validatedData = createBudgetSchema.parse(input);
+    const validatedData = createBudgetSchema.parse(data);
 
     const currentCount = await budgetRepository.getCount(userId);
     const maxItems = COLOR_OPTIONS.length;
@@ -36,3 +39,6 @@ export const createBudget =
 
     return budgetRepository.createOne(userId, validatedData);
   };
+
+  return withAuth(useCase);
+};
