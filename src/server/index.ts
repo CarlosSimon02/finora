@@ -1,8 +1,10 @@
-import { authRouter } from "./auth";
-import { budgetsRouter } from "./budgets";
-import { incomesRouter } from "./incomes";
-import { potsRouter } from "./pots";
-import { transactionsRouter } from "./transactions";
+import {
+  authRouter,
+  budgetsRouter,
+  incomesRouter,
+  potsRouter,
+  transactionsRouter,
+} from "./routers";
 import { mergeRouters, router } from "./trpc";
 
 export const appRouter = mergeRouters(

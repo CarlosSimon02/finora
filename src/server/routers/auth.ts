@@ -4,6 +4,7 @@ import { onboardUser, verifyIdToken } from "@/core/useCases/auth/admin";
 import { AuthAdminRepository } from "@/data/repositories/AuthAdminRepository";
 import { UserRepository } from "@/data/repositories/UserRespository";
 import { tokensToUser } from "@/lib/auth/authTokens";
+import { publicProcedure, router } from "@/server/trpc";
 import { AuthError } from "@/utils";
 import { getFirebaseAuth, getTokens } from "next-firebase-auth-edge";
 import {
@@ -12,7 +13,7 @@ import {
 } from "next-firebase-auth-edge/lib/next/cookies";
 import { cookies, headers } from "next/headers";
 import { NextResponse } from "next/server";
-import { publicProcedure, router } from "./trpc";
+import z from "zod";
 
 const authAdminRepository = new AuthAdminRepository();
 const userRepository = new UserRepository();
@@ -25,8 +26,14 @@ const { setCustomUserClaims, getUser } = getFirebaseAuth({
 export const authRouter = router({
   postSignIn: publicProcedure
     .input(
-      (val: unknown) =>
-        val as { idToken: string; additionalInfo?: { name?: string } }
+      z.object({
+        idToken: z.string(),
+        additionalInfo: z
+          .object({
+            name: z.string().optional(),
+          })
+          .optional(),
+      })
     )
     .mutation(async ({ input }) => {
       const decodedIdToken = await verifyIdToken(authAdminRepository)(

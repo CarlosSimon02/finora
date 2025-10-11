@@ -8,17 +8,21 @@ import {
   ValidationError,
 } from "./errors";
 
-export type ErrorCode =
-  | "CONFLICT"
-  | "NOT_FOUND"
-  | "DOMAIN_VALIDATION"
-  | "VALIDATION"
-  | "AUTH"
-  | "DATASOURCE"
-  | "INTERNAL_SERVER_ERROR";
+export const ERROR_CODES = {
+  CONFLICT: "CONFLICT",
+  NOT_FOUND: "NOT_FOUND",
+  DOMAIN_VALIDATION: "BAD_REQUEST",
+  VALIDATION: "BAD_REQUEST",
+  AUTH: "UNAUTHORIZED",
+  DATASOURCE: "INTERNAL_SERVER_ERROR",
+  INTERNAL_SERVER_ERROR: "INTERNAL_SERVER_ERROR",
+} as const;
+
+export type ErrorCode = keyof typeof ERROR_CODES;
+export type MappedErrorCode = (typeof ERROR_CODES)[ErrorCode];
 
 export type ErrorMetadata = {
-  code: ErrorCode;
+  code: MappedErrorCode;
   status: number;
   isTrusted: boolean;
 };
@@ -86,28 +90,36 @@ export const getValidationErrors = (
 
 export const getErrorMetadata = (error: unknown): ErrorMetadata => {
   if (error instanceof ConflictError) {
-    return { code: "CONFLICT", status: 409, isTrusted: true };
+    return { code: ERROR_CODES.CONFLICT, status: 409, isTrusted: true };
   }
 
   if (error instanceof NotFoundError) {
-    return { code: "NOT_FOUND", status: 404, isTrusted: true };
+    return { code: ERROR_CODES.NOT_FOUND, status: 404, isTrusted: true };
   }
 
   if (error instanceof DomainValidationError) {
-    return { code: "DOMAIN_VALIDATION", status: 400, isTrusted: true };
+    return {
+      code: ERROR_CODES.DOMAIN_VALIDATION,
+      status: 400,
+      isTrusted: true,
+    };
   }
 
   if (error instanceof ValidationError || error instanceof z.ZodError) {
-    return { code: "VALIDATION", status: 400, isTrusted: true };
+    return { code: ERROR_CODES.VALIDATION, status: 400, isTrusted: true };
   }
 
   if (error instanceof AuthError) {
-    return { code: "AUTH", status: 401, isTrusted: true };
+    return { code: ERROR_CODES.AUTH, status: 401, isTrusted: true };
   }
 
   if (error instanceof DatasourceError) {
-    return { code: "DATASOURCE", status: 500, isTrusted: true };
+    return { code: ERROR_CODES.DATASOURCE, status: 500, isTrusted: true };
   }
 
-  return { code: "INTERNAL_SERVER_ERROR", status: 500, isTrusted: false };
+  return {
+    code: ERROR_CODES.INTERNAL_SERVER_ERROR,
+    status: 500,
+    isTrusted: false,
+  };
 };
