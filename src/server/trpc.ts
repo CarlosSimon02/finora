@@ -7,12 +7,12 @@ import {
 } from "@/server/middlewares";
 
 import { TRPCLogger } from "@/server/utils";
-import { Middleware, t } from "./init";
+import { t } from "./init";
 
 // Middleware
-const errorHandlingMiddleware: Middleware = createErrorHandlingMiddleware(t);
-const authMiddleware: Middleware = createAuthMiddleware(t);
-const nonGuestMiddleware: Middleware = createNonGuestMiddleware(t);
+const errorHandlingMiddleware = createErrorHandlingMiddleware(t);
+const authMiddleware = createAuthMiddleware(t);
+const nonGuestMiddleware = createNonGuestMiddleware(t);
 
 // Base Procedures
 export const publicProcedure = t.procedure.use(errorHandlingMiddleware);

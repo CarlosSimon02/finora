@@ -24,7 +24,7 @@ export const createTRPCContext = cache(
   }
 );
 
-export const t = initTRPC.context<AuthedContext>().create({
+export const t = initTRPC.context<BaseContext>().create({
   transformer: superjson,
   errorFormatter: createErrorFormatter(),
 });

@@ -2,7 +2,8 @@
 
 import { env } from "@/config/env";
 import { appRouter } from "@/server";
-import { createCallerFactory, createTRPCContext } from "@/server/trpc";
+import { createTRPCContext } from "@/server/init";
+import { createCallerFactory } from "@/server/trpc";
 import { createHydrationHelpers } from "@trpc/react-query/rsc";
 import { headers } from "next/headers";
 import { NextRequest } from "next/server";

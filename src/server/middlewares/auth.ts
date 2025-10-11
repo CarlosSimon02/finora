@@ -1,6 +1,6 @@
 import { authConfig } from "@/config/nextFirebaseAuthEdge";
 import { tokensToUser } from "@/lib/auth/authTokens";
-import { t as tInstance } from "@/server/init";
+import { AuthedContext, t as tInstance } from "@/server/init";
 import { ERROR_CODES } from "@/utils";
 import { TRPCError } from "@trpc/server";
 import { getTokens } from "next-firebase-auth-edge";
@@ -38,7 +38,9 @@ export const createAuthMiddleware = (t: typeof tInstance) => {
 
 export const createNonGuestMiddleware = (t: typeof tInstance) => {
   return t.middleware(async ({ ctx, next }) => {
-    const role = ctx.user?.customClaims?.role as string | undefined;
+    const role = (ctx as AuthedContext).user?.customClaims?.role as
+      | string
+      | undefined;
 
     if (role === "guest") {
       throw new TRPCError({
