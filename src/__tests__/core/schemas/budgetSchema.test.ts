@@ -6,7 +6,7 @@ describe("budget schemas", () => {
     const parsed = createBudgetSchema.parse({
       name: "Food",
       maximumSpending: 200,
-      colorTag: "#00ff00",
+      colorTag: "#277C78",
     });
     expect(parsed.name).toBe("Food");
   });

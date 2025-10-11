@@ -28,29 +28,6 @@ export const Basic: Story = {
   ),
 };
 
-export const WithGroupsAndSeparator: Story = {
-  render: () => (
-    <Select defaultValue="1a">
-      <Select.Trigger>
-        <Select.Value placeholder="Select item" />
-      </Select.Trigger>
-      <Select.Content>
-        <Select.Label>Group 1</Select.Label>
-        <Select.Group>
-          <Select.Item value="1a">One A</Select.Item>
-          <Select.Item value="1b">One B</Select.Item>
-        </Select.Group>
-        <Select.Separator />
-        <Select.Label>Group 2</Select.Label>
-        <Select.Group>
-          <Select.Item value="2a">Two A</Select.Item>
-          <Select.Item value="2b">Two B</Select.Item>
-        </Select.Group>
-      </Select.Content>
-    </Select>
-  ),
-};
-
 export const SmallTrigger: Story = {
   render: () => (
     <Select defaultValue="x">

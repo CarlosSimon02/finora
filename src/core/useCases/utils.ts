@@ -3,14 +3,12 @@ import { AuthError } from "@/utils";
 export const withAuth = <T = void, U = unknown>(
   useCase: (userId: string, input: T) => Promise<U>
 ) => {
-  return (userId: string, input: T = {} as T): Promise<U> => {
-    if (!userId) throw new AuthError();
-
-    // If input is undefined, call without it
-    if (input === undefined) {
-      return useCase(userId, {} as T);
+  return async (userId?: string, input?: T): Promise<U> => {
+    if (!userId) {
+      throw new AuthError();
     }
 
-    return useCase(userId, input);
+    const safeInput = (input ?? ({} as T)) as T;
+    return useCase(userId, safeInput);
   };
 };

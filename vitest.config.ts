@@ -3,40 +3,37 @@ import { storybookTest } from "@storybook/addon-vitest/vitest-plugin";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { defineConfig } from "vitest/config";
+
 const dirname =
   typeof __dirname !== "undefined"
     ? __dirname
     : path.dirname(fileURLToPath(import.meta.url));
 
-// More info at: https://storybook.js.org/docs/next/writing-tests/integrations/vitest-addon
 export default defineConfig({
   resolve: {
     alias: {
-      "@": fileURLToPath(new URL("./src", import.meta.url)),
-      "@tests": fileURLToPath(new URL("./src/__tests__", import.meta.url)),
+      "@": path.resolve(dirname, "./src"),
     },
+    extensions: [".ts", ".tsx", ".js", ".jsx", ".json"],
   },
   test: {
     globals: true,
-    environment: "node",
     setupFiles: ["src/__tests__/setup.ts"],
-    include: ["src/__tests__/**/*.test.ts"],
     coverage: {
       provider: "v8",
       exclude: ["src/__tests__/**", "**/*.d.ts"],
     },
     projects: [
+      // Project 1: Storybook tests (browser environment)
       {
-        extends: true,
         plugins: [
-          // The plugin will run tests for the stories defined in your Storybook config
-          // See options at: https://storybook.js.org/docs/next/writing-tests/integrations/vitest-addon#storybooktest
           storybookTest({
             configDir: path.join(dirname, ".storybook"),
           }),
         ],
         test: {
           name: "storybook",
+          include: ["**/*.stories.@(js|jsx|ts|tsx)"],
           browser: {
             enabled: true,
             headless: true,
@@ -48,6 +45,20 @@ export default defineConfig({
             ],
           },
           setupFiles: [".storybook/vitest.setup.ts"],
+        },
+      },
+      // Project 2: Unit tests (Node.js environment)
+      {
+        resolve: {
+          alias: {
+            "@": path.resolve(dirname, "./src"),
+          },
+          extensions: [".ts", ".tsx", ".js", ".jsx", ".json"],
+        },
+        test: {
+          name: "unit",
+          include: ["src/__tests__/**/*.test.ts"],
+          environment: "node",
         },
       },
     ],
