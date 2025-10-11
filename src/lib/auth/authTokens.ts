@@ -18,7 +18,7 @@ export const getAuthTokens = cache(async () => {
   }
 });
 
-export function tokensToUser(decodedToken: DecodedIdToken): User {
+export const tokensToUser = (decodedToken: DecodedIdToken): User => {
   const { uid, email, picture, name } = decodedToken;
   const role = (decodedToken as unknown as { role?: string }).role;
 
@@ -30,4 +30,4 @@ export function tokensToUser(decodedToken: DecodedIdToken): User {
     // Store role under customClaims to be accessible in ctx.user
     customClaims: role ? { role } : undefined,
   };
-}
+};

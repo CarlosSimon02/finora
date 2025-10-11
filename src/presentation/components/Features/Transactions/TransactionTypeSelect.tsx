@@ -1,9 +1,9 @@
-import { TransactionTypeDto } from "@/core/schemas";
+import { TransactionType } from "@/core/schemas";
 import { ReactSelect } from "@/presentation/components/Primitives";
 import { GroupBase } from "react-select";
 import { AsyncProps } from "react-select/async";
 
-type TransactionTypeOption = { label: string; value: TransactionTypeDto };
+type TransactionTypeOption = { label: string; value: TransactionType };
 
 const TRANSACTION_TYPE_OPTIONS = [
   { label: "Income", value: "income" },
@@ -14,9 +14,9 @@ type TransactionSelectProps = Omit<
   AsyncProps<TransactionTypeOption, false, GroupBase<TransactionTypeOption>>,
   "onChange" | "value" | "defaultValue" | "isDisabled" | "loadOptions"
 > & {
-  value?: TransactionTypeDto;
-  defaultValue?: TransactionTypeDto;
-  onValueChange?: (value?: TransactionTypeDto) => void;
+  value?: TransactionType;
+  defaultValue?: TransactionType;
+  onValueChange?: (value?: TransactionType) => void;
   disabled?: boolean;
 };
 

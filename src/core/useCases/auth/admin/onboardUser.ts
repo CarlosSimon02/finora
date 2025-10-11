@@ -1,6 +1,6 @@
 import { IAuthAdminRepository } from "@/core/interfaces/IAuthAdminRepository";
 import { IUserRepository } from "@/core/interfaces/IUserRepository";
-import { CreateUserDto, createUserSchema } from "@/core/schemas/userSchema";
+import { CreateUserDto, createUserSchema } from "@/core/schemas";
 
 export const onboardUser =
   (userRepository: IUserRepository, authRepository: IAuthAdminRepository) =>

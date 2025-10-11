@@ -1,11 +1,13 @@
-import { z, ZodTypeAny } from "zod";
+import { z, ZodType } from "zod";
 import { trimmedStringSchema } from "./helpers";
 
 export const MAX_PER_PAGE = 100;
 
 export const filterOperator = z.enum(["==", ">", ">=", "<", "<=", "!="]);
+export type FilterOperator = z.infer<typeof filterOperator>;
 
 export const sortOrder = z.enum(["asc", "desc"]);
+export type SortOrder = z.infer<typeof sortOrder>;
 
 export const filterValue = z.union([
   z.null(),
@@ -14,37 +16,38 @@ export const filterValue = z.union([
   z.boolean(),
   z.undefined(),
 ]);
+export type FilterValue = z.infer<typeof filterValue>;
 
 export const filterSchema = z.object({
   field: trimmedStringSchema,
   operator: filterOperator,
   value: filterValue,
 });
+export type Filter = z.infer<typeof filterSchema>;
+
+const paginationConfigSchema = z.object({
+  page: z.number().int().min(1).default(1),
+  perPage: z.number().int().min(1).max(MAX_PER_PAGE).default(10),
+  offset: z.number().int().min(0).optional(),
+});
+
+const sortConfigSchema = z.object({
+  field: trimmedStringSchema,
+  order: sortOrder.default("asc"),
+});
 
 export const paginationParamsSchema = z.object({
-  pagination: z
-    .object({
-      page: z.number().int().min(1).default(1),
-      perPage: z.number().int().min(1).max(MAX_PER_PAGE).default(10),
-      offset: z.number().int().min(0).optional(),
-    })
+  pagination: paginationConfigSchema
     .optional()
     .default({ page: 1, perPage: 10 }),
-  sort: z
-    .object({
-      field: trimmedStringSchema,
-      order: sortOrder.default("asc"),
-    })
-    .optional(),
-
+  sort: sortConfigSchema.optional(),
   filters: z.array(filterSchema).optional().default([]),
   search: trimmedStringSchema.optional(),
 });
-
 export type PaginationParams = z.infer<typeof paginationParamsSchema>;
 
 export const paginationMetaSchema = z.object({
-  totalItems: z.number().int().nonnegative(), // allow 0
+  totalItems: z.number().int().nonnegative(),
   page: z.number().int().min(1),
   perPage: z.number().int().min(1),
   totalPages: z.number().int().min(0),
@@ -53,32 +56,30 @@ export const paginationMetaSchema = z.object({
   hasNextPage: z.boolean(),
   hasPrevPage: z.boolean(),
 });
+export type PaginationMeta = z.infer<typeof paginationMetaSchema>;
+
+const paginationLinksSchema = z.object({
+  first: trimmedStringSchema.optional(),
+  prev: trimmedStringSchema.nullable().optional(),
+  self: trimmedStringSchema.optional(),
+  next: trimmedStringSchema.nullable().optional(),
+  last: trimmedStringSchema.optional(),
+});
+
+const responseMetaSchema = z.object({
+  pagination: paginationMetaSchema,
+  sort: sortConfigSchema.partial().optional(),
+  filters: z.array(filterSchema).optional(),
+  search: trimmedStringSchema.optional(),
+  links: paginationLinksSchema.optional(),
+});
 
 export const paginationResponseBaseSchema = z.object({
   data: z.array(z.unknown()),
-  meta: z.object({
-    pagination: paginationMetaSchema,
-    sort: z
-      .object({
-        field: trimmedStringSchema.optional(),
-        order: sortOrder.optional(),
-      })
-      .optional(),
-    filters: z.array(filterSchema).optional(),
-    search: trimmedStringSchema.optional(),
-    links: z
-      .object({
-        first: trimmedStringSchema.optional(),
-        prev: trimmedStringSchema.nullable().optional(),
-        self: trimmedStringSchema.optional(),
-        next: trimmedStringSchema.nullable().optional(),
-        last: trimmedStringSchema.optional(),
-      })
-      .optional(),
-  }),
+  meta: responseMetaSchema,
 });
 
-export const createPaginationResponseSchema = <T extends ZodTypeAny>(
+export const createPaginationResponseSchema = <T extends ZodType>(
   dataSchema: T
 ) => {
   return paginationResponseBaseSchema.extend({
@@ -86,8 +87,11 @@ export const createPaginationResponseSchema = <T extends ZodTypeAny>(
   });
 };
 
-export type PaginationMeta = z.infer<typeof paginationMetaSchema>;
-export type PaginatedResponse<T extends ZodTypeAny> = z.infer<
+export type PaginatedResponse<T> = {
+  data: T[];
+  meta: z.infer<typeof responseMetaSchema>;
+};
+
+export type PaginatedResponseInferred<T extends ZodType> = z.infer<
   ReturnType<typeof createPaginationResponseSchema<T>>
 >;
-export type SortOrder = z.infer<typeof sortOrder>;

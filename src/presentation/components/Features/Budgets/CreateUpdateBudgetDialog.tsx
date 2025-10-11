@@ -6,7 +6,7 @@ import {
   CreateBudgetDto,
   createBudgetSchema,
   UpdateBudgetDto,
-} from "@/core/schemas/budgetSchema";
+} from "@/core/schemas";
 import { trpc } from "@/lib/trpc/client";
 import { CurrencyInput, Input } from "@/presentation/components/Primitives";
 import {

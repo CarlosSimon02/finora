@@ -1,5 +1,5 @@
 import { IAuthAdminRepository } from "@/core/interfaces/IAuthAdminRepository";
-import { UserDto } from "@/core/schemas/userSchema";
+import { UserDto } from "@/core/schemas";
 import { mapUserRecordToDto } from "@/data/mappers";
 import { adminAuth } from "@/infrastructure/firebase/firebaseAdmin";
 import { DecodedIdToken } from "firebase-admin/auth";

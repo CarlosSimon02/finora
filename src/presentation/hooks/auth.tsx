@@ -5,7 +5,7 @@ import {
   SignUpCredentialsDto,
   VerifyEmailDto,
   verifyEmailSchema,
-} from "@/core/schemas/authSchema";
+} from "@/core/schemas";
 import {
   logInWithEmail,
   resetPassword,

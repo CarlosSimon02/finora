@@ -1,5 +1,5 @@
 import { COLOR_OPTIONS } from "@/constants/colors";
-import { CategoryDto, TransactionTypeDto } from "@/core/schemas";
+import { CategoryDto, TransactionType } from "@/core/schemas";
 import {
   getCategoryByName,
   getCategoryForExpense,
@@ -29,7 +29,7 @@ export const getSafeCategoryByName = (categoryName: string): CategoryDto => {
 
 export const getSafeCategoryForTransaction = (
   categoryName: string,
-  transactionType: TransactionTypeDto
+  transactionType: TransactionType
 ): CategoryDto => {
   const category =
     transactionType === "expense"
@@ -48,7 +48,7 @@ export const getSafeCategoryForTransaction = (
 
 export const validateCategoryExists = (
   categoryName: string,
-  transactionType: TransactionTypeDto
+  transactionType: TransactionType
 ): void => {
   const category =
     transactionType === "expense"

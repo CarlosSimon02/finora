@@ -15,7 +15,7 @@ import {
   PotDto,
   PotsSummaryDto,
   TransactionDto,
-  TransactionTypeDto,
+  TransactionType,
 } from "@/core/schemas";
 import { budgets } from "./budgets";
 import { categories } from "./categories";
@@ -167,7 +167,7 @@ export const paginateItems = <T extends FilterableItem>(
 
 export const calculateTotalFromTransactions = (
   transactionsList: TransactionDto[],
-  type: TransactionTypeDto
+  type: TransactionType
 ): number => {
   if (!transactionsList || transactionsList.length === 0) return 0;
 
@@ -178,7 +178,7 @@ export const calculateTotalFromTransactions = (
 
 export const getTransactionsByCategory = (
   categoryName: string,
-  type: TransactionTypeDto,
+  type: TransactionType,
   limit?: number
 ): TransactionDto[] => {
   const filtered = transactions.filter(
@@ -199,7 +199,7 @@ export const getTransactionsByCategory = (
 
 export const calculateCategoryTotal = (
   categoryName: string,
-  type: TransactionTypeDto
+  type: TransactionType
 ): number => {
   return transactions
     .filter(

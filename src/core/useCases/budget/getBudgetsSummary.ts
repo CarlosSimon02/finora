@@ -1,8 +1,5 @@
 import { IBudgetRepository } from "@/core/interfaces/IBudgetRepository";
-import {
-  BudgetsSummaryDto,
-  budgetsSummaryParamsSchema,
-} from "@/core/schemas/budgetSchema";
+import { BudgetsSummaryDto, budgetsSummaryParamsSchema } from "@/core/schemas";
 import { withAuth } from "@/core/useCases/utils";
 
 export const getBudgetsSummary = (budgetRepository: IBudgetRepository) => {

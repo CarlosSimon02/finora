@@ -1,11 +1,11 @@
 "use client";
-import { IncomeDtoWithTotalEarned } from "@/core/schemas/incomeSchema";
+import { IncomeWithTotalEarnedDto } from "@/core/schemas";
 import { Chart } from "@/presentation/components/UI";
 import { formatCurrency } from "@/utils";
 import { Label, Pie, PieChart } from "recharts";
 
 type IncomeChartProps = {
-  incomeData: IncomeDtoWithTotalEarned[];
+  incomeData: IncomeWithTotalEarnedDto[];
   totalEarned: number;
 };
 

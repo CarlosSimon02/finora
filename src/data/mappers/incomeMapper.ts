@@ -1,4 +1,4 @@
-import { IncomeDto, IncomeDtoWithTotalEarned } from "@/core/schemas";
+import { IncomeDto, IncomeWithTotalEarnedDto } from "@/core/schemas";
 import { IncomeModel } from "@/data/models";
 
 export const mapIncomeModelToDto = (model: IncomeModel): IncomeDto => ({
@@ -11,7 +11,7 @@ export const mapIncomeModelToDto = (model: IncomeModel): IncomeDto => ({
 
 export const mapIncomeModelToDtoWithTotalEarned = (
   model: IncomeModel
-): IncomeDtoWithTotalEarned => ({
+): IncomeWithTotalEarnedDto => ({
   ...mapIncomeModelToDto(model),
   totalEarned: model.totalEarned,
 });

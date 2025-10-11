@@ -1,5 +1,4 @@
-import { PaginationParams } from "@/core/schemas/paginationSchema";
-import { TransactionTypeDto } from "@/core/schemas/transactionSchema";
+import { PaginationParams, TransactionType } from "@/core/schemas";
 import { userSubcollection } from "@/data/firestore/collections";
 import { paginateByCursor } from "@/data/firestore/paginate";
 import { buildQueryFromParams } from "@/data/firestore/query";
@@ -168,7 +167,7 @@ export class TransactionDatasource {
 
   async calculateTotalByType(
     userId: string,
-    type: TransactionTypeDto
+    type: TransactionType
   ): Promise<number> {
     try {
       const userTransactions = this.getTransactionCollection(userId);

@@ -1,5 +1,5 @@
 import { IPotRepository } from "@/core/interfaces/IPotRepository";
-import { PotDto } from "@/core/schemas/potSchema";
+import { PotDto } from "@/core/schemas";
 import { withAuth } from "@/core/useCases/utils";
 import { DomainValidationError } from "@/utils";
 

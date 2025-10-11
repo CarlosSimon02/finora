@@ -1,6 +1,6 @@
 "use client";
 
-import { BudgetsSummaryDto } from "@/core/schemas/budgetSchema";
+import { BudgetsSummaryDto } from "@/core/schemas";
 import { Card } from "@/presentation/components/Primitives";
 import { cn, formatCurrency } from "@/utils";
 import { BudgetChart } from "./BudgetChart";

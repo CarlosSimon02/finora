@@ -1,7 +1,7 @@
 "use client";
 
 import { COLOR_OPTIONS } from "@/constants/colors";
-import { IncomeWithTransactionsDto } from "@/core/schemas/incomeSchema";
+import { IncomeWithTransactionsDto } from "@/core/schemas";
 import {
   Button,
   Card,

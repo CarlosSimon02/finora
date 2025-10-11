@@ -1,8 +1,5 @@
 import { IIncomeRepository } from "@/core/interfaces/IIncomeRepository";
-import {
-  IncomesSummaryDto,
-  incomesSummaryParamsSchema,
-} from "@/core/schemas/incomeSchema";
+import { IncomesSummaryDto, incomesSummaryParamsSchema } from "@/core/schemas";
 import { withAuth } from "@/core/useCases/utils";
 
 export const getIncomesSummary = (incomeRepository: IIncomeRepository) => {

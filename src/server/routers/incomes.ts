@@ -1,9 +1,9 @@
 import {
   createIncomeSchema,
   incomesSummaryParamsSchema,
+  paginationParamsSchema,
   updateIncomeSchema,
 } from "@/core/schemas";
-import { paginationParamsSchema } from "@/core/schemas/paginationSchema";
 import {
   createIncome,
   deleteIncome,

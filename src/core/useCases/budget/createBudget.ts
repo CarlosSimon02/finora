@@ -1,10 +1,6 @@
 import { COLOR_OPTIONS } from "@/constants/colors";
 import { IBudgetRepository } from "@/core/interfaces/IBudgetRepository";
-import {
-  BudgetDto,
-  CreateBudgetDto,
-  createBudgetSchema,
-} from "@/core/schemas/budgetSchema";
+import { BudgetDto, CreateBudgetDto, createBudgetSchema } from "@/core/schemas";
 import { withAuth } from "@/core/useCases/utils";
 import { ConflictError, DomainValidationError } from "@/utils";
 

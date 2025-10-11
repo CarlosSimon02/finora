@@ -1,6 +1,6 @@
 "use client";
 
-import { TransactionTypeDto } from "@/core/schemas/transactionSchema";
+import { TransactionType } from "@/core/schemas";
 import { CreateUpdateBudgetDialog } from "@/presentation/components/Features/Budgets";
 import { CreateUpdateIncomeDialog } from "@/presentation/components/Features/Incomes";
 import {
@@ -27,7 +27,7 @@ import {
 type CategorySelectProps = {
   value: CategoryOptionType | null;
   onChange: (category: CategoryOptionType | null) => void;
-  transactionType: TransactionTypeDto;
+  transactionType: TransactionType;
   disabled?: boolean;
   selectRef: RefCallBack;
   "aria-invalid"?: boolean;

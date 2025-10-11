@@ -1,5 +1,5 @@
 import { IBudgetRepository } from "@/core/interfaces/IBudgetRepository";
-import { BudgetDto } from "@/core/schemas/budgetSchema";
+import { BudgetDto } from "@/core/schemas";
 import { withAuth } from "@/core/useCases/utils";
 import { DomainValidationError } from "@/utils";
 

@@ -1,4 +1,3 @@
-import { COLOR_OPTIONS } from "@/constants/colors";
 import {
   COMMON_MAX_NUMBER,
   POT_MONEY_OPERATION_MIN,
@@ -7,36 +6,32 @@ import {
 } from "@/core/constants";
 import { z } from "zod";
 import {
-  idSchema,
-  nameSchema,
+  baseCreateSchema,
+  baseEntitySchema,
   nonNegativeMoneyAmountSchema,
   validateTwoDecimalPlaces,
 } from "./helpers";
 import { createPaginationResponseSchema } from "./paginationSchema";
 
-export const createPotSchema = z.object({
-  name: nameSchema,
-  colorTag: z.enum(
-    COLOR_OPTIONS.map((o) => o.value),
-    "Invalid color tag"
-  ),
-  target: z
-    .number("Target must be a number")
-    .min(POT_TARGET_MIN, `Target must be at least ${POT_TARGET_MIN}`)
-    .max(COMMON_MAX_NUMBER, `Target must be at most ${COMMON_MAX_NUMBER}`)
-    .refine(
-      validateTwoDecimalPlaces,
-      "Target must have at most 2 decimal places"
-    ),
+const targetSchema = z
+  .number()
+  .min(POT_TARGET_MIN, `Target must be at least ${POT_TARGET_MIN}`)
+  .max(COMMON_MAX_NUMBER, `Target must be at most ${COMMON_MAX_NUMBER}`)
+  .refine(
+    validateTwoDecimalPlaces,
+    "Target must have at most 2 decimal places"
+  );
+
+export const createPotSchema = baseCreateSchema.extend({
+  target: targetSchema,
 });
 
 export const updatePotSchema = createPotSchema.partial();
 
-export const potSchema = createPotSchema.extend({
-  id: idSchema,
+export const potSchema = baseCreateSchema.extend({
+  ...baseEntitySchema.shape,
+  target: targetSchema,
   totalSaved: nonNegativeMoneyAmountSchema,
-  createdAt: z.date(),
-  updatedAt: z.date(),
 });
 
 export const paginatedPotsResponseSchema =

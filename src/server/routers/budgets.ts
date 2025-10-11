@@ -1,9 +1,9 @@
 import {
   budgetsSummaryParamsSchema,
   createBudgetSchema,
+  paginationParamsSchema,
   updateBudgetSchema,
 } from "@/core/schemas";
-import { paginationParamsSchema } from "@/core/schemas/paginationSchema";
 import {
   createBudget,
   deleteBudget,

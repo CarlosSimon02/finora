@@ -5,9 +5,9 @@ import {
   IncomesSummaryDto,
   PaginatedIncomesResponseDto,
   PaginatedIncomesWithTransactionsResponseDto,
+  PaginationParams,
   UpdateIncomeDto,
-} from "@/core/schemas/incomeSchema";
-import { PaginationParams } from "@/core/schemas/paginationSchema";
+} from "@/core/schemas";
 import { CategoryDatasource, TransactionDatasource } from "@/data/datasource";
 import { IncomeDatasource } from "@/data/datasource/IncomeDatasource";
 import {

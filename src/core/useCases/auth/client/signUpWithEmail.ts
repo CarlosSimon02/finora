@@ -1,5 +1,5 @@
 import { IAuthClientRepository } from "@/core/interfaces/IAuthClientRepository";
-import { SignUpCredentialsDto } from "@/core/schemas/authSchema";
+import { SignUpCredentialsDto } from "@/core/schemas";
 
 export const signUpWithEmail =
   (authRepository: IAuthClientRepository) =>

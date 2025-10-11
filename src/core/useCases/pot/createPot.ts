@@ -1,10 +1,6 @@
 import { COLOR_OPTIONS } from "@/constants/colors";
 import { IPotRepository } from "@/core/interfaces/IPotRepository";
-import {
-  CreatePotDto,
-  PotDto,
-  createPotSchema,
-} from "@/core/schemas/potSchema";
+import { CreatePotDto, PotDto, createPotSchema } from "@/core/schemas";
 import { withAuth } from "@/core/useCases/utils";
 import { ConflictError, DomainValidationError } from "@/utils";
 

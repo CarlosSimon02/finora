@@ -1,9 +1,9 @@
 import { IIncomeRepository } from "@/core/interfaces/IIncomeRepository";
 import {
   PaginatedIncomesWithTransactionsResponseDto,
+  PaginationParams,
   transactionPreviewCountSchema,
-} from "@/core/schemas/incomeSchema";
-import { PaginationParams } from "@/core/schemas/paginationSchema";
+} from "@/core/schemas";
 import { withAuth } from "@/core/useCases/utils";
 import { DomainValidationError } from "@/utils";
 

@@ -1,6 +1,8 @@
 import { ITransactionRepository } from "@/core/interfaces/ITransactionRepository";
-import { PaginationParams } from "@/core/schemas/paginationSchema";
-import { PaginatedTransactionsResponseDto } from "@/core/schemas/transactionSchema";
+import {
+  PaginatedTransactionsResponseDto,
+  PaginationParams,
+} from "@/core/schemas";
 import { withAuth } from "@/core/useCases/utils";
 import { DomainValidationError } from "@/utils";
 

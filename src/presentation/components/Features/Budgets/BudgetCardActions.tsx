@@ -1,6 +1,6 @@
 "use client";
 
-import { BudgetDto } from "@/core/schemas/budgetSchema";
+import { BudgetDto } from "@/core/schemas";
 import { trpc } from "@/lib/trpc/client";
 import { Button } from "@/presentation/components/Primitives";
 import {

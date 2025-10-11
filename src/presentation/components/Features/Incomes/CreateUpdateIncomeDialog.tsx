@@ -6,7 +6,7 @@ import {
   createIncomeSchema,
   IncomeDto,
   UpdateIncomeDto,
-} from "@/core/schemas/incomeSchema";
+} from "@/core/schemas";
 import { trpc } from "@/lib/trpc/client";
 import { Input } from "@/presentation/components/Primitives";
 import {

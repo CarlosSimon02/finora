@@ -1,9 +1,11 @@
 "use client";
 
-import { BudgetDto } from "@/core/schemas/budgetSchema";
-import { IncomeDto } from "@/core/schemas/incomeSchema";
-import { PaginationParams } from "@/core/schemas/paginationSchema";
-import { TransactionTypeDto } from "@/core/schemas/transactionSchema";
+import {
+  BudgetDto,
+  IncomeDto,
+  PaginationParams,
+  TransactionType,
+} from "@/core/schemas";
 import { trpc } from "@/lib/trpc/client";
 import { useCallback, useEffect, useState } from "react";
 import {
@@ -14,7 +16,7 @@ import {
 } from "react-select";
 import { CategoryOptionType } from "./types";
 
-export const useCategoryOptions = (transactionType: TransactionTypeDto) => {
+export const useCategoryOptions = (transactionType: TransactionType) => {
   const utils = trpc.useUtils();
 
   const loadOptions = useCallback(
@@ -101,7 +103,7 @@ export const useCategorySelection = (
   };
 };
 
-export const useCategoryDialogs = (transactionType: TransactionTypeDto) => {
+export const useCategoryDialogs = (transactionType: TransactionType) => {
   const [isAddingInProgress, setIsAddingInProgress] = useState(false);
   const [cacheUniq, setCacheUniq] = useState(0);
   const [isBudgetDialogOpen, setIsBudgetDialogOpen] = useState(false);

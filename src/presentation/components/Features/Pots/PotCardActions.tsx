@@ -1,6 +1,6 @@
 "use client";
 
-import { PotDto } from "@/core/schemas/potSchema";
+import { PotDto } from "@/core/schemas";
 import { trpc } from "@/lib/trpc/client";
 import { Button } from "@/presentation/components/Primitives";
 import {

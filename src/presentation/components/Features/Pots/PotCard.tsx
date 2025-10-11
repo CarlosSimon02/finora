@@ -1,6 +1,6 @@
 "use client";
 
-import { PotDto } from "@/core/schemas/potSchema";
+import { PotDto } from "@/core/schemas";
 import { Button, Card } from "@/presentation/components/Primitives";
 import { formatCurrency } from "@/utils";
 import { PlusIcon } from "@phosphor-icons/react";

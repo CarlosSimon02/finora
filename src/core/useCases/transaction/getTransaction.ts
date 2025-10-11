@@ -1,5 +1,5 @@
 import { ITransactionRepository } from "@/core/interfaces/ITransactionRepository";
-import { TransactionDto } from "@/core/schemas/transactionSchema";
+import { TransactionDto } from "@/core/schemas";
 import { withAuth } from "@/core/useCases/utils";
 import { DomainValidationError } from "@/utils";
 

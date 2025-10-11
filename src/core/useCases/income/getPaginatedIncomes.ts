@@ -1,6 +1,5 @@
 import { IIncomeRepository } from "@/core/interfaces/IIncomeRepository";
-import { PaginatedIncomesResponseDto } from "@/core/schemas/incomeSchema";
-import { PaginationParams } from "@/core/schemas/paginationSchema";
+import { PaginatedIncomesResponseDto, PaginationParams } from "@/core/schemas";
 import { withAuth } from "@/core/useCases/utils";
 import { DomainValidationError } from "@/utils";
 

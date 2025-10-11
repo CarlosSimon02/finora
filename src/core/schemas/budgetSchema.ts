@@ -1,44 +1,30 @@
-import { COLOR_OPTIONS } from "@/constants/colors";
 import {
   BUDGET_SUMMARY_MAX_ITEMS,
   BUDGET_TRANSACTION_PREVIEW_MAX_COUNT,
-  COMMON_MAX_NUMBER,
 } from "@/core/constants";
 import { z } from "zod";
 import {
-  idSchema,
+  baseCreateSchema,
+  baseEntitySchema,
   moneyAmountSchema,
-  nameSchema,
-  validateTwoDecimalPlaces,
+  nonNegativeMoneyAmountSchema,
 } from "./helpers";
 import { createPaginationResponseSchema } from "./paginationSchema";
 import { transactionSchema } from "./transactionSchema";
 
-export const createBudgetSchema = z.object({
-  name: nameSchema,
+export const createBudgetSchema = baseCreateSchema.extend({
   maximumSpending: moneyAmountSchema,
-  colorTag: z.enum(
-    COLOR_OPTIONS.map((o) => o.value),
-    "Color tag must be a valid color"
-  ),
 });
 
 export const updateBudgetSchema = createBudgetSchema.partial();
 
-export const budgetSchema = createBudgetSchema.extend({
-  id: idSchema,
-  createdAt: z.date(),
-  updatedAt: z.date(),
+export const budgetSchema = baseCreateSchema.extend({
+  ...baseEntitySchema.shape,
+  maximumSpending: moneyAmountSchema,
 });
 
 export const budgetSchemaWithTotalSpending = budgetSchema.extend({
-  totalSpending: z
-    .number("Amount must be a number")
-    .max(COMMON_MAX_NUMBER, `Amount must be at most ${COMMON_MAX_NUMBER}`)
-    .refine(
-      validateTwoDecimalPlaces,
-      "Amount must have at most 2 decimal places"
-    ),
+  totalSpending: nonNegativeMoneyAmountSchema,
 });
 
 export const budgetWithTransactionsSchema =
@@ -48,7 +34,6 @@ export const budgetWithTransactionsSchema =
 
 export const paginatedBudgetsResponseSchema =
   createPaginationResponseSchema(budgetSchema);
-
 export const paginatedBudgetsWithTransactionsResponseSchema =
   createPaginationResponseSchema(budgetWithTransactionsSchema);
 

@@ -1,8 +1,8 @@
-import { TransactionTypeDto } from "@/core/schemas";
+import { TransactionType } from "@/core/schemas";
 import { cn, formatCurrency } from "@/utils/strings";
 
 type AmountDisplayProps = {
-  type: TransactionTypeDto;
+  type: TransactionType;
   amount: number;
   className?: string;
 };

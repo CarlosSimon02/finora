@@ -1,4 +1,4 @@
-import { PaginationParams } from "@/core/schemas/paginationSchema";
+import { PaginationParams } from "@/core/schemas";
 import { userSubcollection } from "@/data/firestore/collections";
 import { paginateByCursor } from "@/data/firestore/paginate";
 import { buildQueryFromParams } from "@/data/firestore/query";

@@ -1,7 +1,7 @@
 "use client";
 
 import { COLOR_OPTIONS } from "@/constants/colors";
-import { BudgetWithTransactionsDto } from "@/core/schemas/budgetSchema";
+import { BudgetWithTransactionsDto } from "@/core/schemas";
 import {
   Button,
   Card,

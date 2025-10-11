@@ -6,7 +6,7 @@ import {
   createPotSchema,
   PotDto,
   UpdatePotDto,
-} from "@/core/schemas/potSchema";
+} from "@/core/schemas";
 import { trpc } from "@/lib/trpc/client";
 import { CurrencyInput, Input } from "@/presentation/components/Primitives";
 import {

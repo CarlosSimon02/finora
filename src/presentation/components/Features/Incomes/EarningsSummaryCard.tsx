@@ -1,6 +1,6 @@
 "use client";
 
-import { IncomesSummaryDto } from "@/core/schemas/incomeSchema";
+import { IncomesSummaryDto } from "@/core/schemas";
 import { Card } from "@/presentation/components/Primitives";
 import { cn, formatCurrency } from "@/utils";
 import { IncomeChart } from "./IncomeChart";

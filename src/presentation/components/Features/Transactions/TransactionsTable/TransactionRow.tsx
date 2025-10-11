@@ -1,4 +1,4 @@
-import { TransactionDto } from "@/core/schemas/transactionSchema";
+import { TransactionDto } from "@/core/schemas";
 import { formatDate } from "@/utils/strings";
 import { TransactionEmoji } from "../TransactionEmoji";
 import AmountDisplay from "./AmountDisplay";

@@ -1,4 +1,4 @@
-import { User } from "@/core/schemas/userSchema";
+import { User } from "@/core/schemas";
 import { createContext, useContext } from "react";
 
 export interface AuthContextValue {

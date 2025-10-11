@@ -1,9 +1,9 @@
-import { paginationParamsSchema } from "@/core/schemas/paginationSchema";
 import {
   createPotSchema,
   moneyOperationSchema,
+  paginationParamsSchema,
   updatePotSchema,
-} from "@/core/schemas/potSchema";
+} from "@/core/schemas";
 import {
   addMoneyToPot,
   createPot,

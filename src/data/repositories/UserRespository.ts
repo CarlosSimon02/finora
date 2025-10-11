@@ -1,9 +1,5 @@
 import { IUserRepository } from "@/core/interfaces/IUserRepository";
-import {
-  CreateUserDto,
-  UpdateUserDto,
-  UserDto,
-} from "@/core/schemas/userSchema";
+import { CreateUserDto, UpdateUserDto, UserDto } from "@/core/schemas";
 import { UserDatasource } from "@/data/datasource/UserDatasource";
 import { mapUserModelToDto } from "@/data/mappers";
 import { CreateUserModel, UpdateUserModel } from "@/data/models";

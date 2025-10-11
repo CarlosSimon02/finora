@@ -1,8 +1,5 @@
 import { IPotRepository } from "@/core/interfaces/IPotRepository";
-import {
-  PotsSummaryDto,
-  potsSummaryParamsSchema,
-} from "@/core/schemas/potSchema";
+import { PotsSummaryDto, potsSummaryParamsSchema } from "@/core/schemas";
 import { withAuth } from "@/core/useCases/utils";
 
 export const getPotsSummary = (potRepository: IPotRepository) => {

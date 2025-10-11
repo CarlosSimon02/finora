@@ -1,4 +1,4 @@
-import { createPaginationResponseSchema } from "@/core/schemas/paginationSchema";
+import { createPaginationResponseSchema } from "@/core/schemas";
 import { z } from "zod";
 
 export async function paginateByCursor<T extends z.ZodTypeAny>({

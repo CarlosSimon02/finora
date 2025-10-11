@@ -1,14 +1,14 @@
 import { ITransactionRepository } from "@/core/interfaces/ITransactionRepository";
-import { PaginatedCategoriesResponseDto } from "@/core/schemas/categorySchema";
-import { PaginationParams } from "@/core/schemas/paginationSchema";
 import {
   CreateTransactionDto,
+  PaginatedCategoriesResponseDto,
   PaginatedTransactionsResponseDto,
+  PaginationParams,
   TransactionCategoryDto,
   TransactionDto,
-  TransactionTypeDto,
+  TransactionType,
   UpdateTransactionDto,
-} from "@/core/schemas/transactionSchema";
+} from "@/core/schemas";
 import {
   BudgetDatasource,
   CategoryDatasource,
@@ -40,7 +40,7 @@ export class TransactionRepository implements ITransactionRepository {
   // # 🛠️ Helper Methods
   // #########################################################
 
-  private calculateSignedAmount(amount: number, type: TransactionTypeDto) {
+  private calculateSignedAmount(amount: number, type: TransactionType) {
     return type === "income" ? amount : -amount;
   }
 
@@ -97,7 +97,7 @@ export class TransactionRepository implements ITransactionRepository {
   private async updateCategoryTotal(
     userId: string,
     categoryId: string,
-    type: TransactionTypeDto
+    type: TransactionType
   ) {
     const total = await this.transactionDatasource.calculateTotalByCategory(
       userId,
@@ -118,7 +118,7 @@ export class TransactionRepository implements ITransactionRepository {
   private async getTransactionCategory(
     userId: string,
     categoryId: string,
-    type: TransactionTypeDto
+    type: TransactionType
   ): Promise<TransactionCategoryDto> {
     if (type === "income") {
       const income = await this.incomeDatasource.getById(userId, categoryId);

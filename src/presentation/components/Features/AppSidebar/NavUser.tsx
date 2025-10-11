@@ -1,6 +1,6 @@
 "use client";
 
-import { User } from "@/core/schemas/userSchema";
+import { User } from "@/core/schemas";
 import { logoutAction } from "@/presentation/actions";
 import { Avatar, DropdownMenu, Tooltip } from "@/presentation/components/UI";
 import { SignOutIcon } from "@phosphor-icons/react";

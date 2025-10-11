@@ -1,28 +1,20 @@
-import { COLOR_OPTIONS } from "@/constants/colors";
 import {
   INCOME_SUMMARY_MAX_ITEMS,
   INCOME_TRANSACTION_PREVIEW_MAX_COUNT,
 } from "@/core/constants";
 import { z } from "zod";
-import { idSchema, nameSchema, nonNegativeMoneyAmountSchema } from "./helpers";
+import {
+  baseCreateSchema,
+  baseEntitySchema,
+  nonNegativeMoneyAmountSchema,
+} from "./helpers";
 import { createPaginationResponseSchema } from "./paginationSchema";
 import { transactionSchema } from "./transactionSchema";
 
-export const createIncomeSchema = z.object({
-  name: nameSchema,
-  colorTag: z.enum(
-    COLOR_OPTIONS.map((o) => o.value),
-    "Color tag must be a valid color"
-  ),
-});
-
+export const createIncomeSchema = baseCreateSchema;
 export const updateIncomeSchema = createIncomeSchema.partial();
 
-export const incomeSchema = createIncomeSchema.extend({
-  id: idSchema,
-  createdAt: z.date(),
-  updatedAt: z.date(),
-});
+export const incomeSchema = baseCreateSchema.extend(baseEntitySchema.shape);
 
 export const incomeSchemaWithTotalEarned = incomeSchema.extend({
   totalEarned: nonNegativeMoneyAmountSchema,
@@ -34,7 +26,6 @@ export const incomeWithTransactionsSchema = incomeSchemaWithTotalEarned.extend({
 
 export const paginatedIncomesResponseSchema =
   createPaginationResponseSchema(incomeSchema);
-
 export const paginatedIncomesWithTransactionsResponseSchema =
   createPaginationResponseSchema(incomeWithTransactionsSchema);
 
@@ -70,7 +61,7 @@ export const transactionPreviewCountSchema = z
 export type CreateIncomeDto = z.infer<typeof createIncomeSchema>;
 export type UpdateIncomeDto = z.infer<typeof updateIncomeSchema>;
 export type IncomeDto = z.infer<typeof incomeSchema>;
-export type IncomeDtoWithTotalEarned = z.infer<
+export type IncomeWithTotalEarnedDto = z.infer<
   typeof incomeSchemaWithTotalEarned
 >;
 export type IncomeWithTransactionsDto = z.infer<

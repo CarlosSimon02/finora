@@ -1,5 +1,5 @@
 import { IIncomeRepository } from "@/core/interfaces/IIncomeRepository";
-import { IncomeDto } from "@/core/schemas/incomeSchema";
+import { IncomeDto } from "@/core/schemas";
 import { withAuth } from "@/core/useCases/utils";
 import { DomainValidationError } from "@/utils";
 

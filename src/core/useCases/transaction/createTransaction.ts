@@ -3,7 +3,7 @@ import {
   CreateTransactionDto,
   TransactionDto,
   createTransactionSchema,
-} from "@/core/schemas/transactionSchema";
+} from "@/core/schemas";
 import { withAuth } from "@/core/useCases/utils";
 
 export const createTransaction = (

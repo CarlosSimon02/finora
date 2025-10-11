@@ -1,7 +1,4 @@
-import {
-  budgetsSummaryParamsSchema,
-  createBudgetSchema,
-} from "@/core/schemas/budgetSchema";
+import { budgetsSummaryParamsSchema, createBudgetSchema } from "@/core/schemas";
 import { describe, expect, it } from "vitest";
 
 describe("budget schemas", () => {

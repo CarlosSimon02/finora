@@ -1,6 +1,6 @@
 "use client";
 
-import { IncomeDto } from "@/core/schemas/incomeSchema";
+import { IncomeDto } from "@/core/schemas";
 import { trpc } from "@/lib/trpc/client";
 import { Button } from "@/presentation/components/Primitives";
 import {

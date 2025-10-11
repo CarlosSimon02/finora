@@ -1,4 +1,4 @@
-import { PaginationParams } from "@/core/schemas/paginationSchema";
+import { PaginationParams } from "@/core/schemas";
 
 type Query = FirebaseFirestore.Query<FirebaseFirestore.DocumentData>;
 type CollectionRef = FirebaseFirestore.CollectionReference<

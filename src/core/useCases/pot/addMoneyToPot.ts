@@ -4,7 +4,7 @@ import {
   MoneyOperationInput,
   moneyOperationSchema,
   PotDto,
-} from "@/core/schemas/potSchema";
+} from "@/core/schemas";
 import { withAuth } from "@/core/useCases/utils";
 import { DomainValidationError, NotFoundError } from "@/utils";
 

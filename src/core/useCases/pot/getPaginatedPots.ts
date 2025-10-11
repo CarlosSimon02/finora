@@ -1,6 +1,5 @@
 import { IPotRepository } from "@/core/interfaces/IPotRepository";
-import { PaginationParams } from "@/core/schemas/paginationSchema";
-import { PaginatedPotsResponseDto } from "@/core/schemas/potSchema";
+import { PaginatedPotsResponseDto, PaginationParams } from "@/core/schemas";
 import { withAuth } from "@/core/useCases/utils";
 import { DomainValidationError } from "@/utils";
 

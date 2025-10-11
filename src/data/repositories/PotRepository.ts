@@ -1,12 +1,12 @@
 import { IPotRepository } from "@/core/interfaces/IPotRepository";
-import { PaginationParams } from "@/core/schemas/paginationSchema";
 import {
   CreatePotDto,
   PaginatedPotsResponseDto,
+  PaginationParams,
   PotDto,
   PotsSummaryDto,
   UpdatePotDto,
-} from "@/core/schemas/potSchema";
+} from "@/core/schemas";
 import { PotDatasource } from "@/data/datasource/PotDatasource";
 import { mapPotModelToDto } from "@/data/mappers";
 import { CreatePotModel, UpdatePotModel } from "@/data/models";

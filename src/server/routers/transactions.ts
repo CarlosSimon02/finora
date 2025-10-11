@@ -1,8 +1,8 @@
 import {
   createTransactionSchema,
+  paginationParamsSchema,
   updateTransactionSchema,
 } from "@/core/schemas";
-import { paginationParamsSchema } from "@/core/schemas/paginationSchema";
 import {
   createTransaction,
   deleteTransaction,

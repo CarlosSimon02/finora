@@ -1,5 +1,5 @@
 import { IUserRepository } from "@/core/interfaces/IUserRepository";
-import { UpdateUserDto } from "@/core/schemas/userSchema";
+import { UpdateUserDto } from "@/core/schemas";
 
 export const updateUserProfile =
   (userRepository: IUserRepository) =>

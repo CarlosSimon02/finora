@@ -3,7 +3,7 @@ import {
   AuthResponseDto,
   LoginWithEmailCredentialsDto,
   SignUpCredentialsDto,
-} from "@/core/schemas/authSchema";
+} from "@/core/schemas";
 import { clientAuth } from "@/infrastructure/firebase/firebaseClient";
 import { debugLog } from "@/utils";
 import {

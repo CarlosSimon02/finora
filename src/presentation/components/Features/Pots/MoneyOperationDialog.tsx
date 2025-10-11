@@ -1,6 +1,6 @@
 "use client";
 
-import { MoneyOperationInput, PotDto } from "@/core/schemas/potSchema";
+import { MoneyOperationInput, PotDto } from "@/core/schemas";
 import { trpc } from "@/lib/trpc/client";
 import { CurrencyInput } from "@/presentation/components/Primitives";
 import { Dialog, Form, LoadingButton } from "@/presentation/components/UI";

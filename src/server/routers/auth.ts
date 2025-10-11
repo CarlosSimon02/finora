@@ -1,5 +1,5 @@
 import { authConfig } from "@/config/nextFirebaseAuthEdge";
-import { User } from "@/core/schemas/userSchema";
+import { User } from "@/core/schemas";
 import { onboardUser, verifyIdToken } from "@/core/useCases/auth/admin";
 import { AuthAdminRepository } from "@/data/repositories/AuthAdminRepository";
 import { UserRepository } from "@/data/repositories/UserRespository";

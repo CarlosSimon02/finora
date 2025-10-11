@@ -5,9 +5,9 @@ import {
   CreateBudgetDto,
   PaginatedBudgetsResponseDto,
   PaginatedBudgetsWithTransactionsResponseDto,
+  PaginationParams,
   UpdateBudgetDto,
-} from "@/core/schemas/budgetSchema";
-import { PaginationParams } from "@/core/schemas/paginationSchema";
+} from "@/core/schemas";
 import { CategoryDatasource, TransactionDatasource } from "@/data/datasource";
 import { BudgetDatasource } from "@/data/datasource/BudgetDatasource";
 import { mapBudgetModelToDto, mapTransactionModelToDto } from "@/data/mappers";

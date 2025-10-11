@@ -1,9 +1,9 @@
 import { IBudgetRepository } from "@/core/interfaces/IBudgetRepository";
 import {
   PaginatedBudgetsWithTransactionsResponseDto,
+  PaginationParams,
   budgetTransactionPreviewCountSchema,
-} from "@/core/schemas/budgetSchema";
-import { PaginationParams } from "@/core/schemas/paginationSchema";
+} from "@/core/schemas";
 import { withAuth } from "@/core/useCases/utils";
 import { DomainValidationError } from "@/utils";
 
