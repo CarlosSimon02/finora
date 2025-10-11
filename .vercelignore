@@ -1,0 +1,28 @@
+# 🧪 Test files and folders
+**/*.test.ts
+**/*.test.tsx
+**/*.spec.ts
+**/*.spec.tsx
+**/__tests__/
+**/tests/
+
+# 📚 Storybook files
+**/*.stories.ts
+**/*.stories.tsx
+**/*.stories.mdx
+.storybook/
+storybook-static/
+
+# 🧩 Coverage, cache, and build artifacts
+coverage/
+.vitest/
+.playwright/
+.pnpm-store/
+dist/
+build/
+.next/
+out/
+
+# 🔒 Environment & misc files
+.env*
+!.env.example
