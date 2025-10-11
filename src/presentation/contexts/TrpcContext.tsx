@@ -1,4 +1,3 @@
-import { env } from "@/config/env";
 import { trpc } from "@/lib/trpc/client";
 import { makeQueryClient } from "@/lib/trpc/queryClient";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -21,7 +20,7 @@ export const TrpcProvider = ({ children }: { children: React.ReactNode }) => {
     trpc.createClient({
       links: [
         httpBatchLink({
-          url: `${env.NEXT_PUBLIC_SITE_URL}/api/trpc`,
+          url: `/api/trpc`,
           fetch: (url, options) => {
             return fetch(url, {
               ...options,
