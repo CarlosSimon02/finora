@@ -25,6 +25,9 @@ jobs:
       - name: Install dependencies (Yarn Classic)
         run: yarn install --frozen-lockfile
 
+      - name: Install Playwright browsers and OS deps
+        run: yarn playwright install --with-deps
+
       - name: Run tests (Yarn)
         env:
           CI: true
