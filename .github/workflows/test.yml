@@ -39,10 +39,12 @@ jobs:
       - name: Install dependencies (Yarn Classic)
         run: yarn install --frozen-lockfile
 
-      - name: Install Playwright browsers and OS deps
-        run: yarn playwright install --with-deps
+      # Note: Playwright installation commented out since we're only running unit tests
+      # Uncomment if you enable Storybook tests in vitest.config.ts
+      # - name: Install Playwright browsers and OS deps
+      #   run: yarn playwright install --with-deps
 
-      - name: Run tests (Yarn)
+      - name: Run unit tests (Yarn)
         env:
           CI: true
         run: yarn run test:ci

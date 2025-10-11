@@ -12,8 +12,11 @@
     "test:watch": "vitest",
     "test:ci": "vitest run --coverage",
     "test:ui": "vitest --ui",
+    "test:unit": "vitest run",
+    "test:unit:watch": "vitest",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "playwright:install": "playwright install chromium"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx,json,css,scss,md}": [

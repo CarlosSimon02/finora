@@ -1,0 +1,41 @@
+# Dependencies
+node_modules/
+.pnp/
+.pnp.*
+
+# Build outputs
+.next/
+out/
+dist/
+build/
+
+# Test files - excluded from tsconfig.json
+**/*.test.ts
+**/*.test.tsx
+**/*.spec.ts
+**/*.spec.tsx
+**/__tests__/
+**/tests/
+
+# Storybook files - excluded from tsconfig.json
+**/*.stories.ts
+**/*.stories.tsx
+**/*.stories.mdx
+.storybook/
+storybook-static/
+
+# Coverage and cache
+coverage/
+.vitest/
+.playwright/
+
+# Environment files
+.env*
+!.env.example
+
+# Misc
+*.log
+.DS_Store
+*.pem
+.vercel
+

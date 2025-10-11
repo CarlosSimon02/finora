@@ -1,5 +1,5 @@
-export * from "./auth";
-export * from "./budgets";
-export * from "./incomes";
-export * from "./pots";
-export * from "./transactions";
+export { authRouter } from "./auth";
+export { budgetsRouter } from "./budgets";
+export { incomesRouter } from "./incomes";
+export { potsRouter } from "./pots";
+export { transactionsRouter } from "./transactions";

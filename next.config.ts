@@ -13,6 +13,9 @@ const nextConfig: NextConfig = {
   experimental: {
     useCache: true,
   },
+  // Note: Test files (*.test.*, *.spec.*, __tests__/) and Storybook files
+  // (*.stories.*, .storybook/) are automatically excluded via tsconfig.json
+  // and .vercelignore configurations
 };
 
 export default nextConfig;
