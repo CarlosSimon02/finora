@@ -43,7 +43,7 @@ export const DonutChart: React.FC<DonutChartProps> = ({
 
   return (
     <div
-      className={`relative flex aspect-square h-[15.1rem] items-center justify-center ${className ?? ""}`}
+      className={`relative flex size-[15.1rem] items-center justify-center ${className ?? ""}`}
     >
       <Chart className="h-full w-full" config={chartConfig}>
         <PieChart>

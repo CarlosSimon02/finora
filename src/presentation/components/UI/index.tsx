@@ -15,4 +15,5 @@ export * from "./Popover";
 export * from "./SearchInput";
 export * from "./Select";
 export * from "./SortSelect";
+export * from "./SummaryCard";
 export * from "./ToolTip";
