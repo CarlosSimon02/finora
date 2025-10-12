@@ -1,4 +1,4 @@
-const TransactionsTableHeader = () => {
+export const TransactionsTableHeader = () => {
   return (
     <thead>
       <tr className="text-grey-500 !font-regular border-grey-100 border-b [&>*]:py-3 [&>*]:first:pl-4 [&>*]:last:pr-4">
@@ -15,5 +15,3 @@ const TransactionsTableHeader = () => {
     </thead>
   );
 };
-
-export default TransactionsTableHeader;

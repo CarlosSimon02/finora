@@ -9,7 +9,7 @@ interface BudgetCardProps {
   budget: BudgetWithTransactionsDto;
 }
 
-export function BudgetCard({ budget }: BudgetCardProps) {
+export const BudgetCard = ({ budget }: BudgetCardProps) => {
   const remaining =
     Math.abs(budget.maximumSpending) - Math.abs(budget.totalSpending);
   const percentSpent =
@@ -52,4 +52,4 @@ export function BudgetCard({ budget }: BudgetCardProps) {
       />
     </ItemCard>
   );
-}
+};

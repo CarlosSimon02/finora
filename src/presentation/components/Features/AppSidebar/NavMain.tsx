@@ -10,7 +10,7 @@ import {
   SidebarMenuItem,
 } from "./Sidebar";
 
-export function NavMain() {
+export const NavMain = () => {
   const pathname = usePathname();
   return (
     <SidebarGroup>
@@ -32,4 +32,4 @@ export function NavMain() {
       </SidebarMenu>
     </SidebarGroup>
   );
-}
+};

@@ -5,10 +5,10 @@ import { TransactionDto } from "@/core/schemas";
 import {
   Button,
   Card,
-  Emoji,
   InlineEmptyState,
+  TransactionItem,
 } from "@/presentation/components/Primitives";
-import { cn, formatCurrency, formatDate } from "@/utils";
+import { cn } from "@/utils";
 import { CaretRightIcon } from "@phosphor-icons/react";
 import React from "react";
 
@@ -130,27 +130,13 @@ const ItemCardTransactionsList = ({
       </div>
       <div>
         {transactions.map((transaction) => (
-          <div
+          <TransactionItem
             key={transaction.id}
-            className="border-b-grey-500/20 border-b py-3 first:pt-0 last:border-b-0 last:pb-0"
-          >
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-4">
-                <Emoji emoji={transaction.emoji} className="bg-white" />
-                <span className="txt-preset-5-bold">{transaction.name}</span>
-              </div>
-              <div className="space-y-1 text-right">
-                <p className="txt-preset-5-bold">
-                  {isSpending
-                    ? `-${formatCurrency(transaction.amount)}`
-                    : formatCurrency(transaction.amount)}
-                </p>
-                <p className="txt-preset-5 text-grey-500">
-                  {formatDate(transaction.transactionDate)}
-                </p>
-              </div>
-            </div>
-          </div>
+            transaction={transaction}
+            showCategory={false}
+            className="border-b-grey-500/20"
+            emojiClassName="bg-white"
+          />
         ))}
       </div>
     </div>

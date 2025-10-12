@@ -31,9 +31,9 @@ export type SelectInputProps = {
   "aria-invalid"?: boolean;
 };
 
-function flattenOptions(
+export const flattenOptions = (
   options: OptionsOrGroups<SelectInputOption, GroupBase<SelectInputOption>>
-): SelectInputOption[] {
+): SelectInputOption[] => {
   const flat: SelectInputOption[] = [];
   for (const item of options as Array<
     SelectInputOption | SelectInputOptionGroup
@@ -45,7 +45,7 @@ function flattenOptions(
     }
   }
   return flat;
-}
+};
 
 export const SelectInput = ({
   options,
@@ -118,5 +118,3 @@ export const SelectInput = ({
     />
   );
 };
-
-export default SelectInput;

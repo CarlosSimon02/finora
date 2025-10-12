@@ -1,9 +1,10 @@
 "use client";
 
 import { TransactionDto } from "@/core/schemas";
-import MobileTransactionCard from "./MobileTransactionCard";
-import TransactionRow from "./TransactionRow";
-import TransactionsTableHeader from "./TransactionsTableHeader";
+import { TransactionItem } from "@/presentation/components/Primitives";
+import { TransactionActions } from "./TransactionActions";
+import { TransactionRow } from "./TransactionRow";
+import { TransactionsTableHeader } from "./TransactionsTableHeader";
 
 type TransactionsTableProps = {
   transactions: TransactionDto[];
@@ -27,9 +28,11 @@ export const TransactionsTable = ({ transactions }: TransactionsTableProps) => {
       {/* Mobile View */}
       <div className="hidden @max-3xl/transactions:block">
         {transactions.map((transaction) => (
-          <MobileTransactionCard
+          <TransactionItem
             key={transaction.id}
             transaction={transaction}
+            actions={<TransactionActions transaction={transaction} />}
+            showCategory={false}
           />
         ))}
       </div>

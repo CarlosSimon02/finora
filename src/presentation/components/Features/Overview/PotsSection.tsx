@@ -14,7 +14,7 @@ type PotsSectionProps = {
   potsSummary?: PotsSummaryDto;
 };
 
-export function PotsSection({ className, potsSummary }: PotsSectionProps) {
+export const PotsSection = ({ className, potsSummary }: PotsSectionProps) => {
   return (
     <TitledCard
       title="Pots"
@@ -54,4 +54,4 @@ export function PotsSection({ className, potsSummary }: PotsSectionProps) {
       )}
     </TitledCard>
   );
-}
+};

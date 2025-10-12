@@ -7,10 +7,10 @@ type AmountDisplayProps = {
   className?: string;
 };
 
-const AmountDisplay = ({
+export const AmountDisplay = ({
   type,
   amount,
-  className = "",
+  className,
 }: AmountDisplayProps) => {
   return (
     <span
@@ -25,5 +25,3 @@ const AmountDisplay = ({
     </span>
   );
 };
-
-export default AmountDisplay;

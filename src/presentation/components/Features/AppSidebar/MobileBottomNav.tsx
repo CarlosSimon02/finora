@@ -11,7 +11,7 @@ type MobileBottomNavProps = {
   className?: string;
 };
 
-export function MobileBottomNav({ className }: MobileBottomNavProps) {
+export const MobileBottomNav = ({ className }: MobileBottomNavProps) => {
   const pathname = usePathname();
 
   return (
@@ -80,4 +80,4 @@ export function MobileBottomNav({ className }: MobileBottomNavProps) {
       </div>
     </nav>
   );
-}
+};

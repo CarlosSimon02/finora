@@ -14,10 +14,10 @@ const AuthContext = createContext<AuthContextValue>({
   user: null,
 });
 
-export function AuthProvider({ user, children }: AuthProviderProps) {
+export const AuthProvider = ({ user, children }: AuthProviderProps) => {
   return (
     <AuthContext.Provider value={{ user }}>{children}</AuthContext.Provider>
   );
-}
+};
 
 export const useAuth = () => useContext(AuthContext);

@@ -6,12 +6,12 @@ import { useState } from "react";
 import superjson from "superjson";
 
 let clientQueryClientSingleton: QueryClient;
-function getQueryClient() {
+const getQueryClient = () => {
   if (typeof window === "undefined") {
     return makeQueryClient();
   }
   return (clientQueryClientSingleton ??= makeQueryClient());
-}
+};
 
 export const TrpcProvider = ({ children }: { children: React.ReactNode }) => {
   const queryClient = getQueryClient();

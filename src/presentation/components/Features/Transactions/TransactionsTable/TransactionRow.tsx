@@ -1,14 +1,13 @@
 import { TransactionDto } from "@/core/schemas";
+import { AmountDisplay, Emoji } from "@/presentation/components/Primitives";
 import { formatDate } from "@/utils/strings";
-import { TransactionEmoji } from "../TransactionEmoji";
-import AmountDisplay from "./AmountDisplay";
 import { TransactionActions } from "./TransactionActions";
 
-interface TransactionRowProps {
+type TransactionRowProps = {
   transaction: TransactionDto;
-}
+};
 
-const TransactionRow = ({ transaction }: TransactionRowProps) => {
+export const TransactionRow = ({ transaction }: TransactionRowProps) => {
   return (
     <tr
       key={transaction.id}
@@ -16,7 +15,7 @@ const TransactionRow = ({ transaction }: TransactionRowProps) => {
     >
       <td>
         <div className="flex items-center gap-4">
-          <TransactionEmoji emoji={transaction.emoji} />
+          <Emoji emoji={transaction.emoji} />
           <span className="txt-preset-4-bold">{transaction.name}</span>
         </div>
       </td>
@@ -35,5 +34,3 @@ const TransactionRow = ({ transaction }: TransactionRowProps) => {
     </tr>
   );
 };
-
-export default TransactionRow;

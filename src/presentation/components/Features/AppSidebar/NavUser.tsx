@@ -10,7 +10,7 @@ type NavUserProps = {
   user: User;
 };
 
-export function NavUser({ user }: NavUserProps) {
+export const NavUser = ({ user }: NavUserProps) => {
   const { isMobile, state } = useSidebar();
 
   return (
@@ -65,4 +65,4 @@ export function NavUser({ user }: NavUserProps) {
       </DropdownMenu.Content>
     </DropdownMenu>
   );
-}
+};
