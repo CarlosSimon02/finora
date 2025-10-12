@@ -115,7 +115,7 @@ const ItemCardTransactionsList = ({
   return (
     <div className="bg-beige-100 space-y-5 rounded-xl p-5">
       <div className="flex items-center justify-between">
-        <h4 className="txt-preset-3">{title}</h4>
+        <h4 className="txt-preset-3-bold">{title}</h4>
         <Button
           variant="tertiary"
           label="See all"

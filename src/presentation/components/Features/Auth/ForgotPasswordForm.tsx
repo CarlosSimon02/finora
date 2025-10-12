@@ -39,7 +39,7 @@ export const ForgotPasswordForm = () => {
           >
             <CheckIcon size={30} />
           </div>
-          <h3 className="txt-preset-3">Check your email</h3>
+          <h3 className="txt-preset-3-bold">Check your email</h3>
           <p className="txt-preset-4 text-grey-500 mt-2">
             We have sent a password reset link to {submittedEmail}
           </p>

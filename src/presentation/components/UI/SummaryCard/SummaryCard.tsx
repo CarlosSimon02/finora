@@ -35,7 +35,7 @@ const SummaryListItem: React.FC<{ item: SummaryItem }> = ({ item }) => {
         <span className="txt-preset-4">{item.name}</span>
       </div>
       <div className="txt-preset-5 flex items-baseline-last gap-1 text-right @max-xs/summary-list-item:flex-col">
-        <span className="txt-preset-3 text-grey-900">
+        <span className="txt-preset-3-bold text-grey-900">
           {formatCurrency(mainValue, { showDecimal: false })}
         </span>
         {item.subText ? (

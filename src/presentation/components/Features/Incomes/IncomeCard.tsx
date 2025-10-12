@@ -21,7 +21,7 @@ export const IncomeCard = ({ income }: IncomeCardProps) => {
       />
       <p className="txt-preset-4 text-grey-500">
         Total Earned:{" "}
-        <span className="txt-preset-3">
+        <span className="txt-preset-3-bold">
           {formatCurrency(income.totalEarned)}
         </span>
       </p>

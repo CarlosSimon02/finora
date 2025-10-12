@@ -387,7 +387,7 @@ const SidebarMenuButton = ({
       data-active={isActive}
       className={cn(
         // base layout & spacing
-        "txt-preset-3 relative flex w-full items-center gap-4 overflow-hidden rounded-r-2xl p-200 pl-(--sidebar-padding) text-left outline-hidden transition-[width,height,padding,color,background-color,gap] [&>svg]:ml-0 [&>svg]:transition-[margin-left,rotate]",
+        "txt-preset-3-bold relative flex w-full items-center gap-4 overflow-hidden rounded-r-2xl p-200 pl-(--sidebar-padding) text-left outline-hidden transition-[width,height,padding,color,background-color,gap] [&>svg]:ml-0 [&>svg]:transition-[margin-left,rotate]",
 
         // vertical left line
         "before:absolute before:top-0 before:bottom-0 before:left-0 before:w-1 before:bg-transparent before:transition-[background-color]",

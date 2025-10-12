@@ -3,25 +3,29 @@
 }
 
 @utility txt-preset-2 {
-  @apply text-[1.25rem] leading-[120%] font-bold tracking-[0];
+  @apply text-[1.5rem] leading-[120%] font-bold tracking-[0];
 }
 
 @utility txt-preset-3 {
-  @apply text-[1rem] leading-[150%] font-bold tracking-[0];
+  @apply text-[1.25rem] leading-[150%] tracking-[0];
+}
+
+@utility txt-preset-3-bold {
+  @apply text-[1.25rem] leading-[150%] font-bold tracking-[0];
 }
 
 @utility txt-preset-4 {
-  @apply text-[0.875rem] leading-[150%] tracking-[0];
+  @apply text-[1rem] leading-[150%] tracking-[0];
 }
 
 @utility txt-preset-4-bold {
-  @apply text-[0.875rem] leading-[150%] font-bold tracking-[0];
+  @apply text-[1rem] leading-[150%] font-bold tracking-[0];
 }
 
 @utility txt-preset-5 {
-  @apply text-[0.75rem] leading-[150%] tracking-[0];
+  @apply text-[0.875rem] leading-[150%] tracking-[0];
 }
 
 @utility txt-preset-5-bold {
-  @apply text-[0.75rem] leading-[150%] font-bold tracking-[0];
+  @apply text-[0.875rem] leading-[150%] font-bold tracking-[0];
 }
