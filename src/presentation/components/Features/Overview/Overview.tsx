@@ -88,7 +88,7 @@ export const Overview = () => {
             />
           </div>
 
-          <div className="grid h-full grid-rows-[1fr_auto] gap-6">
+          <div className="grid h-full grid-rows-2 gap-6">
             <BudgetsSection
               className="h-full"
               budgetsSummary={budgetsSummary}
