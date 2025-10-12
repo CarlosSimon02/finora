@@ -90,7 +90,7 @@ const ItemCardProgressBar = ({
 
 type ItemCardTransactionsListProps = {
   transactions: TransactionDto[];
-  emptyColorTag?: ColorValue;
+  emptyColorTag: ColorValue;
   seeAllHref: string;
   isSpending?: boolean;
   title: string;
@@ -103,15 +103,6 @@ const ItemCardTransactionsList = ({
   isSpending = false,
   title,
 }: ItemCardTransactionsListProps) => {
-  if (!transactions || transactions.length === 0) {
-    const colorLabel = COLOR_OPTIONS.find(
-      (c) => c.value === emptyColorTag
-    )?.label;
-    return (
-      <InlineEmptyState message="No transactions yet" color={colorLabel} />
-    );
-  }
-
   return (
     <div className="bg-beige-100 space-y-5 rounded-xl p-5">
       <div className="flex items-center justify-between">
@@ -128,17 +119,25 @@ const ItemCardTransactionsList = ({
           href={seeAllHref}
         />
       </div>
-      <div>
-        {transactions.map((transaction) => (
-          <TransactionItem
-            key={transaction.id}
-            transaction={transaction}
-            showCategory={false}
-            className="border-b-grey-500/20"
-            emojiClassName="bg-white"
-          />
-        ))}
-      </div>
+      {transactions.length > 0 ? (
+        <div>
+          {transactions.map((transaction) => (
+            <TransactionItem
+              key={transaction.id}
+              transaction={transaction}
+              showCategory={false}
+              className="border-b-grey-500/20"
+              emojiClassName="bg-white"
+            />
+          ))}
+        </div>
+      ) : (
+        <InlineEmptyState
+          message="No transactions yet"
+          color={COLOR_OPTIONS.find((c) => c.value === emptyColorTag)?.label}
+          className="h-fit"
+        />
+      )}
     </div>
   );
 };
