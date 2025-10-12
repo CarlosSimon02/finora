@@ -150,7 +150,7 @@ export class TransactionDatasource {
       const spendingAggregation = userTransactions
         .where("category.id", "==", categoryId)
         .aggregate({
-          totalSpending: AggregateField.sum("signedAmount"),
+          totalSpending: AggregateField.sum("amount"),
         });
 
       const aggregationResult = await spendingAggregation.get();
@@ -174,7 +174,7 @@ export class TransactionDatasource {
       const spendingAggregation = userTransactions
         .where("type", "==", type)
         .aggregate({
-          totalSpending: AggregateField.sum("signedAmount"),
+          totalSpending: AggregateField.sum("amount"),
         });
       const aggregationResult = await spendingAggregation.get();
       return aggregationResult.data().totalSpending ?? 0;

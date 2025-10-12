@@ -189,7 +189,7 @@ export class BudgetDatasource {
     try {
       const budgetCollection = this.getBudgetCollection(userId);
       await budgetCollection.doc(budgetId).update({
-        totalSpending,
+        totalSpending: Math.abs(totalSpending),
       });
     } catch (e) {
       if (e instanceof Error) {

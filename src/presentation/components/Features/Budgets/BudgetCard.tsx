@@ -47,7 +47,7 @@ export const BudgetCard = ({ budget }: BudgetCardProps) => {
       </div>
       <ItemCard.TransactionsList
         transactions={transactions}
-        seeAllHref={`/budgets/${budget.id}`}
+        seeAllHref={`/transactions?filters=[{"field"%3A"category.name"%2C"operator"%3A"%3D%3D"%2C"value"%3A"${budget.name}"}]`}
         title="Latest Spending"
       />
     </ItemCard>
