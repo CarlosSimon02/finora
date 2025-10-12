@@ -2,6 +2,7 @@ export * from "./Avatar";
 export * from "./Chart";
 export * from "./ColorPicker";
 export * from "./ConfirmDeleteDialog";
+export * from "./CreateButton";
 export * from "./Dialog";
 export * from "./DonutChart";
 export * from "./DropdownMenu";

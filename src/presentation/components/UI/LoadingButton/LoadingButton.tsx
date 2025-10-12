@@ -17,8 +17,6 @@ type IconConfig = {
   loc?: "left" | "right";
 };
 
-type IconProp = IconComponent | IconConfig | undefined;
-
 type BaseButtonProps = React.ComponentProps<typeof Button>;
 
 export type LoadingButtonProps = BaseButtonProps & {

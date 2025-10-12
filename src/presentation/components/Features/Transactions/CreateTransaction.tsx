@@ -1,7 +1,6 @@
 "use client";
 
-import { Button } from "@/presentation/components/Primitives";
-import { PlusIcon } from "@phosphor-icons/react";
+import { CreateButton } from "@/presentation/components/UI";
 import { CreateUpdateTransactionDialog } from "./CreateUpdateTransactionDialog";
 
 export const CreateTransactionDialog = () => {
@@ -10,10 +9,7 @@ export const CreateTransactionDialog = () => {
       title="Add New Transaction"
       operation="create"
     >
-      <Button
-        icon={{ component: PlusIcon, weight: "bold" }}
-        label="Add New Transaction"
-      />
+      <CreateButton label="Add New Transaction" />
     </CreateUpdateTransactionDialog>
   );
 };
