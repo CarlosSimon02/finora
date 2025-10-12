@@ -49,6 +49,7 @@ export const BudgetCard = ({ budget }: BudgetCardProps) => {
         transactions={transactions}
         seeAllHref={`/transactions?filters=[{"field"%3A"category.name"%2C"operator"%3A"%3D%3D"%2C"value"%3A"${budget.name}"}]`}
         title="Latest Spending"
+        emptyColorTag={budget.colorTag}
       />
     </ItemCard>
   );

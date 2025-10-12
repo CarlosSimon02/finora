@@ -29,6 +29,7 @@ export const IncomeCard = ({ income }: IncomeCardProps) => {
         transactions={transactions}
         seeAllHref={`/transactions?filters=[{"field"%3A"category.name"%2C"operator"%3A"%3D%3D"%2C"value"%3A"${income.name}"}]`}
         title="Latest Earnings"
+        emptyColorTag={income.colorTag}
       />
     </ItemCard>
   );
