@@ -65,7 +65,7 @@ export const Pagination = ({
           className="text-grey-500 size-4 transition-colors group-hover:text-white"
           weight="fill"
         />
-        <span className="@max-3xs/pagination:hidden">Prev</span>
+        <span className="@max-md/pagination:hidden">Prev</span>
       </PaginationButton>
     );
   };
@@ -84,7 +84,7 @@ export const Pagination = ({
         ariaLabel="Next page"
         className="gap-3"
       >
-        <span className="max-md:hidden">Next</span>
+        <span className="@max-md/pagination:hidden">Next</span>
         <CaretRightIcon
           className="text-grey-500 size-4 transition-colors group-hover:text-white"
           weight="fill"
@@ -96,7 +96,7 @@ export const Pagination = ({
   return (
     <nav
       className={cn(
-        `flex flex-wrap items-center justify-center gap-2 py-4`,
+        `@container/pagination flex flex-wrap items-center justify-center gap-2 py-4`,
         className
       )}
       aria-label="Pagination"

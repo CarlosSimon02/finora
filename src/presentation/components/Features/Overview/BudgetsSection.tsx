@@ -1,11 +1,11 @@
 "use client";
 
 import { BudgetsSummaryDto } from "@/core/schemas";
-import { BudgetChart } from "@/presentation/components/Features/Budgets";
 import {
   ColoredAmountItem,
   InlineEmptyState,
 } from "@/presentation/components/Primitives";
+import { BudgetChart } from "@/presentation/components/UI";
 import { cn } from "@/utils";
 import { TitledCard } from "./TitledCard";
 

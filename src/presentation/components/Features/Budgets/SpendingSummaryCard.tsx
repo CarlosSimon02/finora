@@ -2,8 +2,8 @@
 
 import { BudgetsSummaryDto } from "@/core/schemas";
 import { Card } from "@/presentation/components/Primitives";
+import { BudgetChart } from "@/presentation/components/UI";
 import { cn, formatCurrency } from "@/utils";
-import { BudgetChart } from "./BudgetChart";
 
 type SpendingSummaryCardProps = {
   budgetsSummary: BudgetsSummaryDto;

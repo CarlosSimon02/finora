@@ -3,6 +3,7 @@ export * from "./Chart";
 export * from "./ColorPicker";
 export * from "./ConfirmDeleteDialog";
 export * from "./Dialog";
+export * from "./DonutChart";
 export * from "./DropdownMenu";
 export * from "./EmojiPicker";
 export * from "./Form";

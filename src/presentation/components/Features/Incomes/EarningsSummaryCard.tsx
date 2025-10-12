@@ -2,8 +2,8 @@
 
 import { IncomesSummaryDto } from "@/core/schemas";
 import { Card } from "@/presentation/components/Primitives";
+import { IncomeChart } from "@/presentation/components/UI";
 import { cn, formatCurrency } from "@/utils";
-import { IncomeChart } from "./IncomeChart";
 
 type EarningsSummaryCardProps = {
   incomesSummary: IncomesSummaryDto;

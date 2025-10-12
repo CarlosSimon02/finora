@@ -1,11 +1,11 @@
 "use client";
 
 import { IncomesSummaryDto } from "@/core/schemas";
-import { IncomeChart } from "@/presentation/components/Features/Incomes";
 import {
   ColoredAmountItem,
   InlineEmptyState,
 } from "@/presentation/components/Primitives";
+import { IncomeChart } from "@/presentation/components/UI";
 import { cn } from "@/utils";
 import { TitledCard } from "./TitledCard";
 
