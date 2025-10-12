@@ -17,7 +17,7 @@ export const MobileBottomNav = ({ className }: MobileBottomNavProps) => {
   return (
     <nav
       className={cn(
-        "bg-grey-900 text-grey-300 sticky inset-x-0 bottom-0 z-20 block rounded-t-lg px-200 pt-100 shadow-lg md:hidden",
+        "bg-grey-900 text-grey-300 fixed inset-x-0 bottom-0 z-20 block rounded-t-lg px-200 pt-100 shadow-lg md:hidden",
         className
       )}
       aria-label="Primary"

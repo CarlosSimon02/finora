@@ -30,8 +30,8 @@ export const AuthIllustration = ({ className }: AuthIllustrationProps) => {
             Keep track of your money and save for your future
           </h1>
           <p className="txt-preset-4 text-white">
-            Personal finance app puts you in control of your spending. Track
-            transactions, set budgets, and add to savings pots easily.
+            Finora app puts you in control of your spending. Track transactions,
+            set budgets, and add to savings pots easily.
           </p>
         </div>
       </div>
