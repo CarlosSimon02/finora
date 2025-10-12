@@ -25,8 +25,8 @@ export const PotCard = ({ pot }: PotCardProps) => {
         actions={<PotCardActions pot={pot} />}
       />
       <div>
-        <div className="mb-4 flex items-baseline-last justify-between">
-          <p className="txt-preset-4 text-grey-500">Total Saved</p>
+        <div className="mb-4 flex items-baseline-last justify-between @max-xs/pots-card:flex-col @max-xs/pots-card:items-start">
+          <p className="txt-preset-4 text-grey-500 shrink-0">Total Saved</p>
           <p className="txt-preset-1 text-grey-900">
             {formatCurrency(pot.totalSaved)}
           </p>

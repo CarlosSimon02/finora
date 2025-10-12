@@ -32,7 +32,6 @@ export const TransactionsTable = ({ transactions }: TransactionsTableProps) => {
             key={transaction.id}
             transaction={transaction}
             actions={<TransactionActions transaction={transaction} />}
-            showCategory={false}
           />
         ))}
       </div>

@@ -36,7 +36,7 @@ export const TransactionItem = ({
           <div className={"flex flex-col gap-1"}>
             <p className="txt-preset-4-bold">{transaction.name}</p>
             {showCategory && (
-              <span className="txt-preset-5 text-grey-500 inline-flex items-center rounded-full text-xs">
+              <span className="txt-preset-5 text-grey-500 inline-flex items-center">
                 {transaction.category.name}
               </span>
             )}

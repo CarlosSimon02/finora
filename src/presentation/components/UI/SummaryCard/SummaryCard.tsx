@@ -29,12 +29,12 @@ const SummaryListItem: React.FC<{ item: SummaryItem }> = ({ item }) => {
     >
       <div className="flex items-center gap-4">
         <div
-          className="h-6 w-1 rounded-full"
+          className="h-6 w-1 shrink-0 rounded-full"
           style={{ backgroundColor: item.colorTag }}
         />
         <span className="txt-preset-4">{item.name}</span>
       </div>
-      <div className="txt-preset-5 flex items-baseline-last gap-1 text-right @max-xs/summary-list-item:flex-col">
+      <div className="txt-preset-5 flex items-baseline-last justify-end gap-1 text-right @max-xs/summary-list-item:flex-col">
         <span className="txt-preset-3-bold text-grey-900">
           {formatCurrency(mainValue, { showDecimal: false })}
         </span>

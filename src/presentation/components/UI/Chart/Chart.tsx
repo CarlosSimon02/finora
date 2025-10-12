@@ -3,7 +3,7 @@
 import * as React from "react";
 import * as RechartsPrimitive from "recharts";
 
-import { cn } from "@/utils";
+import { cn, formatCurrency } from "@/utils";
 
 // Format: { THEME_NAME: CSS_SELECTOR }
 const THEMES = { light: "", dark: ".dark" } as const;
@@ -55,7 +55,7 @@ const ChartRoot = ({
         data-slot="chart"
         data-chart={chartId}
         className={cn(
-          "[&_.recharts-cartesian-axis-tick_text]:fill-grey-500 [&_.recharts-cartesian-grid_line[stroke='#ccc']]:stroke-grey-300 [&_.recharts-curve.recharts-tooltip-cursor]:stroke-grey-300 [&_.recharts-polar-grid_[stroke='#ccc']]:stroke-grey-300 [&_.recharts-radial-bar-background-sector]:fill-grey-500 [&_.recharts-rectangle.recharts-tooltip-cursor]:fill-grey-500 [&_.recharts-reference-line_[stroke='#ccc']]:stroke-grey-300 flex aspect-video justify-center text-xs [&_.recharts-dot[stroke='#fff']]:stroke-transparent [&_.recharts-layer]:outline-hidden [&_.recharts-sector]:outline-hidden [&_.recharts-sector[stroke='#fff']]:stroke-transparent [&_.recharts-surface]:outline-hidden",
+          "[&_.recharts-cartesian-axis-tick_text]:fill-grey-500 [&_.recharts-cartesian-grid_line[stroke='#ccc']]:stroke-grey-300 [&_.recharts-curve.recharts-tooltip-cursor]:stroke-grey-300 [&_.recharts-polar-grid_[stroke='#ccc']]:stroke-grey-300 [&_.recharts-radial-bar-background-sector]:fill-grey-500 [&_.recharts-rectangle.recharts-tooltip-cursor]:fill-grey-500 [&_.recharts-reference-line_[stroke='#ccc']]:stroke-grey-300 txt-preset-5 flex aspect-video justify-center [&_.recharts-dot[stroke='#fff']]:stroke-transparent [&_.recharts-layer]:outline-hidden [&_.recharts-sector]:outline-hidden [&_.recharts-sector[stroke='#fff']]:stroke-transparent [&_.recharts-surface]:outline-hidden",
           className
         )}
         {...props}
@@ -197,7 +197,7 @@ const ChartTooltipContent = ({
   return (
     <div
       className={cn(
-        "border-grey-300 text-grey-900 txt-preset-5 grid min-w-[8rem] items-start gap-1.5 rounded-lg border bg-white px-2.5 py-1.5 shadow-xl",
+        "border-grey-300 text-grey-900 txt-preset-5 grid min-w-[10rem] items-start gap-1.5 rounded-lg border bg-white px-2.5 py-1.5 shadow-xl",
         className
       )}
     >
@@ -253,19 +253,19 @@ const ChartTooltipContent = ({
                     )}
                     <div
                       className={cn(
-                        "flex flex-1 justify-between leading-none",
+                        "flex flex-1 justify-between gap-2 leading-none",
                         nestLabel ? "items-end" : "items-center"
                       )}
                     >
                       <div className="grid gap-1.5">
                         {nestLabel ? tooltipLabel : null}
-                        <span className="text-grey-500">
+                        <span className="text-grey-500 txt-preset-5">
                           {itemConfig?.label || item.name}
                         </span>
                       </div>
                       {item.value && (
-                        <span className="text-grey-900 font-mono font-medium tabular-nums">
-                          {item.value.toLocaleString()}
+                        <span className="text-grey-900 txt-preset-5-bold font-mono tabular-nums">
+                          {formatCurrency(item.value)}
                         </span>
                       )}
                     </div>
