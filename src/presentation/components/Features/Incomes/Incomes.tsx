@@ -128,7 +128,7 @@ export const Incomes = () => {
   return (
     <FrontViewLayout title="Incomes" actions={<CreateIncomeDialog />}>
       <div className="flex flex-col items-start gap-6 @4xl:flex-row">
-        <EarningsSummaryCard className="w-full min-w-[21.25rem] basis-5/11" />
+        <EarningsSummaryCard className="w-full basis-5/11" />
         <IncomeCardsGrid className="w-full" />
       </div>
     </FrontViewLayout>

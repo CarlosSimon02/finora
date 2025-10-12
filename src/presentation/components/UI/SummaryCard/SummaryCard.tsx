@@ -25,7 +25,7 @@ const SummaryListItem: React.FC<{ item: SummaryItem }> = ({ item }) => {
   return (
     <div
       key={item.id}
-      className="text-grey-500 border-b-grey-100 flex items-center justify-between border-b py-4 first:pt-0 last:border-b-0 last:pb-0"
+      className="text-grey-500 border-b-grey-100 @container/summary-list-item flex items-center justify-between border-b py-4 first:pt-0 last:border-b-0 last:pb-0"
     >
       <div className="flex items-center gap-4">
         <div
@@ -34,8 +34,8 @@ const SummaryListItem: React.FC<{ item: SummaryItem }> = ({ item }) => {
         />
         <span className="txt-preset-4">{item.name}</span>
       </div>
-      <div className="txt-preset-5 text-right">
-        <span className="txt-preset-3 text-grey-900 mr-1">
+      <div className="txt-preset-5 flex items-baseline-last gap-1 text-right @max-xs/summary-list-item:flex-col">
+        <span className="txt-preset-3 text-grey-900">
           {formatCurrency(mainValue, { showDecimal: false })}
         </span>
         {item.subText ? (

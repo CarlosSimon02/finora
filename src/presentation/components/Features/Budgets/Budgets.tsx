@@ -128,7 +128,7 @@ export const Budgets = () => {
   return (
     <FrontViewLayout title="Budgets" actions={<CreateBudgetDialog />}>
       <div className="flex flex-col items-start gap-6 @4xl:flex-row">
-        <SpendingSummaryCard className="w-full min-w-[21.25rem] basis-5/11" />
+        <SpendingSummaryCard className="w-full basis-5/11" />
         <BudgetCardsGrid className="w-full" />
       </div>
     </FrontViewLayout>
