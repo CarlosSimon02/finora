@@ -137,7 +137,7 @@ export const MoneyOperationDialog = ({
   return (
     <Dialog open={open} onOpenChange={handleOpenChange}>
       <Dialog.Trigger asChild>{children}</Dialog.Trigger>
-      <Dialog.Content>
+      <Dialog.Content className="@container/money-operation-dialog">
         <Dialog.Header>
           <Dialog.Title>{getTitle()}</Dialog.Title>
           <Dialog.Description>
@@ -153,7 +153,7 @@ export const MoneyOperationDialog = ({
             className="space-y-6"
           >
             <div className="space-y-2">
-              <div className="flex items-center justify-between">
+              <div className="flex items-baseline-last justify-between @max-xs/money-operation-dialog:flex-col @max-xs/money-operation-dialog:items-start">
                 <span className="txt-preset-4">New Amount</span>
                 <span className="txt-preset-1">
                   {formatCurrency(newAmount)}
