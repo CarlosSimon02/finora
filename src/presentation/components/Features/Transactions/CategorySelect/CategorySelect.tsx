@@ -5,8 +5,8 @@ import { CreateUpdateBudgetDialog } from "@/presentation/components/Features/Bud
 import { CreateUpdateIncomeDialog } from "@/presentation/components/Features/Incomes";
 import {
   createRSSharedComponents,
-  rsMenuBase,
-} from "@/presentation/components/Primitives/ReactSelect/ReactSelect";
+  sharedClassNames,
+} from "@/presentation/components/Primitives";
 import { ReactElement, useCallback } from "react";
 import { RefCallBack } from "react-hook-form";
 import { GroupBase } from "react-select";
@@ -114,6 +114,7 @@ export const CategorySelect = ({
   return (
     <>
       <CreatableAsyncPaginate
+        className="!min-w-0"
         menuPlacement="auto"
         menuPosition="fixed"
         isDisabled={isAddingInProgress || disabled}
@@ -143,7 +144,7 @@ export const CategorySelect = ({
           menu: () => ({}),
         }}
         classNames={{
-          menu: () => rsMenuBase,
+          ...sharedClassNames,
         }}
       />
 

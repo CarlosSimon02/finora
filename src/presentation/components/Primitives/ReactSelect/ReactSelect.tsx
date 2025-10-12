@@ -61,7 +61,7 @@ export const rsOptionBase = (isDisabled?: boolean, isSelected?: boolean) =>
  * Menu wrapper classes copied from SelectContent
  */
 export const rsMenuBase = cn(
-  "text-grey-900 relative z-99 max-h-[var(--radix-select-content-available-height)] max-h-[18.75rem]",
+  "text-grey-900 z-[50] max-h-[var(--radix-select-content-available-height)] max-h-[18.75rem]",
   "origin-[var(--radix-select-content-transform-origin)] overflow-x-hidden overflow-y-auto",
   "rounded-lg bg-white shadow-lg",
   "data-[state=open]:animate-in data-[state=closed]:animate-out",
@@ -213,10 +213,10 @@ export const createRSSharedComponents = <
 /**
  * Shared classNames configuration
  */
-const sharedClassNames = {
+export const sharedClassNames = {
   control: () => "",
-  valueContainer: () => "!pl-5 !py-3",
-  singleValue: () => "line-clamp-1",
+  valueContainer: () => "!pl-5 !py-3 !min-w-0",
+  singleValue: () => "line-clamp-1 !min-w-0",
   menu: () => rsMenuBase,
   menuList: () => "!px-5",
   option: (state: { isDisabled?: boolean; isSelected?: boolean }) =>
@@ -262,6 +262,7 @@ export const ReactSelect = <
   isSearchable = false,
   components,
   "aria-invalid": ariaInvalid,
+  className,
   ...props
 }: ReactSelectProps<Option, IsMulti, Group>) => {
   const portalTarget = getMenuPortalTarget();
@@ -277,12 +278,12 @@ export const ReactSelect = <
       unstyled
       menuPlacement="auto"
       menuPosition="fixed"
-      menuPortalTarget={portalTarget}
       isSearchable={isSearchable}
       components={{
         ...baseComponents,
         ...components,
       }}
+      className={cn("!min-w-0", className)}
       classNames={sharedClassNames}
       styles={styles}
       {...props}

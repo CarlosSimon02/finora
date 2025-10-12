@@ -47,7 +47,7 @@ const DialogOverlay = ({ className, ...props }: OverlayProps) => (
 const DialogContent = ({ className, children, ...props }: ContentProps) => (
   <DialogPortal data-slot="dialog-portal">
     <DialogOverlay />
-    <div className="absolute inset-0 flex content-start items-center justify-center p-5">
+    <div className="fixed inset-0 z-50 flex content-start items-center justify-center p-5">
       <DialogPrimitive.Content
         data-slot="dialog-content"
         className={cn(

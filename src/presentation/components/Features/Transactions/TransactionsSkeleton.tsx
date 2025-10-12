@@ -76,7 +76,6 @@ export const TransactionsSkeleton = () => {
               <Skeleton className="h-5 w-20" />
               <Skeleton className="h-4 w-24" />
             </div>
-            <Skeleton className="size-8 shrink-0 rounded-lg" />
           </div>
         ))}
       </div>
