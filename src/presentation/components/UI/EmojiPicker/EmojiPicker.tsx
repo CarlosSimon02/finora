@@ -39,6 +39,7 @@ export const EmojiPicker = ({
       </Popover.Trigger>
       <Popover.Content className="w-full p-0" align="start" side="bottom">
         <EmojiPickerComponent
+          autoFocusSearch={false}
           onEmojiClick={handleEmojiClick}
           width="100%"
           height="24rem"
