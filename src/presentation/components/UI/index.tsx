@@ -7,6 +7,7 @@ export * from "./DonutChart";
 export * from "./DropdownMenu";
 export * from "./EmojiPicker";
 export * from "./Form";
+export * from "./ItemCard";
 export * from "./LimitHasReachedDialog";
 export * from "./LoadingButton";
 export * from "./Pagination";

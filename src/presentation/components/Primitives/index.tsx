@@ -2,6 +2,7 @@ export * from "./Button";
 export * from "./Card";
 export * from "./ColoredAmountItem";
 export * from "./CurrencyInput";
+export * from "./Emoji";
 export * from "./EmptyState";
 export * from "./ErrorState";
 export * from "./InlineEmptyState";
