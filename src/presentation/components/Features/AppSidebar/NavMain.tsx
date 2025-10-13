@@ -22,7 +22,7 @@ export const NavMain = () => {
               data-active={pathname.startsWith(item.url)}
               asChild
             >
-              <Link href={item.url}>
+              <Link href={item.url} prefetch={true}>
                 <item.icon weight="fill" />
                 <span>{item.title}</span>
               </Link>

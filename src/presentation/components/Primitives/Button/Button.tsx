@@ -161,6 +161,7 @@ export const Button: {
         tabIndex={disabled ? -1 : undefined}
         target={target}
         rel={safeRel}
+        prefetch={true}
         {...(linkRest as Omit<NextLinkProps, "href">)}
       >
         {renderContent()}
