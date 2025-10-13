@@ -1,0 +1,688 @@
+{
+  "indexes": [
+    {
+      "collectionGroup": "budgets",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "createdAt",
+          "order": "DESCENDING"
+        },
+        {
+          "fieldPath": "name",
+          "order": "DESCENDING"
+        },
+        {
+          "fieldPath": "__name__",
+          "order": "DESCENDING"
+        }
+      ],
+      "density": "SPARSE_ALL"
+    },
+    {
+      "collectionGroup": "events",
+      "queryScope": "COLLECTION_GROUP",
+      "fields": [
+        {
+          "fieldPath": "startDate",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "title",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "__name__",
+          "order": "ASCENDING"
+        }
+      ],
+      "density": "SPARSE_ALL"
+    },
+    {
+      "collectionGroup": "transactions",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "amount",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "name",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "__name__",
+          "order": "ASCENDING"
+        }
+      ],
+      "density": "SPARSE_ALL"
+    },
+    {
+      "collectionGroup": "transactions",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "amount",
+          "order": "DESCENDING"
+        },
+        {
+          "fieldPath": "name",
+          "order": "DESCENDING"
+        },
+        {
+          "fieldPath": "__name__",
+          "order": "DESCENDING"
+        }
+      ],
+      "density": "SPARSE_ALL"
+    },
+    {
+      "collectionGroup": "transactions",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "category.id",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "amount",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "__name__",
+          "order": "ASCENDING"
+        }
+      ],
+      "density": "SPARSE_ALL"
+    },
+    {
+      "collectionGroup": "transactions",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "category.id",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "signedAmount",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "__name__",
+          "order": "ASCENDING"
+        }
+      ],
+      "density": "SPARSE_ALL"
+    },
+    {
+      "collectionGroup": "transactions",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "category.id",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "transactionDate",
+          "order": "DESCENDING"
+        },
+        {
+          "fieldPath": "__name__",
+          "order": "DESCENDING"
+        }
+      ],
+      "density": "SPARSE_ALL"
+    },
+    {
+      "collectionGroup": "transactions",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "category.name",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "amount",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "__name__",
+          "order": "ASCENDING"
+        }
+      ],
+      "density": "SPARSE_ALL"
+    },
+    {
+      "collectionGroup": "transactions",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "category.name",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "amount",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "name",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "__name__",
+          "order": "ASCENDING"
+        }
+      ],
+      "density": "SPARSE_ALL"
+    },
+    {
+      "collectionGroup": "transactions",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "category.name",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "amount",
+          "order": "DESCENDING"
+        },
+        {
+          "fieldPath": "__name__",
+          "order": "DESCENDING"
+        }
+      ],
+      "density": "SPARSE_ALL"
+    },
+    {
+      "collectionGroup": "transactions",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "category.name",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "amount",
+          "order": "DESCENDING"
+        },
+        {
+          "fieldPath": "name",
+          "order": "DESCENDING"
+        },
+        {
+          "fieldPath": "__name__",
+          "order": "DESCENDING"
+        }
+      ],
+      "density": "SPARSE_ALL"
+    },
+    {
+      "collectionGroup": "transactions",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "category.name",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "name",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "__name__",
+          "order": "ASCENDING"
+        }
+      ],
+      "density": "SPARSE_ALL"
+    },
+    {
+      "collectionGroup": "transactions",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "category.name",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "name",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "signedAmount",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "__name__",
+          "order": "ASCENDING"
+        }
+      ],
+      "density": "SPARSE_ALL"
+    },
+    {
+      "collectionGroup": "transactions",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "category.name",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "name",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "signedAmount",
+          "order": "DESCENDING"
+        },
+        {
+          "fieldPath": "__name__",
+          "order": "DESCENDING"
+        }
+      ],
+      "density": "SPARSE_ALL"
+    },
+    {
+      "collectionGroup": "transactions",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "category.name",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "name",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "transactionDate",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "__name__",
+          "order": "ASCENDING"
+        }
+      ],
+      "density": "SPARSE_ALL"
+    },
+    {
+      "collectionGroup": "transactions",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "category.name",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "name",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "transactionDate",
+          "order": "DESCENDING"
+        },
+        {
+          "fieldPath": "__name__",
+          "order": "DESCENDING"
+        }
+      ],
+      "density": "SPARSE_ALL"
+    },
+    {
+      "collectionGroup": "transactions",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "category.name",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "name",
+          "order": "DESCENDING"
+        },
+        {
+          "fieldPath": "__name__",
+          "order": "DESCENDING"
+        }
+      ],
+      "density": "SPARSE_ALL"
+    },
+    {
+      "collectionGroup": "transactions",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "category.name",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "recipientOrPayer",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "__name__",
+          "order": "ASCENDING"
+        }
+      ],
+      "density": "SPARSE_ALL"
+    },
+    {
+      "collectionGroup": "transactions",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "category.name",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "recipientOrPayer",
+          "order": "DESCENDING"
+        },
+        {
+          "fieldPath": "__name__",
+          "order": "DESCENDING"
+        }
+      ],
+      "density": "SPARSE_ALL"
+    },
+    {
+      "collectionGroup": "transactions",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "category.name",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "signedAmount",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "__name__",
+          "order": "ASCENDING"
+        }
+      ],
+      "density": "SPARSE_ALL"
+    },
+    {
+      "collectionGroup": "transactions",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "category.name",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "signedAmount",
+          "order": "DESCENDING"
+        },
+        {
+          "fieldPath": "__name__",
+          "order": "DESCENDING"
+        }
+      ],
+      "density": "SPARSE_ALL"
+    },
+    {
+      "collectionGroup": "transactions",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "category.name",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "transactionDate",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "__name__",
+          "order": "ASCENDING"
+        }
+      ],
+      "density": "SPARSE_ALL"
+    },
+    {
+      "collectionGroup": "transactions",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "category.name",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "transactionDate",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "name",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "__name__",
+          "order": "ASCENDING"
+        }
+      ],
+      "density": "SPARSE_ALL"
+    },
+    {
+      "collectionGroup": "transactions",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "category.name",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "transactionDate",
+          "order": "DESCENDING"
+        },
+        {
+          "fieldPath": "__name__",
+          "order": "DESCENDING"
+        }
+      ],
+      "density": "SPARSE_ALL"
+    },
+    {
+      "collectionGroup": "transactions",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "category.name",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "transactionDate",
+          "order": "DESCENDING"
+        },
+        {
+          "fieldPath": "name",
+          "order": "DESCENDING"
+        },
+        {
+          "fieldPath": "__name__",
+          "order": "DESCENDING"
+        }
+      ],
+      "density": "SPARSE_ALL"
+    },
+    {
+      "collectionGroup": "transactions",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "name",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "signedAmount",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "__name__",
+          "order": "ASCENDING"
+        }
+      ],
+      "density": "SPARSE_ALL"
+    },
+    {
+      "collectionGroup": "transactions",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "name",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "signedAmount",
+          "order": "DESCENDING"
+        },
+        {
+          "fieldPath": "__name__",
+          "order": "DESCENDING"
+        }
+      ],
+      "density": "SPARSE_ALL"
+    },
+    {
+      "collectionGroup": "transactions",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "name",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "transactionDate",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "__name__",
+          "order": "ASCENDING"
+        }
+      ],
+      "density": "SPARSE_ALL"
+    },
+    {
+      "collectionGroup": "transactions",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "name",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "transactionDate",
+          "order": "DESCENDING"
+        },
+        {
+          "fieldPath": "__name__",
+          "order": "DESCENDING"
+        }
+      ],
+      "density": "SPARSE_ALL"
+    },
+    {
+      "collectionGroup": "transactions",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "transactionDate",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "name",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "__name__",
+          "order": "ASCENDING"
+        }
+      ],
+      "density": "SPARSE_ALL"
+    },
+    {
+      "collectionGroup": "transactions",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "transactionDate",
+          "order": "DESCENDING"
+        },
+        {
+          "fieldPath": "name",
+          "order": "DESCENDING"
+        },
+        {
+          "fieldPath": "__name__",
+          "order": "DESCENDING"
+        }
+      ],
+      "density": "SPARSE_ALL"
+    },
+    {
+      "collectionGroup": "transactions",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "type",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "amount",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "__name__",
+          "order": "ASCENDING"
+        }
+      ],
+      "density": "SPARSE_ALL"
+    },
+    {
+      "collectionGroup": "transactions",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "type",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "signedAmount",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "__name__",
+          "order": "ASCENDING"
+        }
+      ],
+      "density": "SPARSE_ALL"
+    }
+  ],
+  "fieldOverrides": [
+    {
+      "collectionGroup": "events",
+      "fieldPath": "date",
+      "ttl": false,
+      "indexes": [
+        {
+          "order": "ASCENDING",
+          "queryScope": "COLLECTION"
+        },
+        {
+          "order": "DESCENDING",
+          "queryScope": "COLLECTION"
+        },
+        {
+          "arrayConfig": "CONTAINS",
+          "queryScope": "COLLECTION"
+        },
+        {
+          "order": "ASCENDING",
+          "queryScope": "COLLECTION_GROUP"
+        }
+      ]
+    }
+  ]
+}

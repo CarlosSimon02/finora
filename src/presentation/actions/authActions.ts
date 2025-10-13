@@ -3,6 +3,12 @@
 import { authConfig } from "@/config/nextFirebaseAuthEdge";
 import { signOut } from "@/core/useCases/auth/client";
 import { AuthClientRepository } from "@/data/repositories/AuthClientRepository";
+import {
+  revalidateBudgetsCache,
+  revalidateIncomesCache,
+  revalidatePotsCache,
+  revalidateTransactionsCache,
+} from "@/server/utils";
 import { ServerActionResponse } from "@/types";
 import {
   AuthError,
@@ -50,6 +56,11 @@ export const refreshCredentialsAction = async () => {
       new Headers(await headers()),
       authConfig
     );
+
+    revalidateBudgetsCache();
+    revalidateIncomesCache();
+    revalidatePotsCache();
+    revalidateTransactionsCache();
   } catch (error) {
     return getServerActionError(error);
   }

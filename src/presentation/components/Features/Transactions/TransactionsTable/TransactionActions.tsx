@@ -28,9 +28,9 @@ export const TransactionActions = ({
 
   const { mutateAsync: deleteTransaction, isPending: isDeleting } =
     trpc.deleteTransaction.useMutation({
-      onSuccess: () => {
+      onSuccess: async () => {
         toast.success("Transaction deleted successfully!");
-        utils.invalidate();
+        await utils.invalidate();
       },
       onError: handleError,
     });

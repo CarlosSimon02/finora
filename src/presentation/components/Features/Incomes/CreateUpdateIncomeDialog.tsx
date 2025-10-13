@@ -71,24 +71,24 @@ export const CreateUpdateIncomeDialog = ({
   const handleError = useErrorHandler({ onError });
 
   const createIncomeMutation = trpc.createIncome.useMutation({
-    onSuccess: (data) => {
+    onSuccess: async (data) => {
       toast.success("Income created successfully!");
       form.reset(getDefaultValues());
       handleOpenChange(false);
       onSuccess?.(data as IncomeDto);
-      utils.invalidate();
+      await utils.invalidate();
     },
     onError: handleError,
     onSettled,
   });
 
   const updateIncomeMutation = trpc.updateIncome.useMutation({
-    onSuccess: (data) => {
+    onSuccess: async (data) => {
       toast.success("Income updated successfully!");
       form.reset(getDefaultValues());
       handleOpenChange(false);
       onSuccess?.(data as IncomeDto);
-      utils.invalidate();
+      await utils.invalidate();
     },
     onError: handleError,
     onSettled,

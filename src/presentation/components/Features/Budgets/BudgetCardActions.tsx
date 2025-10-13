@@ -28,9 +28,9 @@ export const BudgetCardActions = ({
 
   const { mutateAsync: deleteBudget, isPending: isDeleting } =
     trpc.deleteBudget.useMutation({
-      onSuccess: () => {
+      onSuccess: async () => {
         toast.success("Pot deleted successfully!");
-        utils.invalidate();
+        await utils.invalidate();
       },
       onError: handleError,
     });

@@ -28,9 +28,9 @@ export const IncomeCardActions = ({
 
   const { mutateAsync: deleteIncome, isPending: isDeleting } =
     trpc.deleteIncome.useMutation({
-      onSuccess: () => {
+      onSuccess: async () => {
         toast.success("Income deleted successfully!");
-        utils.invalidate();
+        await utils.invalidate();
       },
       onError: handleError,
     });

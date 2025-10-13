@@ -109,24 +109,24 @@ export const CreateUpdateTransactionDialog = ({
   const handleError = useErrorHandler({ onError });
 
   const createTransactionMutation = trpc.createTransaction.useMutation({
-    onSuccess: (data) => {
+    onSuccess: async (data) => {
       toast.success("Transaction created successfully!");
       form.reset(getDefaultValues());
       handleOpenChange(false);
       onSuccess?.(data);
-      utils.invalidate();
+      await utils.invalidate();
     },
     onError: handleError,
     onSettled,
   });
 
   const updateTransactionMutation = trpc.updateTransaction.useMutation({
-    onSuccess: (data) => {
+    onSuccess: async (data) => {
       toast.success("Transaction updated successfully!");
       form.reset(getDefaultValues());
       handleOpenChange(false);
       onSuccess?.(data);
-      utils.invalidate();
+      await utils.invalidate();
     },
     onError: handleError,
     onSettled,

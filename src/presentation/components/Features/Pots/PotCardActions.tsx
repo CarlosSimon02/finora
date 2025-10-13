@@ -25,9 +25,9 @@ export const PotCardActions = ({ pot, className }: PotCardActionsProps) => {
 
   const { mutateAsync: deletePot, isPending: isDeleting } =
     trpc.deletePot.useMutation({
-      onSuccess: () => {
+      onSuccess: async () => {
         toast.success("Pot deleted successfully!");
-        utils.invalidate();
+        await utils.invalidate();
       },
       onError: handleError,
     });

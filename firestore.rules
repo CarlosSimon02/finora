@@ -1,0 +1,10 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Explicitly deny everything for client SDKs
+    // This will cause client attempts (web/mobile) to read/write to be rejected since we are using firebase admin.
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

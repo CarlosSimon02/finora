@@ -1,0 +1,8 @@
+{
+  "projects": {
+    "default": "finora-prod-5846e",
+    "dev": "firecms-example"
+  },
+  "targets": {},
+  "etags": {}
+}

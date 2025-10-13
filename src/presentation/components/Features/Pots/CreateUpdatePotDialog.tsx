@@ -60,21 +60,21 @@ export const CreateUpdatePotDialog = ({
   const handleError = useErrorHandler({ onError });
 
   const createPotMutation = trpc.createPot.useMutation({
-    onSuccess: () => {
+    onSuccess: async () => {
       toast.success("Pot created successfully!");
       form.reset(getDefaultValues());
       handleOpenChange(false);
-      utils.invalidate();
+      await utils.invalidate();
     },
     onError: handleError,
   });
 
   const updatePotMutation = trpc.updatePot.useMutation({
-    onSuccess: () => {
+    onSuccess: async () => {
       toast.success("Pot updated successfully!");
       form.reset(getDefaultValues());
       handleOpenChange(false);
-      utils.invalidate();
+      await utils.invalidate();
     },
     onError: handleError,
   });

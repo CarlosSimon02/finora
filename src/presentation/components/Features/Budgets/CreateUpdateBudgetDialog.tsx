@@ -73,24 +73,24 @@ export const CreateUpdateBudgetDialog = ({
   const handleError = useErrorHandler({ onError });
 
   const createBudgetMutation = trpc.createBudget.useMutation({
-    onSuccess: (data) => {
+    onSuccess: async (data) => {
       toast.success("Budget created successfully!");
       form.reset(getDefaultValues());
       handleOpenChange(false);
       onSuccess?.(data as BudgetDto);
-      utils.invalidate();
+      await utils.invalidate();
     },
     onError: handleError,
     onSettled,
   });
 
   const updateBudgetMutation = trpc.updateBudget.useMutation({
-    onSuccess: (data) => {
+    onSuccess: async (data) => {
       toast.success("Budget updated successfully!");
       form.reset(getDefaultValues());
       handleOpenChange(false);
       onSuccess?.(data as BudgetDto);
-      utils.invalidate();
+      await utils.invalidate();
     },
     onError: handleError,
     onSettled,

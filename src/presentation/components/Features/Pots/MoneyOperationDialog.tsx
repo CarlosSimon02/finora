@@ -48,19 +48,19 @@ export const MoneyOperationDialog = ({
   const handleError = useErrorHandler({ onError });
 
   const addMoneyMutation = trpc.addMoneyToPot.useMutation({
-    onSuccess: () => {
+    onSuccess: async () => {
       toast.success("Money added successfully!");
       handleOpenChange(false);
-      utils.invalidate();
+      await utils.invalidate();
     },
     onError: handleError,
   });
 
   const withdrawMoneyMutation = trpc.withdrawMoneyFromPot.useMutation({
-    onSuccess: () => {
+    onSuccess: async () => {
       toast.success("Money withdrawn successfully!");
       handleOpenChange(false);
-      utils.invalidate();
+      await utils.invalidate();
     },
     onError: handleError,
   });

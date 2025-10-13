@@ -19,9 +19,22 @@ import {
 import { cookies, headers } from "next/headers";
 import { NextResponse } from "next/server";
 import z from "zod";
+import {
+  revalidateBudgetsCache,
+  revalidateIncomesCache,
+  revalidatePotsCache,
+  revalidateTransactionsCache,
+} from "../utils";
 
 const authAdminRepository = new AuthAdminRepository();
 const userRepository = new UserRepository();
+
+const revalidateCache = () => {
+  revalidateBudgetsCache();
+  revalidateIncomesCache();
+  revalidatePotsCache();
+  revalidateTransactionsCache();
+};
 
 const { setCustomUserClaims, getUser } = getFirebaseAuth({
   serviceAccount: authConfig.serviceAccount,
@@ -60,6 +73,7 @@ export const authRouter = router({
         await cookies(),
         authConfig
       );
+      revalidateCache();
       return { user: databaseUser };
     }),
   refreshCredentials: publicProcedure.mutation(async ({ ctx }) => {
@@ -83,10 +97,11 @@ export const authRouter = router({
         headers: { "content-type": "application/json" },
       }
     );
-
+    revalidateCache();
     return refreshNextResponseCookies(ctx.req, response, authConfig);
   }),
   deleteUser: protectedWriteProcedure.mutation(async ({ ctx }) => {
     await deleteUser(authAdminRepository, userRepository)(ctx.user.id);
+    revalidateCache();
   }),
 });
