@@ -60,7 +60,30 @@ const normalizeAuthError = (err: unknown): string => {
 
 const sanitizeRedirect = (value: string | null) => {
   if (!value) return "/";
-  return value.startsWith("/") ? value : "/";
+
+  let decoded = value;
+  try {
+    // decode %2Ftransactions -> /transactions
+    decoded = decodeURIComponent(value);
+  } catch {
+    // if decode fails, fallback to original value
+    decoded = value;
+  }
+
+  // basic safety checks:
+  // - must start with a single slash
+  // - must not contain a scheme (://)
+  // - must not start with double slash (protocol-relative)
+  if (
+    typeof decoded === "string" &&
+    decoded.startsWith("/") &&
+    !decoded.startsWith("//") &&
+    !decoded.includes("://")
+  ) {
+    return decoded;
+  }
+
+  return "/";
 };
 
 const isIgnorableAuthError = (err: unknown): boolean => {
