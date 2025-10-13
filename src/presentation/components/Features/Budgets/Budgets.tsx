@@ -33,7 +33,7 @@ const SpendingSummaryCard = ({ className }: SpendingSummaryCardProps) => {
     return <></>;
   }
 
-  if (!data) {
+  if (!data || !data.count) {
     return <></>;
   }
 
