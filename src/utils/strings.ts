@@ -64,3 +64,7 @@ export const fromInputDateString = (val?: string | null) => {
   if (!val) return null;
   return new Date(val);
 };
+
+export const encodeForUrlParam = (str: string) => {
+  return encodeURIComponent(str).replace(/%20/g, "+");
+};

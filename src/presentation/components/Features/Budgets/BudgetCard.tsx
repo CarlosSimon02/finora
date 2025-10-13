@@ -2,6 +2,7 @@
 
 import { BudgetWithTransactionsDto } from "@/core/schemas";
 import { ColoredAmountItem } from "@/presentation/components/Primitives";
+import { encodeForUrlParam } from "@/utils";
 import { ItemCard } from "../../UI";
 import { BudgetCardActions } from "./BudgetCardActions";
 
@@ -47,7 +48,7 @@ export const BudgetCard = ({ budget }: BudgetCardProps) => {
       </div>
       <ItemCard.TransactionsList
         transactions={transactions}
-        seeAllHref={`/transactions?filters=[{"field"%3A"category.name"%2C"operator"%3A"%3D%3D"%2C"value"%3A"${budget.name}"}]`}
+        seeAllHref={`/transactions?filters=[{"field"%3A"category.name"%2C"operator"%3A"%3D%3D"%2C"value"%3A"${encodeForUrlParam(budget.name)}"}]`}
         title="Latest Spending"
         emptyColorTag={budget.colorTag}
       />

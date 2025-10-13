@@ -2,7 +2,7 @@
 
 import { IncomeWithTransactionsDto } from "@/core/schemas";
 import { ItemCard } from "@/presentation/components/UI";
-import { formatCurrency } from "@/utils";
+import { encodeForUrlParam, formatCurrency } from "@/utils";
 import { IncomeCardActions } from "./IncomeCardActions";
 
 type IncomeCardProps = {
@@ -27,7 +27,7 @@ export const IncomeCard = ({ income }: IncomeCardProps) => {
       </p>
       <ItemCard.TransactionsList
         transactions={transactions}
-        seeAllHref={`/transactions?filters=[{"field"%3A"category.name"%2C"operator"%3A"%3D%3D"%2C"value"%3A"${income.name}"}]`}
+        seeAllHref={`/transactions?filters=[{"field"%3A"category.name"%2C"operator"%3A"%3D%3D"%2C"value"%3A"${encodeForUrlParam(income.name)}"}]`}
         title="Latest Earnings"
         emptyColorTag={income.colorTag}
       />
