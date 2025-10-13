@@ -2,21 +2,23 @@
 
 import { trpc } from "@/lib/trpc/client";
 import { logoutAction } from "@/presentation/actions";
+import { useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
 
-interface UseAccountActionsReturn {
+type UseAccountActionsReturn = {
   handleLogout: () => Promise<void>;
   handleDeleteAccount: () => Promise<void>;
   isLoggingOut: boolean;
   isDeletingAccount: boolean;
   logoutDialogOpen: boolean;
   setLogoutDialogOpen: (open: boolean) => void;
-}
+};
 
 export const useAccountActions = (): UseAccountActionsReturn => {
   const router = useRouter();
+  const qc = useQueryClient();
   const [logoutDialogOpen, setLogoutDialogOpen] = useState(false);
   const [isLoggingOut, setIsLoggingOut] = useState(false);
   const utils = trpc.useUtils();
@@ -27,6 +29,7 @@ export const useAccountActions = (): UseAccountActionsReturn => {
       await logoutAction();
       router.push("/login");
       await utils.invalidate();
+      qc.clear();
     },
     onError: (error: unknown) => {
       const message =
@@ -42,6 +45,7 @@ export const useAccountActions = (): UseAccountActionsReturn => {
       toast.success("Logged out successfully");
       router.push("/login");
       await utils.invalidate();
+      qc.clear();
     } catch {
       toast.error("Failed to logout");
       setIsLoggingOut(false);
@@ -51,6 +55,7 @@ export const useAccountActions = (): UseAccountActionsReturn => {
   const handleDeleteAccount = async (): Promise<void> => {
     await deleteUserMutation.mutateAsync();
     await utils.invalidate();
+    qc.clear();
   };
 
   return {
