@@ -1,9 +1,7 @@
 import * as React from "react";
 
-import { getAuthTokens, tokensToUser } from "@/lib/auth/authTokens";
-import { redirect } from "next/navigation";
+import { AccountLink } from "./AccountLink";
 import { NavMain } from "./NavMain";
-import { NavUser } from "./NavUser";
 import {
   Sidebar,
   SidebarContent,
@@ -12,19 +10,10 @@ import {
   SidebarRail,
   SidebarTrigger,
 } from "./Sidebar";
-// import { NavUser } from "./NavUser";
 
 type AppSidebarProps = React.ComponentProps<typeof Sidebar>;
 
-export const AppSidebar = async ({ ...props }: AppSidebarProps) => {
-  const tokens = await getAuthTokens();
-
-  if (!tokens) {
-    redirect("login");
-  }
-
-  const user = tokensToUser(tokens.decodedToken);
-
+export const AppSidebar = ({ ...props }: AppSidebarProps) => {
   return (
     <Sidebar collapsible="icon" {...props}>
       <SidebarHeader />
@@ -32,7 +21,7 @@ export const AppSidebar = async ({ ...props }: AppSidebarProps) => {
         <NavMain />
       </SidebarContent>
       <SidebarFooter>
-        <NavUser user={user} />
+        <AccountLink />
         <SidebarTrigger label="Toggle sidebar" />
       </SidebarFooter>
       <SidebarRail />

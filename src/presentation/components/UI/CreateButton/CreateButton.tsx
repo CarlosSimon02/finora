@@ -1,5 +1,6 @@
 import { cn } from "@/utils";
 import { PlusIcon } from "@phosphor-icons/react";
+import { usePathname } from "next/navigation";
 import { LoadingButton } from "../LoadingButton";
 import { Tooltip } from "../ToolTip";
 
@@ -10,12 +11,14 @@ export const CreateButton = ({
   label,
   ...props
 }: CreateButtonProps) => {
+  const pathname = usePathname();
+
   return (
     <>
       <LoadingButton
         icon={{ component: PlusIcon, weight: "bold" }}
         label={label}
-        className={cn("@max-md:hidden", className)}
+        className={cn("@max-lg:hidden", className)}
         {...props}
       />
       <Tooltip>
@@ -23,7 +26,7 @@ export const CreateButton = ({
           <LoadingButton
             icon={{ component: PlusIcon, weight: "bold" }}
             iconOnly
-            className={cn("@md:hidden", className)}
+            className={cn("@lg:hidden", className)}
             label={label}
             {...props}
           />
