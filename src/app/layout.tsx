@@ -4,8 +4,11 @@ import { TailwindScreenIndicator } from "@/presentation/components/Dev";
 import { Toaster } from "@/presentation/components/Primitives";
 import { Providers } from "@/presentation/Providers";
 import "@/presentation/styles/main.css";
+import { generateMetadata as _generateMetadata } from "./metadata";
 
 const fontClasses = PUBLIC_SANS.variable;
+
+export const generateMetadata = _generateMetadata;
 
 type RootLayoutProps = {
   children: React.ReactNode;

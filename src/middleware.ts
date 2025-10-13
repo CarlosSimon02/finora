@@ -9,7 +9,15 @@ import { authConfig } from "./config/nextFirebaseAuthEdge";
 
 const AUTH_PATHS = ["/signup", "/login", "/forgot-password"];
 const PUBLIC_PATHS = [...AUTH_PATHS];
-const PRIVATE_PATHS = ["/"];
+const PRIVATE_PATHS = [
+  "/",
+  "/account",
+  "/budgets",
+  "/incomes",
+  "/overview",
+  "/pots",
+  "/transactions",
+];
 
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
@@ -105,7 +113,13 @@ export const config = {
     "/login",
     "/forgot-password",
     "/verify-email",
-    "/((?!_next|favicon.ico|__/auth|__/firebase|api|.*\.).*)",
+    "/account",
+    "/budgets",
+    "/incomes",
+    "/overview",
+    "/pots",
+    "/transactions",
+    "/((?!_next|favicon.ico|__/auth|__/firebase|api/trpc|.*\.).*)",
     "/api/login",
     "/api/logout",
     "/api/refresh-token",
