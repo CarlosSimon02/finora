@@ -26,9 +26,7 @@ export const FrontViewLayout = ({
       )}
     >
       <div className="flex flex-wrap items-center justify-between gap-4">
-        <h1 className="txt-preset-1 text-grey-900">{title}</h1>
         <div className="flex items-center gap-2">
-          {actions}
           <Button
             className={cn(
               "md:hidden",
@@ -41,7 +39,9 @@ export const FrontViewLayout = ({
             href="/account"
             prefetch={true}
           />
+          <h1 className="txt-preset-1 text-grey-900">{title}</h1>
         </div>
+        {actions}
       </div>
       <div className="w-full">{children}</div>
     </div>

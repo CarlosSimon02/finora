@@ -5,7 +5,11 @@ import { deleteUser } from "@/core/useCases/auth/admin/deleteUser";
 import { AuthAdminRepository } from "@/data/repositories/AuthAdminRepository";
 import { UserRepository } from "@/data/repositories/UserRespository";
 import { tokensToUser } from "@/lib/auth/authTokens";
-import { protectedProcedure, publicProcedure, router } from "@/server/trpc";
+import {
+  protectedWriteProcedure,
+  publicProcedure,
+  router,
+} from "@/server/trpc";
 import { AuthError } from "@/utils";
 import { getFirebaseAuth, getTokens } from "next-firebase-auth-edge";
 import {
@@ -82,7 +86,7 @@ export const authRouter = router({
 
     return refreshNextResponseCookies(ctx.req, response, authConfig);
   }),
-  deleteUser: protectedProcedure.mutation(async ({ ctx }) => {
+  deleteUser: protectedWriteProcedure.mutation(async ({ ctx }) => {
     await deleteUser(authAdminRepository, userRepository)(ctx.user.id);
   }),
 });
