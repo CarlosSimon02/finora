@@ -102,8 +102,8 @@ export const OverviewSkeleton = () => {
           </SectionCardSkeleton>
         </div>
 
-        {/* Right column: Budgets + Recurring Bills */}
-        <div className="grid h-full grid-rows-[1fr_auto] gap-6">
+        {/* Right column: Budgets + Incomes */}
+        <div className="grid h-full grid-rows-2 gap-6">
           {/* Budgets */}
           <SectionCardSkeleton titleWidth="w-24" className="h-full">
             <div className="grid grid-cols-1 content-center items-center gap-5 @md/budgets:grid-cols-[1fr_35%]">
@@ -128,20 +128,27 @@ export const OverviewSkeleton = () => {
             </div>
           </SectionCardSkeleton>
 
-          {/* Recurring Bills */}
-          <SectionCardSkeleton titleWidth="w-36">
-            <div className="space-y-8">
-              {Array.from({ length: 3 }).map((_, i) => (
-                <div
-                  key={i}
-                  className="grid grid-cols-2 items-center gap-8 rounded-lg"
-                >
-                  <Skeleton className="h-7 w-full flex-1" />
-                  <div className="@3xs/recurring-bills:text-end">
-                    <Skeleton className="ml-auto h-4 w-24" />
-                  </div>
+          {/* Incomes */}
+          <SectionCardSkeleton titleWidth="w-24" className="h-full">
+            <div className="grid grid-cols-1 content-center items-center gap-5 @md/budgets:grid-cols-[1fr_35%]">
+              <div className="flex items-center justify-center">
+                <Skeleton className="h-52 w-52 rounded-full" />
+              </div>
+              <div className="@container/grid">
+                <div className="grid grid-cols-1 gap-4 @3xs/grid:grid-cols-2">
+                  {Array.from({ length: 4 }).map((_, i) => (
+                    <div
+                      key={i}
+                      className="flex items-center justify-between gap-3 rounded-lg p-4"
+                    >
+                      <div className="flex flex-1 items-center gap-3">
+                        <Skeleton className="size-10 rounded-full" />
+                        <Skeleton className="h-7 w-full flex-1" />
+                      </div>
+                    </div>
+                  ))}
                 </div>
-              ))}
+              </div>
             </div>
           </SectionCardSkeleton>
         </div>

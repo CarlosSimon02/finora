@@ -1,5 +1,6 @@
 import { userCollection } from "@/data/firestore/collections";
 import { validateOrThrow } from "@/data/utils/validation";
+import { adminFirestore } from "@/infrastructure/firebase/firebaseAdmin";
 import { DatasourceError, hasKeys } from "@/utils";
 import {
   CreateUserModel,
@@ -83,7 +84,7 @@ export class UserDatasource {
     try {
       const userCollection = this.getUserCollection();
       const userDoc = userCollection.doc(id);
-      await userDoc.delete();
+      await adminFirestore.recursiveDelete(userDoc);
     } catch (e) {
       if (e instanceof Error) {
         throw new DatasourceError(`deleteOne failed: ${e.message}`);
