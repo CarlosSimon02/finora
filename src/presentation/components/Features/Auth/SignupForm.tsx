@@ -8,7 +8,11 @@ import {
   PasswordInput,
 } from "@/presentation/components/Primitives";
 import { Form, LoadingButton } from "@/presentation/components/UI";
-import { useGoogleSignIn, useSignUp } from "@/presentation/hooks";
+import {
+  useGoogleSignIn,
+  useGuestSignIn,
+  useSignUp,
+} from "@/presentation/hooks";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { AuthAltButtons } from ".";
@@ -26,6 +30,7 @@ export const SignupForm = () => {
 
   const signUp = useSignUp();
   const google = useGoogleSignIn();
+  const guest = useGuestSignIn();
 
   const onSubmit = async (data: SignUpCredentialsDto) => {
     await signUp.mutateAsync(data);
@@ -33,7 +38,7 @@ export const SignupForm = () => {
 
   const isLoading = signUp.isPending;
   const isSuccess = signUp.isSuccess;
-  const isBusy = signUp.isPending || google.isPending;
+  const isBusy = signUp.isPending || google.isPending || guest.isPending;
 
   return (
     <Card className="w-full max-w-[35rem]">
@@ -76,6 +81,8 @@ export const SignupForm = () => {
             disabled={isBusy || isSuccess}
             googleLoading={google.isPending}
             onGoogleClick={() => google.mutate()}
+            guestLoading={guest.isPending}
+            onGuestClick={() => guest.mutate()}
           />
           <div className="txt-preset-4 text-grey-500 text-center">
             Already have an account?{" "}
