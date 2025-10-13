@@ -1,7 +1,10 @@
+import { authConfig } from "@/config/nextFirebaseAuthEdge";
 import { INCOME_DEFAULT_PER_PAGE } from "@/core/constants";
 import { PaginationParams } from "@/core/schemas";
 import { HydrateClient, trpc } from "@/lib/trpc/server";
 import { Incomes } from "@/presentation/components/Features/Incomes/Incomes";
+import { getTokens } from "next-firebase-auth-edge";
+import { cookies } from "next/headers";
 
 type IncomesPageProps = {
   searchParams: Promise<{
@@ -26,9 +29,13 @@ const IncomesPage = async ({ searchParams }: IncomesPageProps) => {
     },
   };
 
-  trpc.getPaginatedIncomesWithTransactions.prefetch({ params });
-  trpc.getIncomesCount.prefetch();
-  trpc.getIncomesSummary.prefetch();
+  const tokens = await getTokens(await cookies(), authConfig);
+
+  if (tokens) {
+    trpc.getPaginatedIncomesWithTransactions.prefetch({ params });
+    trpc.getIncomesCount.prefetch();
+    trpc.getIncomesSummary.prefetch();
+  }
 
   return (
     <HydrateClient>

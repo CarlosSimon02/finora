@@ -1,7 +1,10 @@
+import { authConfig } from "@/config/nextFirebaseAuthEdge";
 import { POT_DEFAULT_PER_PAGE } from "@/core/constants";
 import { PaginationParams } from "@/core/schemas";
 import { HydrateClient, trpc } from "@/lib/trpc/server";
 import { Pots } from "@/presentation/components/Features/Pots";
+import { getTokens } from "next-firebase-auth-edge";
+import { cookies } from "next/headers";
 
 type PotsPageProps = {
   searchParams: Promise<{
@@ -26,9 +29,13 @@ const PotsPage = async ({ searchParams }: PotsPageProps) => {
     },
   };
 
-  trpc.getPaginatedPots.prefetch({ params });
-  trpc.listUsedPotColors.prefetch();
-  trpc.getPotsCount.prefetch();
+  const tokens = await getTokens(await cookies(), authConfig);
+
+  if (tokens) {
+    trpc.getPaginatedPots.prefetch({ params });
+    trpc.listUsedPotColors.prefetch();
+    trpc.getPotsCount.prefetch();
+  }
 
   return (
     <HydrateClient>

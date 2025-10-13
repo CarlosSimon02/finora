@@ -1,7 +1,10 @@
+import { authConfig } from "@/config/nextFirebaseAuthEdge";
 import { BUDGET_DEFAULT_PER_PAGE } from "@/core/constants";
 import { PaginationParams } from "@/core/schemas";
 import { HydrateClient, trpc } from "@/lib/trpc/server";
 import { Budgets } from "@/presentation/components/Features/Budgets";
+import { getTokens } from "next-firebase-auth-edge";
+import { cookies } from "next/headers";
 
 type BudgetsPageProps = {
   searchParams: Promise<{
@@ -26,9 +29,13 @@ const BudgetsPage = async ({ searchParams }: BudgetsPageProps) => {
     },
   };
 
-  trpc.getPaginatedBudgetsWithTransactions.prefetch({ params });
-  trpc.getBudgetsCount.prefetch();
-  trpc.getBudgetsSummary.prefetch();
+  const tokens = await getTokens(await cookies(), authConfig);
+
+  if (tokens) {
+    trpc.getPaginatedBudgetsWithTransactions.prefetch({ params });
+    trpc.getBudgetsCount.prefetch();
+    trpc.getBudgetsSummary.prefetch();
+  }
 
   return (
     <HydrateClient>
