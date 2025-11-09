@@ -1,0 +1,746 @@
+# Cursor AI Rules - Finora Development Guide
+
+## 📋 Overview
+
+This document outlines the architectural patterns, coding standards, and best practices for building features in this codebase. These rules ensure consistency, maintainability, and high code quality across the project.
+
+---
+
+## 🏗️ Architecture: Clean Architecture
+
+This project follows **Clean Architecture** principles with clear separation of concerns across layers. Each layer has a specific responsibility and dependencies flow inward (from outer layers to inner layers).
+
+### Layer Structure
+
+```
+src/
+├── core/                    # 🎯 DOMAIN LAYER (Innermost)
+│   ├── interfaces/         # Repository interfaces (contracts)
+│   ├── schemas/            # Zod validation schemas & DTOs
+│   ├── useCases/           # Business logic (application services)
+│   └── constants.ts        # Domain constants
+│
+├── data/                    # 📦 DATA LAYER
+│   ├── datasource/         # External data source abstractions (Firestore, APIs)
+│   ├── repositories/       # Repository implementations
+│   ├── models/             # Data models (database entities)
+│   ├── mappers/            # Model ↔️ DTO transformations
+│   └── utils/              # Data layer utilities
+│
+├── presentation/            # 🎨 PRESENTATION LAYER
+│   ├── components/         # React components
+│   │   ├── Primitives/    # Base UI components (Button, Input, etc.)
+│   │   ├── UI/            # Composite UI components (Dialog, Card, etc.)
+│   │   └── Features/      # Feature-specific components
+│   ├── hooks/              # Custom React hooks
+│   ├── contexts/           # React contexts
+│   ├── actions/            # Server actions (Next.js)
+│   ├── styles/             # Global styles & theme
+│   └── Providers.tsx       # App-level providers
+│
+├── infrastructure/          # 🔧 INFRASTRUCTURE LAYER (Outermost)
+│   └── firebase/           # Firebase configuration & services
+│
+├── app/                     # 🌐 NEXT.JS APP ROUTER
+│   ├── (auth)/             # Authentication routes
+│   └── (front)/            # Protected app routes
+│
+├── server/                  # 🚀 SERVER LAYER
+│   └── trpc/               # tRPC API routes & procedures
+│
+├── lib/                     # 📚 SHARED LIBRARIES
+├── config/                  # ⚙️ Configuration files
+├── constants/               # 🔢 App-wide constants
+├── types/                   # 📝 TypeScript type definitions
+└── utils/                   # 🛠️ Utility functions
+```
+
+---
+
+## 🎯 Core Layer (Domain)
+
+### Purpose
+Contains the business logic and domain rules. This layer is **framework-agnostic** and has **no dependencies** on external libraries (except Zod for validation).
+
+### Directory Breakdown
+
+#### `core/interfaces/`
+Define repository contracts (interfaces) that the data layer must implement.
+
+**Naming Convention:** `I{Entity}Repository.ts`
+
+**Example:**
+```typescript
+// core/interfaces/IBudgetRepository.ts
+import { BudgetDto, CreateBudgetDto, UpdateBudgetDto } from "@/core/schemas";
+
+export interface IBudgetRepository {
+  createOne(userId: string, input: CreateBudgetDto): Promise<BudgetDto>;
+  getOneById(userId: string, budgetId: string): Promise<BudgetDto | null>;
+  updateOne(userId: string, budgetId: string, input: UpdateBudgetDto): Promise<BudgetDto>;
+  deleteOne(userId: string, budgetId: string): Promise<void>;
+}
+```
+
+**Rules:**
+- All methods must be async (return `Promise`)
+- Use DTOs for input/output (never expose models)
+- Group related operations logically
+
+#### `core/schemas/`
+Define Zod validation schemas and DTOs (Data Transfer Objects).
+
+**Naming Convention:** `{entity}Schema.ts`
+
+**Example:**
+```typescript
+// core/schemas/budgetSchema.ts
+import { z } from "zod";
+
+export const createBudgetSchema = z.object({
+  name: z.string().min(1).max(50),
+  maximumSpending: z.number().positive(),
+  colorTag: z.string(),
+});
+
+export const budgetSchema = createBudgetSchema.extend({
+  id: z.string(),
+  createdAt: z.date(),
+  updatedAt: z.date(),
+  totalSpending: z.number(),
+});
+
+export type CreateBudgetDto = z.infer<typeof createBudgetSchema>;
+export type BudgetDto = z.infer<typeof budgetSchema>;
+```
+
+**Rules:**
+- Always use Zod for schema definition
+- Export both schema and inferred type
+- Use descriptive schema names (`createBudgetSchema`, `updateBudgetSchema`)
+- DTOs should be suffixed with `Dto` (e.g., `BudgetDto`)
+
+#### `core/useCases/`
+Implement business logic as pure functions that orchestrate repositories.
+
+**Naming Convention:** `{action}{Entity}.ts` (e.g., `createBudget.ts`)
+
+**Directory Structure:**
+```
+useCases/
+├── budget/
+│   ├── createBudget.ts
+│   ├── getBudget.ts
+│   ├── updateBudget.ts
+│   ├── deleteBudget.ts
+│   └── index.ts
+└── utils.ts
+```
+
+**Example:**
+```typescript
+// core/useCases/budget/createBudget.ts
+import { IBudgetRepository } from "@/core/interfaces/IBudgetRepository";
+import { BudgetDto, CreateBudgetDto, createBudgetSchema } from "@/core/schemas";
+import { withAuth } from "@/core/useCases/utils";
+import { ConflictError } from "@/utils";
+
+export const createBudget = (budgetRepository: IBudgetRepository) => {
+  const useCase = async (
+    userId: string,
+    input: { data: CreateBudgetDto }
+  ): Promise<BudgetDto> => {
+    const { data } = input;
+    const validatedData = createBudgetSchema.parse(data);
+
+    const existing = await budgetRepository.getOneByName(userId, validatedData.name);
+    if (existing) throw new ConflictError("Budget name already exists");
+
+    return budgetRepository.createOne(userId, validatedData);
+  };
+
+  return withAuth(useCase);
+};
+```
+
+**Rules:**
+- Use **dependency injection** for repositories
+- Validate input with Zod schemas
+- Return the use case wrapped with `withAuth()` if authentication is required
+- Throw domain-specific errors (e.g., `ConflictError`, `DomainValidationError`)
+- Keep business logic in use cases, NOT in repositories
+
+---
+
+## 📦 Data Layer
+
+### Purpose
+Handles data persistence and external service communication. Implements repository interfaces defined in the core layer.
+
+### Directory Breakdown
+
+#### `data/models/`
+Define database entity models using Zod schemas.
+
+**Naming Convention:** `{Entity}Model.ts`
+
+**Example:**
+```typescript
+// data/models/BudgetModel.ts
+import { budgetSchema } from "@/core/schemas";
+import { z } from "zod";
+import { zFieldValue, zTimestamp } from "./helpers";
+
+export const budgetModelSchema = budgetSchema
+  .omit({ createdAt: true, updatedAt: true })
+  .extend({
+    createdAt: zTimestamp,
+    updatedAt: zTimestamp,
+  });
+
+export const createBudgetModelSchema = budgetModelSchema
+  .omit({ createdAt: true, updatedAt: true })
+  .extend({
+    createdAt: zFieldValue,
+    updatedAt: zFieldValue,
+  });
+
+export type BudgetModel = z.infer<typeof budgetModelSchema>;
+export type CreateBudgetModel = z.infer<typeof createBudgetModelSchema>;
+```
+
+**Rules:**
+- Models represent database entities
+- Use `zTimestamp` for dates from database
+- Use `zFieldValue` for dates when creating/updating
+- Models are internal to the data layer
+
+#### `data/mappers/`
+Transform between models (database) and DTOs (domain).
+
+**Naming Convention:** `map{Entity}ModelToDto.ts`
+
+**Example:**
+```typescript
+// data/mappers/budgetMapper.ts
+import { BudgetDto } from "@/core/schemas";
+import { BudgetModel } from "@/data/models";
+
+export const mapBudgetModelToDto = (model: BudgetModel): BudgetDto => ({
+  id: model.id,
+  name: model.name,
+  maximumSpending: model.maximumSpending,
+  colorTag: model.colorTag,
+  totalSpending: model.totalSpending,
+  createdAt: model.createdAt.toDate(),
+  updatedAt: model.updatedAt.toDate(),
+});
+```
+
+**Rules:**
+- Mappers are pure functions
+- Convert Firestore Timestamps to JavaScript Date objects
+- Always map from Model → DTO when returning data
+- Never expose models outside the data layer
+
+#### `data/datasource/`
+Interact with external data sources (Firestore, APIs, etc.).
+
+**Naming Convention:** `{Entity}Datasource.ts`
+
+**Example:**
+```typescript
+// data/datasource/BudgetDatasource.ts
+import { getFirestore } from "@/infrastructure/firebase";
+import { BudgetModel, CreateBudgetModel } from "@/data/models";
+
+export class BudgetDatasource {
+  private readonly collection = "budgets";
+
+  async createOne(userId: string, data: CreateBudgetModel): Promise<void> {
+    const db = getFirestore();
+    await db.collection(`users/${userId}/${this.collection}`).doc(data.id).set(data);
+  }
+
+  async getById(userId: string, budgetId: string): Promise<BudgetModel | null> {
+    const db = getFirestore();
+    const doc = await db
+      .collection(`users/${userId}/${this.collection}`)
+      .doc(budgetId)
+      .get();
+    return doc.exists ? (doc.data() as BudgetModel) : null;
+  }
+}
+```
+
+**Rules:**
+- Datasources are classes
+- Handle raw database operations
+- Use models (not DTOs)
+- No business logic here
+
+#### `data/repositories/`
+Implement repository interfaces and orchestrate datasources + mappers.
+
+**Naming Convention:** `{Entity}Repository.ts`
+
+**Example:**
+```typescript
+// data/repositories/BudgetRepository.ts
+import { IBudgetRepository } from "@/core/interfaces/IBudgetRepository";
+import { BudgetDto, CreateBudgetDto } from "@/core/schemas";
+import { BudgetDatasource } from "@/data/datasource";
+import { mapBudgetModelToDto } from "@/data/mappers";
+import { CreateBudgetModel } from "@/data/models";
+
+export class BudgetRepository implements IBudgetRepository {
+  private readonly budgetDatasource: BudgetDatasource;
+
+  constructor() {
+    this.budgetDatasource = new BudgetDatasource();
+  }
+
+  async createOne(userId: string, input: CreateBudgetDto): Promise<BudgetDto> {
+    const budgetData: CreateBudgetModel = {
+      id: generateId(),
+      ...input,
+      totalSpending: 0,
+      createdAt: FieldValue.serverTimestamp(),
+      updatedAt: FieldValue.serverTimestamp(),
+    };
+
+    await this.budgetDatasource.createOne(userId, budgetData);
+    const budget = await this.budgetDatasource.getById(userId, budgetData.id);
+    if (!budget) throw new Error("Failed to create budget");
+    
+    return mapBudgetModelToDto(budget);
+  }
+}
+```
+
+**Rules:**
+- Repositories are classes that implement interfaces
+- Inject datasources via constructor
+- Use mappers to convert models to DTOs
+- No business logic (that belongs in use cases)
+
+---
+
+## 🎨 Presentation Layer
+
+### Purpose
+Contains all UI components, hooks, and client-side logic.
+
+### Directory Breakdown
+
+#### `presentation/components/`
+```
+components/
+├── Primitives/       # Base UI components (Button, Input, Card, etc.)
+├── UI/              # Composite components (Dialog, Modal, etc.)
+└── Features/        # Feature-specific components (Dashboard, Budgets, etc.)
+```
+
+**Rules:**
+- All components must be **arrow functions**
+- Components must be in PascalCase
+- Use TypeScript interfaces for props (no `any`)
+- Prefer composition over inheritance
+- Keep components small and focused
+
+**Example:**
+```typescript
+// presentation/components/Features/Budget/BudgetCard.tsx
+"use client";
+
+import { Button, Card } from "@/presentation/components/Primitives";
+import { BudgetDto } from "@/core/schemas";
+
+interface BudgetCardProps {
+  budget: BudgetDto;
+  onEdit: (id: string) => void;
+  onDelete: (id: string) => void;
+}
+
+export const BudgetCard = ({ budget, onEdit, onDelete }: BudgetCardProps) => {
+  return (
+    <Card>
+      <h3>{budget.name}</h3>
+      <p>Spending: ${budget.totalSpending} / ${budget.maximumSpending}</p>
+      <Button onClick={() => onEdit(budget.id)} label="Edit" />
+      <Button onClick={() => onDelete(budget.id)} label="Delete" variant="destructive" />
+    </Card>
+  );
+};
+```
+
+#### `presentation/hooks/`
+Custom React hooks for shared logic.
+
+**Naming Convention:** `use{Feature}.ts`
+
+**Example:**
+```typescript
+// presentation/hooks/useBudgets.ts
+import { trpc } from "@/lib/trpc";
+
+export const useBudgets = () => {
+  const { data, isLoading, error } = trpc.budget.getAll.useQuery();
+  
+  return {
+    budgets: data?.budgets ?? [],
+    isLoading,
+    error,
+  };
+};
+```
+
+**Rules:**
+- Hooks must start with `use`
+- Export arrow functions
+- Return objects (not arrays) for better API
+
+---
+
+## 🚀 Server Layer
+
+### Directory: `server/trpc/`
+
+**Purpose:** Define tRPC procedures that call use cases.
+
+**Example:**
+```typescript
+// server/trpc/routers/budget.ts
+import { createBudget } from "@/core/useCases/budget";
+import { BudgetRepository } from "@/data/repositories";
+import { createBudgetSchema } from "@/core/schemas";
+import { z } from "zod";
+import { router, publicProcedure } from "../trpc";
+
+const budgetRepository = new BudgetRepository();
+
+export const budgetRouter = router({
+  create: publicProcedure
+    .input(z.object({ data: createBudgetSchema }))
+    .mutation(async ({ input, ctx }) => {
+      const useCase = createBudget(budgetRepository);
+      return useCase(ctx.userId, input);
+    }),
+});
+```
+
+**Rules:**
+- Instantiate repositories at the router level
+- Pass repositories to use cases
+- Use Zod for input validation
+- Keep procedures thin (just route to use cases)
+
+---
+
+## 📱 Next.js App Router
+
+### Directory: `app/`
+
+**Structure:**
+```
+app/
+├── (auth)/          # Public routes (login, signup)
+│   ├── login/
+│   └── signup/
+└── (front)/         # Protected routes (dashboard, budgets)
+    ├── dashboard/
+    └── budgets/
+```
+
+**Rules:**
+- Use route groups `(auth)` and `(front)` for organization
+- Keep page components minimal (delegate to feature components)
+- Use server components by default
+- Add `"use client"` only when needed
+
+---
+
+## 🎯 Coding Standards
+
+### TypeScript Rules
+
+#### ✅ REQUIRED
+1. **Strict TypeScript:** Enable `strict: true` in `tsconfig.json`
+2. **No `any` type:** Always provide explicit types
+3. **Explicit return types:** For all functions and methods
+4. **Interface over type:** Use interfaces for object shapes
+
+#### ❌ FORBIDDEN
+```typescript
+// ❌ Bad: Using any
+const data: any = fetchData();
+
+// ✅ Good: Explicit typing
+const data: BudgetDto = await fetchData();
+
+// ❌ Bad: Implicit return type
+const calculate = (a, b) => a + b;
+
+// ✅ Good: Explicit return type
+const calculate = (a: number, b: number): number => a + b;
+```
+
+### Function Style
+
+**Always use arrow functions:**
+
+```typescript
+// ✅ Good
+export const createBudget = (repo: IBudgetRepository) => {
+  return async (userId: string, input: CreateBudgetDto): Promise<BudgetDto> => {
+    // implementation
+  };
+};
+
+// ✅ Good (components)
+export const BudgetCard = ({ budget }: BudgetCardProps) => {
+  return <div>{budget.name}</div>;
+};
+
+// ❌ Bad: Regular function
+export function createBudget(repo: IBudgetRepository) {
+  // ...
+}
+```
+
+### Comments
+
+**Remove trivial comments:**
+
+```typescript
+// ❌ Bad: Trivial comment
+// Increment counter
+counter++;
+
+// ✅ Good: Explain complex logic
+// Calculate prorated amount based on days remaining in billing cycle
+const proratedAmount = (totalAmount * daysRemaining) / totalDaysInCycle;
+```
+
+**When to add comments:**
+- Complex business logic
+- Non-obvious algorithms
+- Workarounds for known issues
+- Important edge cases
+
+### Principles
+
+#### DRY (Don't Repeat Yourself)
+Extract repeated logic into shared utilities, hooks, or components.
+
+```typescript
+// ❌ Bad: Repeated logic
+const result1 = await budgetRepo.getById(userId, id1);
+if (!result1) throw new NotFoundError("Budget not found");
+
+const result2 = await budgetRepo.getById(userId, id2);
+if (!result2) throw new NotFoundError("Budget not found");
+
+// ✅ Good: Extracted helper
+const getOrThrow = async (id: string): Promise<BudgetDto> => {
+  const budget = await budgetRepo.getById(userId, id);
+  if (!budget) throw new NotFoundError("Budget not found");
+  return budget;
+};
+
+const result1 = await getOrThrow(id1);
+const result2 = await getOrThrow(id2);
+```
+
+#### SOLID Principles
+
+**Single Responsibility:**
+```typescript
+// ✅ Good: Each class has one responsibility
+class BudgetDatasource {
+  // Only handles database operations
+}
+
+class BudgetRepository {
+  // Only implements repository interface
+}
+```
+
+**Open/Closed:**
+```typescript
+// ✅ Good: Extend behavior without modifying existing code
+interface PaymentProcessor {
+  process(amount: number): Promise<void>;
+}
+
+class StripeProcessor implements PaymentProcessor { }
+class PayPalProcessor implements PaymentProcessor { }
+```
+
+**Dependency Inversion:**
+```typescript
+// ✅ Good: Depend on interfaces, not concrete implementations
+export const createBudget = (repository: IBudgetRepository) => {
+  // Use interface, not BudgetRepository class
+};
+```
+
+#### KISS (Keep It Simple, Stupid)
+
+Prefer simple, readable solutions over clever, complex ones.
+
+```typescript
+// ❌ Bad: Over-engineered
+const isValid = (value: number): boolean => 
+  [0, 1, 2, 3, 4, 5].reduce((acc, n) => acc || value === n, false);
+
+// ✅ Good: Simple and clear
+const isValid = (value: number): boolean => value >= 0 && value <= 5;
+```
+
+---
+
+## 🛠️ Tech Stack
+
+### Current Stack (Finora)
+- **Frontend:** Next.js 15, React 19, TailwindCSS 4
+- **UI Components:** Radix UI (shadcn/ui)
+- **Backend:** Firebase (Firestore + Authentication)
+- **API:** tRPC + TanStack Query
+- **Validation:** Zod
+- **Forms:** React Hook Form
+- **Icons:** Phosphor Icons
+- **Charts:** Recharts
+
+### Future Stack (Next Project)
+- **Frontend:** Next.js, React, TailwindCSS
+- **UI Components:** Mantine UI
+- **Backend:** PostgreSQL
+- **Authentication:** Better Auth
+- **API:** tRPC + TanStack Query
+- **Validation:** Zod
+- **Forms:** React Hook Form
+
+**Migration Notes:**
+- Replace Radix UI imports with Mantine components
+- Replace Firebase Firestore with PostgreSQL datasources
+- Replace Firebase Authentication with Better Auth
+- Keep the same clean architecture structure
+- Adapt models for SQL schemas (Prisma/Drizzle)
+
+---
+
+## 📝 Naming Conventions
+
+### Files & Directories
+- **PascalCase:** Components, Classes (`BudgetCard.tsx`, `BudgetRepository.ts`)
+- **camelCase:** Utilities, Hooks, Use Cases (`useBudget.ts`, `createBudget.ts`)
+- **kebab-case:** App routes (`/budgets/[id]`)
+
+### Code
+- **Interfaces:** Prefix with `I` (`IBudgetRepository`)
+- **DTOs:** Suffix with `Dto` (`BudgetDto`, `CreateBudgetDto`)
+- **Models:** Suffix with `Model` (`BudgetModel`, `CreateBudgetModel`)
+- **Schemas:** Suffix with `Schema` (`budgetSchema`, `createBudgetSchema`)
+- **Hooks:** Prefix with `use` (`useBudgets`, `useAuth`)
+- **Components:** PascalCase (`BudgetCard`, `Button`)
+- **Contexts:** Suffix with `Context` (`AuthContext`, `ThemeContext`)
+
+---
+
+## ✅ Code Quality Checklist
+
+Before submitting code, ensure:
+
+- [ ] TypeScript strict mode is enabled (no `any` types)
+- [ ] All functions use arrow function syntax
+- [ ] Explicit return types on all functions
+- [ ] Zod schemas for all input validation
+- [ ] No business logic in repositories (only in use cases)
+- [ ] DTOs used for external interfaces (not models)
+- [ ] Mappers used for model ↔️ DTO conversion
+- [ ] Components are small and focused
+- [ ] DRY principle applied (no repeated code)
+- [ ] SOLID principles followed
+- [ ] Trivial comments removed
+- [ ] Complex logic is documented
+- [ ] File/directory naming conventions followed
+- [ ] Clean architecture boundaries respected
+
+---
+
+## 🚫 Common Mistakes to Avoid
+
+### ❌ Don't: Put business logic in repositories
+```typescript
+// ❌ Bad: Business logic in repository
+class BudgetRepository {
+  async createOne(userId: string, input: CreateBudgetDto): Promise<BudgetDto> {
+    // Validation should be in use case
+    if (input.maximumSpending < 0) throw new Error("Invalid amount");
+    
+    // This is okay in repository
+    return this.datasource.create(userId, input);
+  }
+}
+```
+
+### ❌ Don't: Expose models outside data layer
+```typescript
+// ❌ Bad: Returning model
+export const getBudget = (): Promise<BudgetModel> => { };
+
+// ✅ Good: Returning DTO
+export const getBudget = (): Promise<BudgetDto> => { };
+```
+
+### ❌ Don't: Skip validation
+```typescript
+// ❌ Bad: No validation
+const result = await repository.createOne(userId, input);
+
+// ✅ Good: Validate with Zod
+const validatedData = createBudgetSchema.parse(input);
+const result = await repository.createOne(userId, validatedData);
+```
+
+### ❌ Don't: Use regular functions
+```typescript
+// ❌ Bad
+export function BudgetCard(props: BudgetCardProps) { }
+
+// ✅ Good
+export const BudgetCard = (props: BudgetCardProps) => { };
+```
+
+---
+
+## 📚 Additional Resources
+
+- [Clean Architecture by Robert C. Martin](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html)
+- [SOLID Principles](https://www.digitalocean.com/community/conceptual-articles/s-o-l-i-d-the-first-five-principles-of-object-oriented-design)
+- [Better Auth Documentation](https://www.better-auth.com/)
+- [Mantine UI Documentation](https://mantine.dev/)
+- [TypeScript Handbook](https://www.typescriptlang.org/docs/handbook/intro.html)
+- [Zod Documentation](https://zod.dev/)
+
+---
+
+## 🎓 Summary
+
+Follow these principles for maintainable, scalable code:
+
+1. **Respect clean architecture boundaries**
+2. **Use TypeScript strictly (no `any`)**
+3. **Arrow functions everywhere**
+4. **Validate with Zod schemas**
+5. **Apply DRY, SOLID, KISS**
+6. **Keep components small**
+7. **Business logic in use cases**
+8. **DTOs for external APIs**
+9. **Remove trivial comments**
+10. **Be production-ready**
+
+---
+
+**Questions or need clarification? Refer back to this guide or ask in the team chat!**
