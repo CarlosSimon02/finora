@@ -3,6 +3,7 @@ import { withAuth } from "@/core/useCases/utils";
 
 export const getUsedColors = (potRepository: IPotRepository) => {
   const useCase = async (userId: string): Promise<string[]> => {
+    // Simple query - fetch colors currently in use
     const colors = await potRepository.getUsedColors(userId);
     return colors;
   };

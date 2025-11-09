@@ -9,10 +9,12 @@ export const getPotsSummary = (potRepository: IPotRepository) => {
   ): Promise<PotsSummaryDto> => {
     const { maxPotsToShow } = input;
 
+    // Validate params (infrastructure concern, not domain)
     const { maxPotsToShow: limit } = potsSummaryParamsSchema.parse({
       maxPotsToShow,
     });
 
+    // Query use case - fetches summary data
     return potRepository.getSummary(userId, limit);
   };
 
