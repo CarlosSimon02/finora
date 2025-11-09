@@ -1,6 +1,9 @@
+import { Result } from "@/core/entities/shared";
 import { IIncomeRepository } from "@/core/interfaces/IIncomeRepository";
-import { IncomeDto, UpdateIncomeDto, updateIncomeSchema } from "@/core/schemas";
+import { IncomeDto, UpdateIncomeDto } from "@/core/schemas";
 import { withAuth } from "@/core/useCases/utils";
+import { IncomeId, IncomeName } from "@/core/valueObjects/income";
+import { ColorTag } from "@/core/valueObjects/transaction";
 import { DomainValidationError } from "@/utils";
 
 export const updateIncome = (incomeRepository: IIncomeRepository) => {
@@ -10,29 +13,53 @@ export const updateIncome = (incomeRepository: IIncomeRepository) => {
   ): Promise<IncomeDto> => {
     const { incomeId, data } = input;
 
-    if (!incomeId) throw new DomainValidationError("Income ID is required");
+    // Validate income ID using domain value object
+    const incomeIdOrError = IncomeId.create(incomeId);
+    if (incomeIdOrError.isFailure) {
+      throw new DomainValidationError(incomeIdOrError.error);
+    }
 
-    const validatedData = updateIncomeSchema.parse(data);
+    // Validate each field if provided using domain value objects
+    const validationResults: Result<any>[] = [];
 
-    if (validatedData.name) {
+    if (data.name !== undefined) {
+      validationResults.push(IncomeName.create(data.name));
+    }
+
+    if (data.colorTag !== undefined) {
+      validationResults.push(ColorTag.create(data.colorTag));
+    }
+
+    // Check all validations
+    const combinedResult = Result.combine(validationResults);
+    if (combinedResult.isFailure) {
+      throw new DomainValidationError(combinedResult.error);
+    }
+
+    // Business rule: Unique income name
+    if (data.name) {
       const existingByName = await incomeRepository.getOneByName(
         userId,
-        validatedData.name
+        data.name
       );
       if (existingByName && existingByName.id !== incomeId) {
         throw new DomainValidationError("Income name already exists");
       }
     }
-    if (validatedData.colorTag) {
+
+    // Business rule: Unique color per income
+    if (data.colorTag) {
       const existingColor = await incomeRepository.getOneByColor(
         userId,
-        validatedData.colorTag
+        data.colorTag
       );
       if (existingColor && existingColor.id !== incomeId) {
         throw new DomainValidationError("Income color already in use");
       }
     }
-    return incomeRepository.updateOne(userId, incomeId, validatedData);
+
+    // Domain validation passed, delegate to repository
+    return incomeRepository.updateOne(userId, incomeId, data);
   };
 
   return withAuth(useCase);

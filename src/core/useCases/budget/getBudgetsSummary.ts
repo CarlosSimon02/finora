@@ -9,10 +9,12 @@ export const getBudgetsSummary = (budgetRepository: IBudgetRepository) => {
   ): Promise<BudgetsSummaryDto> => {
     const { maxBudgetsToShow } = input;
 
+    // Validate params (infrastructure concern, not domain)
     const { maxBudgetsToShow: limit } = budgetsSummaryParamsSchema.parse({
       maxBudgetsToShow,
     });
 
+    // Query use case - fetches summary data
     return budgetRepository.getSummary(userId, limit);
   };
 
