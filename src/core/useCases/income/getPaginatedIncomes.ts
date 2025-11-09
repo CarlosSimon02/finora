@@ -10,9 +10,12 @@ export const getPaginatedIncomes = (incomeRepository: IIncomeRepository) => {
   ): Promise<PaginatedIncomesResponseDto> => {
     const { params } = input;
 
-    if (!params)
+    // Simple validation - pagination params are infrastructure concerns, not domain
+    if (!params) {
       throw new DomainValidationError("Pagination params are required");
+    }
 
+    // Query use case - no business rules to enforce
     return incomeRepository.getPaginated(userId, params);
   };
 
