@@ -1,14 +1,8 @@
-import { Result } from "@/core/entities/shared";
+import { Transaction } from "@/core/entities/transaction";
 import { ITransactionRepository } from "@/core/interfaces/ITransactionRepository";
 import { CreateTransactionDto, TransactionDto } from "@/core/schemas";
 import { withAuth } from "@/core/useCases/utils";
-import { Money } from "@/core/valueObjects/shared";
-import {
-  CategoryId,
-  Emoji,
-  TransactionName,
-  TransactionType,
-} from "@/core/valueObjects/transaction";
+import { DomainValidationError } from "@/utils";
 
 export const createTransaction = (
   transactionRepository: ITransactionRepository
@@ -21,38 +15,29 @@ export const createTransaction = (
   ): Promise<TransactionDto> => {
     const { data } = input;
 
-    // Validate using domain value objects
-    const validationResults: Result<any>[] = [
-      TransactionName.create(data.name),
-      Money.create(data.amount),
-      Emoji.create(data.emoji),
-      CategoryId.create(data.categoryId),
-    ];
+    // Note: We validate the input data, but let the repository handle
+    // category lookup and full transaction creation since it needs to
+    // fetch category details (name, colorTag) from the database
+    // This is a pragmatic approach where the repository enriches the data
 
-    // Validate transaction type
-    if (
-      data.type !== TransactionType.INCOME &&
-      data.type !== TransactionType.EXPENSE
-    ) {
-      throw new Error('Type must be either "income" or "expense"');
+    // Validate basic transaction data using Transaction entity
+    // This ensures the data format is correct before passing to repository
+    const transactionOrError = Transaction.create({
+      name: data.name,
+      type: data.type,
+      amount: data.amount,
+      categoryId: data.categoryId,
+      categoryName: "temp", // Repository will replace with actual
+      categoryColorTag: "#277C78", // Repository will replace with actual
+      emoji: data.emoji,
+      transactionDate: data.transactionDate,
+    });
+
+    if (transactionOrError.isFailure) {
+      throw new DomainValidationError(transactionOrError.error);
     }
 
-    // Check all validations
-    const combinedResult = Result.combine(validationResults);
-    if (combinedResult.isFailure) {
-      throw new Error(combinedResult.error);
-    }
-
-    // Validate transaction date
-    if (
-      !(data.transactionDate instanceof Date) ||
-      isNaN(data.transactionDate.getTime())
-    ) {
-      throw new Error("Transaction date must be a valid date");
-    }
-
-    // Validation passed - delegate to repository
-    // Repository will handle category lookup and persistence
+    // Repository handles category lookup and creates the full transaction
     return transactionRepository.createOne(userId, data);
   };
 

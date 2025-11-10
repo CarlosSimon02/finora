@@ -1,10 +1,8 @@
 import { COLOR_OPTIONS } from "@/constants/colors";
-import { Result } from "@/core/entities/shared";
+import { Income } from "@/core/entities/income";
 import { IIncomeRepository } from "@/core/interfaces/IIncomeRepository";
 import { CreateIncomeDto, IncomeDto } from "@/core/schemas";
 import { withAuth } from "@/core/useCases/utils";
-import { IncomeName } from "@/core/valueObjects/income";
-import { ColorTag } from "@/core/valueObjects/transaction";
 import { ConflictError, DomainValidationError } from "@/utils";
 
 export const createIncome = (incomeRepository: IIncomeRepository) => {
@@ -14,15 +12,14 @@ export const createIncome = (incomeRepository: IIncomeRepository) => {
   ): Promise<IncomeDto> => {
     const { data } = input;
 
-    // Validate using domain value objects
-    const validationResults: Result<any>[] = [
-      IncomeName.create(data.name),
-      ColorTag.create(data.colorTag),
-    ];
+    // Create domain entity (validates internally)
+    const incomeOrError = Income.create({
+      name: data.name,
+      colorTag: data.colorTag,
+    });
 
-    const combinedResult = Result.combine(validationResults);
-    if (combinedResult.isFailure) {
-      throw new DomainValidationError(combinedResult.error);
+    if (incomeOrError.isFailure) {
+      throw new DomainValidationError(incomeOrError.error);
     }
 
     // Business rule: Maximum number of incomes
@@ -47,8 +44,10 @@ export const createIncome = (incomeRepository: IIncomeRepository) => {
       throw new DomainValidationError("Income color already in use");
     }
 
-    // Domain validation passed, delegate to repository
-    return incomeRepository.createOne(userId, data);
+    const income = incomeOrError.value;
+
+    // Use entity's DTO method
+    return incomeRepository.createOne(userId, income.toDto());
   };
 
   return withAuth(useCase);

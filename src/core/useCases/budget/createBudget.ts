@@ -1,10 +1,8 @@
 import { COLOR_OPTIONS } from "@/constants/colors";
-import { Result } from "@/core/entities/shared";
+import { Budget } from "@/core/entities/budget";
 import { IBudgetRepository } from "@/core/interfaces/IBudgetRepository";
 import { BudgetDto, CreateBudgetDto } from "@/core/schemas";
 import { withAuth } from "@/core/useCases/utils";
-import { BudgetName, MaximumSpending } from "@/core/valueObjects/budget";
-import { ColorTag } from "@/core/valueObjects/transaction";
 import { ConflictError, DomainValidationError } from "@/utils";
 
 export const createBudget = (budgetRepository: IBudgetRepository) => {
@@ -14,16 +12,15 @@ export const createBudget = (budgetRepository: IBudgetRepository) => {
   ): Promise<BudgetDto> => {
     const { data } = input;
 
-    // Validate using domain value objects
-    const validationResults: Result<any>[] = [
-      BudgetName.create(data.name),
-      ColorTag.create(data.colorTag),
-      MaximumSpending.create(data.maximumSpending),
-    ];
+    // Create domain entity (validates internally)
+    const budgetOrError = Budget.create({
+      name: data.name,
+      colorTag: data.colorTag,
+      maximumSpending: data.maximumSpending,
+    });
 
-    const combinedResult = Result.combine(validationResults);
-    if (combinedResult.isFailure) {
-      throw new DomainValidationError(combinedResult.error);
+    if (budgetOrError.isFailure) {
+      throw new DomainValidationError(budgetOrError.error);
     }
 
     // Business rule: Maximum number of budgets
@@ -48,8 +45,10 @@ export const createBudget = (budgetRepository: IBudgetRepository) => {
       throw new DomainValidationError("Budget color already in use");
     }
 
-    // Domain validation passed, delegate to repository
-    return budgetRepository.createOne(userId, data);
+    const budget = budgetOrError.value;
+
+    // Use entity's DTO method
+    return budgetRepository.createOne(userId, budget.toDto());
   };
 
   return withAuth(useCase);

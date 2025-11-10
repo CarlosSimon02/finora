@@ -1,10 +1,11 @@
-import { Result } from "@/core/entities/shared";
+import { Pot } from "@/core/entities/pot";
 import { IPotRepository } from "@/core/interfaces/IPotRepository";
 import { PotDto, UpdatePotDto } from "@/core/schemas";
 import { withAuth } from "@/core/useCases/utils";
 import { PotId, PotName, PotTarget } from "@/core/valueObjects/pot";
+import { Money } from "@/core/valueObjects/shared";
 import { ColorTag } from "@/core/valueObjects/transaction";
-import { DomainValidationError } from "@/utils";
+import { DomainValidationError, NotFoundError } from "@/utils";
 
 export const updatePot = (potRepository: IPotRepository) => {
   const useCase = async (
@@ -13,31 +14,16 @@ export const updatePot = (potRepository: IPotRepository) => {
   ): Promise<PotDto> => {
     const { potId, data } = input;
 
-    // Validate pot ID using domain value object
+    // Validate pot ID
     const potIdOrError = PotId.create(potId);
     if (potIdOrError.isFailure) {
       throw new DomainValidationError(potIdOrError.error);
     }
 
-    // Validate each field if provided using domain value objects
-    const validationResults: Result<any>[] = [];
-
-    if (data.name !== undefined) {
-      validationResults.push(PotName.create(data.name));
-    }
-
-    if (data.colorTag !== undefined) {
-      validationResults.push(ColorTag.create(data.colorTag));
-    }
-
-    if (data.target !== undefined) {
-      validationResults.push(PotTarget.create(data.target));
-    }
-
-    // Check all validations
-    const combinedResult = Result.combine(validationResults);
-    if (combinedResult.isFailure) {
-      throw new DomainValidationError(combinedResult.error);
+    // Get existing pot
+    const existingPotDto = await potRepository.getOneById(userId, potId);
+    if (!existingPotDto) {
+      throw new NotFoundError("Pot not found");
     }
 
     // Business rule: Unique pot name
@@ -59,8 +45,36 @@ export const updatePot = (potRepository: IPotRepository) => {
       }
     }
 
-    // Domain validation passed, delegate to repository
-    return potRepository.updateOne(userId, potId, data);
+    // Reconstitute domain entity
+    const potOrError = Pot.reconstitute({
+      id: potIdOrError.value,
+      name: PotName.create(existingPotDto.name).value,
+      colorTag: ColorTag.create(existingPotDto.colorTag).value,
+      target: PotTarget.create(existingPotDto.target).value,
+      totalSaved: Money.create(existingPotDto.totalSaved).value,
+      createdAt: existingPotDto.createdAt,
+      updatedAt: existingPotDto.updatedAt,
+    });
+
+    if (potOrError.isFailure) {
+      throw new DomainValidationError(potOrError.error);
+    }
+
+    const pot = potOrError.value;
+
+    // Use entity's update method (validates internally)
+    const updateResult = pot.update({
+      name: data.name,
+      colorTag: data.colorTag,
+      target: data.target,
+    });
+
+    if (updateResult.isFailure) {
+      throw new DomainValidationError(updateResult.error);
+    }
+
+    // Use entity's DTO method
+    return potRepository.updateOne(userId, potId, pot.toDto());
   };
 
   return withAuth(useCase);

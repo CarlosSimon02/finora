@@ -1,10 +1,8 @@
 import { COLOR_OPTIONS } from "@/constants/colors";
-import { Result } from "@/core/entities/shared";
+import { Pot } from "@/core/entities/pot";
 import { IPotRepository } from "@/core/interfaces/IPotRepository";
 import { CreatePotDto, PotDto } from "@/core/schemas";
 import { withAuth } from "@/core/useCases/utils";
-import { PotName, PotTarget } from "@/core/valueObjects/pot";
-import { ColorTag } from "@/core/valueObjects/transaction";
 import { ConflictError, DomainValidationError } from "@/utils";
 
 export const createPot = (potRepository: IPotRepository) => {
@@ -14,16 +12,15 @@ export const createPot = (potRepository: IPotRepository) => {
   ): Promise<PotDto> => {
     const { data } = input;
 
-    // Validate using domain value objects
-    const validationResults: Result<any>[] = [
-      PotName.create(data.name),
-      ColorTag.create(data.colorTag),
-      PotTarget.create(data.target),
-    ];
+    // Create domain entity (validates internally)
+    const potOrError = Pot.create({
+      name: data.name,
+      colorTag: data.colorTag,
+      target: data.target,
+    });
 
-    const combinedResult = Result.combine(validationResults);
-    if (combinedResult.isFailure) {
-      throw new DomainValidationError(combinedResult.error);
+    if (potOrError.isFailure) {
+      throw new DomainValidationError(potOrError.error);
     }
 
     // Business rule: Maximum number of pots
@@ -34,22 +31,24 @@ export const createPot = (potRepository: IPotRepository) => {
     }
 
     // Business rule: Unique pot name
-    const existingPot = await potRepository.getOneByName(userId, data.name);
-    if (existingPot) {
+    const existing = await potRepository.getOneByName(userId, data.name);
+    if (existing) {
       throw new ConflictError("Pot name already exists");
     }
 
     // Business rule: Unique color per pot
-    const existingColorPot = await potRepository.getOneByColor(
+    const existingColor = await potRepository.getOneByColor(
       userId,
       data.colorTag
     );
-    if (existingColorPot) {
+    if (existingColor) {
       throw new DomainValidationError("Pot color already in use");
     }
 
-    // Domain validation passed, delegate to repository
-    return potRepository.createOne(userId, data);
+    const pot = potOrError.value;
+
+    // Use entity's DTO method
+    return potRepository.createOne(userId, pot.toDto());
   };
 
   return withAuth(useCase);

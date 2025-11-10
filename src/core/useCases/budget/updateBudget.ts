@@ -1,4 +1,4 @@
-import { Result } from "@/core/entities/shared";
+import { Budget } from "@/core/entities/budget";
 import { IBudgetRepository } from "@/core/interfaces/IBudgetRepository";
 import { BudgetDto, UpdateBudgetDto } from "@/core/schemas";
 import { withAuth } from "@/core/useCases/utils";
@@ -8,7 +8,7 @@ import {
   MaximumSpending,
 } from "@/core/valueObjects/budget";
 import { ColorTag } from "@/core/valueObjects/transaction";
-import { DomainValidationError } from "@/utils";
+import { DomainValidationError, NotFoundError } from "@/utils";
 
 export const updateBudget = (budgetRepository: IBudgetRepository) => {
   const useCase = async (
@@ -17,31 +17,19 @@ export const updateBudget = (budgetRepository: IBudgetRepository) => {
   ): Promise<BudgetDto> => {
     const { budgetId, data } = input;
 
-    // Validate budget ID using domain value object
+    // Validate budget ID
     const budgetIdOrError = BudgetId.create(budgetId);
     if (budgetIdOrError.isFailure) {
       throw new DomainValidationError(budgetIdOrError.error);
     }
 
-    // Validate each field if provided using domain value objects
-    const validationResults: Result<any>[] = [];
-
-    if (data.name !== undefined) {
-      validationResults.push(BudgetName.create(data.name));
-    }
-
-    if (data.colorTag !== undefined) {
-      validationResults.push(ColorTag.create(data.colorTag));
-    }
-
-    if (data.maximumSpending !== undefined) {
-      validationResults.push(MaximumSpending.create(data.maximumSpending));
-    }
-
-    // Check all validations
-    const combinedResult = Result.combine(validationResults);
-    if (combinedResult.isFailure) {
-      throw new DomainValidationError(combinedResult.error);
+    // Get existing budget
+    const existingBudgetDto = await budgetRepository.getOneById(
+      userId,
+      budgetId
+    );
+    if (!existingBudgetDto) {
+      throw new NotFoundError("Budget not found");
     }
 
     // Business rule: Unique budget name
@@ -66,8 +54,36 @@ export const updateBudget = (budgetRepository: IBudgetRepository) => {
       }
     }
 
-    // Domain validation passed, delegate to repository
-    return budgetRepository.updateOne(userId, budgetId, data);
+    // Reconstitute domain entity
+    const budgetOrError = Budget.reconstitute({
+      id: budgetIdOrError.value,
+      name: BudgetName.create(existingBudgetDto.name).value,
+      colorTag: ColorTag.create(existingBudgetDto.colorTag).value,
+      maximumSpending: MaximumSpending.create(existingBudgetDto.maximumSpending)
+        .value,
+      createdAt: existingBudgetDto.createdAt,
+      updatedAt: existingBudgetDto.updatedAt,
+    });
+
+    if (budgetOrError.isFailure) {
+      throw new DomainValidationError(budgetOrError.error);
+    }
+
+    const budget = budgetOrError.value;
+
+    // Use entity's update method (validates internally)
+    const updateResult = budget.update({
+      name: data.name,
+      colorTag: data.colorTag,
+      maximumSpending: data.maximumSpending,
+    });
+
+    if (updateResult.isFailure) {
+      throw new DomainValidationError(updateResult.error);
+    }
+
+    // Use entity's DTO method
+    return budgetRepository.updateOne(userId, budgetId, budget.toDto());
   };
 
   return withAuth(useCase);

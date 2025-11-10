@@ -1,16 +1,15 @@
-import { Result } from "@/core/entities/shared";
+import { Transaction, TransactionCategory } from "@/core/entities/transaction";
 import { ITransactionRepository } from "@/core/interfaces/ITransactionRepository";
 import { TransactionDto, UpdateTransactionDto } from "@/core/schemas";
 import { withAuth } from "@/core/useCases/utils";
 import { Money } from "@/core/valueObjects/shared";
 import {
-  CategoryId,
   Emoji,
   TransactionId,
   TransactionName,
   TransactionType,
 } from "@/core/valueObjects/transaction";
-import { DomainValidationError } from "@/utils";
+import { DomainValidationError, NotFoundError } from "@/utils";
 
 export const updateTransaction = (
   transactionRepository: ITransactionRepository
@@ -30,53 +29,73 @@ export const updateTransaction = (
       throw new DomainValidationError(transactionIdOrError.error);
     }
 
-    // Validate each field if provided using domain value objects
-    const validationResults: Result<any>[] = [];
-
-    if (data.name !== undefined) {
-      validationResults.push(TransactionName.create(data.name));
+    // Get existing transaction
+    const existingTransactionDto = await transactionRepository.getOneById(
+      userId,
+      transactionId
+    );
+    if (!existingTransactionDto) {
+      throw new NotFoundError("Transaction not found");
     }
 
-    if (data.amount !== undefined) {
-      validationResults.push(Money.create(data.amount));
+    // Reconstitute domain entity
+    const categoryOrError = TransactionCategory.create(
+      existingTransactionDto.category.id,
+      existingTransactionDto.category.name,
+      existingTransactionDto.category.colorTag
+    );
+
+    if (categoryOrError.isFailure) {
+      throw new DomainValidationError(categoryOrError.error);
     }
 
-    if (data.emoji !== undefined) {
-      validationResults.push(Emoji.create(data.emoji));
+    const transactionOrError = Transaction.reconstitute({
+      id: transactionIdOrError.value,
+      name: TransactionName.create(existingTransactionDto.name).value,
+      type: existingTransactionDto.type as TransactionType,
+      amount: Money.create(existingTransactionDto.amount).value,
+      category: categoryOrError.value,
+      emoji: Emoji.create(existingTransactionDto.emoji).value,
+      transactionDate: existingTransactionDto.transactionDate,
+      createdAt: existingTransactionDto.createdAt,
+      updatedAt: existingTransactionDto.updatedAt,
+    });
+
+    if (transactionOrError.isFailure) {
+      throw new DomainValidationError(transactionOrError.error);
     }
 
-    if (data.categoryId !== undefined) {
-      validationResults.push(CategoryId.create(data.categoryId));
+    const transaction = transactionOrError.value;
+
+    // Prepare update data - if category is changing, fetch new category details
+    let categoryName: string | undefined;
+    let categoryColorTag: string | undefined;
+
+    if (
+      data.categoryId &&
+      data.categoryId !== existingTransactionDto.category.id
+    ) {
+      // Repository will handle category lookup
+      // For now, we just validate that the update data is valid
     }
 
-    if (data.type !== undefined) {
-      if (
-        data.type !== TransactionType.INCOME &&
-        data.type !== TransactionType.EXPENSE
-      ) {
-        throw new Error('Type must be either "income" or "expense"');
-      }
+    // Use entity's update method (validates internally)
+    const updateResult = transaction.update({
+      name: data.name,
+      type: data.type,
+      amount: data.amount,
+      categoryId: data.categoryId,
+      categoryName: categoryName,
+      categoryColorTag: categoryColorTag,
+      emoji: data.emoji,
+      transactionDate: data.transactionDate,
+    });
+
+    if (updateResult.isFailure) {
+      throw new DomainValidationError(updateResult.error);
     }
 
-    if (data.transactionDate !== undefined) {
-      if (
-        !(data.transactionDate instanceof Date) ||
-        isNaN(data.transactionDate.getTime())
-      ) {
-        throw new Error("Transaction date must be a valid date");
-      }
-    }
-
-    // Check all validations
-    const combinedResult = Result.combine(validationResults);
-    if (combinedResult.isFailure) {
-      throw new Error(combinedResult.error);
-    }
-
-    // Business rule validation could go here
-    // For example: Check if transaction is too old to modify certain fields
-
-    // Validation passed - delegate to repository
+    // Repository handles category lookup if needed and updates the transaction
     return transactionRepository.updateOne(userId, transactionId, data);
   };
 
