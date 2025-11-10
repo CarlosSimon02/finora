@@ -1,5 +1,6 @@
 import { IBudgetRepository } from "@/core/interfaces/IBudgetRepository";
 import { withAuth } from "@/core/useCases/utils";
+import { BudgetId } from "@/core/valueObjects/budget";
 import { DomainValidationError } from "@/utils";
 
 export const deleteBudget = (budgetRepository: IBudgetRepository) => {
@@ -9,7 +10,11 @@ export const deleteBudget = (budgetRepository: IBudgetRepository) => {
   ): Promise<void> => {
     const { budgetId } = input;
 
-    if (!budgetId) throw new DomainValidationError("Budget ID is required");
+    // Validate budget ID using domain value object
+    const budgetIdOrError = BudgetId.create(budgetId);
+    if (budgetIdOrError.isFailure) {
+      throw new DomainValidationError(budgetIdOrError.error);
+    }
 
     await budgetRepository.deleteOne(userId, budgetId);
   };

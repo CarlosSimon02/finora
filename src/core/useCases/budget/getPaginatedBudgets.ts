@@ -10,9 +10,12 @@ export const getPaginatedBudgets = (budgetRepository: IBudgetRepository) => {
   ): Promise<PaginatedBudgetsResponseDto> => {
     const { params } = input;
 
-    if (!params)
+    // Simple validation - pagination params are infrastructure concerns, not domain
+    if (!params) {
       throw new DomainValidationError("Pagination params are required");
+    }
 
+    // Query use case - no business rules to enforce
     return budgetRepository.getPaginated(userId, params);
   };
 

@@ -1,6 +1,7 @@
 import { COLOR_OPTIONS } from "@/constants/colors";
+import { Budget } from "@/core/entities/budget";
 import { IBudgetRepository } from "@/core/interfaces/IBudgetRepository";
-import { BudgetDto, CreateBudgetDto, createBudgetSchema } from "@/core/schemas";
+import { BudgetDto, CreateBudgetDto } from "@/core/schemas";
 import { withAuth } from "@/core/useCases/utils";
 import { ConflictError, DomainValidationError } from "@/utils";
 
@@ -11,29 +12,43 @@ export const createBudget = (budgetRepository: IBudgetRepository) => {
   ): Promise<BudgetDto> => {
     const { data } = input;
 
-    const validatedData = createBudgetSchema.parse(data);
+    // Create domain entity (validates internally)
+    const budgetOrError = Budget.create({
+      name: data.name,
+      colorTag: data.colorTag,
+      maximumSpending: data.maximumSpending,
+    });
 
+    if (budgetOrError.isFailure) {
+      throw new DomainValidationError(budgetOrError.error);
+    }
+
+    // Business rule: Maximum number of budgets
     const currentCount = await budgetRepository.getCount(userId);
     const maxItems = COLOR_OPTIONS.length;
     if (currentCount >= maxItems) {
       throw new DomainValidationError("Maximum number of budgets reached");
     }
 
-    const existing = await budgetRepository.getOneByName(
-      userId,
-      validatedData.name
-    );
-    if (existing) throw new ConflictError("Budget name already exists");
+    // Business rule: Unique budget name
+    const existing = await budgetRepository.getOneByName(userId, data.name);
+    if (existing) {
+      throw new ConflictError("Budget name already exists");
+    }
 
+    // Business rule: Unique color per budget
     const existingColor = await budgetRepository.getOneByColor(
       userId,
-      validatedData.colorTag
+      data.colorTag
     );
     if (existingColor) {
       throw new DomainValidationError("Budget color already in use");
     }
 
-    return budgetRepository.createOne(userId, validatedData);
+    const budget = budgetOrError.value;
+
+    // Use entity's DTO method
+    return budgetRepository.createOne(userId, budget.toDto());
   };
 
   return withAuth(useCase);

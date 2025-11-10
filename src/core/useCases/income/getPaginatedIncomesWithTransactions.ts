@@ -16,14 +16,18 @@ export const getPaginatedIncomesWithTransactions = (
   ): Promise<PaginatedIncomesWithTransactionsResponseDto> => {
     const { params, transactionCount } = input;
 
-    if (!params)
+    // Simple validation - pagination params are infrastructure concerns, not domain
+    if (!params) {
       throw new DomainValidationError("Pagination params are required");
+    }
 
+    // Validate transaction count if provided
     const parsedCount =
       transactionCount !== undefined
         ? transactionPreviewCountSchema.parse(transactionCount)
         : undefined;
 
+    // Query use case - fetches incomes with their transactions
     return incomeRepository.getPaginatedWithTransactions(
       userId,
       params,

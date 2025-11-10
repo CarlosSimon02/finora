@@ -9,10 +9,12 @@ export const getIncomesSummary = (incomeRepository: IIncomeRepository) => {
   ): Promise<IncomesSummaryDto> => {
     const { maxIncomesToShow } = input;
 
+    // Validate params (infrastructure concern, not domain)
     const { maxIncomesToShow: limit } = incomesSummaryParamsSchema.parse({
       maxIncomesToShow,
     });
 
+    // Query use case - fetches summary data
     return incomeRepository.getSummary(userId, limit);
   };
 

@@ -1,6 +1,7 @@
 import { IPotRepository } from "@/core/interfaces/IPotRepository";
 import { PotDto } from "@/core/schemas";
 import { withAuth } from "@/core/useCases/utils";
+import { PotId } from "@/core/valueObjects/pot";
 import { DomainValidationError } from "@/utils";
 
 export const getPot = (potRepository: IPotRepository) => {
@@ -10,7 +11,11 @@ export const getPot = (potRepository: IPotRepository) => {
   ): Promise<PotDto | null> => {
     const { potId } = input;
 
-    if (!potId) throw new DomainValidationError("Pot ID is required");
+    // Validate pot ID using domain value object
+    const potIdOrError = PotId.create(potId);
+    if (potIdOrError.isFailure) {
+      throw new DomainValidationError(potIdOrError.error);
+    }
 
     return potRepository.getOneById(userId, potId);
   };

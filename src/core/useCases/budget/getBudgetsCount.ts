@@ -3,6 +3,7 @@ import { withAuth } from "@/core/useCases/utils";
 
 export const getBudgetsCount = (budgetRepository: IBudgetRepository) => {
   const useCase = async (userId: string): Promise<number> => {
+    // Simple query - no validation or business rules needed
     return budgetRepository.getCount(userId);
   };
 

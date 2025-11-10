@@ -1,6 +1,7 @@
 import { IBudgetRepository } from "@/core/interfaces/IBudgetRepository";
 import { BudgetDto } from "@/core/schemas";
 import { withAuth } from "@/core/useCases/utils";
+import { BudgetId } from "@/core/valueObjects/budget";
 import { DomainValidationError } from "@/utils";
 
 export const getBudget = (budgetRepository: IBudgetRepository) => {
@@ -10,7 +11,11 @@ export const getBudget = (budgetRepository: IBudgetRepository) => {
   ): Promise<BudgetDto | null> => {
     const { budgetId } = input;
 
-    if (!budgetId) throw new DomainValidationError("Budget ID is required");
+    // Validate budget ID using domain value object
+    const budgetIdOrError = BudgetId.create(budgetId);
+    if (budgetIdOrError.isFailure) {
+      throw new DomainValidationError(budgetIdOrError.error);
+    }
 
     return budgetRepository.getOneById(userId, budgetId);
   };
